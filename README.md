@@ -22,4 +22,6 @@ img(s) or text of game rules
 
 # Intrested sites
 
-[ReadMe syntax] (https://goo.gl/tXKlvS "q")
+[syntax][]
+
+[syntax]: https://goo.gl/tXKlvS
