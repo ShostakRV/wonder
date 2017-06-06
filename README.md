@@ -21,6 +21,5 @@ img(s) or text of game rules
 > createDB
 
 # Intrested sites
-* [ReadMe.MD syntax] [id]:
 
-[id]: https://goo.gl/tXKlvS "Help"
+[ReadMe syntax] (https://goo.gl/tXKlvS "q")
