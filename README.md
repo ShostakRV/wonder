@@ -6,7 +6,17 @@ some text
 
 ## Requires
 
+**Back end**
+* Rest, 
+* Lombok
+* Spring
 
+**Front end** 
+* Angular.js
+* React .js
+* WebPack
+* Bootstarp
+* jQuery
 
 ## Game rules
 
