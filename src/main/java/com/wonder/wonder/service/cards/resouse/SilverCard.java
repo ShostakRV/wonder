@@ -12,7 +12,7 @@ public enum SilverCard {
     //silver first age + second age 3+3 = 6
     LOOM(SilverCard.LOOM),
     GLASSWORKS(SilverCard.GLASSWORKS),
-    PRESS(SilverCard.PRESS),;
+    PRESS(SilverCard.PRESS);
 
     private List<Resouse> giveResourse;
 
