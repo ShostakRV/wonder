@@ -1,4 +1,4 @@
-package com.wonder.wonder.service.cards.actionCard.vonder;
+package com.wonder.wonder.service.cards.vonder;
 
 import com.wonder.wonder.service.cards.resouse.Resouse;
 

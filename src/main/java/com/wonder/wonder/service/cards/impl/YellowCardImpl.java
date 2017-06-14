@@ -1,0 +1,40 @@
+package com.wonder.wonder.service.cards.impl;
+
+import com.wonder.wonder.service.cards.Card;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Creator: bm
+ * Date: 13.06.17.
+ */
+public enum YellowCardImpl implements Card {
+    //first age gold
+    TAVERN,
+    EAST_TRADING_POST,
+    WEST_TRADING_POST,
+    MARKETPLACE,
+    //second age gold
+    FORUM,
+    CARAVANSERY,
+    VINEYARD,
+    BAZAR,
+    // thierd  age gold
+    HAVEN,
+    LIGHTHOUSE,
+    CHAMBER_OF_COMMERCE,
+    ARENA;
+
+    @Override
+    public List<Card> getAllCard() {
+        java.util.List<com.wonder.wonder.service.cards.Card> cards = new ArrayList<>();
+        cards.add(SilverCardImpl.LOOM);
+        cards.add(SilverCardImpl.GLASSWORKS);
+        cards.add(SilverCardImpl.PRESS);
+
+        return cards;
+    }
+    @Override
+    public void setField() {}
+}

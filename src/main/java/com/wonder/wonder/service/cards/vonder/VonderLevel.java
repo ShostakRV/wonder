@@ -1,4 +1,4 @@
-package com.wonder.wonder.service.cards.actionCard.vonder;
+package com.wonder.wonder.service.cards.vonder;
 
 /**
  * Creator: bm

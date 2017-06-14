@@ -1,4 +1,4 @@
-package com.wonder.wonder.service.cards.scientists;
+package com.wonder.wonder.service.cards.resouse;
 
 /**
  * Creator: bm
