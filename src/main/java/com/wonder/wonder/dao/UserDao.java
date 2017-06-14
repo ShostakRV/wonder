@@ -15,6 +15,7 @@ public interface UserDao extends PagingAndSortingRepository<User, Long> {
     List<User> findByName(String name);
 
 
+
     @Query("from User")
     List<User>hibernateQuery();
 

@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService {
         return StreamSupport.stream(userDao.findAll().spliterator(), false)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void save(User user){
+        userDao.save(user);
+    }
 }

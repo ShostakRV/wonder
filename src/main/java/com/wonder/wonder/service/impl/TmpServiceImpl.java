@@ -25,9 +25,11 @@ public class TmpServiceImpl implements TmpService {
         System.out.println("TmpServiceImpl has been created!");
     }
 
-
+// why if stay here
+    // wait(1000); have shut down
     @Override
     public String getSomeString() {
+
         return tmpDao.getSomeValue() + System.currentTimeMillis();
     }
 }

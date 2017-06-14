@@ -31,5 +31,5 @@ public abstract class UserDaoImpl
 //        String hql = "from User";
 //        return em.createQuery(hql, User.class).getResultList();
 //    }
-
+// what do this class
 }
