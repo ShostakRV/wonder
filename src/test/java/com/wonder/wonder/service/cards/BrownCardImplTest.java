@@ -15,6 +15,7 @@ import static junit.framework.TestCase.assertEquals;
  */
 public class BrownCardImplTest {
 
+
     @Test
     public void getAllCards_3Players_1age() {
         Card card = BrownCardImpl.BRICKYARD;
