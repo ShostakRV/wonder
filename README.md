@@ -1,4 +1,12 @@
-# wonder
+# 7 Wonder
+
+Web realisation of "7 wonders game".
+An our test project.
+
+## Used technologies
+
+* REST
+* Spring
 
 ## quic start
 
@@ -22,6 +30,9 @@ some text
 
 img(s) or text of game rules
 
+[7w rules](https://github.com/ShostakRV/wonder/blob/master/doc/7w-rules-en-color-light.pdf)
+[7w card list](https://github.com/ShostakRV/wonder/blob/master/doc/7Wonders-CardsList-EN.pdf)
+
 ## DB structure
 
 img(s) or text of game rules
@@ -30,8 +41,10 @@ img(s) or text of game rules
 
 > createDB
 
-# Intrested sites
+# Interested sites
 
-[readme syntax][]
+[readme syntax](https://goo.gl/tXKlvS)
 
-[readme syntax]: https://goo.gl/tXKlvS
+[MySQL Workbench Download](https://dev.mysql.com/downloads/workbench/)
+
+[Download Visual Paradigm](https://www.visual-paradigm.com/download/)
