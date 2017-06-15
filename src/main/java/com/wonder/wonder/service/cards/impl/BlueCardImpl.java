@@ -41,21 +41,63 @@ public enum BlueCardImpl implements Card {
     }
 
     @Override
-    public List<Card> getAllCard(int numberPlayer,int age) {
+    public List<Card> getAllCard(int numberPlayer, int age) {
         List<Card> cards = new ArrayList<>();
-        cards.add(BlueCardImpl.PAWNSHOP);
-        cards.add(BlueCardImpl.BATHS);
-        cards.add(BlueCardImpl.ALTAR);
-        cards.add(BlueCardImpl.THEATER);
-        cards.add(BlueCardImpl.AQUEDUCT);
-        cards.add(BlueCardImpl.TEMPLE);
-        cards.add(BlueCardImpl.STATUE);
-        cards.add(BlueCardImpl.COURTHOUSE);
-        cards.add(BlueCardImpl.PANTHEON);
-        cards.add(BlueCardImpl.GARDENS);
-        cards.add(BlueCardImpl.TOWN_HALL);
-        cards.add(BlueCardImpl.PALACE);
-        cards.add(BlueCardImpl.SENATE);
+        if (numberPlayer >= 3 & age == 1) {
+            cards.add(BlueCardImpl.BATHS);
+            cards.add(BlueCardImpl.ALTAR);
+            cards.add(BlueCardImpl.THEATER);
+            if (numberPlayer >= 4) {
+                cards.add(BlueCardImpl.PAWNSHOP);
+                if (numberPlayer >= 5) {
+                    cards.add(BlueCardImpl.ALTAR);
+                    if (numberPlayer >= 6) {
+                        cards.add(BlueCardImpl.THEATER);
+                        if (numberPlayer >= 7) {
+                            cards.add(BlueCardImpl.BATHS);
+                            cards.add(BlueCardImpl.PAWNSHOP);
+                        }
+                    }
+                }
+            }
+        }
+        if (numberPlayer >= 3 & age == 2) {
+            cards.add(BlueCardImpl.AQUEDUCT);
+            cards.add(BlueCardImpl.TEMPLE);
+            cards.add(BlueCardImpl.STATUE);
+            if (numberPlayer >= 6) {
+                cards.add(BlueCardImpl.TEMPLE);
+                if (numberPlayer >= 7) {
+                    cards.add(BlueCardImpl.AQUEDUCT);
+                    cards.add(BlueCardImpl.STATUE);
+                }
+            }
+        }
+        if (numberPlayer >= 3 & age == 3) {
+            cards.add(BlueCardImpl.PANTHEON);
+            cards.add(BlueCardImpl.GARDENS);
+            cards.add(BlueCardImpl.TOWN_HALL);
+            cards.add(BlueCardImpl.PALACE);
+            cards.add(BlueCardImpl.COURTHOUSE);
+            cards.add(BlueCardImpl.SENATE);
+            if (numberPlayer >= 4) {
+                cards.add(BlueCardImpl.GARDENS);
+                if (numberPlayer >= 5) {
+                    cards.add(BlueCardImpl.SENATE);
+                    cards.add(BlueCardImpl.COURTHOUSE);
+                    cards.add(BlueCardImpl.TOWN_HALL);
+                    if (numberPlayer >= 6) {
+                        cards.add(BlueCardImpl.TOWN_HALL);
+                        cards.add(BlueCardImpl.PANTHEON);
+                        if (numberPlayer >= 7) {
+                            cards.add(BlueCardImpl.PALACE);
+
+                        }
+                    }
+                }
+            }
+        }
+
         for (Card card : cards) {
             List<Resouse> resouses = new ArrayList<>();
             BlueCardImpl blueCard = (BlueCardImpl) card;
@@ -101,7 +143,6 @@ public enum BlueCardImpl implements Card {
                 resouses.add(Resouse.STONE);
                 resouses.add(Resouse.STONE);
             } else if (blueCard.equals(BlueCardImpl.PALACE)) {
-
                 resouses.add(Resouse.GLASS);
                 resouses.add(Resouse.PARCHMENT);
                 resouses.add(Resouse.SILK);
@@ -125,8 +166,6 @@ public enum BlueCardImpl implements Card {
 
     @Override
     public void setField(List<Card> cards) {
-
-
     }
 
     public int getTakeBluePoint() {

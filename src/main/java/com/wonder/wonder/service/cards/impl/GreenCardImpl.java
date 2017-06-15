@@ -11,6 +11,8 @@ import java.util.List;
  * Creator: bm
  * Date: 13.06.17.
  */
+// I upgrate to friday 15.06.2017
+
 public enum GreenCardImpl implements Card {
     // green irst age
     WORKSHOP(ScientistGuild.GEAR),

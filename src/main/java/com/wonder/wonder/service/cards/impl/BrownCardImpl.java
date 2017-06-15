@@ -12,6 +12,7 @@ import java.util.List;
  */
 
 // need add count cards +3 +4 +5 +6 +7 people
+    // do now
 public enum BrownCardImpl implements Card {
     // brown first age // one resourse
     LUMBER_YARD,
@@ -131,26 +132,32 @@ public enum BrownCardImpl implements Card {
                 case TREE_FARM:
                     resouses.add(Resouse.WOOD);
                     resouses.add(Resouse.CLAY);
+                    brownCard.setGiveResourse(resouses);
                     break;
                 case EXCAVATION:
                     resouses.add(Resouse.STONE);
                     resouses.add(Resouse.CLAY);
+                    brownCard.setGiveResourse(resouses);
                     break;
                 case CLAY_PIT:
                     resouses.add(Resouse.IRON);
                     resouses.add(Resouse.CLAY);
+                    brownCard.setGiveResourse(resouses);
                     break;
                 case TIMBER_YARD:
                     resouses.add(Resouse.STONE);
                     resouses.add(Resouse.WOOD);
+                    brownCard.setGiveResourse(resouses);
                     break;
                 case FOREST_CAVE:
                     resouses.add(Resouse.WOOD);
                     resouses.add(Resouse.IRON);
+                    brownCard.setGiveResourse(resouses);
                     break;
                 case MINE:
                     resouses.add(Resouse.STONE);
                     resouses.add(Resouse.IRON);
+                    brownCard.setGiveResourse(resouses);
                     break;
             }
         }
@@ -162,53 +169,14 @@ public enum BrownCardImpl implements Card {
     }
 
 
-    private void setFieldForTwoType(BrownCardImpl card, Resouse resouse, boolean allOrOne) {
+    private void setFieldForTwoType(BrownCardImpl card, Resouse resouse) {
         List<Resouse> resouses = new ArrayList<>();
-        switch (card) {
-            case TREE_FARM:
-                if (allOrOne) {
-                    resouses.add(Resouse.WOOD);
-                    resouses.add(Resouse.CLAY);
-                } else {
-                    metodSupportsetField(resouses, resouse, card);
-                }
-
-            case EXCAVATION:
-                if (allOrOne) {
-                    resouses.add(Resouse.STONE);
-                    resouses.add(Resouse.CLAY);
-                } else {
-                    metodSupportsetField(resouses, resouse, card);
-
-                }
-            case CLAY_PIT:
-                if (allOrOne) {
-                    resouses.add(Resouse.IRON);
-                    resouses.add(Resouse.CLAY);
-                } else {
-                    metodSupportsetField(resouses, resouse, card);
-                }
-            case TIMBER_YARD:
-                if (allOrOne) {
-                    resouses.add(Resouse.STONE);
-                    resouses.add(Resouse.WOOD);
-                } else {
-                    metodSupportsetField(resouses, resouse, card);
-                }
-            case FOREST_CAVE:
-                if (allOrOne) {
-                    resouses.add(Resouse.WOOD);
-                    resouses.add(Resouse.IRON);
-                } else {
-                    metodSupportsetField(resouses, resouse, card);
-                }
-            case MINE:
-                if (allOrOne) {
-                    resouses.add(Resouse.STONE);
-                    resouses.add(Resouse.IRON);
-                } else {
-                    metodSupportsetField(resouses, resouse, card);
-                }
+        if ((card.getGiveResourse().size()) < 2) {
+            card.getAllCard(7, 1);
+        }
+        if (card.getGiveResourse().contains(resouse)) {
+            resouses.add(resouse);
+            card.setGiveResourse(resouses);
         }
     }
 
@@ -218,7 +186,7 @@ public enum BrownCardImpl implements Card {
                 resouseChoose == Resouse.IRON |
                 resouseChoose == Resouse.STONE |
                 resouseChoose == Resouse.CLAY) {
-            setFieldForTwoType(brownCard, resouseChoose, false);
+            setFieldForTwoType(brownCard, resouseChoose);
         }
 
     }
