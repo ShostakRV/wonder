@@ -7,6 +7,6 @@ import java.util.List;
  * Date: 14.06.17.
  */
 public interface Card {
-    List<Card> getAllCard();
-    void setField();
+    List<Card> getAllCard(int numberPlayer,int age);
+    void setField(List<Card> cards);
 }

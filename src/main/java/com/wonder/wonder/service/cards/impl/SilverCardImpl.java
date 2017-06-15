@@ -13,15 +13,25 @@ import java.util.List;
 // need add count cards +3 +4 +5 +6 +7 people
 
 public enum SilverCardImpl implements Card {
-    //silver first age + second age 3+3 = 6
+
     LOOM(Resouse.SILK),
     GLASSWORKS(Resouse.GLASS),
     PRESS(Resouse.PARCHMENT);
 
     Resouse giveResourse;
 
+    int age;
+
     SilverCardImpl(Resouse giveResourse) {
         this.giveResourse = giveResourse;
+    }
+
+    private void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     public Resouse getGiveResourse() {
@@ -29,18 +39,50 @@ public enum SilverCardImpl implements Card {
     }
 
     @Override
-    public List<Card> getAllCard() {
+    public List<Card> getAllCard(int numberPlayer, int age) {
         List<Card> cards = new ArrayList<>();
-        cards.add(SilverCardImpl.LOOM);
-        cards.add(SilverCardImpl.GLASSWORKS);
-        cards.add(SilverCardImpl.PRESS);
+        if (numberPlayer >= 3 & age == 1) {
+            SilverCardImpl.LOOM.setAge(1);
+            cards.add(SilverCardImpl.LOOM);
+            SilverCardImpl.GLASSWORKS.setAge(1);
+            cards.add(SilverCardImpl.GLASSWORKS);
+            SilverCardImpl.PRESS.setAge(1);
+            cards.add(SilverCardImpl.PRESS);
+            if (numberPlayer >= 6) {
+                SilverCardImpl.LOOM.setAge(1);
+                cards.add(SilverCardImpl.LOOM);
+                SilverCardImpl.GLASSWORKS.setAge(1);
+                cards.add(SilverCardImpl.GLASSWORKS);
+                SilverCardImpl.PRESS.setAge(1);
+                cards.add(SilverCardImpl.PRESS);
+            }
+        }
+        if (numberPlayer >= 3 & age == 2) {
+            SilverCardImpl.LOOM.setAge(2);
+            cards.add(SilverCardImpl.LOOM);
+            SilverCardImpl.GLASSWORKS.setAge(2);
+            cards.add(SilverCardImpl.GLASSWORKS);
+            SilverCardImpl.PRESS.setAge(2);
+            cards.add(SilverCardImpl.PRESS);
+            if (numberPlayer >= 5) {
+                SilverCardImpl.LOOM.setAge(2);
+                cards.add(SilverCardImpl.LOOM);
+                SilverCardImpl.GLASSWORKS.setAge(2);
+                cards.add(SilverCardImpl.GLASSWORKS);
+                SilverCardImpl.PRESS.setAge(2);
+                cards.add(SilverCardImpl.PRESS);
+            }
+        }
 
         return cards;
     }
-    @Override
-    public void setField() {}
 
+    @Override
+    public void setField(List<Card> cards) {
+    }
 
 }
+
+
 
 

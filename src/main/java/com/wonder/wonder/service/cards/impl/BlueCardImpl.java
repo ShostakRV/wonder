@@ -27,22 +27,21 @@ public enum BlueCardImpl implements Card {
     GARDENS(5),
     TOWN_HALL(6),
     PALACE(8),
-    SENATE(6)
- ;
+    SENATE(6);
 
 
     private int takeBluePoint;
 
     private List<Resouse> resourseNeededForConstruction;
-    private BlueCardImpl bluChain; // need think
-    private GreenCardImpl greenChain;
+    private Card chain; // need think
+
 
     BlueCardImpl(int takeBluePoint) {
         this.takeBluePoint = takeBluePoint;
     }
 
     @Override
-    public List<Card> getAllCard() {
+    public List<Card> getAllCard(int numberPlayer,int age) {
         List<Card> cards = new ArrayList<>();
         cards.add(BlueCardImpl.PAWNSHOP);
         cards.add(BlueCardImpl.BATHS);
@@ -57,120 +56,96 @@ public enum BlueCardImpl implements Card {
         cards.add(BlueCardImpl.TOWN_HALL);
         cards.add(BlueCardImpl.PALACE);
         cards.add(BlueCardImpl.SENATE);
+        for (Card card : cards) {
+            List<Resouse> resouses = new ArrayList<>();
+            BlueCardImpl blueCard = (BlueCardImpl) card;
+            if (blueCard.equals(BlueCardImpl.BATHS)) {
+                resouses.add(Resouse.STONE);
+            } else if (blueCard.equals(BlueCardImpl.AQUEDUCT)) {
+                blueCard.setChain(BlueCardImpl.BATHS);
+                resouses.add(Resouse.STONE);
+                resouses.add(Resouse.STONE);
+                resouses.add(Resouse.STONE);
+            } else if (blueCard.equals(BlueCardImpl.TEMPLE)) {
+                blueCard.setChain(BlueCardImpl.ALTAR);
+                resouses.add(Resouse.WOOD);
+                resouses.add(Resouse.CLAY);
+                resouses.add(Resouse.GLASS);
+            } else if (blueCard.equals(BlueCardImpl.STATUE)) {
+                blueCard.setChain(BlueCardImpl.THEATER);
+                resouses.add(Resouse.WOOD);
+                resouses.add(Resouse.IRON);
+                resouses.add(Resouse.IRON);
+            } else if (blueCard.equals(BlueCardImpl.COURTHOUSE)) {
+                blueCard.setChain(GreenCardImpl.SCRIPTORIUM);
+                resouses.add(Resouse.CLAY);
+                resouses.add(Resouse.CLAY);
+                resouses.add(Resouse.SILK);
+            } else if (blueCard.equals(BlueCardImpl.PANTHEON)) {
+                blueCard.setChain(BlueCardImpl.TEMPLE);
+                resouses.add(Resouse.CLAY);
+                resouses.add(Resouse.CLAY);
+                resouses.add(Resouse.IRON);
+                resouses.add(Resouse.SILK);
+                resouses.add(Resouse.GLASS);
+                resouses.add(Resouse.PARCHMENT);
+            } else if (blueCard.equals(BlueCardImpl.GARDENS)) {
+//                blueCard.setChain(BlueCardImpl.THEATER); //
+                resouses.add(Resouse.WOOD);
+                resouses.add(Resouse.CLAY);
+                resouses.add(Resouse.CLAY);
+            } else if (blueCard.equals(BlueCardImpl.TOWN_HALL)) {
+                blueCard.setChain(BlueCardImpl.THEATER);
+                resouses.add(Resouse.GLASS);
+                resouses.add(Resouse.IRON);
+                resouses.add(Resouse.STONE);
+                resouses.add(Resouse.STONE);
+            } else if (blueCard.equals(BlueCardImpl.PALACE)) {
+
+                resouses.add(Resouse.GLASS);
+                resouses.add(Resouse.PARCHMENT);
+                resouses.add(Resouse.SILK);
+                resouses.add(Resouse.CLAY);
+                resouses.add(Resouse.WOOD);
+                resouses.add(Resouse.IRON);
+                resouses.add(Resouse.STONE);
+            } else if (blueCard.equals(BlueCardImpl.SENATE)) {
+                blueCard.setChain(GreenCardImpl.LIBRARY);
+                resouses.add(Resouse.IRON);
+                resouses.add(Resouse.STONE);
+                resouses.add(Resouse.WOOD);
+
+            }
+            blueCard.setResourseNeededForConstruction(resouses);
+        }
+
+
         return cards;
     }
+
     @Override
-    public void setField() {}
+    public void setField(List<Card> cards) {
 
 
-//    PAWNSHOP(3, null, null),
-//    BATHS(3, BlueCardImpl.BATHS, null),
-//    ALTAR(2, null, null),
-//    THEATER(2, null, null),
-//    // second age  blue
-//    AQUEDUCT(5, BlueCardImpl.AQUEDUCT, BlueCardImpl.BATHS),
-//    TEMPLE(3, BlueCardImpl.TEMPLE, BlueCardImpl.ALTAR),
-//    STATUE(4, BlueCardImpl.STATUE, BlueCardImpl.THEATER),
-//    COURTHOUSE(GreenCardImpl.SCRIPTORIUM, 4, BlueCardImpl.COURTHOUSE),
-//    //blue thierd age
-//    PANTHEON(7, BlueCardImpl.PANTHEON, BlueCardImpl.TEMPLE),
-//    GARDENS(5, BlueCardImpl.GARDENS, BlueCardImpl.THEATER),
-//    TOWN_HALL(6, BlueCardImpl.TOWN_HALL, null),
-//    PALACE(8, BlueCardImpl.PALACE, null),
-//    SENATE(GreenCardImpl.LIBRARY, 6, BlueCardImpl.SENATE)
-
-
-
-
-//    private List<Resouse> resourseNeededForConstruction(BlueCardImpl blueCardImpl) {
-//        List<Resouse> resouses = new ArrayList<>();
-//        switch (blueCardImpl) {
-//            case BATHS:
-//                resouses.add(Resouse.STONE);
-//                return resouses;
-//            case AQUEDUCT:
-//                resouses.add(Resouse.STONE);
-//                resouses.add(Resouse.STONE);
-//                resouses.add(Resouse.STONE);
-//                return resouses;
-//            case TEMPLE:
-//                resouses.add(Resouse.WOOD);
-//                resouses.add(Resouse.CLAY);
-//                resouses.add(Resouse.GLASS);
-//                return resouses;
-//            case STATUE:
-//                resouses.add(Resouse.WOOD);
-//                resouses.add(Resouse.IRON);
-//                resouses.add(Resouse.IRON);
-//                return resouses;
-//            case COURTHOUSE:
-//                resouses.add(Resouse.CLAY);
-//                resouses.add(Resouse.CLAY);
-//                resouses.add(Resouse.SILK);
-//                return resouses;
-//            case PANTHEON:
-//                resouses.add(Resouse.CLAY);
-//                resouses.add(Resouse.CLAY);
-//                resouses.add(Resouse.IRON);
-//                resouses.add(Resouse.SILK);
-//                resouses.add(Resouse.GLASS);
-//                resouses.add(Resouse.PARCHMENT);
-//                return resouses;
-//            case GARDENS:
-//                resouses.add(Resouse.WOOD);
-//                resouses.add(Resouse.CLAY);
-//                resouses.add(Resouse.CLAY);
-//                return resouses;
-//            case TOWN_HALL:
-//                resouses.add(Resouse.GLASS);
-//                resouses.add(Resouse.IRON);
-//                resouses.add(Resouse.STONE);
-//                resouses.add(Resouse.STONE);
-//            case PALACE:
-//                resouses.add(Resouse.GLASS);
-//                resouses.add(Resouse.PARCHMENT);
-//                resouses.add(Resouse.SILK);
-//                resouses.add(Resouse.CLAY);
-//                resouses.add(Resouse.WOOD);
-//                resouses.add(Resouse.IRON);
-//                resouses.add(Resouse.STONE);
-//        }
-//
-//        return null;
-//    }
-//
-
-
+    }
 
     public int getTakeBluePoint() {
         return takeBluePoint;
-    }
-
-    public void setTakeBluePoint(int takeBluePoint) {
-        this.takeBluePoint = takeBluePoint;
     }
 
     public List<Resouse> getResourseNeededForConstruction() {
         return resourseNeededForConstruction;
     }
 
-    public void setResourseNeededForConstruction(List<Resouse> resourseNeededForConstruction) {
+    private void setResourseNeededForConstruction(List<Resouse> resourseNeededForConstruction) {
         this.resourseNeededForConstruction = resourseNeededForConstruction;
     }
 
-    public BlueCardImpl getBluChain() {
-        return bluChain;
+    public Card getChain() {
+        return chain;
     }
 
-    public void setBluChain(BlueCardImpl bluChain) {
-        this.bluChain = bluChain;
-    }
-
-    public GreenCardImpl getGreenChain() {
-        return greenChain;
-    }
-
-    public void setGreenChain(GreenCardImpl greenChain) {
-        this.greenChain = greenChain;
+    private void setChain(Card chain) {
+        this.chain = chain;
     }
 }

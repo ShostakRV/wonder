@@ -37,7 +37,7 @@ public enum GreenCardImpl implements Card {
     }
 
     @Override
-    public List<Card> getAllCard() {
+    public List<Card> getAllCard(int numberPlayer,int age) {
         List<Card> cards = new ArrayList<>();
         cards.add(GreenCardImpl.WORKSHOP);
         cards.add(GreenCardImpl.SCRIPTORIUM);
@@ -56,7 +56,7 @@ public enum GreenCardImpl implements Card {
     }
 
     @Override
-    public void setField() {
+    public void setField(List<Card> cards) {
     }
 
 

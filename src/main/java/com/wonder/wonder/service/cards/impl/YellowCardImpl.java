@@ -27,7 +27,7 @@ public enum YellowCardImpl implements Card {
     ARENA;
 
     @Override
-    public List<Card> getAllCard() {
+    public List<Card> getAllCard(int numberPlayer,int age) {
         java.util.List<com.wonder.wonder.service.cards.Card> cards = new ArrayList<>();
         cards.add(SilverCardImpl.LOOM);
         cards.add(SilverCardImpl.GLASSWORKS);
@@ -36,5 +36,5 @@ public enum YellowCardImpl implements Card {
         return cards;
     }
     @Override
-    public void setField() {}
+    public void setField(List<Card> cards) {}
 }

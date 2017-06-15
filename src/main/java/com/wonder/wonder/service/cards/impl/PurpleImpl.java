@@ -22,7 +22,7 @@ public enum PurpleImpl implements Card {
     MAGISTRATES_GUILD,
     BUILDERS_GUILD;
     @Override
-    public List<Card> getAllCard() {
+    public List<Card> getAllCard(int numberPlayer,int age) {
         List<Card> cards = new ArrayList<>();
         cards.add(SilverCardImpl.LOOM);
         cards.add(SilverCardImpl.GLASSWORKS);
@@ -31,5 +31,5 @@ public enum PurpleImpl implements Card {
         return cards;
     }
     @Override
-    public void setField() {}
+    public void setField(List<Card> cards) {}
 }

@@ -42,7 +42,7 @@ public enum RedCardImpl implements Card {
 
 
     @Override
-    public List<Card> getAllCard() {
+    public List<Card> getAllCard(int numberPlayer,int age) {
         List<Card> cards = new ArrayList<>();
         cards.add(RedCardImpl.STOCKADE);
         cards.add(RedCardImpl.BARRACKS);
@@ -58,9 +58,9 @@ public enum RedCardImpl implements Card {
                 return cards;
     }
     @Override
-    public void setField() {}
+    public void setField(List<Card> cards) {}
 
-//    private List<Resouse> resourseNeededForConstruction(RedCardImpl redCard) {
+
 
     //    STOCKADE(1, null, null),;
 //    BARRACKS(1, RedCardImpl.BARRACKS, null),
@@ -141,15 +141,11 @@ public enum RedCardImpl implements Card {
         return armyPower;
     }
 
-    public void setArmyPower(int armyPower) {
-        this.armyPower = armyPower;
-    }
-
     public List<Resouse> getResourseNeededForConstruction() {
         return resourseNeededForConstruction;
     }
 
-    public void setResourseNeededForConstruction(List<Resouse> resourseNeededForConstruction) {
+    private void setResourseNeededForConstruction(List<Resouse> resourseNeededForConstruction) {
         this.resourseNeededForConstruction = resourseNeededForConstruction;
     }
 
@@ -157,7 +153,7 @@ public enum RedCardImpl implements Card {
         return redChain;
     }
 
-    public void setRedChain(RedCardImpl redChain) {
+    private void setRedChain(RedCardImpl redChain) {
         this.redChain = redChain;
     }
 
@@ -165,7 +161,7 @@ public enum RedCardImpl implements Card {
         return greenChain;
     }
 
-    public void setGreenChain(GreenCardImpl greenChain) {
+    private void setGreenChain(GreenCardImpl greenChain) {
         this.greenChain = greenChain;
     }
 }
