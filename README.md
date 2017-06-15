@@ -32,6 +32,6 @@ img(s) or text of game rules
 
 # Intrested sites
 
-[readme syntax][]
+[readme syntax](https://goo.gl/tXKlvS)
 
-[readme syntax]: https://goo.gl/tXKlvS
+[MySQL Workbench Download](https://dev.mysql.com/downloads/workbench/)
