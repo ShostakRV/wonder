@@ -29,12 +29,11 @@ public enum BlueCardImpl implements Card {
     PALACE(8),
     SENATE(6);
 
-
     private int takeBluePoint;
 
     private List<Resouse> resourseNeededForConstruction;
-    private Card chain; // need think
 
+    private Card chain;
 
     BlueCardImpl(int takeBluePoint) {
         this.takeBluePoint = takeBluePoint;
@@ -65,11 +64,15 @@ public enum BlueCardImpl implements Card {
             cards.add(BlueCardImpl.AQUEDUCT);
             cards.add(BlueCardImpl.TEMPLE);
             cards.add(BlueCardImpl.STATUE);
-            if (numberPlayer >= 6) {
-                cards.add(BlueCardImpl.TEMPLE);
-                if (numberPlayer >= 7) {
-                    cards.add(BlueCardImpl.AQUEDUCT);
-                    cards.add(BlueCardImpl.STATUE);
+            cards.add(BlueCardImpl.COURTHOUSE);
+            if (numberPlayer >= 5) {
+                cards.add(BlueCardImpl.COURTHOUSE);
+                if (numberPlayer >= 6) {
+                    cards.add(BlueCardImpl.TEMPLE);
+                    if (numberPlayer >= 7) {
+                        cards.add(BlueCardImpl.AQUEDUCT);
+                        cards.add(BlueCardImpl.STATUE);
+                    }
                 }
             }
         }
@@ -78,13 +81,11 @@ public enum BlueCardImpl implements Card {
             cards.add(BlueCardImpl.GARDENS);
             cards.add(BlueCardImpl.TOWN_HALL);
             cards.add(BlueCardImpl.PALACE);
-            cards.add(BlueCardImpl.COURTHOUSE);
             cards.add(BlueCardImpl.SENATE);
             if (numberPlayer >= 4) {
                 cards.add(BlueCardImpl.GARDENS);
                 if (numberPlayer >= 5) {
                     cards.add(BlueCardImpl.SENATE);
-                    cards.add(BlueCardImpl.COURTHOUSE);
                     cards.add(BlueCardImpl.TOWN_HALL);
                     if (numberPlayer >= 6) {
                         cards.add(BlueCardImpl.TOWN_HALL);
@@ -97,7 +98,12 @@ public enum BlueCardImpl implements Card {
                 }
             }
         }
+        setField(cards);
+        return cards;
+    }
 
+    @Override
+    public void setField(List<Card> cards) {
         for (Card card : cards) {
             List<Resouse> resouses = new ArrayList<>();
             BlueCardImpl blueCard = (BlueCardImpl) card;
@@ -132,7 +138,7 @@ public enum BlueCardImpl implements Card {
                 resouses.add(Resouse.GLASS);
                 resouses.add(Resouse.PARCHMENT);
             } else if (blueCard.equals(BlueCardImpl.GARDENS)) {
-//                blueCard.setChain(BlueCardImpl.THEATER); //
+                blueCard.setChain(BlueCardImpl.STATUE);
                 resouses.add(Resouse.WOOD);
                 resouses.add(Resouse.CLAY);
                 resouses.add(Resouse.CLAY);
@@ -159,13 +165,6 @@ public enum BlueCardImpl implements Card {
             }
             blueCard.setResourseNeededForConstruction(resouses);
         }
-
-
-        return cards;
-    }
-
-    @Override
-    public void setField(List<Card> cards) {
     }
 
     public int getTakeBluePoint() {

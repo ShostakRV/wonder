@@ -1,7 +1,7 @@
 package com.wonder.wonder.service.cards;
 
 import com.wonder.wonder.service.cards.impl.BlueCardImpl;
-import com.wonder.wonder.service.cards.impl.BrownCardImpl;
+import com.wonder.wonder.service.cards.impl.GreenCardImpl;
 import com.wonder.wonder.service.cards.resouse.Resouse;
 import org.junit.Test;
 
@@ -59,15 +59,7 @@ public class BlueCardImplTest {
     @Test
     public void getAllCards_3Players_2age() {
         Card card = BlueCardImpl.ALTAR;
-        List<Card> cardList = card.getAllCard(3, 1);
-        int size = cardList.size();
-        assertEquals(3, size);
-    }
-
-    @Test
-    public void getAllCards_4Players_2age() {
-        Card card = BlueCardImpl.ALTAR;
-        List<Card> cardList = card.getAllCard(4, 1);
+        List<Card> cardList = card.getAllCard(3, 2);
         int size = cardList.size();
         assertEquals(4, size);
     }
@@ -75,7 +67,7 @@ public class BlueCardImplTest {
     @Test
     public void getAllCards_5Players_2age() {
         Card card = BlueCardImpl.ALTAR;
-        List<Card> cardList = card.getAllCard(5, 1);
+        List<Card> cardList = card.getAllCard(5, 2);
         int size = cardList.size();
         assertEquals(5, size);
     }
@@ -83,7 +75,7 @@ public class BlueCardImplTest {
     @Test
     public void getAllCards_6Players_2age() {
         Card card = BlueCardImpl.ALTAR;
-        List<Card> cardList = card.getAllCard(6, 1);
+        List<Card> cardList = card.getAllCard(6, 2);
         int size = cardList.size();
         assertEquals(6, size);
     }
@@ -91,133 +83,202 @@ public class BlueCardImplTest {
     @Test
     public void getAllCards_7Players_2age() {
         Card card = BlueCardImpl.ALTAR;
-        List<Card> cardList = card.getAllCard(7, 1);
+        List<Card> cardList = card.getAllCard(7, 2);
         int size = cardList.size();
         assertEquals(8, size);
     }
 
+    @Test
+    public void getAllCards_3Players_3age() {
+        Card card = BlueCardImpl.ALTAR;
+        List<Card> cardList = card.getAllCard(3, 3);
+        int size = cardList.size();
+        assertEquals(5, size);
+    }
 
     @Test
-    public void getAllCards_Resouce_Give_1Age_OneTypeResouce() {
+    public void getAllCards_4Players_3age() {
+        Card card = BlueCardImpl.ALTAR;
+        List<Card> cardList = card.getAllCard(4, 3);
+        int size = cardList.size();
+        assertEquals(6, size);
+    }
+
+    @Test
+    public void getAllCards_5Players_3age() {
+        Card card = BlueCardImpl.ALTAR;
+        List<Card> cardList = card.getAllCard(5, 3);
+        int size = cardList.size();
+        assertEquals(9, size);
+    }
+
+    @Test
+    public void getAllCards_6Players_3age() {
+        Card card = BlueCardImpl.ALTAR;
+        List<Card> cardList = card.getAllCard(6, 3);
+        int size = cardList.size();
+        assertEquals(11, size);
+    }
+
+    @Test
+    public void getAllCards_7Players_3age() {
+        Card card = BlueCardImpl.ALTAR;
+        List<Card> cardList = card.getAllCard(7, 3);
+        int size = cardList.size();
+        assertEquals(11, size);
+    }
+
+
+    @Test
+    public void getAll_Cards_BlueCard_Resouce_Need_To_Build_1Age() {
         Card card = BlueCardImpl.ALTAR;
         List<Card> cardList = card.getAllCard(7, 1);
         int size = 0;
         for (Card card1 : cardList) {
             List<Resouse> resouses = new ArrayList<>();
-            BrownCardImpl brownCard = (BrownCardImpl) card1;
-            switch (brownCard.name()) {
-                case "LUMBER_YARD":
-                    resouses.add(Resouse.WOOD);
-                    assertEquals(resouses, brownCard.getGiveResourse());
-                    size++;
-                    break;
-                case "STONE_PIT":
-                    resouses.add(Resouse.STONE);
-                    assertEquals(resouses, brownCard.getGiveResourse());
-                    size++;
-                    break;
-                case "CLAY_POOL":
-                    resouses.add(Resouse.CLAY);
-                    assertEquals(resouses, brownCard.getGiveResourse());
-                    size++;
-                    break;
-                case "ORE_VEIN":
-                    resouses.add(Resouse.IRON);
-                    assertEquals(resouses, brownCard.getGiveResourse());
-                    size++;
-                    break;
+            BlueCardImpl blueCard = (BlueCardImpl) card1;
+            if (blueCard.equals(BlueCardImpl.BATHS)) {
+                resouses.add(Resouse.STONE);
+                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                size++;
             }
         }
-        assertEquals(8, size);
+        assertEquals(2, size);
     }
 
     @Test
-    public void getAllCards_Resouce_Give_2Age_OneTypeResouce() {
+    public void getAll_Cards_BlueCard_Resouce_Need_To_Build_2Age() {
         Card card = BlueCardImpl.ALTAR;
         List<Card> cardList = card.getAllCard(7, 2);
         int size = 0;
         for (Card card1 : cardList) {
             List<Resouse> resouses = new ArrayList<>();
-            BrownCardImpl brownCard = (BrownCardImpl) card1;
-            switch (brownCard.name()) {
-                case "SAWMILL":
-                    resouses.add(Resouse.WOOD);
-                    resouses.add(Resouse.WOOD);
-                    assertEquals(resouses, brownCard.getGiveResourse());
-                    size++;
-                    break;
-                case "QUARRY":
-                    resouses.add(Resouse.STONE);
-                    resouses.add(Resouse.STONE);
-                    assertEquals(resouses, brownCard.getGiveResourse());
-                    size++;
-                    break;
-                case "BRICKYARD":
-                    resouses.add(Resouse.CLAY);
-                    resouses.add(Resouse.CLAY);
-                    assertEquals(resouses, brownCard.getGiveResourse());
-                    size++;
-                    break;
-                case "FOUNDRY":
-                    resouses.add(Resouse.IRON);
-                    resouses.add(Resouse.IRON);
-                    assertEquals(resouses, brownCard.getGiveResourse());
-                    size++;
-                    break;
-
+            BlueCardImpl blueCard = (BlueCardImpl) card1;
+            if (blueCard.equals(BlueCardImpl.AQUEDUCT)) {
+                resouses.add(Resouse.STONE);
+                resouses.add(Resouse.STONE);
+                resouses.add(Resouse.STONE);
+                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                size++;
+            } else if (blueCard.equals(BlueCardImpl.TEMPLE)) {
+                resouses.add(Resouse.WOOD);
+                resouses.add(Resouse.CLAY);
+                resouses.add(Resouse.GLASS);
+                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                size++;
+            } else if (blueCard.equals(BlueCardImpl.STATUE)) {
+                resouses.add(Resouse.WOOD);
+                resouses.add(Resouse.IRON);
+                resouses.add(Resouse.IRON);
+                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                size++;
+            } else if (blueCard.equals(BlueCardImpl.COURTHOUSE)) {
+                resouses.add(Resouse.CLAY);
+                resouses.add(Resouse.CLAY);
+                resouses.add(Resouse.SILK);
+                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                size++;
             }
         }
-
         assertEquals(8, size);
     }
 
     @Test
-    public void getAllCards_Resouce_Two_Type() {
+    public void getAll_Cards_BlueCard_Resouce_Need_To_Build_3Age() {
         Card card = BlueCardImpl.ALTAR;
-        List<Card> cardList = card.getAllCard(7, 1);
+        List<Card> cardList = card.getAllCard(7, 3);
         int size = 0;
         for (Card card1 : cardList) {
             List<Resouse> resouses = new ArrayList<>();
-            BrownCardImpl brownCard = (BrownCardImpl) card1;
-            switch (brownCard) {
-                case TREE_FARM:
-                    resouses.add(Resouse.WOOD);
-                    resouses.add(Resouse.CLAY);
-                    assertEquals(resouses, brownCard.getGiveResourse());
-                    size++;
-                    break;
-                case EXCAVATION:
-                    resouses.add(Resouse.STONE);
-                    resouses.add(Resouse.CLAY);
-                    assertEquals(resouses, brownCard.getGiveResourse());
-                    size++;
-                    break;
-                case CLAY_PIT:
-                    resouses.add(Resouse.IRON);
-                    resouses.add(Resouse.CLAY);
-                    assertEquals(resouses, brownCard.getGiveResourse());
-                    size++;
-                    break;
-                case TIMBER_YARD:
-                    resouses.add(Resouse.STONE);
-                    resouses.add(Resouse.WOOD);
-                    assertEquals(resouses, brownCard.getGiveResourse());
-                    size++;
-                    break;
-                case FOREST_CAVE:
-                    resouses.add(Resouse.WOOD);
-                    resouses.add(Resouse.IRON);
-                    assertEquals(resouses, brownCard.getGiveResourse());
-                    size++;
-                    break;
-                case MINE:
-                    resouses.add(Resouse.STONE);
-                    resouses.add(Resouse.IRON);
-                    assertEquals(resouses, brownCard.getGiveResourse());
-                    size++;
-                    break;
+            BlueCardImpl blueCard = (BlueCardImpl) card1;
+            if (blueCard.equals(BlueCardImpl.PANTHEON)) {
+                resouses.add(Resouse.CLAY);
+                resouses.add(Resouse.CLAY);
+                resouses.add(Resouse.IRON);
+                resouses.add(Resouse.SILK);
+                resouses.add(Resouse.GLASS);
+                resouses.add(Resouse.PARCHMENT);
+                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                size++;
+            } else if (blueCard.equals(BlueCardImpl.GARDENS)) {
+                resouses.add(Resouse.WOOD);
+                resouses.add(Resouse.CLAY);
+                resouses.add(Resouse.CLAY);
+                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                size++;
+            } else if (blueCard.equals(BlueCardImpl.TOWN_HALL)) {
+                resouses.add(Resouse.GLASS);
+                resouses.add(Resouse.IRON);
+                resouses.add(Resouse.STONE);
+                resouses.add(Resouse.STONE);
+                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                size++;
+            } else if (blueCard.equals(BlueCardImpl.PALACE)) {
+                resouses.add(Resouse.GLASS);
+                resouses.add(Resouse.PARCHMENT);
+                resouses.add(Resouse.SILK);
+                resouses.add(Resouse.CLAY);
+                resouses.add(Resouse.WOOD);
+                resouses.add(Resouse.IRON);
+                resouses.add(Resouse.STONE);
+                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                size++;
+            } else if (blueCard.equals(BlueCardImpl.SENATE)) {
+                resouses.add(Resouse.IRON);
+                resouses.add(Resouse.STONE);
+                resouses.add(Resouse.WOOD);
+                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                size++;
             }
         }
-        assertEquals(6, size);
+        assertEquals(11, size);
+    }
+
+    @Test
+    public void getAll_Cards_BlueCard_Chain_2Age() {
+        Card card = BlueCardImpl.ALTAR;
+        List<Card> cardList = card.getAllCard(7, 2);
+        int size = 0;
+        for (Card card1 : cardList) {
+            BlueCardImpl blueCard = (BlueCardImpl) card1;
+            if (blueCard.equals(BlueCardImpl.AQUEDUCT)) {
+                assertEquals(BlueCardImpl.BATHS, blueCard.getChain());
+                size++;
+            } else if (blueCard.equals(BlueCardImpl.TEMPLE)) {
+                assertEquals(BlueCardImpl.ALTAR, blueCard.getChain());
+                size++;
+            } else if (blueCard.equals(BlueCardImpl.STATUE)) {
+                assertEquals(BlueCardImpl.THEATER, blueCard.getChain());
+                size++;
+            } else if (blueCard.equals(BlueCardImpl.COURTHOUSE)) {
+                assertEquals(GreenCardImpl.SCRIPTORIUM, blueCard.getChain());
+                size++;
+            }
+        }
+        assertEquals(8, size);
+    }
+
+    @Test
+    public void getAll_Cards_BlueCard_Chain_3Age() {
+        Card card = BlueCardImpl.ALTAR;
+        List<Card> cardList = card.getAllCard(7, 3);
+        int size = 0;
+        for (Card card1 : cardList) {
+            BlueCardImpl blueCard = (BlueCardImpl) card1;
+            if (blueCard.equals(BlueCardImpl.PANTHEON)) {
+                assertEquals(BlueCardImpl.TEMPLE, blueCard.getChain());
+                size++;
+            } else if (blueCard.equals(BlueCardImpl.GARDENS)) {
+                assertEquals(BlueCardImpl.STATUE, blueCard.getChain());
+                size++;
+            } else if (blueCard.equals(BlueCardImpl.TOWN_HALL)) {
+                assertEquals(BlueCardImpl.THEATER, blueCard.getChain());
+                size++;
+            } else if (blueCard.equals(BlueCardImpl.SENATE)) {
+                assertEquals(GreenCardImpl.LIBRARY, blueCard.getChain());
+                size++;
+            }
+            assertEquals(4, size);
+        }
     }
 }
