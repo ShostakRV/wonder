@@ -1,6 +1,6 @@
 package com.wonder.wonder.service.cards.vonder;
 
-import com.wonder.wonder.service.cards.resouse.Resouse;
+import com.wonder.wonder.service.cards.resouse.GameResource;
 
 /**
  * Creator: bm
@@ -17,6 +17,6 @@ public enum CardVonder {
 
 
     private String side;
-    private Resouse startResourse;
+    private GameResource startResourse;
 
 }

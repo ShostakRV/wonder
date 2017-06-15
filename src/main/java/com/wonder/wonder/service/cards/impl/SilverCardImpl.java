@@ -1,7 +1,7 @@
 package com.wonder.wonder.service.cards.impl;
 
 import com.wonder.wonder.service.cards.Card;
-import com.wonder.wonder.service.cards.resouse.Resouse;
+import com.wonder.wonder.service.cards.resouse.GameResource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,15 +14,15 @@ import java.util.List;
 
 public enum SilverCardImpl implements Card {
 
-    LOOM(Resouse.SILK),
-    GLASSWORKS(Resouse.GLASS),
-    PRESS(Resouse.PARCHMENT);
+    LOOM(GameResource.SILK),
+    GLASSWORKS(GameResource.GLASS),
+    PRESS(GameResource.PARCHMENT);
 
-    Resouse giveResourse;
+    GameResource giveResourse;
 
     int age;
 
-    SilverCardImpl(Resouse giveResourse) {
+    SilverCardImpl(GameResource giveResourse) {
         this.giveResourse = giveResourse;
     }
 
@@ -34,7 +34,7 @@ public enum SilverCardImpl implements Card {
         return age;
     }
 
-    public Resouse getGiveResourse() {
+    public GameResource getGiveResourse() {
         return giveResourse;
     }
 

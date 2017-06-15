@@ -1,7 +1,7 @@
 package com.wonder.wonder.service.cards.impl;
 
 import com.wonder.wonder.service.cards.Card;
-import com.wonder.wonder.service.cards.resouse.Resouse;
+import com.wonder.wonder.service.cards.resouse.GameResource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public enum RedCardImpl implements Card {
 
     private int armyPower;
 
-    private List<Resouse> resourseNeededForConstruction;
+    private List<GameResource> resourseNeededForConstruction;
     private RedCardImpl redChain; // need think
     private GreenCardImpl greenChain; // need think
 
@@ -80,58 +80,58 @@ public enum RedCardImpl implements Card {
 
 
 
-//        List<Resouse> resouses = new ArrayList<>();
+//        List<GameResource> resouses = new ArrayList<>();
 //        switch (redCard) {
 //            case STOCKADE:
-//                resouses.add(Resouse.WOOD);
+//                resouses.add(GameResource.WOOD);
 //                return resouses;
 //            case BARRACKS:
-//                resouses.add(Resouse.IRON);
+//                resouses.add(GameResource.IRON);
 //                return resouses;
 //            case GUARD_TOWER:
-//                resouses.add(Resouse.CLAY);
+//                resouses.add(GameResource.CLAY);
 //                return resouses;
 //            case WALLS:
-//                resouses.add(Resouse.STONE);
-//                resouses.add(Resouse.STONE);
-//                resouses.add(Resouse.STONE);
+//                resouses.add(GameResource.STONE);
+//                resouses.add(GameResource.STONE);
+//                resouses.add(GameResource.STONE);
 //                return resouses;
 //            case TRAINING_GROUND:
-//                resouses.add(Resouse.WOOD);
-//                resouses.add(Resouse.IRON);
-//                resouses.add(Resouse.IRON);
+//                resouses.add(GameResource.WOOD);
+//                resouses.add(GameResource.IRON);
+//                resouses.add(GameResource.IRON);
 //                return resouses;
 //            case STABLES:
-//                resouses.add(Resouse.IRON);
-//                resouses.add(Resouse.CLAY);
-//                resouses.add(Resouse.WOOD);
+//                resouses.add(GameResource.IRON);
+//                resouses.add(GameResource.CLAY);
+//                resouses.add(GameResource.WOOD);
 //                return resouses;
 //            case ARCHERY_RANGE:
-//                resouses.add(Resouse.WOOD);
-//                resouses.add(Resouse.WOOD);
-//                resouses.add(Resouse.IRON);
+//                resouses.add(GameResource.WOOD);
+//                resouses.add(GameResource.WOOD);
+//                resouses.add(GameResource.IRON);
 //                return resouses;
 //            case FORTIFICATIONS:
-//                resouses.add(Resouse.STONE);
-//                resouses.add(Resouse.IRON);
-//                resouses.add(Resouse.IRON);
-//                resouses.add(Resouse.IRON);
+//                resouses.add(GameResource.STONE);
+//                resouses.add(GameResource.IRON);
+//                resouses.add(GameResource.IRON);
+//                resouses.add(GameResource.IRON);
 //            case CIRCUS:
-//                resouses.add(Resouse.STONE);
-//                resouses.add(Resouse.STONE);
-//                resouses.add(Resouse.STONE);
-//                resouses.add(Resouse.IRON);
+//                resouses.add(GameResource.STONE);
+//                resouses.add(GameResource.STONE);
+//                resouses.add(GameResource.STONE);
+//                resouses.add(GameResource.IRON);
 //            case ARSENAL:
-//                resouses.add(Resouse.IRON);
-//                resouses.add(Resouse.WOOD);
-//                resouses.add(Resouse.WOOD);
-//                resouses.add(Resouse.SILK);
+//                resouses.add(GameResource.IRON);
+//                resouses.add(GameResource.WOOD);
+//                resouses.add(GameResource.WOOD);
+//                resouses.add(GameResource.SILK);
 //            case SIEGE_WORKSHOP:
 //
-//                resouses.add(Resouse.WOOD);
-//                resouses.add(Resouse.CLAY);
-//                resouses.add(Resouse.CLAY);
-//                resouses.add(Resouse.CLAY);
+//                resouses.add(GameResource.WOOD);
+//                resouses.add(GameResource.CLAY);
+//                resouses.add(GameResource.CLAY);
+//                resouses.add(GameResource.CLAY);
 //        }
 //
 //        return null;
@@ -141,11 +141,11 @@ public enum RedCardImpl implements Card {
         return armyPower;
     }
 
-    public List<Resouse> getResourseNeededForConstruction() {
+    public List<GameResource> getResourseNeededForConstruction() {
         return resourseNeededForConstruction;
     }
 
-    private void setResourseNeededForConstruction(List<Resouse> resourseNeededForConstruction) {
+    private void setResourseNeededForConstruction(List<GameResource> resourseNeededForConstruction) {
         this.resourseNeededForConstruction = resourseNeededForConstruction;
     }
 

@@ -1,7 +1,8 @@
 package com.wonder.wonder.service.cards.impl;
 
 import com.wonder.wonder.service.cards.Card;
-import com.wonder.wonder.service.cards.resouse.Resouse;
+import com.wonder.wonder.service.cards.resouse.GameResource;
+import com.wonder.wonder.service.cards.resouse.GameCardColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public enum BrownCardImpl implements Card {
 
 
     private int goldNeededForConstruction;
-    private List<Resouse> giveResourse;
+    private List<GameResource> giveResourse;
 
     BrownCardImpl() {
     }
@@ -87,106 +88,113 @@ public enum BrownCardImpl implements Card {
         return cards;
     }
 
+
+
     @Override
     public void setField(List<Card> cards) {
         for (Card card1 : cards) {
-            List<Resouse> resouses = new ArrayList<>();
+            List<GameResource> gameResours = new ArrayList<>();
             BrownCardImpl brownCard = (BrownCardImpl) card1;
             switch (brownCard) {
                 case LUMBER_YARD:
-                    resouses.add(Resouse.WOOD);
-                    brownCard.setGiveResourse(resouses);
+                    gameResours.add(GameResource.WOOD);
+                    brownCard.setGiveResourse(gameResours);
                     break;
                 case STONE_PIT:
-                    resouses.add(Resouse.STONE);
-                    brownCard.setGiveResourse(resouses);
+                    gameResours.add(GameResource.STONE);
+                    brownCard.setGiveResourse(gameResours);
                     break;
                 case CLAY_POOL:
-                    resouses.add(Resouse.CLAY);
-                    brownCard.setGiveResourse(resouses);
+                    gameResours.add(GameResource.CLAY);
+                    brownCard.setGiveResourse(gameResours);
                     break;
                 case ORE_VEIN:
-                    resouses.add(Resouse.IRON);
-                    brownCard.setGiveResourse(resouses);
+                    gameResours.add(GameResource.IRON);
+                    brownCard.setGiveResourse(gameResours);
                     break;
                 case SAWMILL:
-                    resouses.add(Resouse.WOOD);
-                    resouses.add(Resouse.WOOD);
-                    brownCard.setGiveResourse(resouses);
+                    gameResours.add(GameResource.WOOD);
+                    gameResours.add(GameResource.WOOD);
+                    brownCard.setGiveResourse(gameResours);
                     break;
                 case QUARRY:
-                    resouses.add(Resouse.STONE);
-                    resouses.add(Resouse.STONE);
-                    brownCard.setGiveResourse(resouses);
+                    gameResours.add(GameResource.STONE);
+                    gameResours.add(GameResource.STONE);
+                    brownCard.setGiveResourse(gameResours);
                     break;
                 case BRICKYARD:
-                    resouses.add(Resouse.CLAY);
-                    resouses.add(Resouse.CLAY);
-                    brownCard.setGiveResourse(resouses);
+                    gameResours.add(GameResource.CLAY);
+                    gameResours.add(GameResource.CLAY);
+                    brownCard.setGiveResourse(gameResours);
                     break;
                 case FOUNDRY:
-                    resouses.add(Resouse.IRON);
-                    resouses.add(Resouse.IRON);
-                    brownCard.setGiveResourse(resouses);
+                    gameResours.add(GameResource.IRON);
+                    gameResours.add(GameResource.IRON);
+                    brownCard.setGiveResourse(gameResours);
                     break;
                 case TREE_FARM:
-                    resouses.add(Resouse.WOOD);
-                    resouses.add(Resouse.CLAY);
-                    brownCard.setGiveResourse(resouses);
+                    gameResours.add(GameResource.WOOD);
+                    gameResours.add(GameResource.CLAY);
+                    brownCard.setGiveResourse(gameResours);
                     break;
                 case EXCAVATION:
-                    resouses.add(Resouse.STONE);
-                    resouses.add(Resouse.CLAY);
-                    brownCard.setGiveResourse(resouses);
+                    gameResours.add(GameResource.STONE);
+                    gameResours.add(GameResource.CLAY);
+                    brownCard.setGiveResourse(gameResours);
                     break;
                 case CLAY_PIT:
-                    resouses.add(Resouse.IRON);
-                    resouses.add(Resouse.CLAY);
-                    brownCard.setGiveResourse(resouses);
+                    gameResours.add(GameResource.IRON);
+                    gameResours.add(GameResource.CLAY);
+                    brownCard.setGiveResourse(gameResours);
                     break;
                 case TIMBER_YARD:
-                    resouses.add(Resouse.STONE);
-                    resouses.add(Resouse.WOOD);
-                    brownCard.setGiveResourse(resouses);
+                    gameResours.add(GameResource.STONE);
+                    gameResours.add(GameResource.WOOD);
+                    brownCard.setGiveResourse(gameResours);
                     break;
                 case FOREST_CAVE:
-                    resouses.add(Resouse.WOOD);
-                    resouses.add(Resouse.IRON);
-                    brownCard.setGiveResourse(resouses);
+                    gameResours.add(GameResource.WOOD);
+                    gameResours.add(GameResource.IRON);
+                    brownCard.setGiveResourse(gameResours);
                     break;
                 case MINE:
-                    resouses.add(Resouse.STONE);
-                    resouses.add(Resouse.IRON);
-                    brownCard.setGiveResourse(resouses);
+                    gameResours.add(GameResource.STONE);
+                    gameResours.add(GameResource.IRON);
+                    brownCard.setGiveResourse(gameResours);
                     break;
             }
         }
     }
 
-    private void metodSupportsetField(List<Resouse> resouses, Resouse resouseChoose, BrownCardImpl card) {
-        resouses.add(resouseChoose);
-        card.setGiveResourse(resouses);
+    @Override
+    public boolean isResourceOf(GameCardColor color) {
+        return false;
+    }
+
+    private void metodSupportsetField(List<GameResource> gameResours, GameResource gameResourceChoose, BrownCardImpl card) {
+        gameResours.add(gameResourceChoose);
+        card.setGiveResourse(gameResours);
     }
 
 
-    private void setFieldForTwoType(BrownCardImpl card, Resouse resouse) {
-        List<Resouse> resouses = new ArrayList<>();
+    private void setFieldForTwoType(BrownCardImpl card, GameResource gameResource) {
+        List<GameResource> gameResours = new ArrayList<>();
         if ((card.getGiveResourse().size()) < 2) {
             card.getAllCard(7, 1);
         }
-        if (card.getGiveResourse().contains(resouse)) {
-            resouses.add(resouse);
-            card.setGiveResourse(resouses);
+        if (card.getGiveResourse().contains(gameResource)) {
+            gameResours.add(gameResource);
+            card.setGiveResourse(gameResours);
         }
     }
 
-    public void chooseOneResouce(Card card, Resouse resouseChoose) {
+    public void chooseOneResouce(Card card, GameResource gameResourceChoose) {
         BrownCardImpl brownCard = (BrownCardImpl) card;
-        if (resouseChoose == Resouse.WOOD |
-                resouseChoose == Resouse.IRON |
-                resouseChoose == Resouse.STONE |
-                resouseChoose == Resouse.CLAY) {
-            setFieldForTwoType(brownCard, resouseChoose);
+        if (gameResourceChoose == GameResource.WOOD |
+                gameResourceChoose == GameResource.IRON |
+                gameResourceChoose == GameResource.STONE |
+                gameResourceChoose == GameResource.CLAY) {
+            setFieldForTwoType(brownCard, gameResourceChoose);
         }
 
     }
@@ -195,11 +203,11 @@ public enum BrownCardImpl implements Card {
         return goldNeededForConstruction;
     }
 
-    public List<Resouse> getGiveResourse() {
+    public List<GameResource> getGiveResourse() {
         return giveResourse;
     }
 
-    private void setGiveResourse(List<Resouse> giveResourse) {
+    private void setGiveResourse(List<GameResource> giveResourse) {
         this.giveResourse = giveResourse;
     }
 }

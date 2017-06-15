@@ -1,7 +1,8 @@
 package com.wonder.wonder.service.cards.impl;
 
 import com.wonder.wonder.service.cards.Card;
-import com.wonder.wonder.service.cards.resouse.Resouse;
+import com.wonder.wonder.service.cards.resouse.GameCard;
+import com.wonder.wonder.service.cards.resouse.GameResource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public enum BlueCardImpl implements Card {
 
     private int takeBluePoint;
 
-    private List<Resouse> resourseNeededForConstruction;
+    private List<GameResource> resourseNeededForConstruction;
 
     private Card chain;
 
@@ -105,65 +106,65 @@ public enum BlueCardImpl implements Card {
     @Override
     public void setField(List<Card> cards) {
         for (Card card : cards) {
-            List<Resouse> resouses = new ArrayList<>();
+            List<GameResource> gameResours = new ArrayList<>();
             BlueCardImpl blueCard = (BlueCardImpl) card;
             if (blueCard.equals(BlueCardImpl.BATHS)) {
-                resouses.add(Resouse.STONE);
+                gameResours.add(GameResource.STONE);
             } else if (blueCard.equals(BlueCardImpl.AQUEDUCT)) {
                 blueCard.setChain(BlueCardImpl.BATHS);
-                resouses.add(Resouse.STONE);
-                resouses.add(Resouse.STONE);
-                resouses.add(Resouse.STONE);
+                gameResours.add(GameResource.STONE);
+                gameResours.add(GameResource.STONE);
+                gameResours.add(GameResource.STONE);
             } else if (blueCard.equals(BlueCardImpl.TEMPLE)) {
                 blueCard.setChain(BlueCardImpl.ALTAR);
-                resouses.add(Resouse.WOOD);
-                resouses.add(Resouse.CLAY);
-                resouses.add(Resouse.GLASS);
+                gameResours.add(GameResource.WOOD);
+                gameResours.add(GameResource.CLAY);
+                gameResours.add(GameResource.GLASS);
             } else if (blueCard.equals(BlueCardImpl.STATUE)) {
                 blueCard.setChain(BlueCardImpl.THEATER);
-                resouses.add(Resouse.WOOD);
-                resouses.add(Resouse.IRON);
-                resouses.add(Resouse.IRON);
+                gameResours.add(GameResource.WOOD);
+                gameResours.add(GameResource.IRON);
+                gameResours.add(GameResource.IRON);
             } else if (blueCard.equals(BlueCardImpl.COURTHOUSE)) {
                 blueCard.setChain(GreenCardImpl.SCRIPTORIUM);
-                resouses.add(Resouse.CLAY);
-                resouses.add(Resouse.CLAY);
-                resouses.add(Resouse.SILK);
+                gameResours.add(GameResource.CLAY);
+                gameResours.add(GameResource.CLAY);
+                gameResours.add(GameResource.SILK);
             } else if (blueCard.equals(BlueCardImpl.PANTHEON)) {
                 blueCard.setChain(BlueCardImpl.TEMPLE);
-                resouses.add(Resouse.CLAY);
-                resouses.add(Resouse.CLAY);
-                resouses.add(Resouse.IRON);
-                resouses.add(Resouse.SILK);
-                resouses.add(Resouse.GLASS);
-                resouses.add(Resouse.PARCHMENT);
+                gameResours.add(GameResource.CLAY);
+                gameResours.add(GameResource.CLAY);
+                gameResours.add(GameResource.IRON);
+                gameResours.add(GameResource.SILK);
+                gameResours.add(GameResource.GLASS);
+                gameResours.add(GameResource.PARCHMENT);
             } else if (blueCard.equals(BlueCardImpl.GARDENS)) {
                 blueCard.setChain(BlueCardImpl.STATUE);
-                resouses.add(Resouse.WOOD);
-                resouses.add(Resouse.CLAY);
-                resouses.add(Resouse.CLAY);
+                gameResours.add(GameResource.WOOD);
+                gameResours.add(GameResource.CLAY);
+                gameResours.add(GameResource.CLAY);
             } else if (blueCard.equals(BlueCardImpl.TOWN_HALL)) {
                 blueCard.setChain(BlueCardImpl.THEATER);
-                resouses.add(Resouse.GLASS);
-                resouses.add(Resouse.IRON);
-                resouses.add(Resouse.STONE);
-                resouses.add(Resouse.STONE);
+                gameResours.add(GameResource.GLASS);
+                gameResours.add(GameResource.IRON);
+                gameResours.add(GameResource.STONE);
+                gameResours.add(GameResource.STONE);
             } else if (blueCard.equals(BlueCardImpl.PALACE)) {
-                resouses.add(Resouse.GLASS);
-                resouses.add(Resouse.PARCHMENT);
-                resouses.add(Resouse.SILK);
-                resouses.add(Resouse.CLAY);
-                resouses.add(Resouse.WOOD);
-                resouses.add(Resouse.IRON);
-                resouses.add(Resouse.STONE);
+                gameResours.add(GameResource.GLASS);
+                gameResours.add(GameResource.PARCHMENT);
+                gameResours.add(GameResource.SILK);
+                gameResours.add(GameResource.CLAY);
+                gameResours.add(GameResource.WOOD);
+                gameResours.add(GameResource.IRON);
+                gameResours.add(GameResource.STONE);
             } else if (blueCard.equals(BlueCardImpl.SENATE)) {
                 blueCard.setChain(GreenCardImpl.LIBRARY);
-                resouses.add(Resouse.IRON);
-                resouses.add(Resouse.STONE);
-                resouses.add(Resouse.WOOD);
+                gameResours.add(GameResource.IRON);
+                gameResours.add(GameResource.STONE);
+                gameResours.add(GameResource.WOOD);
 
             }
-            blueCard.setResourseNeededForConstruction(resouses);
+            blueCard.setResourseNeededForConstruction(gameResours);
         }
     }
 
@@ -171,11 +172,11 @@ public enum BlueCardImpl implements Card {
         return takeBluePoint;
     }
 
-    public List<Resouse> getResourseNeededForConstruction() {
+    public List<GameResource> getResourseNeededForConstruction() {
         return resourseNeededForConstruction;
     }
 
-    private void setResourseNeededForConstruction(List<Resouse> resourseNeededForConstruction) {
+    private void setResourseNeededForConstruction(List<GameResource> resourseNeededForConstruction) {
         this.resourseNeededForConstruction = resourseNeededForConstruction;
     }
 

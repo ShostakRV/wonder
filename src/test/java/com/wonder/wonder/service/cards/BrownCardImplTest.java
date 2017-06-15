@@ -1,7 +1,7 @@
 package com.wonder.wonder.service.cards;
 
 import com.wonder.wonder.service.cards.impl.BrownCardImpl;
-import com.wonder.wonder.service.cards.resouse.Resouse;
+import com.wonder.wonder.service.cards.resouse.GameResource;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -54,27 +54,27 @@ public class BrownCardImplTest {
         List<Card> cardList = card.getAllCard(7, 1);
         int size = 0;
         for (Card card1 : cardList) {
-            List<Resouse> resouses = new ArrayList<>();
+            List<GameResource> gameResours = new ArrayList<>();
             BrownCardImpl brownCard = (BrownCardImpl) card1;
             switch (brownCard.name()) {
                 case "LUMBER_YARD":
-                    resouses.add(Resouse.WOOD);
-                    assertEquals(resouses, brownCard.getGiveResourse());
+                    gameResours.add(GameResource.WOOD);
+                    assertEquals(gameResours, brownCard.getGiveResourse());
                     size++;
                     break;
                 case "STONE_PIT":
-                    resouses.add(Resouse.STONE);
-                    assertEquals(resouses, brownCard.getGiveResourse());
+                    gameResours.add(GameResource.STONE);
+                    assertEquals(gameResours, brownCard.getGiveResourse());
                     size++;
                     break;
                 case "CLAY_POOL":
-                    resouses.add(Resouse.CLAY);
-                    assertEquals(resouses, brownCard.getGiveResourse());
+                    gameResours.add(GameResource.CLAY);
+                    assertEquals(gameResours, brownCard.getGiveResourse());
                     size++;
                     break;
                 case "ORE_VEIN":
-                    resouses.add(Resouse.IRON);
-                    assertEquals(resouses, brownCard.getGiveResourse());
+                    gameResours.add(GameResource.IRON);
+                    assertEquals(gameResours, brownCard.getGiveResourse());
                     size++;
                     break;
             }
@@ -104,31 +104,31 @@ public class BrownCardImplTest {
         List<Card> cardList = card.getAllCard(7, 2);
         int size = 0;
         for (Card card1 : cardList) {
-            List<Resouse> resouses = new ArrayList<>();
+            List<GameResource> gameResours = new ArrayList<>();
             BrownCardImpl brownCard = (BrownCardImpl) card1;
             switch (brownCard.name()) {
                 case "SAWMILL":
-                    resouses.add(Resouse.WOOD);
-                    resouses.add(Resouse.WOOD);
-                    assertEquals(resouses, brownCard.getGiveResourse());
+                    gameResours.add(GameResource.WOOD);
+                    gameResours.add(GameResource.WOOD);
+                    assertEquals(gameResours, brownCard.getGiveResourse());
                     size++;
                     break;
                 case "QUARRY":
-                    resouses.add(Resouse.STONE);
-                    resouses.add(Resouse.STONE);
-                    assertEquals(resouses, brownCard.getGiveResourse());
+                    gameResours.add(GameResource.STONE);
+                    gameResours.add(GameResource.STONE);
+                    assertEquals(gameResours, brownCard.getGiveResourse());
                     size++;
                     break;
                 case "BRICKYARD":
-                    resouses.add(Resouse.CLAY);
-                    resouses.add(Resouse.CLAY);
-                    assertEquals(resouses, brownCard.getGiveResourse());
+                    gameResours.add(GameResource.CLAY);
+                    gameResours.add(GameResource.CLAY);
+                    assertEquals(gameResours, brownCard.getGiveResourse());
                     size++;
                     break;
                 case "FOUNDRY":
-                    resouses.add(Resouse.IRON);
-                    resouses.add(Resouse.IRON);
-                    assertEquals(resouses, brownCard.getGiveResourse());
+                    gameResours.add(GameResource.IRON);
+                    gameResours.add(GameResource.IRON);
+                    assertEquals(gameResours, brownCard.getGiveResourse());
                     size++;
                     break;
 
@@ -144,43 +144,43 @@ public class BrownCardImplTest {
         List<Card> cardList = card.getAllCard(7, 1);
         int size = 0;
         for (Card card1 : cardList) {
-            List<Resouse> resouses = new ArrayList<>();
+            List<GameResource> gameResours = new ArrayList<>();
             BrownCardImpl brownCard = (BrownCardImpl) card1;
             switch (brownCard) {
                 case TREE_FARM:
-                    resouses.add(Resouse.WOOD);
-                    resouses.add(Resouse.CLAY);
-                    assertEquals(resouses, brownCard.getGiveResourse());
+                    gameResours.add(GameResource.WOOD);
+                    gameResours.add(GameResource.CLAY);
+                    assertEquals(gameResours, brownCard.getGiveResourse());
                     size++;
                     break;
                 case EXCAVATION:
-                    resouses.add(Resouse.STONE);
-                    resouses.add(Resouse.CLAY);
-                    assertEquals(resouses, brownCard.getGiveResourse());
+                    gameResours.add(GameResource.STONE);
+                    gameResours.add(GameResource.CLAY);
+                    assertEquals(gameResours, brownCard.getGiveResourse());
                     size++;
                     break;
                 case CLAY_PIT:
-                    resouses.add(Resouse.IRON);
-                    resouses.add(Resouse.CLAY);
-                    assertEquals(resouses, brownCard.getGiveResourse());
+                    gameResours.add(GameResource.IRON);
+                    gameResours.add(GameResource.CLAY);
+                    assertEquals(gameResours, brownCard.getGiveResourse());
                     size++;
                     break;
                 case TIMBER_YARD:
-                    resouses.add(Resouse.STONE);
-                    resouses.add(Resouse.WOOD);
-                    assertEquals(resouses, brownCard.getGiveResourse());
+                    gameResours.add(GameResource.STONE);
+                    gameResours.add(GameResource.WOOD);
+                    assertEquals(gameResours, brownCard.getGiveResourse());
                     size++;
                     break;
                 case FOREST_CAVE:
-                    resouses.add(Resouse.WOOD);
-                    resouses.add(Resouse.IRON);
-                    assertEquals(resouses, brownCard.getGiveResourse());
+                    gameResours.add(GameResource.WOOD);
+                    gameResours.add(GameResource.IRON);
+                    assertEquals(gameResours, brownCard.getGiveResourse());
                     size++;
                     break;
                 case MINE:
-                    resouses.add(Resouse.STONE);
-                    resouses.add(Resouse.IRON);
-                    assertEquals(resouses, brownCard.getGiveResourse());
+                    gameResours.add(GameResource.STONE);
+                    gameResours.add(GameResource.IRON);
+                    assertEquals(gameResours, brownCard.getGiveResourse());
                     size++;
                     break;
             }
@@ -191,20 +191,20 @@ public class BrownCardImplTest {
     @Test
     public void chooseOneResouceTest_() {
         BrownCardImpl brownCard = BrownCardImpl.TREE_FARM;
-        List<Resouse> resouses = new ArrayList<>();
+        List<GameResource> gameResours = new ArrayList<>();
         brownCard.getAllCard(7,1);
-        brownCard.chooseOneResouce(brownCard, Resouse.WOOD);
-        resouses.add(Resouse.WOOD);
-        assertEquals(resouses, brownCard.getGiveResourse());
+        brownCard.chooseOneResouce(brownCard, GameResource.WOOD);
+        gameResours.add(GameResource.WOOD);
+        assertEquals(gameResours, brownCard.getGiveResourse());
         brownCard = BrownCardImpl.MINE;
-        brownCard.chooseOneResouce(brownCard, Resouse.STONE);
-        resouses = new ArrayList<>();
-        resouses.add(Resouse.STONE);
-        assertEquals(resouses, brownCard.getGiveResourse());
-        brownCard.chooseOneResouce(brownCard, Resouse.IRON);
-        resouses = new ArrayList<>();
-        resouses.add(Resouse.IRON);
-        assertEquals(resouses, brownCard.getGiveResourse());
+        brownCard.chooseOneResouce(brownCard, GameResource.STONE);
+        gameResours = new ArrayList<>();
+        gameResours.add(GameResource.STONE);
+        assertEquals(gameResours, brownCard.getGiveResourse());
+        brownCard.chooseOneResouce(brownCard, GameResource.IRON);
+        gameResours = new ArrayList<>();
+        gameResours.add(GameResource.IRON);
+        assertEquals(gameResours, brownCard.getGiveResourse());
 
     }
 }

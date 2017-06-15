@@ -2,7 +2,7 @@ package com.wonder.wonder.service.cards;
 
 import com.wonder.wonder.service.cards.impl.BlueCardImpl;
 import com.wonder.wonder.service.cards.impl.GreenCardImpl;
-import com.wonder.wonder.service.cards.resouse.Resouse;
+import com.wonder.wonder.service.cards.resouse.GameResource;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -135,11 +135,11 @@ public class BlueCardImplTest {
         List<Card> cardList = card.getAllCard(7, 1);
         int size = 0;
         for (Card card1 : cardList) {
-            List<Resouse> resouses = new ArrayList<>();
+            List<GameResource> gameResours = new ArrayList<>();
             BlueCardImpl blueCard = (BlueCardImpl) card1;
             if (blueCard.equals(BlueCardImpl.BATHS)) {
-                resouses.add(Resouse.STONE);
-                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                gameResours.add(GameResource.STONE);
+                assertEquals(gameResours, ((BlueCardImpl) card1).getResourseNeededForConstruction());
                 size++;
             }
         }
@@ -152,31 +152,31 @@ public class BlueCardImplTest {
         List<Card> cardList = card.getAllCard(7, 2);
         int size = 0;
         for (Card card1 : cardList) {
-            List<Resouse> resouses = new ArrayList<>();
+            List<GameResource> gameResours = new ArrayList<>();
             BlueCardImpl blueCard = (BlueCardImpl) card1;
             if (blueCard.equals(BlueCardImpl.AQUEDUCT)) {
-                resouses.add(Resouse.STONE);
-                resouses.add(Resouse.STONE);
-                resouses.add(Resouse.STONE);
-                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                gameResours.add(GameResource.STONE);
+                gameResours.add(GameResource.STONE);
+                gameResours.add(GameResource.STONE);
+                assertEquals(gameResours, ((BlueCardImpl) card1).getResourseNeededForConstruction());
                 size++;
             } else if (blueCard.equals(BlueCardImpl.TEMPLE)) {
-                resouses.add(Resouse.WOOD);
-                resouses.add(Resouse.CLAY);
-                resouses.add(Resouse.GLASS);
-                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                gameResours.add(GameResource.WOOD);
+                gameResours.add(GameResource.CLAY);
+                gameResours.add(GameResource.GLASS);
+                assertEquals(gameResours, ((BlueCardImpl) card1).getResourseNeededForConstruction());
                 size++;
             } else if (blueCard.equals(BlueCardImpl.STATUE)) {
-                resouses.add(Resouse.WOOD);
-                resouses.add(Resouse.IRON);
-                resouses.add(Resouse.IRON);
-                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                gameResours.add(GameResource.WOOD);
+                gameResours.add(GameResource.IRON);
+                gameResours.add(GameResource.IRON);
+                assertEquals(gameResours, ((BlueCardImpl) card1).getResourseNeededForConstruction());
                 size++;
             } else if (blueCard.equals(BlueCardImpl.COURTHOUSE)) {
-                resouses.add(Resouse.CLAY);
-                resouses.add(Resouse.CLAY);
-                resouses.add(Resouse.SILK);
-                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                gameResours.add(GameResource.CLAY);
+                gameResours.add(GameResource.CLAY);
+                gameResours.add(GameResource.SILK);
+                assertEquals(gameResours, ((BlueCardImpl) card1).getResourseNeededForConstruction());
                 size++;
             }
         }
@@ -189,45 +189,45 @@ public class BlueCardImplTest {
         List<Card> cardList = card.getAllCard(7, 3);
         int size = 0;
         for (Card card1 : cardList) {
-            List<Resouse> resouses = new ArrayList<>();
+            List<GameResource> gameResours = new ArrayList<>();
             BlueCardImpl blueCard = (BlueCardImpl) card1;
             if (blueCard.equals(BlueCardImpl.PANTHEON)) {
-                resouses.add(Resouse.CLAY);
-                resouses.add(Resouse.CLAY);
-                resouses.add(Resouse.IRON);
-                resouses.add(Resouse.SILK);
-                resouses.add(Resouse.GLASS);
-                resouses.add(Resouse.PARCHMENT);
-                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                gameResours.add(GameResource.CLAY);
+                gameResours.add(GameResource.CLAY);
+                gameResours.add(GameResource.IRON);
+                gameResours.add(GameResource.SILK);
+                gameResours.add(GameResource.GLASS);
+                gameResours.add(GameResource.PARCHMENT);
+                assertEquals(gameResours, ((BlueCardImpl) card1).getResourseNeededForConstruction());
                 size++;
             } else if (blueCard.equals(BlueCardImpl.GARDENS)) {
-                resouses.add(Resouse.WOOD);
-                resouses.add(Resouse.CLAY);
-                resouses.add(Resouse.CLAY);
-                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                gameResours.add(GameResource.WOOD);
+                gameResours.add(GameResource.CLAY);
+                gameResours.add(GameResource.CLAY);
+                assertEquals(gameResours, ((BlueCardImpl) card1).getResourseNeededForConstruction());
                 size++;
             } else if (blueCard.equals(BlueCardImpl.TOWN_HALL)) {
-                resouses.add(Resouse.GLASS);
-                resouses.add(Resouse.IRON);
-                resouses.add(Resouse.STONE);
-                resouses.add(Resouse.STONE);
-                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                gameResours.add(GameResource.GLASS);
+                gameResours.add(GameResource.IRON);
+                gameResours.add(GameResource.STONE);
+                gameResours.add(GameResource.STONE);
+                assertEquals(gameResours, ((BlueCardImpl) card1).getResourseNeededForConstruction());
                 size++;
             } else if (blueCard.equals(BlueCardImpl.PALACE)) {
-                resouses.add(Resouse.GLASS);
-                resouses.add(Resouse.PARCHMENT);
-                resouses.add(Resouse.SILK);
-                resouses.add(Resouse.CLAY);
-                resouses.add(Resouse.WOOD);
-                resouses.add(Resouse.IRON);
-                resouses.add(Resouse.STONE);
-                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                gameResours.add(GameResource.GLASS);
+                gameResours.add(GameResource.PARCHMENT);
+                gameResours.add(GameResource.SILK);
+                gameResours.add(GameResource.CLAY);
+                gameResours.add(GameResource.WOOD);
+                gameResours.add(GameResource.IRON);
+                gameResours.add(GameResource.STONE);
+                assertEquals(gameResours, ((BlueCardImpl) card1).getResourseNeededForConstruction());
                 size++;
             } else if (blueCard.equals(BlueCardImpl.SENATE)) {
-                resouses.add(Resouse.IRON);
-                resouses.add(Resouse.STONE);
-                resouses.add(Resouse.WOOD);
-                assertEquals(resouses, ((BlueCardImpl) card1).getResourseNeededForConstruction());
+                gameResours.add(GameResource.IRON);
+                gameResours.add(GameResource.STONE);
+                gameResours.add(GameResource.WOOD);
+                assertEquals(gameResours, ((BlueCardImpl) card1).getResourseNeededForConstruction());
                 size++;
             }
         }

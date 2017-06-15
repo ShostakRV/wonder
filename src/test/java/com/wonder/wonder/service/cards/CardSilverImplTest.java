@@ -1,7 +1,7 @@
 package com.wonder.wonder.service.cards;
 
 import com.wonder.wonder.service.cards.impl.SilverCardImpl;
-import com.wonder.wonder.service.cards.resouse.Resouse;
+import com.wonder.wonder.service.cards.resouse.GameResource;
 import org.junit.Test;
 
 import java.util.List;
@@ -30,13 +30,13 @@ public class CardSilverImplTest {
             SilverCardImpl silverCard = (SilverCardImpl) card1;
             switch (silverCard.name()) {
                 case "LOOM":
-                    assertEquals(Resouse.SILK, silverCard.getGiveResourse());
+                    assertEquals(GameResource.SILK, silverCard.getGiveResourse());
                     break;
                 case "GLASSWORKS":
-                    assertEquals(Resouse.GLASS, silverCard.getGiveResourse());
+                    assertEquals(GameResource.GLASS, silverCard.getGiveResourse());
                     break;
                 case "PRESS":
-                    assertEquals(Resouse.PARCHMENT, silverCard.getGiveResourse());
+                    assertEquals(GameResource.PARCHMENT, silverCard.getGiveResourse());
                     break;
             }
         }
@@ -72,11 +72,11 @@ public class CardSilverImplTest {
         for (Card card1 : cardList) {
             SilverCardImpl silverCard = (SilverCardImpl) card1;
             if (silverCard.name().equals("LOOM")) {
-                assertEquals(Resouse.SILK, silverCard.getGiveResourse());
+                assertEquals(GameResource.SILK, silverCard.getGiveResourse());
             } else if (silverCard.name().equals("GLASSWORKS")) {
-                assertEquals(Resouse.GLASS, silverCard.getGiveResourse());
+                assertEquals(GameResource.GLASS, silverCard.getGiveResourse());
             } else if (silverCard.name().equals("PRESS")) {
-                assertEquals(Resouse.PARCHMENT, silverCard.getGiveResourse());
+                assertEquals(GameResource.PARCHMENT, silverCard.getGiveResourse());
 
             }
         }

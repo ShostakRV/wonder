@@ -1,7 +1,7 @@
 package com.wonder.wonder.service.cards.impl;
 
 import com.wonder.wonder.service.cards.Card;
-import com.wonder.wonder.service.cards.resouse.Resouse;
+import com.wonder.wonder.service.cards.resouse.GameResource;
 import com.wonder.wonder.service.cards.resouse.ScientistGuild;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public enum GreenCardImpl implements Card {
     ACADEMY(ScientistGuild.COMPASSE),
     STUDY(ScientistGuild.GEAR);
 
-    private List<Resouse> resourseNeededForConstruction;
+    private List<GameResource> resourseNeededForConstruction;
     private GreenCardImpl chain; // need think
     private ScientistGuild scientistGuild;
 
@@ -77,61 +77,61 @@ public enum GreenCardImpl implements Card {
 //    STUDY(GreenCardImpl.STUDY, GreenCardImpl.SCHOOL, ScientistGuild.GEAR)
 
 
-//    private List<Resouse> resourseNeededForConstruction(GreenCardImpl greenCard) {
-//        List<Resouse> resouses = new ArrayList<>();
+//    private List<GameResource> resourseNeededForConstruction(GreenCardImpl greenCard) {
+//        List<GameResource> resouses = new ArrayList<>();
 //        switch (greenCard) {
 //            case WORKSHOP:
-//                resouses.add(Resouse.GLASS);
+//                resouses.add(GameResource.GLASS);
 //                return resouses;
 //            case APOTHECARY:
-//                resouses.add(Resouse.SILK);
+//                resouses.add(GameResource.SILK);
 //                return resouses;
 //            case SCRIPTORIUM:
-//                resouses.add(Resouse.PARCHMENT);
+//                resouses.add(GameResource.PARCHMENT);
 //                return resouses;
 //            case DISPENSARY:
-//                resouses.add(Resouse.IRON);
-//                resouses.add(Resouse.IRON);
-//                resouses.add(Resouse.GLASS);
+//                resouses.add(GameResource.IRON);
+//                resouses.add(GameResource.IRON);
+//                resouses.add(GameResource.GLASS);
 //                return resouses;
 //            case LABORATORY:
-//                resouses.add(Resouse.CLAY);
-//                resouses.add(Resouse.CLAY);
-//                resouses.add(Resouse.PARCHMENT);
+//                resouses.add(GameResource.CLAY);
+//                resouses.add(GameResource.CLAY);
+//                resouses.add(GameResource.PARCHMENT);
 //                return resouses;
 //            case LIBRARY:
-//                resouses.add(Resouse.STONE);
-//                resouses.add(Resouse.STONE);
-//                resouses.add(Resouse.SILK);
+//                resouses.add(GameResource.STONE);
+//                resouses.add(GameResource.STONE);
+//                resouses.add(GameResource.SILK);
 //                return resouses;
 //            case LODGE:
 //
-//                resouses.add(Resouse.CLAY);
-//                resouses.add(Resouse.CLAY);
-//                resouses.add(Resouse.SILK);
-//                resouses.add(Resouse.PARCHMENT);
+//                resouses.add(GameResource.CLAY);
+//                resouses.add(GameResource.CLAY);
+//                resouses.add(GameResource.SILK);
+//                resouses.add(GameResource.PARCHMENT);
 //                return resouses;
 //            case OBSERVATORY:
-//                resouses.add(Resouse.IRON);
-//                resouses.add(Resouse.IRON);
-//                resouses.add(Resouse.GLASS);
-//                resouses.add(Resouse.SILK);
+//                resouses.add(GameResource.IRON);
+//                resouses.add(GameResource.IRON);
+//                resouses.add(GameResource.GLASS);
+//                resouses.add(GameResource.SILK);
 //                return resouses;
 //            case UNIVERSITY:
-//                resouses.add(Resouse.WOOD);
-//                resouses.add(Resouse.WOOD);
-//                resouses.add(Resouse.PARCHMENT);
-//                resouses.add(Resouse.SILK);
+//                resouses.add(GameResource.WOOD);
+//                resouses.add(GameResource.WOOD);
+//                resouses.add(GameResource.PARCHMENT);
+//                resouses.add(GameResource.SILK);
 //                return resouses;
 //            case ACADEMY:
-//                resouses.add(Resouse.STONE);
-//                resouses.add(Resouse.STONE);
-//                resouses.add(Resouse.GLASS);
+//                resouses.add(GameResource.STONE);
+//                resouses.add(GameResource.STONE);
+//                resouses.add(GameResource.GLASS);
 //                return resouses;
 //            case STUDY:
-//                resouses.add(Resouse.WOOD);
-//                resouses.add(Resouse.PARCHMENT);
-//                resouses.add(Resouse.SILK);
+//                resouses.add(GameResource.WOOD);
+//                resouses.add(GameResource.PARCHMENT);
+//                resouses.add(GameResource.SILK);
 //                return resouses;
 //
 //        }
@@ -139,11 +139,11 @@ public enum GreenCardImpl implements Card {
 //        return null;
 //    }
 
-    public List<Resouse> getResourseNeededForConstruction() {
+    public List<GameResource> getResourseNeededForConstruction() {
         return resourseNeededForConstruction;
     }
 
-    public void setResourseNeededForConstruction(List<Resouse> resourseNeededForConstruction) {
+    public void setResourseNeededForConstruction(List<GameResource> resourseNeededForConstruction) {
         this.resourseNeededForConstruction = resourseNeededForConstruction;
     }
 
