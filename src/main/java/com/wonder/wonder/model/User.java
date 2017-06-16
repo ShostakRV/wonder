@@ -1,7 +1,9 @@
 package com.wonder.wonder.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -12,20 +14,19 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "user")
-@Getter
-@Setter
+@Data
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    Long id;
+    protected Long id;
     @Column(name = "email")
-    String email;
-    @Column(name = "name")
-    String name;
+    protected String email;
+    @Column(name = "username")
+    protected String username;
     @Column(name = "password")
-    String password;
+    protected String password;
 
     @Override
     public boolean equals(Object o) {

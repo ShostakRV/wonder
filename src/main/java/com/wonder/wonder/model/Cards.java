@@ -17,20 +17,20 @@ import java.util.Objects;
 @Getter
 @Setter
 public class Cards {
-
+    //TODO delete maybe
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    Long id;
+    protected Long id;
     @Column(name = "color")
-    String color;
+    protected String color;
     @Column(name = "name")
-    String name;
+    protected String name;
     @Column(name = "resouceBuild")
-    String resouceBuild;
+    protected String resouceBuild;
     @Column(name = "ability")
-    String ability;
+    protected String ability;
 
     @Override
     public boolean equals(Object o) {
