@@ -29,7 +29,7 @@ package com.wonder.wonder.service.cards;
 //        int size = cardList.size();
 //        assertEquals(5, size);
 //    }
-//
+////
 //    @Test
 //    public void getAllCards_6Players_1age() {
 //        Card card = BlueCardImpl.ALTAR;
