@@ -1,9 +1,6 @@
 package com.wonder.wonder.model;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Objects;

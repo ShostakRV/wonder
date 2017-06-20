@@ -1,6 +1,6 @@
 package com.wonder.wonder.service.cards.vonder;
 
-import com.wonder.wonder.service.cards.resouse.GameResource;
+import com.wonder.wonder.service.cards.resouse_NeedRename.GameResource;
 
 /**
  * Creator: bm

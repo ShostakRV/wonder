@@ -1,4 +1,4 @@
-package com.wonder.wonder.service.cards.resouse;
+package com.wonder.wonder.service.cards.resouse_NeedRename;
 
 /**
  * Creator: bm
@@ -6,4 +6,5 @@ package com.wonder.wonder.service.cards.resouse;
  */
 public enum  BaseResource {
     WOOD, STONE, IRON, CLAY, PARCHMENT, GLASS, SILK;
+    // our base resouce
 }
