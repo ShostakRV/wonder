@@ -21,6 +21,6 @@ public class UserRestController {
     public List<User> list() {
         return userService.getAllUsers();
     }
-
+//
 
 }
