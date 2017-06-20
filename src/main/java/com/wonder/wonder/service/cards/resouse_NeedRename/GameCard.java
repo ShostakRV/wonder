@@ -201,7 +201,7 @@ public enum GameCard implements Card {
     private final boolean tradeCard;// 8 line // all card write
     private final boolean changeGoldCard;
     private final int giveGoldForOneCard;
-    private final boolean scientistGuildCard; // 11 line
+//    private final boolean scientistGuildCard; // 11 line
     private final ScientistGuild signScientistGuild;
     private final boolean cardNeedWeedAndMix; // 13
     private final List<GameCardColor> colorCardForPointOrGold; //14
@@ -210,35 +210,28 @@ public enum GameCard implements Card {
     private final int goldNeededForConstruction;
     private final List<BaseResource> resourcesNeedForBuild;
 
-    GameCard(int age, int userNumber, GameCardColor gameCardColor, ActionSide actionSide, int givePointForOneCard, GameResource giveResource, int armyPower, boolean tradeCard, boolean changeGoldCard, int giveGoldForOneCard, boolean scientistGuildCard, ScientistGuild signScientistGuild, boolean cardNeedWeedAndMix, List<GameCardColor> colorCardForPointOrGold, List<String> chain, int goldNeededForConstruction, BaseResource... resourcesNeedForBuild) {
+    GameCard(int age, int userNumber, GameCardColor gameCardColor, ActionSide actionSide, int givePointForOneCard,
+             GameResource giveResource, int armyPower, boolean tradeCard, boolean changeGoldCard, int giveGoldForOneCard,
+             boolean scientistGuildCard, ScientistGuild signScientistGuild, boolean cardNeedWeedAndMix,
+             List<GameCardColor> colorCardForPointOrGold, List<String> chain, int goldNeededForConstruction, BaseResource... resourcesNeedForBuild) {
         this.age = age;
         this.userNumber = userNumber;
         this.gameCardColor = gameCardColor;
-        this.actionSide = actionSide;
-        this.givePointForOneCard = givePointForOneCard;
+        this.actionSide = actionSide; //*
+        this.givePointForOneCard = givePointForOneCard;//*
         this.giveResource = giveResource;
-        this.armyPower = armyPower;
-        this.tradeCard = tradeCard;
-        this.changeGoldCard = changeGoldCard;
-        this.giveGoldForOneCard = giveGoldForOneCard;
-        this.scientistGuildCard = scientistGuildCard;
+        this.armyPower = armyPower; // to think, probaly it can be strategy
+        this.tradeCard = tradeCard; //*
+        this.changeGoldCard = changeGoldCard; //*
+        this.giveGoldForOneCard = giveGoldForOneCard; //*
+//        this.scientistGuildCard = scientistGuildCard;
         this.signScientistGuild = signScientistGuild;
-        this.cardNeedWeedAndMix = cardNeedWeedAndMix;
-        this.colorCardForPointOrGold = colorCardForPointOrGold;
+        this.cardNeedWeedAndMix = cardNeedWeedAndMix;// examples: purple, black, leader
+        this.colorCardForPointOrGold = colorCardForPointOrGold;//*
         this.chain = chain;
 
         this.goldNeededForConstruction = goldNeededForConstruction;
         this.resourcesNeedForBuild = Collections.unmodifiableList(Arrays.asList(resourcesNeedForBuild));
-    }
-
-    @Override
-    public List<Card> getAllCard(int numberPlayer, int age) {
-        throw new RuntimeException("Not Implemented");
-    }
-
-    @Override
-    public void setField(List<Card> cards) {
-        throw new RuntimeException("Not Implemented");
     }
 
     @Override

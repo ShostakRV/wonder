@@ -1,5 +1,6 @@
 package com.wonder.wonder.model;
 
+import com.wonder.wonder.service.cards.resouse_NeedRename.GameCard;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -31,7 +32,8 @@ public class Event {
     protected String phase;
 
     @Column(name = "card")
-    protected String card;//todo get Object maybe
+    @Enumerated
+    protected GameCard card;//todo get Object maybe
 
     @Column(name = "chain_card")
     protected String chainCard;//todo get Object maybe

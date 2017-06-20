@@ -5,5 +5,5 @@ package com.wonder.wonder.service.cards.resouse_NeedRename;
  * Date: 13.06.17.
  */
 public enum ScientistGuild {
-    NAMEPLATE, COMPASSE, GEAR, NAMEPLATE_OR_COMPASSE_OR_GEAR,
+    NAMEPLATE, COMPASSE, GEAR, NAMEPLATE_OR_COMPASSE_OR_GEAR,NONE
 }

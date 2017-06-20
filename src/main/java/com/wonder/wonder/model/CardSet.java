@@ -25,4 +25,5 @@ public class CardSet {
 
     @Column(name = "age")
     protected String age;
+
 }

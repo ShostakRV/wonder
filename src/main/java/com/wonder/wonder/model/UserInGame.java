@@ -1,6 +1,7 @@
 package com.wonder.wonder.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * Creator: Pavlenko Bohdan
@@ -51,4 +52,16 @@ public class UserInGame {
     @Column(name = "p_debt")
     protected Integer pDebt;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserInGame that = (UserInGame) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

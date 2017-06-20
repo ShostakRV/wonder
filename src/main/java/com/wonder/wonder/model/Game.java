@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Creator: Pavlenko Bohdan
@@ -29,4 +31,7 @@ public class Game {
 
     @Column(name = "players")
     protected Integer players;
+
+    @OneToMany()
+    protected List<Event> eventList = new ArrayList<>();
 }

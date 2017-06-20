@@ -10,8 +10,6 @@ import java.util.List;
  * Date: 14.06.17.
  */
 public interface Card {
-    List<Card> getAllCard(int numberPlayer,int age);
-    void setField(List<Card> cards); // delete in future
 
     boolean isResourceOf( GameCardColor color); // maybe isCardOf
 
