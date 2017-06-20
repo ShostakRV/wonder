@@ -21,7 +21,7 @@ public class User {
     @Column(name = "email")
     protected String email;
     @Column(name = "username")
-    protected String username;
+    protected String userName;
     @Column(name = "password")
     protected String password;
 

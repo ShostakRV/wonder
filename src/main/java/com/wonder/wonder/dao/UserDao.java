@@ -12,7 +12,7 @@ import java.util.List;
  * Date: 03.06.17.
  */
 public interface UserDao extends PagingAndSortingRepository<User, Long> {
-    List<User> findByName(String name);
+    List<User> findByUserName(String name);
 
 
 
