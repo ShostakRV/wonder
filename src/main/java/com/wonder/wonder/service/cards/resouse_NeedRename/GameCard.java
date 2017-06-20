@@ -63,7 +63,7 @@ public enum GameCard implements Card {
 
     // trade card
     EAST_TRADING_POST(1, 3, GameCardColor.YELLOW, ActionSide.RIGHT, 0, null, 0, true, false, 0, false, null, false, null, null, 0, null),
-    WEST_TRADING_POST(1, 3, GameCardColor.YELLOW, ActionSide.RIGHT, 0, null, 0, true, false, 0, false, null, false, null, null, 0, null),
+    WEST_TRADING_POST(1, 3, GameCardColor.YELLOW, ActionSide.LEFT, 0, null, 0, true, false, 0, false, null, false, null, null, 0, null),
     MARKETPLACE(1, 3, GameCardColor.YELLOW, ActionSide.RIGHT_AND_LEFT, 0, null, 0, true, false, 0, false, null, false, null, null, 0, null),
 
     // give gold
@@ -145,55 +145,51 @@ public enum GameCard implements Card {
 
 //green  second age
 
-    DISPENSARY(2, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.COMPASSE, false, null, Arrays.asList("APOTHECARY"), 0,BaseResource.IRON,BaseResource.IRON, BaseResource.GLASS),
-    LABORATORY(2, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.GEAR, false, null, Arrays.asList("WORKSHOP"), 0,BaseResource.CLAY,BaseResource.CLAY, BaseResource.PARCHMENT),
-    LIBRARY(2, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.NAMEPLATE, false, null, Arrays.asList("SCRIPTORIUM1"), 0,BaseResource.STONE,BaseResource.STONE, BaseResource.SILK),
-    SCHOOL(2, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.NAMEPLATE, false, null, null, 0,BaseResource.WOOD,BaseResource.PARCHMENT),
+    DISPENSARY(2, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.COMPASSE, false, null, Arrays.asList("APOTHECARY"), 0, BaseResource.IRON, BaseResource.IRON, BaseResource.GLASS),
+    LABORATORY(2, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.GEAR, false, null, Arrays.asList("WORKSHOP"), 0, BaseResource.CLAY, BaseResource.CLAY, BaseResource.PARCHMENT),
+    LIBRARY(2, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.NAMEPLATE, false, null, Arrays.asList("SCRIPTORIUM1"), 0, BaseResource.STONE, BaseResource.STONE, BaseResource.SILK),
+    SCHOOL(2, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.NAMEPLATE, false, null, null, 0, BaseResource.WOOD, BaseResource.PARCHMENT),
 
 //green thierd age
 
-    LODGE(3, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.COMPASSE, false, null, Arrays.asList("DISPENSARY"), 0,BaseResource.CLAY,BaseResource.CLAY, BaseResource.SILK, BaseResource.PARCHMENT),
-    OBSERVATORY(3, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.GEAR, false, null, Arrays.asList("LABORATORY"), 0,BaseResource.IRON,BaseResource.IRON, BaseResource.GLASS, BaseResource.SILK),
-    UNIVERSITY(3, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.NAMEPLATE, false, null, Arrays.asList("LIBRARY"), 0,BaseResource.WOOD,BaseResource.WOOD, BaseResource.PARCHMENT, BaseResource.GLASS),
-    ACADEMY(3, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.COMPASSE, false, null, Arrays.asList("SCHOOL"), 0,BaseResource.STONE,BaseResource.STONE, BaseResource.STONE, BaseResource.GLASS),
-    STUDY(3, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.GEAR, false, null, Arrays.asList("SCHOOL"), 0,BaseResource.WOOD,BaseResource.PARCHMENT, BaseResource.SILK),
+    LODGE(3, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.COMPASSE, false, null, Arrays.asList("DISPENSARY"), 0, BaseResource.CLAY, BaseResource.CLAY, BaseResource.SILK, BaseResource.PARCHMENT),
+    OBSERVATORY(3, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.GEAR, false, null, Arrays.asList("LABORATORY"), 0, BaseResource.IRON, BaseResource.IRON, BaseResource.GLASS, BaseResource.SILK),
+    UNIVERSITY(3, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.NAMEPLATE, false, null, Arrays.asList("LIBRARY"), 0, BaseResource.WOOD, BaseResource.WOOD, BaseResource.PARCHMENT, BaseResource.GLASS),
+    ACADEMY(3, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.COMPASSE, false, null, Arrays.asList("SCHOOL"), 0, BaseResource.STONE, BaseResource.STONE, BaseResource.STONE, BaseResource.GLASS),
+    STUDY(3, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.GEAR, false, null, Arrays.asList("SCHOOL"), 0, BaseResource.WOOD, BaseResource.PARCHMENT, BaseResource.SILK),
 
 
 // purple card
 
 //cards what give point for cardColor
 
-    WORKERS_GUILDSTUDY(3, 3, GameCardColor.PURPLE, ActionSide.RIGHT_AND_LEFT, 1, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.BROWN), null, 0,BaseResource.IRON,BaseResource.IRON, BaseResource.CLAY,BaseResource.STONE,BaseResource.WOOD),
+    WORKERS_GUILDSTUDY(3, 3, GameCardColor.PURPLE, ActionSide.RIGHT_AND_LEFT, 1, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.BROWN), null, 0, BaseResource.IRON, BaseResource.IRON, BaseResource.CLAY, BaseResource.STONE, BaseResource.WOOD),
+    CRAFTMENS_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.DOWN, 2, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.SILVER), null, 0, BaseResource.IRON, BaseResource.IRON, BaseResource.STONE, BaseResource.STONE),
+    TRADERS_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.RIGHT_AND_LEFT, 1, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.YELLOW), null, 0, BaseResource.SILK, BaseResource.GLASS, BaseResource.PARCHMENT),
+    PHILOSOPHERS_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.RIGHT_AND_LEFT, 1, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.GREEN), null, 0, BaseResource.CLAY, BaseResource.CLAY, BaseResource.CLAY, BaseResource.SILK, BaseResource.PARCHMENT),
+    SPY_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.RIGHT_AND_LEFT, 1, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.RED), null, 0, BaseResource.CLAY, BaseResource.CLAY, BaseResource.CLAY, BaseResource.GLASS),
+    MAGISTRATES_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.RIGHT_AND_LEFT, 1, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.BLUE), null, 0, BaseResource.WOOD, BaseResource.WOOD, BaseResource.WOOD, BaseResource.STONE, BaseResource.GLASS),
 
-    SHIPOWNERS_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.RIGHT_AND_LEFT, 1, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.BROWN,GameCardColor.SILVER,GameCardColor.PURPLE), null, 0,BaseResource.IRON,BaseResource.IRON, BaseResource.CLAY,BaseResource.STONE,BaseResource.WOOD),
+//card what give point for 3_cardColor
 
-    CRAFTMENS_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.DOWN, 2, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.SILVER), null, 0,BaseResource.IRON,BaseResource.IRON, BaseResource.CLAY,BaseResource.STONE,BaseResource.WOOD),
-    TRADERS_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.RIGHT_AND_LEFT, 1, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.YELLOW), null, 0,BaseResource.IRON,BaseResource.IRON, BaseResource.CLAY,BaseResource.STONE,BaseResource.WOOD),
-    PHILOSOPHERS_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.RIGHT_AND_LEFT, 1, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.GREEN), null, 0,BaseResource.IRON,BaseResource.IRON, BaseResource.CLAY,BaseResource.STONE,BaseResource.WOOD),
-    SPY_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.RIGHT_AND_LEFT, 1, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.RED), null, 0,BaseResource.IRON,BaseResource.IRON, BaseResource.CLAY,BaseResource.STONE,BaseResource.WOOD),
-    MAGISTRATES_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.RIGHT_AND_LEFT, 1, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.BLUE), null, 0,BaseResource.IRON,BaseResource.IRON, BaseResource.CLAY,BaseResource.STONE,BaseResource.WOOD),
+    SHIPOWNERS_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.RIGHT_AND_LEFT, 1, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.BROWN, GameCardColor.SILVER, GameCardColor.PURPLE), null, 0, BaseResource.WOOD, BaseResource.WOOD, BaseResource.WOOD, BaseResource.STONE, BaseResource.SILK),
 
 //card what give ScientistGuild // 11
 
-    SCIENTISTS_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.DOWN, 2, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.SILVER), null, 0,BaseResource.IRON,BaseResource.IRON, BaseResource.CLAY,BaseResource.STONE,BaseResource.WOOD),
+    SCIENTISTS_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.NAMEPLATE_OR_COMPASSE_OR_GEAR, false, null, null, 0, BaseResource.WOOD, BaseResource.WOOD, BaseResource.IRON, BaseResource.IRON, BaseResource.PARCHMENT),
 
 //card what give point for vonderLevel
 
-    BUILDERS_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.DOWN, 2, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.SILVER), null, 0,BaseResource.IRON,BaseResource.IRON, BaseResource.CLAY,BaseResource.STONE,BaseResource.WOOD),
+// need rebuild
+
+    BUILDERS_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.DOWN, 2, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.SILVER), null, 0, BaseResource.STONE, BaseResource.STONE, BaseResource.CLAY, BaseResource.CLAY,BaseResource.GLASS),
 
 
 // need realise logic for cards
 
-    STRATEGY_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.DOWN, 2, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.SILVER), null, 0,BaseResource.IRON,BaseResource.IRON, BaseResource.CLAY,BaseResource.STONE,BaseResource.WOOD),
+// need rebuild
 
-
-
-
-
-
-
-    ;
-
+    STRATEGY_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.DOWN, 2, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.SILVER), null, 0, BaseResource.IRON, BaseResource.IRON, BaseResource.STONE, BaseResource.SILK),;
 
     private final int age;
     private final int userNumber; // if we have one uniqe card we no need whis field
