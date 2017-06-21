@@ -14,7 +14,7 @@ import java.util.List;
 // All resouce player can take and their combinations
 public enum GameResource {
 
-    NO_RESOURCE(false, 1, null),
+    NO_RESOURCE(false, 1, BaseResource.NONE),
     WOOD(false, 1, BaseResource.WOOD), // ok
     STONE(false, 1, BaseResource.STONE), // ok
     IRON(false, 1, BaseResource.IRON), // ok

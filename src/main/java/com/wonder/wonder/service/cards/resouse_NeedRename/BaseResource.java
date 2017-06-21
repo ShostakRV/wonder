@@ -5,6 +5,6 @@ package com.wonder.wonder.service.cards.resouse_NeedRename;
  * Date: 15.06.17.
  */
 public enum  BaseResource {
-    WOOD, STONE, IRON, CLAY, PARCHMENT, GLASS, SILK;
+    WOOD, STONE, IRON, CLAY, PARCHMENT, GLASS, SILK, NONE;
     // our base resouce
 }

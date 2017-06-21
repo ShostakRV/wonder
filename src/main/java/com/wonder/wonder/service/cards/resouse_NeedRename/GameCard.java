@@ -14,60 +14,60 @@ public enum GameCard implements Card {
 
 // brown card first age resource card
 
-    LUMBER_YARD(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.WOOD, 0, false, false, 0, false, null, false, null, null, 0, null),
-    LUMBER_YARD_FOR_4_PLAYERS(1, 4, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.WOOD, 0, false, false, 0, false, null, false, null, null, 0, null),
-    STONE_PIT(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.STONE, 0, false, false, 0, false, null, false, null, null, 0, null),
-    STONE_PIT_FOR_5_PLAYERS(1, 5, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.STONE, 0, false, false, 0, false, null, false, null, null, 0, null),
-    CLAY_POOL(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.CLAY, 0, false, false, 0, false, null, false, null, null, 0, null),
-    CLAY_POOL_FOR_5_PLAYERS(1, 5, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.CLAY, 0, false, false, 0, false, null, false, null, null, 0, null),
-    ORE_VEIN(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.IRON, 0, false, false, 0, false, null, false, null, null, 0, null),
+    LUMBER_YARD(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.WOOD, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    LUMBER_YARD_FOR_4_PLAYERS(1, 4, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.WOOD, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    STONE_PIT(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.STONE, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    STONE_PIT_FOR_5_PLAYERS(1, 5, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.STONE, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    CLAY_POOL(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.CLAY, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    CLAY_POOL_FOR_5_PLAYERS(1, 5, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.CLAY, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    ORE_VEIN(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.IRON, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
 
 // brown second age
 
-    SAWMILL(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.DOUBLE_WOOD, 0, false, false, 0, false, null, false, null, null, 1, null),
-    SAWMILL_FOR_4_PLAYERS(1, 4, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.DOUBLE_WOOD, 0, false, false, 0, false, null, false, null, null, 1, null),
-    QUARRY(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.DOUBLE_STONE, 0, false, false, 0, false, null, false, null, null, 1, null),
-    QUARRY_FOR_4_PLAYERS(1, 4, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.DOUBLE_STONE, 0, false, false, 0, false, null, false, null, null, 1, null),
-    BRICKYARD(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.DOUBLE_CLAY, 0, false, false, 0, false, null, false, null, null, 1, null),
-    BRICKYARD_FOR_4_PLAYERS(1, 4, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.DOUBLE_CLAY, 0, false, false, 0, false, null, false, null, null, 1, null),
-    FOUNDRY(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.DOUBLE_IRON, 0, false, false, 0, false, null, false, null, null, 1, null),
-    FOUNDRY_FOR_4_PLAYERS(1, 4, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.DOUBLE_IRON, 0, false, false, 0, false, null, false, null, null, 1, null),
+    SAWMILL(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.DOUBLE_WOOD, 0, false, false, 0, false, null, false, null, null, 1, BaseResource.NONE),
+    SAWMILL_FOR_4_PLAYERS(1, 4, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.DOUBLE_WOOD, 0, false, false, 0, false, null, false, null, null, 1, BaseResource.NONE),
+    QUARRY(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.DOUBLE_STONE, 0, false, false, 0, false, null, false, null, null, 1, BaseResource.NONE),
+    QUARRY_FOR_4_PLAYERS(1, 4, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.DOUBLE_STONE, 0, false, false, 0, false, null, false, null, null, 1, BaseResource.NONE),
+    BRICKYARD(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.DOUBLE_CLAY, 0, false, false, 0, false, null, false, null, null, 1, BaseResource.NONE),
+    BRICKYARD_FOR_4_PLAYERS(1, 4, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.DOUBLE_CLAY, 0, false, false, 0, false, null, false, null, null, 1, BaseResource.NONE),
+    FOUNDRY(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.DOUBLE_IRON, 0, false, false, 0, false, null, false, null, null, 1, BaseResource.NONE),
+    FOUNDRY_FOR_4_PLAYERS(1, 4, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.DOUBLE_IRON, 0, false, false, 0, false, null, false, null, null, 1, BaseResource.NONE),
 
 //brown half
 
-    TREE_FARM(1, 6, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.WOOD_OR_CLAY, 0, false, false, 0, false, null, false, null, null, 1, null),
-    EXCAVATION(1, 4, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.STONE_OR_CLAY, 0, false, false, 0, false, null, false, null, null, 1, null),
-    CLAY_PIT(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.IRON_OR_CLAY, 0, false, false, 0, false, null, false, null, null, 1, null),
-    TIMBER_YARD(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.STONE_OR_WOOD, 0, false, false, 0, false, null, false, null, null, 1, null),
-    FOREST_CAVE(1, 5, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.WOOD_OR_IRON, 0, false, false, 0, false, null, false, null, null, 1, null),
-    MINE(1, 6, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.STONE_OR_IRON, 0, false, false, 0, false, null, false, null, null, 1, null),
+    TREE_FARM(1, 6, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.WOOD_OR_CLAY, 0, false, false, 0, false, null, false, null, null, 1, BaseResource.NONE),
+    EXCAVATION(1, 4, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.STONE_OR_CLAY, 0, false, false, 0, false, null, false, null, null, 1, BaseResource.NONE),
+    CLAY_PIT(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.IRON_OR_CLAY, 0, false, false, 0, false, null, false, null, null, 1, BaseResource.NONE),
+    TIMBER_YARD(1, 3, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.STONE_OR_WOOD, 0, false, false, 0, false, null, false, null, null, 1, BaseResource.NONE),
+    FOREST_CAVE(1, 5, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.WOOD_OR_IRON, 0, false, false, 0, false, null, false, null, null, 1, BaseResource.NONE),
+    MINE(1, 6, GameCardColor.BROWN, ActionSide.DOWN, 0, GameResource.STONE_OR_IRON, 0, false, false, 0, false, null, false, null, null, 1, BaseResource.NONE),
 
 //silver card first + second age
 
-    LOOM(1, 3, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.SILK, 0, false, false, 0, false, null, false, null, null, 0, null),
-    LOOM_FOR_6_PLAYERS(1, 6, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.SILK, 0, false, false, 0, false, null, false, null, null, 0, null),
-    LOOM_FOR_5_PLAYERS(2, 5, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.SILK, 0, false, false, 0, false, null, false, null, null, 0, null),
-    LOOM_FOR_3_PLAYERS_AGE_2(2, 3, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.SILK, 0, false, false, 0, false, null, false, null, null, 0, null),
+    LOOM(1, 3, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.SILK, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    LOOM_FOR_6_PLAYERS(1, 6, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.SILK, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    LOOM_FOR_5_PLAYERS(2, 5, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.SILK, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    LOOM_FOR_3_PLAYERS_AGE_2(2, 3, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.SILK, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
 
-    GLASSWORKS(1, 3, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.GLASS, 0, false, false, 0, false, null, false, null, null, 0, null),
-    GLASSWORKS_FOR_6_PLAYERS(1, 6, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.GLASS, 0, false, false, 0, false, null, false, null, null, 0, null),
-    GLASSWORKS_FOR_5_PLAYERS(2, 5, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.GLASS, 0, false, false, 0, false, null, false, null, null, 0, null),
-    GLASSWORKS_FOR_3_PLAYERS_AGE_2(2, 3, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.GLASS, 0, false, false, 0, false, null, false, null, null, 0, null),
+    GLASSWORKS(1, 3, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.GLASS, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    GLASSWORKS_FOR_6_PLAYERS(1, 6, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.GLASS, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    GLASSWORKS_FOR_5_PLAYERS(2, 5, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.GLASS, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    GLASSWORKS_FOR_3_PLAYERS_AGE_2(2, 3, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.GLASS, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
 
-    PRESS(1, 3, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.PARCHMENT, 0, false, false, 0, false, null, false, null, null, 0, null),
-    PRESS_FOR_6_PLAYERS(1, 6, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.PARCHMENT, 0, false, false, 0, false, null, false, null, null, 0, null),
-    PRESS_FOR_5_PLAYERS(2, 5, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.PARCHMENT, 0, false, false, 0, false, null, false, null, null, 0, null),
-    PRESS_FOR_3_PLAYERS_AGE_2(2, 3, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.PARCHMENT, 0, false, false, 0, false, null, false, null, null, 0, null),
+    PRESS(1, 3, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.PARCHMENT, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    PRESS_FOR_6_PLAYERS(1, 6, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.PARCHMENT, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    PRESS_FOR_5_PLAYERS(2, 5, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.PARCHMENT, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    PRESS_FOR_3_PLAYERS_AGE_2(2, 3, GameCardColor.SILVER, ActionSide.DOWN, 0, GameResource.PARCHMENT, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
 
 // Yellow card first age
 
     // trade card
-    EAST_TRADING_POST(1, 3, GameCardColor.YELLOW, ActionSide.RIGHT, 0, null, 0, true, false, 0, false, null, false, null, null, 0, null),
-    WEST_TRADING_POST(1, 3, GameCardColor.YELLOW, ActionSide.LEFT, 0, null, 0, true, false, 0, false, null, false, null, null, 0, null),
-    MARKETPLACE(1, 3, GameCardColor.YELLOW, ActionSide.RIGHT_AND_LEFT, 0, null, 0, true, false, 0, false, null, false, null, null, 0, null),
+    EAST_TRADING_POST(1, 3, GameCardColor.YELLOW, ActionSide.RIGHT, 0, null, 0, true, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    WEST_TRADING_POST(1, 3, GameCardColor.YELLOW, ActionSide.LEFT, 0, null, 0, true, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    MARKETPLACE(1, 3, GameCardColor.YELLOW, ActionSide.RIGHT_AND_LEFT, 0, null, 0, true, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
 
     // give gold
-    TAVERN(1, 4, GameCardColor.YELLOW, null, 0, null, 0, false, true, 5, false, null, false, null, null, 0, null),
+    TAVERN(1, 4, GameCardColor.YELLOW, null, 0, null, 0, false, true, 5, false, null, false, null, null, 0, BaseResource.NONE),
 
 // Yellow card second age
 
@@ -78,10 +78,10 @@ public enum GameCard implements Card {
 // end
 
 
-    VINEYARD(2, 3, GameCardColor.YELLOW, ActionSide.RIGHT_AND_LEFT_AND_DOWN, 0, null, 0, false, true, 1, false, null, false, Arrays.asList(GameCardColor.BROWN), null, 0, null),
+    VINEYARD(2, 3, GameCardColor.YELLOW, ActionSide.RIGHT_AND_LEFT_AND_DOWN, 0, null, 0, false, true, 1, false, null, false, Arrays.asList(GameCardColor.BROWN), null, 0, BaseResource.NONE),
 
 
-    BAZAR(2, 3, GameCardColor.YELLOW, ActionSide.RIGHT_AND_LEFT_AND_DOWN, 0, null, 0, false, true, 2, false, null, false, Arrays.asList(GameCardColor.SILVER), null, 0, null),
+    BAZAR(2, 3, GameCardColor.YELLOW, ActionSide.RIGHT_AND_LEFT_AND_DOWN, 0, null, 0, false, true, 2, false, null, false, Arrays.asList(GameCardColor.SILVER), null, 0, BaseResource.NONE),
 
 // thierd  age gold
 
@@ -97,10 +97,10 @@ public enum GameCard implements Card {
 
 //first age blue
 
-    PAWNSHOP(1, 4, GameCardColor.BLUE, ActionSide.DOWN, 3, null, 0, false, false, 0, false, null, false, null, null, 0, null),
+    PAWNSHOP(1, 4, GameCardColor.BLUE, ActionSide.DOWN, 3, null, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
     BATHS(1, 3, GameCardColor.BLUE, ActionSide.DOWN, 3, null, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.STONE),
-    ALTAR(1, 3, GameCardColor.BLUE, ActionSide.DOWN, 2, null, 0, false, false, 0, false, null, false, null, null, 0, null),
-    THEATER(1, 3, GameCardColor.BLUE, ActionSide.DOWN, 2, null, 0, false, false, 0, false, null, false, null, null, 0, null),
+    ALTAR(1, 3, GameCardColor.BLUE, ActionSide.DOWN, 2, null, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
+    THEATER(1, 3, GameCardColor.BLUE, ActionSide.DOWN, 2, null, 0, false, false, 0, false, null, false, null, null, 0, BaseResource.NONE),
 
 // second age  blue
 
@@ -186,7 +186,7 @@ public enum GameCard implements Card {
 
 
 // need realise logic for cards
-
+/**/
 // need rebuild
 
     STRATEGY_GUILD(3, 3, GameCardColor.PURPLE, ActionSide.DOWN, 2, null, 0, false, false, 0, false, null, true, Arrays.asList(GameCardColor.SILVER), null, 0, BaseResource.IRON, BaseResource.IRON, BaseResource.STONE, BaseResource.SILK),;
@@ -201,7 +201,7 @@ public enum GameCard implements Card {
     private final boolean tradeCard;// 8 line // all card write
     private final boolean changeGoldCard;
     private final int giveGoldForOneCard;
-//    private final boolean scientistGuildCard; // 11 line
+    private final boolean scientistGuildCard; // 11 line
     private final ScientistGuild signScientistGuild;
     private final boolean cardNeedWeedAndMix; // 13
     private final List<GameCardColor> colorCardForPointOrGold; //14
@@ -224,7 +224,7 @@ public enum GameCard implements Card {
         this.tradeCard = tradeCard; //*
         this.changeGoldCard = changeGoldCard; //*
         this.giveGoldForOneCard = giveGoldForOneCard; //*
-//        this.scientistGuildCard = scientistGuildCard;
+        this.scientistGuildCard = scientistGuildCard;//*
         this.signScientistGuild = signScientistGuild;
         this.cardNeedWeedAndMix = cardNeedWeedAndMix;// examples: purple, black, leader
         this.colorCardForPointOrGold = colorCardForPointOrGold;//*
