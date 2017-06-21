@@ -6,5 +6,5 @@ package com.wonder.wonder.service.cards.resouse_NeedRename;
  */
 public enum  BaseResource {
     WOOD, STONE, IRON, CLAY, PARCHMENT, GLASS, SILK, NONE;
-    // our base resouce
+    // our base resources
 }
