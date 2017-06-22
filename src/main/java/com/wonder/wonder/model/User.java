@@ -1,6 +1,8 @@
 package com.wonder.wonder.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -9,9 +11,10 @@ import java.util.Objects;
  * Creator: bm
  * Date: 03.06.17.
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "user")
-@Data
 public class User {
 
     @Id

@@ -2,6 +2,8 @@ package com.wonder.wonder.model;
 
 import com.wonder.wonder.service.cards.resouse_NeedRename.GameCard;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -10,8 +12,9 @@ import javax.persistence.*;
  * Date: 16.06.2017
  * Project: wonder
  */
+@Getter
+@Setter
 @Entity
-@Data
 @Table(name = "event")
 public class Event {
     @Id
@@ -43,4 +46,19 @@ public class Event {
 
     @Column(name = "debt")
     protected Integer debt;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Event event = (Event) o;
+
+        return id.equals(event.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }
