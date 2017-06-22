@@ -1,6 +1,6 @@
 package com.wonder.wonder.service.cards.calc.point;
 
-import com.wonder.wonder.service.cards.resouse_NeedRename.ActionSide;
+import com.wonder.wonder.service.cards.ActionSide;
 import lombok.Data;
 
 /**
@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class WonderLevelCalcPointStrategyImpl implements CalcPointStrategy {
     private final ActionSide actionSide;
-    private final int pointForOneCard;
+    private final int pointForOneCard; // maybe level ???
 
     public WonderLevelCalcPointStrategyImpl(ActionSide actionSide, int pointForOneCard) {
         this.actionSide = actionSide;
