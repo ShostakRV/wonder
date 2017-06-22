@@ -1,4 +1,4 @@
-package com.wonder.wonder.service.cards.resouse_NeedRename;
+package com.wonder.wonder.service.cards;
 
 import lombok.Getter;
 

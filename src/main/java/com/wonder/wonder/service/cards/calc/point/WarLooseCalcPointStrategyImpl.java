@@ -1,6 +1,6 @@
 package com.wonder.wonder.service.cards.calc.point;
 
-import com.wonder.wonder.service.cards.resouse_NeedRename.ActionSide;
+import com.wonder.wonder.service.cards.ActionSide;
 
 /**
  * Created: godex
