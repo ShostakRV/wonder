@@ -21,17 +21,7 @@ public class UserInGame {
     @Column(name = "id")
     protected Long id;
 
-    protected User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     protected Game game;
 

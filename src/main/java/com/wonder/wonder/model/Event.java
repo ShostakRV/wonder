@@ -22,11 +22,29 @@ public class Event {
     @Column(name = "id")
     protected Long id;
 
-    @Column(name = "game_id")
-    protected Long gameID;//todo get Object maybe
 
-    @Column(name = "user_id")
-    protected Long userID;//todo get Object maybe
+    protected Game game;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id", nullable = false)
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+
+    protected User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Column(name = "action_name")
     protected String actionName;

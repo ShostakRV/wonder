@@ -22,11 +22,27 @@ public class CardSetItem {
     @Column(name = "id")
     protected Long id;
 
-    @Column(name = "user_id")
-    protected Long userId;//todo get Object maybe
+    protected User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    public User getUser() {
+        return user;
+    }
 
-    @Column(name = "card_set_id")
-    protected Long cardSetId;//todo get Object maybe
+    public void setUser(User game) {
+        this.user = user;
+    }
+
+    protected CardSet cardSet;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "card_set_id", nullable = false)
+    public CardSet getCardSet() {
+        return cardSet;
+    }
+
+    public void setUser(CardSet cardSet) {
+        this.cardSet = cardSet;
+    }
 
     @Column(name = "player_phase")
     protected String playerPhase;

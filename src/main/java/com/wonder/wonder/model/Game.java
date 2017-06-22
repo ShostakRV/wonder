@@ -7,7 +7,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Creator: Pavlenko Bohdan
@@ -52,5 +54,26 @@ public class Game {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    protected Set<UserInGame> userInGames = new HashSet<UserInGame>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    public Set<UserInGame> getUserInGames(){
+        return this.userInGames;
+    }
+
+
+    protected Set<Event> events = new HashSet<Event>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    public Set<Event> getEvents(){
+        return this.events;
+    }
+    protected Set<CardSet> cardSets = new HashSet<CardSet>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    public Set<CardSet> getCardSets(){
+        return this.cardSets;
     }
 }

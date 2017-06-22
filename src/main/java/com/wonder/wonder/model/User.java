@@ -43,8 +43,23 @@ public class User {
     }
 
     protected Set<UserInGame> userInGames = new HashSet<UserInGame>(0);
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    public Set<UserInGame> getUserInGames(){
+    public Set<UserInGame> getUserInGames() {
         return this.userInGames;
+    }
+
+    protected Set<Event> events = new HashSet<Event>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    public Set<Event> getEvents() {
+        return this.events;
+    }
+
+    protected Set<CardSetItem> cardSetItems = new HashSet<CardSetItem>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    public Set<CardSetItem> getCardSetItems() {
+        return this.cardSetItems;
     }
 }
