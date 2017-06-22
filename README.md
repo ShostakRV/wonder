@@ -30,8 +30,8 @@ some text
 
 img(s) or text of game rules
 
-[7w rules](https://github.com/ShostakRV/wonder/blob/master/doc/7w-rules-en-color-light.pdf)
-[7w card list](https://github.com/ShostakRV/wonder/blob/master/doc/7Wonders-CardsList-EN.pdf)
+* [7w rules](https://github.com/ShostakRV/wonder/blob/master/doc/7w-rules-en-color-light.pdf)
+* [7w card list](https://github.com/ShostakRV/wonder/blob/master/doc/7Wonders-CardsList-EN.pdf)
 
 ## DB structure
 
