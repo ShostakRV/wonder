@@ -1,4 +1,4 @@
-package com.wonder.wonder.service.cards.calc.point;
+package com.wonder.wonder.cards.calc.point;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
