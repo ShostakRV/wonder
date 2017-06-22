@@ -1,6 +1,7 @@
 package com.wonder.wonder.cards;
 
 import com.wonder.wonder.cards.calc.point.*;
+import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,6 +11,7 @@ import java.util.List;
  * Creator: bm
  * Date: 15.06.17.
  */
+@Getter
 public enum GameCard implements Card {
 
 // brown card first age resource card
@@ -140,13 +142,13 @@ public enum GameCard implements Card {
 
     APOTHECARY(1, 3, null, GameCardColor.GREEN, GameResource.NO_RESOURCE, 0, ScientistGuild.COMPASSE, false, null, 0, BaseResource.SILK),
     WORKSHOP(1, 3, null, GameCardColor.GREEN, GameResource.NO_RESOURCE, 0, ScientistGuild.GEAR, false, null, 0, BaseResource.GLASS),
-    SCRIPTORIUM1(1, 3, null, GameCardColor.GREEN, GameResource.NO_RESOURCE, 0, ScientistGuild.NAMEPLATE, false, null, 0, BaseResource.PARCHMENT),
+    SCRIPTORIUM(1, 3, null, GameCardColor.GREEN, GameResource.NO_RESOURCE, 0, ScientistGuild.NAMEPLATE, false, null, 0, BaseResource.PARCHMENT),
 
 //green  second age
 
     DISPENSARY(2, 3, null, GameCardColor.GREEN, GameResource.NO_RESOURCE, 0, ScientistGuild.COMPASSE, false, Collections.singletonList("APOTHECARY"), 0, BaseResource.IRON, BaseResource.IRON, BaseResource.GLASS),
     LABORATORY(2, 3, null, GameCardColor.GREEN, GameResource.NO_RESOURCE, 0, ScientistGuild.GEAR, false, Collections.singletonList("WORKSHOP"), 0, BaseResource.CLAY, BaseResource.CLAY, BaseResource.PARCHMENT),
-    LIBRARY(2, 3, null, GameCardColor.GREEN, GameResource.NO_RESOURCE, 0, ScientistGuild.NAMEPLATE, false, Collections.singletonList("SCRIPTORIUM1"), 0, BaseResource.STONE, BaseResource.STONE, BaseResource.SILK),
+    LIBRARY(2, 3, null, GameCardColor.GREEN, GameResource.NO_RESOURCE, 0, ScientistGuild.NAMEPLATE, false, Collections.singletonList("SCRIPTORIUM"), 0, BaseResource.STONE, BaseResource.STONE, BaseResource.SILK),
     SCHOOL(2, 3, null, GameCardColor.GREEN, GameResource.NO_RESOURCE, 0, ScientistGuild.NAMEPLATE, false, null, 0, BaseResource.WOOD, BaseResource.PARCHMENT),
 
 //green thierd age
