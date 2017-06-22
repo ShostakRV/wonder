@@ -1,10 +1,5 @@
 package com.wonder.wonder.service.cards;
 
-import com.wonder.wonder.service.cards.resouse_NeedRename.GameCardColor;
-import com.wonder.wonder.service.cards.resouse_NeedRename.GameResource;
-
-import java.util.List;
-
 /**
  * Creator: bm
  * Date: 14.06.17.
