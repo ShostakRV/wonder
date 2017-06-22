@@ -12,23 +12,23 @@ import java.util.List;
 public interface CalcPointStrategy {
     int getPoints();
 
-    default CalcPointStrategy simple(int point) {
+    static CalcPointStrategy simple(int point) {
         return new SimpleCalcPointStrategyImpl(point);
     }
 
-    default CalcPointStrategy color(ActionSide actionSide, int pointForOneCard, List<GameCardColor> colorList) {
+    static CalcPointStrategy color(ActionSide actionSide, int pointForOneCard, List<GameCardColor> colorList) {
         return new ColorCardCalcPointStrategyImpl(actionSide, pointForOneCard, colorList);
     }
 
-    default CalcPointStrategy warLoose(ActionSide actionSide) {
+    static CalcPointStrategy warLoose(ActionSide actionSide) {
         return new WarLooseCalcPointStrategyImpl(actionSide);
     }
 
-    default CalcPointStrategy wonderLevel(ActionSide actionSide, int pointForOneCard) {
+    static CalcPointStrategy wonderLevel(ActionSide actionSide, int pointForOneCard) {
         return new WonderLevelCalcPointStrategyImpl(actionSide, pointForOneCard);
     }
 
-    default CalcPointStrategy none() {
+    static CalcPointStrategy none() {
         return new SimpleCalcPointStrategyImpl(0);
     }
 
