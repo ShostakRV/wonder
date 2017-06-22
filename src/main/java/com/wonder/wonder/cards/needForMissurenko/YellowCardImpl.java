@@ -1,4 +1,4 @@
-package com.wonder.wonder.service.cards.needForMissurenko;
+package com.wonder.wonder.cards.needForMissurenko;
 
 /**
  * Creator: bm
@@ -23,7 +23,7 @@ package com.wonder.wonder.service.cards.needForMissurenko;
 //
 //    @Override
 //    public List<Card> getAllCard(int numberPlayer,int age) {
-//        java.util.List<com.wonder.wonder.service.cards.Card> cards = new ArrayList<>();
+//        java.util.List<com.wonder.wonder.cards.Card> cards = new ArrayList<>();
 //        cards.add(SilverCardImpl.LOOM);
 //        cards.add(SilverCardImpl.GLASSWORKS);
 //        cards.add(SilverCardImpl.PRESS);

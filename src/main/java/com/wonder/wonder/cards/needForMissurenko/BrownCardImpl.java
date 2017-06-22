@@ -1,4 +1,4 @@
-package com.wonder.wonder.service.cards.needForMissurenko;
+package com.wonder.wonder.cards.needForMissurenko;
 
 /**
  * Creator: bm

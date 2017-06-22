@@ -1,6 +1,6 @@
 package com.wonder.wonder.model;
 
-import com.wonder.wonder.service.cards.GameCard;
+import com.wonder.wonder.cards.GameCard;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

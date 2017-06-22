@@ -1,6 +1,6 @@
-package com.wonder.wonder.service.cards.calc.point;
+package com.wonder.wonder.cards.calc.point;
 
-import com.wonder.wonder.service.cards.ActionSide;
+import com.wonder.wonder.cards.ActionSide;
 
 /**
  * Created: godex
