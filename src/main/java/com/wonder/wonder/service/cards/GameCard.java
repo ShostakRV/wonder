@@ -96,7 +96,7 @@ public enum GameCard implements Card {
 
 
 //first age blue
-
+//
     PAWNSHOP(1, 4, new SimpleCalcPointStrategyImpl(3), GameCardColor.BLUE, GameResource.NO_RESOURCE, 0, null, false, null, 0, BaseResource.NONE),
     BATHS(1, 3, new SimpleCalcPointStrategyImpl(3), GameCardColor.BLUE, GameResource.NO_RESOURCE, 0, null, false, null, 0, BaseResource.STONE),
     ALTAR(1, 3, new SimpleCalcPointStrategyImpl(2), GameCardColor.BLUE, GameResource.NO_RESOURCE, 0, null, false, null, 0, BaseResource.NONE),
