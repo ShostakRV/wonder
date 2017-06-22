@@ -1,11 +1,12 @@
 package com.wonder.wonder.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Creator: bm
@@ -39,5 +40,11 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    protected Set<UserInGame> userInGames = new HashSet<UserInGame>(0);
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    public Set<UserInGame> getUserInGames(){
+        return this.userInGames;
     }
 }

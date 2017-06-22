@@ -21,11 +21,29 @@ public class UserInGame {
     @Column(name = "id")
     protected Long id;
 
-    @Column(name = "user_id")
-    protected Long userID;//todo get Object maybe
+    protected User user;
 
-    @Column(name = "game_id")
-    protected Long gameID;//todo get Object maybe
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    protected Game game;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id", nullable = false)
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
     @Column(name = "wonder")
     protected String wonder;//todo get Object maybe

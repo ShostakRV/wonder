@@ -1,6 +1,7 @@
 package com.wonder.wonder.service.cards.resouse_NeedRename;
 
 import com.wonder.wonder.service.cards.Card;
+import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,6 +11,7 @@ import java.util.List;
  * Creator: bm
  * Date: 15.06.17.
  */
+@Getter
 public enum GameCard implements Card {
 
 // brown card first age resource card
@@ -141,13 +143,13 @@ public enum GameCard implements Card {
 
     APOTHECARY(1, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.COMPASSE, false, null, null, 0, BaseResource.SILK),
     WORKSHOP(1, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.GEAR, false, null, null, 0, BaseResource.GLASS),
-    SCRIPTORIUM1(1, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.NAMEPLATE, false, null, null, 0, BaseResource.PARCHMENT),
+    SCRIPTORIUM(1, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.NAMEPLATE, false, null, null, 0, BaseResource.PARCHMENT),
 
 //green  second age
 
     DISPENSARY(2, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.COMPASSE, false, null, Arrays.asList("APOTHECARY"), 0, BaseResource.IRON, BaseResource.IRON, BaseResource.GLASS),
     LABORATORY(2, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.GEAR, false, null, Arrays.asList("WORKSHOP"), 0, BaseResource.CLAY, BaseResource.CLAY, BaseResource.PARCHMENT),
-    LIBRARY(2, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.NAMEPLATE, false, null, Arrays.asList("SCRIPTORIUM1"), 0, BaseResource.STONE, BaseResource.STONE, BaseResource.SILK),
+    LIBRARY(2, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.NAMEPLATE, false, null, Arrays.asList("SCRIPTORIUM"), 0, BaseResource.STONE, BaseResource.STONE, BaseResource.SILK),
     SCHOOL(2, 3, GameCardColor.GREEN, ActionSide.DOWN, 0, null, 0, false, false, 0, true, ScientistGuild.NAMEPLATE, false, null, null, 0, BaseResource.WOOD, BaseResource.PARCHMENT),
 
 //green thierd age
@@ -233,6 +235,7 @@ public enum GameCard implements Card {
         this.goldNeededForConstruction = goldNeededForConstruction;
         this.resourcesNeedForBuild = Collections.unmodifiableList(Arrays.asList(resourcesNeedForBuild));
     }
+
 
     @Override
     public boolean isResourceOf(GameCardColor color) {
