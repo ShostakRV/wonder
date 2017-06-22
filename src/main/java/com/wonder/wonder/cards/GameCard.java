@@ -215,7 +215,7 @@ public enum GameCard {
         this.strategy = calcPointStrategy;
         this.gameCardColor = gameCardColor;
         this.giveResource = giveResource;
-        this.armyPower = armyPower; // to think, probaly it can be strategy
+        this.armyPower = armyPower; // to think, probably it can be strategy
         this.signScientistGuild = signScientistGuild;
 
         this.chain = chain;
@@ -234,14 +234,6 @@ public enum GameCard {
 
     public boolean isResourceOf(GameCardColor color) {
         return color == gameCardColor;
-    }
-
-    public boolean isTradeCard() {
-        return false;
-    }
-
-    public boolean isCardChangeGold() {
-        return false;
     }
 
     public boolean isScientistGuild() {
