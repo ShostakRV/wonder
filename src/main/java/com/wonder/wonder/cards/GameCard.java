@@ -12,7 +12,7 @@ import java.util.List;
  * Date: 15.06.17.
  */
 @Getter
-public enum GameCard implements Card {
+public enum GameCard {
 
 // brown card first age resource card
 
@@ -219,32 +219,28 @@ public enum GameCard implements Card {
         this.resourcesNeedForBuild = Collections.unmodifiableList(Arrays.asList(resourcesNeedForBuild));
     }
 
-    @Override
+
     public boolean isResourceOf(GameCardColor color) {
         return color == gameCardColor;
     }
 
-    @Override
     public boolean isTradeCard() {
         return false;
     }
 
-    @Override
+
     public boolean isCardChangeGold() {
         return false;
     }
 
-    @Override
     public boolean isScientistGuild() {
         return false;
     }
 
-    @Override
     public boolean isCardNeedWeedAndMix() {
         return false;
     }
 
-    @Override
     public GameResource getResource() {
         return null;
     }
