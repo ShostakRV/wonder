@@ -1,6 +1,6 @@
-package com.wonder.wonder.service.cards;
+package com.wonder.wonder.cards;
 
-import com.wonder.wonder.service.cards.calc.point.*;
+import com.wonder.wonder.cards.calc.point.*;
 
 import java.util.Arrays;
 import java.util.Collections;
