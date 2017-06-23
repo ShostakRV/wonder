@@ -23,6 +23,6 @@ public class ReceiveGoldOnBuildEventImpl implements OnBuildEvent {
 
     @Override
     public void doAction() {
-
+        //
     }
 }
