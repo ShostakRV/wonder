@@ -23,8 +23,8 @@ public class CardSetItem {
     protected Long id;
 
     protected User user;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id", nullable = false)
     public User getUser() {
         return user;
     }
@@ -34,8 +34,8 @@ public class CardSetItem {
     }
 
     protected CardSet cardSet;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "card_set_id", nullable = false)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "card_set_id", nullable = false)
     public CardSet getCardSet() {
         return cardSet;
     }

@@ -38,7 +38,7 @@ public class Game {
     @Column(name = "players")
     protected Integer players;
 
-    @OneToMany()
+//    @OneToMany()
     protected List<Event> eventList = new ArrayList<>();
 
     @Override
@@ -58,7 +58,7 @@ public class Game {
 
     protected Set<UserInGame> userInGames = new HashSet<UserInGame>(0);
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
     public Set<UserInGame> getUserInGames(){
         return this.userInGames;
     }

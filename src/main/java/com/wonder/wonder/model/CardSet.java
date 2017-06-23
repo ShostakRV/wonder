@@ -25,8 +25,8 @@ public class CardSet {
 
     protected Game game;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_id", nullable = false)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "game_id", nullable = false)
     public Game getGame() {
         return game;
     }
@@ -58,7 +58,7 @@ public class CardSet {
 
     protected Set<CardSetItem> cardSetItems = new HashSet<CardSetItem>(0);
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card_set")
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card_set")
     public Set<CardSetItem> getCardSetItems() {
         return this.cardSetItems;
     }

@@ -24,8 +24,8 @@ public class Event {
 
 
     protected Game game;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_id", nullable = false)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "game_id", nullable = false)
     public Game getGame() {
         return game;
     }
@@ -36,8 +36,8 @@ public class Event {
 
 
     protected User user;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id", nullable = false)
     public User getUser() {
         return user;
     }

@@ -25,8 +25,8 @@ public class UserInGame {
 
     protected Game game;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_id", nullable = false)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "game_id", nullable = false)
     public Game getGame() {
         return game;
     }
