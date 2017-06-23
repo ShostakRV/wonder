@@ -2,6 +2,8 @@ package com.wonder.wonder.service.impl;
 
 import com.wonder.wonder.dao.TmpDao;
 import com.wonder.wonder.service.TmpService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,7 @@ import javax.annotation.PostConstruct;
  */
 @Component
 public class TmpServiceImpl implements TmpService {
+    protected final Log logger = LogFactory.getLog(getClass());
     private final TmpDao tmpDao;
 
     @Autowired
@@ -22,7 +25,7 @@ public class TmpServiceImpl implements TmpService {
 
     @PostConstruct
     public void init() {
-        System.out.println("TmpServiceImpl has been created!");
+        logger.info("TmpServiceImpl has been created!");
     }
 
 // why if stay here

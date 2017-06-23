@@ -1,6 +1,6 @@
 package com.wonder.wonder.service.cards;
 
-import com.wonder.wonder.service.cards.resouse_NeedRename.GameCard;
+import com.wonder.wonder.cards.GameCard;
 import org.junit.Test;
 
 import java.lang.reflect.Array;

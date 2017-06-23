@@ -23,17 +23,17 @@ public class CardSet {
     @Column(name = "id")
     protected Long id;
 
-    protected Game game;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "game_id", nullable = false)
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
+//    protected Game game;
+//
+////    @ManyToOne(fetch = FetchType.LAZY)
+////    @JoinColumn(name = "game_id", nullable = false)
+//    public Game getGame() {
+//        return game;
+//    }
+//
+//    public void setGame(Game game) {
+//        this.game = game;
+//    }
 
     @Column(name = "set_number")
     protected Integer setNumber;
@@ -56,10 +56,10 @@ public class CardSet {
         return id.hashCode();
     }
 
-    protected Set<CardSetItem> cardSetItems = new HashSet<CardSetItem>(0);
-
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card_set")
-    public Set<CardSetItem> getCardSetItems() {
-        return this.cardSetItems;
-    }
+//    protected Set<CardSetItem> cardSetItems = new HashSet<CardSetItem>(0);
+//
+////    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card_set")
+//    public Set<CardSetItem> getCardSetItems() {
+//        return this.cardSetItems;
+//    }
 }

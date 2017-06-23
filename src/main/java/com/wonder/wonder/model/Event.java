@@ -23,28 +23,28 @@ public class Event {
     protected Long id;
 
 
-    protected Game game;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "game_id", nullable = false)
-    public Game getGame() {
-        return game;
-    }
+//    protected Game game;
+////    @ManyToOne(fetch = FetchType.LAZY)
+////    @JoinColumn(name = "game_id", nullable = false)
+//    public Game getGame() {
+//        return game;
+//    }
+//
+//    public void setGame(Game game) {
+//        this.game = game;
+//    }
 
-    public void setGame(Game game) {
-        this.game = game;
-    }
 
-
-    protected User user;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id", nullable = false)
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    protected User user;
+////    @ManyToOne(fetch = FetchType.LAZY)
+////    @JoinColumn(name = "user_id", nullable = false)
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     @Column(name = "action_name")
     protected String actionName;

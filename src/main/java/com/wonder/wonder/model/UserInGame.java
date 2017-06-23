@@ -23,17 +23,17 @@ public class UserInGame {
 
 
 
-    protected Game game;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "game_id", nullable = false)
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
+//    protected Game game;
+//
+////    @ManyToOne(fetch = FetchType.LAZY)
+////    @JoinColumn(name = "game_id", nullable = false)
+//    public Game getGame() {
+//        return game;
+//    }
+//
+//    public void setGame(Game game) {
+//        this.game = game;
+//    }
 
     @Column(name = "wonder")
     protected String wonder;//todo get Object maybe
