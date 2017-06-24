@@ -1,5 +1,6 @@
 package com.wonder.wonder.model;
 
+import com.wonder.wonder.cards.GameCard;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,8 +34,9 @@ public class CardSetItem {
     @Column(name = "player_phase")
     protected String playerPhase;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "card")
-    protected String card;    //todo get Object maybe
+    protected GameCard gameCard;
 
     @Override
     public boolean equals(Object o) {

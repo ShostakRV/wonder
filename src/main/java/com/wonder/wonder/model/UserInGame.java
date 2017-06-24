@@ -1,5 +1,6 @@
 package com.wonder.wonder.model;
 
+import com.wonder.wonder.cards.GameCard;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +22,6 @@ public class UserInGame {
     @Column(name = "id")
     protected Long id;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id", nullable = false)
     protected Game game;
@@ -30,8 +30,9 @@ public class UserInGame {
     @JoinColumn(name = "user_id", nullable = false)
     protected User user;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "wonder")
-    protected String wonder;//todo get Object maybe
+    protected GameCard wonder;//todo card class ??
 
     @Column(name = "position")
     protected Integer position;
