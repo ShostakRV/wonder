@@ -1,4 +1,4 @@
-package com.wonder.wonder.cards.event1.on1.build1;
+package com.wonder.wonder.cards.events;
 
 import com.wonder.wonder.cards.ActionSide;
 import com.wonder.wonder.cards.GameCardColor;

@@ -1,7 +1,7 @@
 package com.wonder.wonder.cards;
 
 import com.wonder.wonder.cards.calc.point.CalcPointStrategy;
-import com.wonder.wonder.cards.event1.on1.build1.OnBuildEvent;
+import com.wonder.wonder.cards.events.OnBuildEvent;
 import lombok.Getter;
 
 import java.util.Arrays;
