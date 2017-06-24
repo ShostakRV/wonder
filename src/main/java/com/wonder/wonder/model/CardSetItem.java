@@ -33,7 +33,6 @@ public class CardSetItem {
     @Column(name = "player_phase")
     protected String playerPhase;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "card")
     protected GameCard gameCard;
 

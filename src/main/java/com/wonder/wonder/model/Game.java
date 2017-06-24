@@ -21,7 +21,6 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     Long id;
-
     @Column(name = "phase")
     protected String phase;
 
