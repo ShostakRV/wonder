@@ -5,11 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Creator: Pavlenko Bohdan
@@ -29,11 +25,13 @@ public class Game {
     @Column(name = "phase")
     protected String phase;
 
-    @Column(name = "start")
-    protected Date start;    //todo cheack
+    @Column(name = "start", columnDefinition = "DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    protected Date start;
 
-    @Column(name = "end")
-    protected Date end;    //todo cheack
+    @Column(name = "end", columnDefinition = "DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    protected Date end;
 
     @Column(name = "players")
     protected Integer players;

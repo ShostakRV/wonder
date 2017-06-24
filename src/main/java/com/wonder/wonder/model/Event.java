@@ -22,7 +22,6 @@ public class Event {
     @Column(name = "id")
     protected Long id;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id", nullable = false)
     protected Game game;
@@ -37,12 +36,13 @@ public class Event {
     @Column(name = "phase")
     protected String phase;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "card")
-    @Enumerated
-    protected GameCard card;//todo get Object maybe
+    protected GameCard card;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "chain_card")
-    protected String chainCard;//todo get Object maybe
+    protected GameCard chainCard;
 
     @Column(name = "gold_change")
     protected Integer goldChange;
