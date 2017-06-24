@@ -52,14 +52,14 @@ public class Game {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
-    protected Set<UserInGame> userInGames = new HashSet<UserInGame>(0);
+    protected List<UserInGame> userInGames = new ArrayList<>();
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
-    protected Set<Event> events = new HashSet<Event>(0);
+    protected List<Event> events = new ArrayList<>();
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
-    protected Set<CardSet> cardSets = new HashSet<CardSet>(0);
+    protected List<CardSet> cardSets = new ArrayList<>();
 
 }

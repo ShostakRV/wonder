@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 //import org.hibernate.annotations.Table;
@@ -34,8 +36,8 @@ public class CardSet {
     @Column(name = "age")
     protected String age;
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card_set")
-//    protected Set<CardSetItem> cardSetItems = new HashSet<CardSetItem>(0);
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cardSet")
+    protected List<CardSetItem> cardSetItems = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

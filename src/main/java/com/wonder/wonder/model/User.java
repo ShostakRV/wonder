@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Creator: bm
@@ -30,13 +28,13 @@ public class User {
     protected String password;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    protected Set<UserInGame> userInGames = new HashSet<UserInGame>(0);
+    protected List<UserInGame> userInGames = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    protected Set<Event> events = new HashSet<Event>(0);
+    protected List<Event> events = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    protected Set<CardSetItem> cardSetItems = new HashSet<CardSetItem>(0);
+    protected List<CardSetItem> cardSetItems = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

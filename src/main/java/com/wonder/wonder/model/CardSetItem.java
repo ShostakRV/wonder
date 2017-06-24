@@ -26,10 +26,9 @@ public class CardSetItem {
     @JoinColumn(name = "user_id", nullable = false)
     protected User user;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "card_set_id", nullable = false)
-//    protected CardSet cardSet;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "card_set_id", nullable = false)
+    protected CardSet cardSet;
 
     @Column(name = "player_phase")
     protected String playerPhase;
