@@ -5,8 +5,12 @@ import com.wonder.wonder.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.DigestUtils;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -31,7 +35,29 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void save(User user){
+    public void save(User user) {
         userDao.save(user);
+    }
+
+    @Override
+    public void register(String name, String email, String pass) {
+        if (isValidEmail(email)) {
+            User user = new User();
+            user.setUserName(name);
+            user.setEmail(email);
+            user.setPassword(Arrays.toString(DigestUtils.md5Digest(pass.getBytes())));
+            userDao.save(user);
+        } else {
+            throw new RuntimeException("Wrong email!!!");
+        }
+    }
+
+    protected boolean isValidEmail(String email) {
+        String EMAIL_PATTERN =
+                "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 }
