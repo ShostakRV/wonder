@@ -38,9 +38,6 @@ public class Game {
     @Column(name = "players")
     protected Integer players;
 
-//    @OneToMany()
-//    protected List<Event> eventList = new ArrayList<>();
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -56,24 +53,15 @@ public class Game {
         return id.hashCode();
     }
 
-//    protected Set<UserInGame> userInGames = new HashSet<UserInGame>(0);
-//
-////    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
-//    public Set<UserInGame> getUserInGames(){
-//        return this.userInGames;
-//    }
-//
-//
-//    protected Set<Event> events = new HashSet<Event>(0);
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
-//    public Set<Event> getEvents(){
-//        return this.events;
-//    }
-//    protected Set<CardSet> cardSets = new HashSet<CardSet>(0);
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
-//    public Set<CardSet> getCardSets(){
-//        return this.cardSets;
-//    }
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    protected Set<UserInGame> userInGames = new HashSet<UserInGame>(0);
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    protected Set<Event> events = new HashSet<Event>(0);
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    protected Set<CardSet> cardSets = new HashSet<CardSet>(0);
+
 }

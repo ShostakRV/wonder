@@ -1,12 +1,13 @@
 package com.wonder.wonder.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-//import org.hibernate.annotations.Table;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
+//import org.hibernate.annotations.Table;
 
 /**
  * Creator: Pavlenko Bohdan
@@ -23,23 +24,18 @@ public class CardSet {
     @Column(name = "id")
     protected Long id;
 
-//    protected Game game;
-//
-////    @ManyToOne(fetch = FetchType.LAZY)
-////    @JoinColumn(name = "game_id", nullable = false)
-//    public Game getGame() {
-//        return game;
-//    }
-//
-//    public void setGame(Game game) {
-//        this.game = game;
-//    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id", nullable = false)
+    protected Game game;
 
     @Column(name = "set_number")
     protected Integer setNumber;
 
     @Column(name = "age")
     protected String age;
+
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card_set")
+//    protected Set<CardSetItem> cardSetItems = new HashSet<CardSetItem>(0);
 
     @Override
     public boolean equals(Object o) {
@@ -56,10 +52,5 @@ public class CardSet {
         return id.hashCode();
     }
 
-//    protected Set<CardSetItem> cardSetItems = new HashSet<CardSetItem>(0);
-//
-////    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card_set")
-//    public Set<CardSetItem> getCardSetItems() {
-//        return this.cardSetItems;
-//    }
+
 }

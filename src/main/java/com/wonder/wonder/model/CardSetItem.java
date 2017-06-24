@@ -1,6 +1,5 @@
 package com.wonder.wonder.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,27 +21,14 @@ public class CardSetItem {
     @Column(name = "id")
     protected Long id;
 
-//    protected User user;
-////    @ManyToOne(fetch = FetchType.LAZY)
-////    @JoinColumn(name = "user_id", nullable = false)
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User game) {
-//        this.user = user;
-//    }
-//
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    protected User user;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "card_set_id", nullable = false)
 //    protected CardSet cardSet;
-////    @ManyToOne(fetch = FetchType.LAZY)
-////    @JoinColumn(name = "card_set_id", nullable = false)
-//    public CardSet getCardSet() {
-//        return cardSet;
-//    }
-//
-//    public void setUser(CardSet cardSet) {
-//        this.cardSet = cardSet;
-//    }
+
 
     @Column(name = "player_phase")
     protected String playerPhase;

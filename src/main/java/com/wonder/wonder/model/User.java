@@ -29,6 +29,15 @@ public class User {
     @Column(name = "password")
     protected String password;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    protected Set<UserInGame> userInGames = new HashSet<UserInGame>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    protected Set<Event> events = new HashSet<Event>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    protected Set<CardSetItem> cardSetItems = new HashSet<CardSetItem>(0);
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,24 +51,4 @@ public class User {
         return Objects.hash(id);
     }
 
-//    protected Set<UserInGame> userInGames = new HashSet<UserInGame>(0);
-//
-////    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-//    public Set<UserInGame> getUserInGames() {
-//        return this.userInGames;
-//    }
-//
-//    protected Set<Event> events = new HashSet<Event>(0);
-//
-////    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-//    public Set<Event> getEvents() {
-//        return this.events;
-//    }
-//
-//    protected Set<CardSetItem> cardSetItems = new HashSet<CardSetItem>(0);
-//
-////    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-//    public Set<CardSetItem> getCardSetItems() {
-//        return this.cardSetItems;
-//    }
 }

@@ -22,18 +22,13 @@ public class UserInGame {
     protected Long id;
 
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id", nullable = false)
+    protected Game game;
 
-//    protected Game game;
-//
-////    @ManyToOne(fetch = FetchType.LAZY)
-////    @JoinColumn(name = "game_id", nullable = false)
-//    public Game getGame() {
-//        return game;
-//    }
-//
-//    public void setGame(Game game) {
-//        this.game = game;
-//    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    protected User user;
 
     @Column(name = "wonder")
     protected String wonder;//todo get Object maybe
