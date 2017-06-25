@@ -17,7 +17,7 @@ public class ReceiveGoldByCardOnBuildEventImpl implements OnBuildEvent {
         this.pointForOneCard = pointForOneCard;
         this.color = color;
     }
-
+//
 
     @Override
     public void doAction() {
