@@ -12,9 +12,16 @@ public interface OnBuildEvent {
         return () -> {        };
     }
 
-    static OnBuildEvent receiveGold(ActionSide actionSide, int pointForOneCard, GameCardColor color) {
-        return new ReceiveGoldOnBuildEventImpl(actionSide, pointForOneCard, color);
+    static OnBuildEvent receiveGold(ActionSide actionSide, int goldForOneCard) {
+        return new ReceiveGoldOnBuildEventImpl(actionSide, goldForOneCard);
+    }
+    static OnBuildEvent receiveGoldByColorCard(ActionSide actionSide, int goldForOneCard, GameCardColor color) {
+        return new ReceiveGoldByCardOnBuildEventImpl(actionSide, goldForOneCard, color);
     }
 
     void doAction();
+
+    static OnBuildEvent receiveGoldByWonder(ActionSide actionSide, int goldForOneCard) {
+        return new ReceiveGoldByWonderOnBuildEventImpl(actionSide, goldForOneCard);
+    }
 }
