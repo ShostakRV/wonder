@@ -27,14 +27,14 @@ public class User {
     @Column(name = "password")
     protected String password;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    protected List<UserInGame> userInGames = new ArrayList<UserInGame>(0);
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    protected List<Event> events = new ArrayList<Event>(0);
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    protected List<CardSetItem> cardSetItems = new ArrayList<CardSetItem>(0);
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+//    protected List<UserInGame> userInGames = new ArrayList<UserInGame>(0);
+//
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+//    protected List<Event> events = new ArrayList<Event>(0);
+//
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+//    protected List<CardSetItem> cardSetItems = new ArrayList<CardSetItem>(0);
 
     @Override
     public boolean equals(Object o) {
