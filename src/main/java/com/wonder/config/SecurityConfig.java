@@ -39,15 +39,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         super.configure(http);
         http.csrf().disable();
         http.authorizeRequests()
-                    .antMatchers("/", "/home").permitAll()
+                    .antMatchers("/", "/home").anonymous()
                     .antMatchers("/message/hello").hasRole("USER")
+//                .antMatchers("/css/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
-                    .formLogin().permitAll()//.loginPage("/login")
+                    .formLogin().permitAll()
+                //.loginPage("/login")
                 .and()
                     .logout().permitAll()
                 .and()
                     .httpBasic();
-
     }
 }
