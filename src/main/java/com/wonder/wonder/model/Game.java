@@ -50,15 +50,15 @@ public class Game {
         return id.hashCode();
     }
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
-//    protected List<UserInGame> userInGames = new ArrayList<>();
-//
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
-//    protected List<Event> events = new ArrayList<>();
-//
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
-//    protected List<CardSet> cardSets = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    protected List<UserInGame> userInGames = new ArrayList<>();
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    protected List<Event> events = new ArrayList<>();
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    protected List<CardSet> cardSets = new ArrayList<>();
 
 }
