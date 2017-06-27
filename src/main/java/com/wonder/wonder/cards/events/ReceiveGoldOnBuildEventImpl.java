@@ -4,6 +4,9 @@ import com.wonder.wonder.cards.ActionSide;
 import com.wonder.wonder.cards.GameCardColor;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.function.Predicate;
+
 /**
  * Created: godex
  * DATE: 20.06.17.
@@ -23,6 +26,7 @@ public class ReceiveGoldOnBuildEventImpl implements OnBuildEvent {
 
     @Override
     public void doAction() {
-
+        ArrayList<Object> arrayList = new ArrayList<>();
+//        arrayList.stream().filter(bbb -> false).map(h->h.getssss).
     }
 }
