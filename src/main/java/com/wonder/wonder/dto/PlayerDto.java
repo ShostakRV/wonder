@@ -28,10 +28,6 @@ public class PlayerDto {
     private int gold;
     private int buyResouceLeft; // price for buy resource left player
     private int buyResoueceRight;// price for buy resource right player
-
     private int warPoint;
-
-
-
 
 }
