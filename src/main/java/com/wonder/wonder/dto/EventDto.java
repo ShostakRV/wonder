@@ -5,7 +5,8 @@ import com.wonder.wonder.cards.GameCard;
 import java.util.List;
 
 /**
- * Created by bm on 27.06.17.
+ * Created by bm
+ * DATE 27.06.17.
  */
 public class EventDto {
 
