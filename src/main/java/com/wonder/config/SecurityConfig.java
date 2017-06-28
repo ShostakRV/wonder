@@ -20,7 +20,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("super")
                 .password("super")
                 .roles("PLAYER,USER");
-
     }
 
     @Bean
