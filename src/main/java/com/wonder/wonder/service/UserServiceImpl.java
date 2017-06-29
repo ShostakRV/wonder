@@ -19,7 +19,7 @@ import java.util.stream.StreamSupport;
  * Date: 03.06.17.
  */
 @Component
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {//,UserDetailsService
     private final UserDao userDao;
 
     @Autowired
@@ -60,4 +60,9 @@ public class UserServiceImpl implements UserService {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
+
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        return null;
+//    }
 }
