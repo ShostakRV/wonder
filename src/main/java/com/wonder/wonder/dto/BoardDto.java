@@ -16,8 +16,4 @@ public class BoardDto {
     private int countPlayers;
     private int phase;
 
-
-
-
-
 }
