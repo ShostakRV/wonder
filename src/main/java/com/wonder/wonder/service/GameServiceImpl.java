@@ -11,6 +11,10 @@ import java.util.List;
  * Created by bm
  * DAte 27.06.17.
  */
+
+/**
+ * Manage only any game
+ */
 @Component
 public class GameServiceImpl implements GameService {
 

@@ -42,6 +42,9 @@ public class UserServiceImpl implements UserService {//,UserDetailsService
     @Override
     public void register(String name, String email, String pass) {
         if (isValidEmail(email)) {
+            if (userDao.findByEmail(email) != null) {
+                throw new RuntimeException("User with this email already exits!!!");
+            }
             User user = new User();
             user.setUserName(name);
             user.setEmail(email);

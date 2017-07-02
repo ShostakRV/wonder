@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+>
 <head>
     <meta charset="UTF-8"/>
     <title>Main Page</title>
 </head>
-<link rel="stylesheet" href="../static/css/style.css" />
+<link rel="stylesheet" href="../static/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+<script src="/js/bootstrap.min.js" type="application/javascript"></script>
 <body>
 <h1>Home page 7wonders</h1>
-<a class="link" href="/signin">sign in</a>
-<br/>
-<a class="link" href="/signup">sign up</a>
-<div class="mid" th:text="'Uptime: '"> Uptime
+<div class="col-xs-6 col-xs-offset-3">
+    <a class="btn btn-default" href="/signin">
+        sign in
+    </a>
+    <a class="btn btn-default" href="/signup">
+        sign up
+    </a>
+    <a class="btn btn-default" href="/lobby">
+        lobby
+    </a>
+    <a class="btn btn-default" href="/pre_start">
+        pre start
+    </a>
+    <a class="btn btn-default" href="/game">
+        game
+    </a>
 </div>
 </body>
 </html>

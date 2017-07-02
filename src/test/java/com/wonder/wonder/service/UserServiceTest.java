@@ -13,7 +13,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created: godex
@@ -35,7 +37,6 @@ public class UserServiceTest {
 
     @Test
     public void registerUserSuccessful() throws Exception {
-
         userService.register("name", EMAIL_GMAIL_COM, "pass");
         ArgumentCaptor<User> argumentCaptor = ArgumentCaptor.forClass(User.class);
         verify(userDao, new Times(1)).save(argumentCaptor.capture());
@@ -46,8 +47,6 @@ public class UserServiceTest {
         assertTrue(user.getEmail().contains("@"));
         assertTrue(user.getEmail().contains("."));
         assertEquals("name", user.getUserName());
-//            assertEquals("pass",user.getPassword());
-//        assertTrue(testUser.saveTriger);
 
         userService.register("name", "dd@ff.com", "pass");
         argumentCaptor = ArgumentCaptor.forClass(User.class);
@@ -55,16 +54,27 @@ public class UserServiceTest {
         user = argumentCaptor.getValue();
 
         assertEquals("dd@ff.com", user.getEmail());
-
     }
+
+
 
     @Test(expected = RuntimeException.class)
     public void registerUserWithWrongEmail() throws Exception {
-
         try {
             userService.register("name", "v@a.s@SDa", "pass");
         } catch (RuntimeException e) {
             assertEquals("Wrong email!!!", e.getMessage());
+            throw e;
+        }
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void registerUserEmailExist() throws Exception {
+        when(userDao.findByEmail(any())).thenReturn(new User());
+        try {
+            userService.register("name", "dd@ff.com", "pass");
+        } catch (RuntimeException e) {
+            assertEquals("User with this email already exits!!!", e.getMessage());
             throw e;
         }
     }

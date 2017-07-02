@@ -38,16 +38,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         super.configure(http);
         http.csrf().disable();
         http.authorizeRequests()
-                    .antMatchers("/", "/home").anonymous()
-                    .antMatchers("/message/hello").hasRole("USER")
-//                .antMatchers("/css/**").permitAll()
-                    .anyRequest().authenticated()
+                .antMatchers("/", "/home").anonymous()
+                .antMatchers("/message/hello", "/lobby", "/game").anonymous()
+                .antMatchers("/css/**", "/js/**", "/font/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                    .formLogin().permitAll()
-                //.loginPage("/login")
+                .formLogin().permitAll()
+//                .loginPage("/login")
                 .and()
-                    .logout().permitAll()
+                .logout().permitAll()
                 .and()
-                    .httpBasic();
+                .httpBasic();
     }
 }
