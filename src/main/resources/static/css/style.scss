@@ -1,0 +1,29 @@
+$main-img-height: 40px;
+$card-height: 200px;
+$card-width: 100%;
+$card-price-height: 25px;
+
+@import "cards";
+@import "wonders";
+
+.wonder {
+  width: 100%;
+}
+
+.herbs > span {
+  font-size: 1.2em;
+  margin-left: -25px;
+  @extend .text-normal
+}
+
+.card {
+  width: 100%;
+}
+
+.card:hover {
+  -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  margin: 10px;
+}
+
