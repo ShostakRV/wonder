@@ -1,4 +1,79 @@
 .wonder-colossus-a {
-    @extend .wonder;
-    content: url("img/wonders/colossus_a.png");
+  @extend .wonder;
+  content: url("img/wonders/colossus_a.jpg");
+}
+
+.colossus_b {
+  @extend .wonder;
+  content: url("img/wonders/colossus_b.jpg");
+}
+
+.manneken_pis_bruxelles_a {
+  @extend .wonder;
+  content: url("img/wonders/manneken_pis_bruxelles_a.jpg");
+}
+
+.manneken_pis_bruxelles_b {
+  @extend .wonder;
+  content: url("img/wonders/manneken_pis_bruxelles_b.jpg");
+}
+
+.the_hanging_gardens_of_babylon_a {
+  @extend .wonder;
+  content: url("img/wonders/the_hanging_gardens_of_babylon_a.jpg");
+}
+
+.the_hanging_gardens_of_babylon_b {
+  @extend .wonder;
+  content: url("img/wonders/the_hanging_gardens_of_babylon_b.jpg");
+}
+
+.the_lighthouse_of_lexandria_a {
+  @extend .wonder;
+  content: url("img/wonders/the_lighthouse_of_lexandria_a.jpg");
+}
+
+.the_lighthouse_of_lexandria_b {
+  @extend .wonder;
+  content: url("img/wonders/the_lighthouse_of_lexandria_b.jpg");
+}
+
+.the_mausoleum_of_halicarnassus_a {
+  @extend .wonder;
+  content: url("img/wonders/the_mausoleum_of_halicarnassus_a.jpg");
+}
+
+.the_mausoleum_of_halicarnassus_b {
+  @extend .wonder;
+  content: url("img/wonders/the_mausoleum_of_halicarnassus_b.jpg");
+}
+
+.the_pyramids_of_giza_a {
+  @extend .wonder;
+  content: url("img/wonders/the_pyramids_of_giza_a.jpg");
+}
+
+.the_pyramids_of_giza_b {
+  @extend .wonder;
+  content: url("img/wonders/the_pyramids_of_giza_b.jpg");
+}
+
+.the_statue_of_zeus_a {
+  @extend .wonder;
+  content: url("img/wonders/the_statue_of_zeus_a.jpg");
+}
+
+.the_statue_of_zeus_b {
+  @extend .wonder;
+  content: url("img/wonders/the_statue_of_zeus_b.jpg");
+}
+
+.the_temple_of_artemis_in_ephesus_a {
+  @extend .wonder;
+  content: url("img/wonders/the_temple_of_artemis_in_ephesus_a.jpg");
+}
+
+.the_temple_of_artemis_in_ephesus_b {
+  @extend .wonder;
+  content: url("img/wonders/the_temple_of_artemis_in_ephesus_b.jpg");
 }
