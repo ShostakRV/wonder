@@ -1,7 +1,8 @@
-package com.wonder.wonder.service;
+package com.wonder.wonder.service.impl;
 
 import com.wonder.wonder.dao.GameDao;
 import com.wonder.wonder.model.Game;
+import com.wonder.wonder.service.GameService;
 import org.springframework.stereotype.Component;
 import sun.misc.Contended;
 
@@ -25,27 +26,22 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void createGame(String gameName) {
+    public void createGame(Long userId, Integer players) {
 
     }
 
     @Override
     public List<Game> showLobby() {
         return null;
-    }
+    }// maybe rest controller
 
     @Override
-    public void save(Game game) {
-
-    }
-
-    @Override
-    public boolean joinToGame(long playerId, String playerName) {
+    public boolean joinToGame(Long playerId) {
         return false;
     }
 
     @Override
-    public void startGame() {
+    public void userStartGameFullGame(Long gameId) {
 
     }
 }

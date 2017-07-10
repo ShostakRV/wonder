@@ -27,6 +27,8 @@ public class User {
     @Column(name = "password")
     protected String password;
 
+
+                                                           // why whis here need me answer bm
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     protected List<UserInGame> userInGames = new ArrayList<>();
 

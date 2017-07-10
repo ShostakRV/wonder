@@ -24,7 +24,7 @@ public class ChainCardTest {
             names.add(gC.toString());
         }
         for (GameCard gameCard : GameCard.values()) {
-            if (gameCard.getChain() != null) {//todo see it
+            if (gameCard.getChain() != null) {
                 for (String chainName : gameCard.getChain()) {
                     assertEquals(gameCard+" Not found chain=>"+chainName, true, names.contains(chainName.toString()));
                 }

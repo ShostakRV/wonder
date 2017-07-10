@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface GameDao extends PagingAndSortingRepository<Game, Long> {
 
+    Game findById(long id); // here must be long or Long ??
+
     @Query("from Game")
     List<Game> hibernateQuery();
 }

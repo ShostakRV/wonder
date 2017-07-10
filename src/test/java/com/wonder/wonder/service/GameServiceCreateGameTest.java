@@ -4,44 +4,96 @@ import com.wonder.wonder.dao.GameDao;
 import com.wonder.wonder.dao.UserDao;
 import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.User;
+import com.wonder.wonder.model.UserInGame;
+import com.wonder.wonder.service.impl.GameServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.internal.verification.Times;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.method.P;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by bm on 27.06.17.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class GameServiceCreateGameTest {
-    public static final String WONDER_GAME = "Wonder_Game";
-
+    public static final Long PLAYER_ID = 13L;
+    public static final Integer PLAYERS = 4;
+    public static final String PLAYER_NAME = "DAN";
     @Mock
     GameDao gameDao;
+
+    @Mock
+    UserDao userDao;
+
     @InjectMocks
-    GameService gameService;
+    GameServiceImpl gameServiceImpl;
 
     @Before
     public void setUp() throws Exception {
         System.out.println();
     }
 
+
+    // why we need gameId if id we take when save in bd ?
     @Test
-    public void createGame() throws Exception {
+    public void createGameSuccsessful() throws Exception {
+
+
+        gameServiceImpl.createGame(PLAYER_ID, PLAYERS);
+        ArgumentCaptor<Game> argumentCaptor = ArgumentCaptor.forClass(Game.class);
+        verify(gameDao, new Times(1)).save(argumentCaptor.capture());
 
         GameServiceCreateGameTest.GameDaoMockImpl gameDaoMock = new GameServiceCreateGameTest.GameDaoMockImpl();
-        GameServiceImpl gameService = new GameServiceImpl(gameDaoMock);
-        gameService.createGame("Wonder_Game");
+        Game game = argumentCaptor.getValue();
+        when(game.getPlayers()).thenReturn(4);
 
-        Game game = gameDaoMock.game;
-//        assertEquals(WONDER_GAME, game.get());
+        UserInGame userInGame = new UserInGame();
+        User user = new User();
+        user.setId(PLAYER_ID);
+        userInGame.setUser(user);
+
+        when(game.getUserInGames()).thenReturn(Arrays.<UserInGame>asList(userInGame));
+
+
+//        assertEquals();
+        gameDaoMock.game.setPlayers(PLAYERS);
+
+
 //
+//        gameDaoMock.game.setUserInGames(Arrays.asList(user));
+//        gameDaoMock.save()
+        verify(gameDao, new Times(1)).save(argumentCaptor.capture());
+
+//        when(userDao.findById(13)).thenReturn(new User());
+
+//        gameDaoMock.game.setUserInGames();
+//        gameDao.save()
+
+
+//
+//
+//        GameServiceImpl gameService = new GameServiceImpl(gameDaoMock);
+//        gameService.createGame();
+//
+//        Game game = gameDaoMock.game;
+//        assertEquals(WONDER_GAME, game.get());
+////
 //        assertTrue(user.getEmail().contains("@"));
 //        assertTrue(user.getEmail().contains("."));
 //        assertEquals("name", user.getUserName());
@@ -56,6 +108,7 @@ public class GameServiceCreateGameTest {
 
     }
 
+
     class GameDaoMockImpl implements GameDao {
         Game game;
 
@@ -63,6 +116,11 @@ public class GameServiceCreateGameTest {
         public Game save(Game game) {
             this.game = game;
             return game;
+        }
+
+        @Override
+        public Game findById(long id) {
+            return null;
         }
 
         @Override

@@ -1,7 +1,8 @@
-package com.wonder.wonder.service;
+package com.wonder.wonder.service.impl;
 
 import com.wonder.wonder.dao.UserDao;
 import com.wonder.wonder.model.User;
+import com.wonder.wonder.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

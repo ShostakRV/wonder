@@ -12,15 +12,13 @@ import java.util.List;
 public interface GameService {
 
 
-    void createGame(String gameName);
+    void createGame(Long userId,Integer players );
 
     List<Game> showLobby();
 
-    void save(Game game);
+    boolean joinToGame(Long playerId);
 
-    boolean joinToGame(long playerId,String playerName); // or User user
-
-    void startGame();
+    void userStartGameFullGame(Long gameId);
 
 
 
