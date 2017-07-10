@@ -63,6 +63,7 @@ public class GameServiceCreateGameTest {
         Game game = argumentCaptor.getValue();
         when(game.getPlayers()).thenReturn(4);
 
+
         UserInGame userInGame = new UserInGame();
         User user = new User();
         user.setId(PLAYER_ID);
