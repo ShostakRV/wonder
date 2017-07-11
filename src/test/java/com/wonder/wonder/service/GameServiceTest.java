@@ -126,7 +126,7 @@ public class GameServiceTest {
         return game;
     }
 
-
+// sss
     public UserInGame userInGameInit(Long userId) {
         User user = new User();
         user.setId(userId);
