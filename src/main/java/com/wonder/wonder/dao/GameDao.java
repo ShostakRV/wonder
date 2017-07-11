@@ -13,7 +13,9 @@ import java.util.List;
  */
 public interface GameDao extends PagingAndSortingRepository<Game, Long> {
 
-    Game findById(long id); // here must be long or Long ??
+    Game findById(Long id);
+
+    List<Game> findAllByPhase(String phase);
 
     @Query("from Game")
     List<Game> hibernateQuery();
