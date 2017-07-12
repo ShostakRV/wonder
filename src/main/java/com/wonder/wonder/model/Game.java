@@ -32,9 +32,6 @@ public class Game {
     @Temporal(TemporalType.TIMESTAMP)
     protected Date end;
 
-    @Column(name = "players")
-    protected Integer players;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,7 +47,7 @@ public class Game {
         return id.hashCode();
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game", cascade = CascadeType.ALL)
     protected List<UserInGame> userInGames = new ArrayList<>();
 
 

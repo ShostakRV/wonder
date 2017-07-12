@@ -3,6 +3,7 @@ package com.wonder.wonder.service;
 import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.User;
 import com.wonder.wonder.model.UserInGame;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface GameService {
 
     List<Game> showLobby();
 
-    boolean joinToGame(Long gameId,Long playerId);
+    boolean joinToGame(Long gameId, Authentication Authentication);
 
     void userStartGameFullGame(Long gameId);
 
