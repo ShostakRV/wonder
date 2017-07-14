@@ -1,23 +1,18 @@
 package com.wonder.wonder.service.impl;
 
 import com.wonder.wonder.dao.GameDao;
-import com.wonder.wonder.dao.UserDao;
-import com.wonder.wonder.dao.UserInGameDao;
 import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.User;
 import com.wonder.wonder.model.UserInGame;
 import com.wonder.wonder.service.GameService;
 import com.wonder.wonder.service.UserInGameService;
 import com.wonder.wonder.service.UserService;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
+import com.wonder.wonder.util.AuthenticationWrapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import sun.misc.Contended;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -31,22 +26,46 @@ import java.util.List;
 @Component
 public class GameServiceImpl implements GameService {
 
-    private GameDao gameDao;
+    private final GameDao gameDao;
 
-    private UserService userService;
+    private final UserService userService;
 
-    private UserInGameService userInGameService;
+    private final UserInGameService userInGameService;
 
-    public GameServiceImpl(GameDao gameDao, UserService userService, UserInGameService userInGameService) {
+    private final AuthenticationWrapper authenticationWrapper;
+
+    @Autowired
+    public GameServiceImpl(GameDao gameDao, UserService userService, UserInGameService userInGameService, AuthenticationWrapper authenticationWrapper) {
         this.gameDao = gameDao;
         this.userService = userService;
         this.userInGameService = userInGameService;
+        this.authenticationWrapper = authenticationWrapper;
     }
 
     @Override
     @Transactional
     public void save(Game game) {
         gameDao.save(game);
+    }
+
+    @Override
+    public void passCardTOAnotherUserInGame(Game game) {
+
+    }
+
+    @Override
+    public void war(Game game) {
+
+    }
+
+    @Override
+    public void exchangeCardSetBetweenPlayers(Game game) {
+
+    }
+
+    @Override
+    public void countPoint(Game game) {
+
     }
 
     @Override
@@ -74,9 +93,8 @@ public class GameServiceImpl implements GameService {
     }// maybe rest controller
 
     @Override
-    public boolean joinToGame(Long gameId, Authentication Authentication) {
-        Authentication a = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = (User) a.getPrincipal();                                // nullExeption or class
+    public boolean joinToGame(Long gameId) {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();                        // nullExeption or class
         Game game = gameDao.findById(gameId);
 //todo  get user from spring security context
         if (game == null) {

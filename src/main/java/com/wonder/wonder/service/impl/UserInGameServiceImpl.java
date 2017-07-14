@@ -24,4 +24,8 @@ public class UserInGameServiceImpl implements UserInGameService {
     public void save(UserInGame userInGame) {
         userInGameDao.save(userInGame);
     }
+
+
+
+
 }

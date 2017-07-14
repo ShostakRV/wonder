@@ -1,5 +1,6 @@
 package com.wonder.wonder.service;
 
+import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.UserInGame;
 
 /**
@@ -8,4 +9,12 @@ import com.wonder.wonder.model.UserInGame;
 public interface UserInGameService {
 
     void save(UserInGame userInGame);
+
+
+
+
+
+
+
+
 }
