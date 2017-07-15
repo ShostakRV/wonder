@@ -19,12 +19,12 @@ import static junit.framework.TestCase.format;
 public class ChainCardTest {
     @Test
     public void getAllCards_3Players_1age() {
-        Set<String> names = new TreeSet<String>();
+        Set<String> names = new TreeSet<>();
         for (GameCard gC : GameCard.values()) {
             names.add(gC.toString());
         }
         for (GameCard gameCard : GameCard.values()) {
-            if (gameCard.getChain() != null) {//todo see it
+            if (gameCard.getChain() != null) {
                 for (String chainName : gameCard.getChain()) {
                     assertEquals(gameCard+" Not found chain=>"+chainName, true, names.contains(chainName.toString()));
                 }

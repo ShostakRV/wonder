@@ -5,6 +5,8 @@ package com.wonder.wonder.cards;
  * Date: 13.06.17.
  */
 public enum CardWonder {
+// need do wonder class
+
     THE_COLOSSUS_OF_RHODES,
     THE_LIGHTHOUSE_OF_ALEXANDRIA,
     THE_TEMPLE_OF_ARTEMIS_IN_EPHESUS,
@@ -16,5 +18,6 @@ public enum CardWonder {
 
     private String side;
     private GameResource startResourse;
+    private Integer maxlevelBuild;
 
 }

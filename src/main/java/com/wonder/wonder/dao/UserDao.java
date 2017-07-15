@@ -15,6 +15,8 @@ public interface UserDao extends PagingAndSortingRepository<User, Long> {
 
     User findByEmail(String email);
 
+    User findById(long id); // here must be long or Long ??
+
     @Query("from User")
     List<User> hibernateQuery();
 }

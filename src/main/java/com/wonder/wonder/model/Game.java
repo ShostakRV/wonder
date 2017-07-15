@@ -1,11 +1,13 @@
 package com.wonder.wonder.model;
 
-import lombok.Data;
+import com.wonder.wonder.businessLogic.GamePhase;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Creator: Pavlenko Bohdan
@@ -20,9 +22,13 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    Long id;
+    protected long id;
     @Column(name = "phase")
-    protected String phase;
+    @Enumerated(EnumType.STRING)
+    protected GamePhase phase;
+
+
+    // game name create
 
     @Column(name = "start", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
@@ -32,8 +38,14 @@ public class Game {
     @Temporal(TemporalType.TIMESTAMP)
     protected Date end;
 
-    @Column(name = "players")
-    protected Integer players;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game") //, cascade = CascadeType.ALL example
+    protected List<UserInGame> userInGames = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    protected List<Event> events = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    protected List<CardSet> cardSets = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
@@ -42,23 +54,12 @@ public class Game {
 
         Game game = (Game) o;
 
-        return id.equals(game.id);
+        return id == game.id;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return Long.hashCode(id);
     }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
-    protected List<UserInGame> userInGames = new ArrayList<>();
-
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
-    protected List<Event> events = new ArrayList<>();
-
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
-    protected List<CardSet> cardSets = new ArrayList<>();
 
 }

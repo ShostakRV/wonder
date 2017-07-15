@@ -2,11 +2,9 @@ package com.wonder.wonder.service;
 
 import com.wonder.wonder.dao.UserDao;
 import com.wonder.wonder.model.User;
+import com.wonder.wonder.service.impl.UserServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -79,6 +77,11 @@ public class UserServiceLegacyTest {
 
         @Override
         public User findByEmail(String email) {
+            return null;
+        }
+
+        @Override
+        public User findById(long id) {
             return null;
         }
 

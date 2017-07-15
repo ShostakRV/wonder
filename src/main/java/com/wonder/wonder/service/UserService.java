@@ -13,6 +13,8 @@ public interface UserService {
 
     List<User> getAllUsers();
 
+    User getUserById(Long userId);
+
     void save(User user);
 
     void register(String name,String mail,String pass);
