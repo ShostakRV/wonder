@@ -230,7 +230,8 @@ public class GameServiceTest {
     @Test(expected = RuntimeException.class)
     public void userStartGameNoHaveFourUser() {
         Game game = new Game();
-//        when(gameDao.findById(GAME_ID)).thenReturn(listUserInGameInit(3));
+// work here
+ //        when(gameDao.findById(GAME_ID)).thenReturn(listUserInGameInit(3));
         try {
             gameServiceImpl.userStartGameFullGame(GAME_ID);
         } catch (RuntimeException e) {
