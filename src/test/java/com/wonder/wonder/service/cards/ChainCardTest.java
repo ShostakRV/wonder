@@ -19,7 +19,7 @@ import static junit.framework.TestCase.format;
 public class ChainCardTest {
     @Test
     public void getAllCards_3Players_1age() {
-        Set<String> names = new TreeSet<String>();
+        Set<String> names = new TreeSet<>();
         for (GameCard gC : GameCard.values()) {
             names.add(gC.toString());
         }
