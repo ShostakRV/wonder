@@ -10,11 +10,8 @@ import com.wonder.wonder.service.UserInGameService;
 import com.wonder.wonder.service.UserService;
 import com.wonder.wonder.util.AuthenticationWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -45,12 +42,6 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    @Transactional
-    public void save(Game game) {
-        gameDao.save(game);
-    }
-
-    @Override
     public void passCardTOAnotherUserInGame(Game game) {
 
     }
@@ -71,34 +62,31 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void createGame(AuthenticationWrapper authenticationWrapper) {
+    public Long createGame() {
         User user = authenticationWrapper.getCurrentUser();
 
         if (userService.getUserById(user.getId()) == null) {
             throw new RuntimeException("No exist User with this id!!!");
         }
         Game game = new Game();
-        game.setPhase(GamePhase.KIT.toString());
-
-        UserInGame userInGame = new UserInGame();
-        userInGame.setUser(user);
-        userInGameService.save(userInGame);
-        game.getUserInGames().add(userInGame);
-        this.save(game);
-
-        //here question about collition game and userInGame missurenko 15.07.2017
-
+        game.setPhase(GamePhase.JOIN_PHASE);
+        gameDao.save(game);
+        joinToGame(game.getId());
+        return game.getId();
     }
 
     @Override
     public List<Game> showLobby() {
-        return gameDao.findAllByPhase(GamePhase.KIT.toString());
+
+
+        return gameDao.findAllByPhase(GamePhase.JOIN_PHASE);
     }
 
+
     @Override
-    public boolean joinToGame(Long gameId, AuthenticationWrapper authenticationWrapper) {
+    public boolean joinToGame(Long gameId) {
         User user = authenticationWrapper.getCurrentUser();
-        Game game = gameDao.findById(gameId); // what be here field
+        Game game = gameDao.findById(gameId);
 
         if (game == null) {
             throw new RuntimeException("No exist Game with this id!!!");
@@ -110,9 +98,10 @@ public class GameServiceImpl implements GameService {
         if (userService.getUserById(user.getId()) == null) {
             throw new RuntimeException("No exist User with this id!!!");
         }
+        // if user in game and try to join  game again
         UserInGame userInGame = new UserInGame();
         userInGame.setUser(user);
-        userInGame.setGame(game); // here i need gameId
+        userInGame.setGame(game);
         userInGameService.save(userInGame);
         return true;
     }
@@ -122,7 +111,7 @@ public class GameServiceImpl implements GameService {
         Game game = gameDao.findById(gameId);
         // To do check if user has right to start game (get user from spring security context )
         if (game.getUserInGames().size() >= 3) {
-            game.setPhase("IN_PROGRESS");
+            game.setPhase(GamePhase.STROKE_AGE_1_1_START);
             gameDao.save(game);
         } else {
             throw new RuntimeException("Need more users for start!!!");

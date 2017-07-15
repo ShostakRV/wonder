@@ -13,17 +13,16 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.internal.verification.Times;
 import org.mockito.junit.MockitoJUnitRunner;
 
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by bm on 27.06.17.
@@ -34,7 +33,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class GameServiceTest {
 
-    private static final Long GAME_ID = 1L;
+    private static final long GAME_ID = 1L;
     private static final Long USER_ID = 0L;
     private static final Long USER_ID_SECOND = 2L;
     private static final String USER_NAME = "Super";
@@ -45,6 +44,7 @@ public class GameServiceTest {
     private GameDao gameDao;
 
     @InjectMocks
+    @Spy
     private GameServiceImpl gameServiceImpl;
 
     @Mock
@@ -66,29 +66,22 @@ public class GameServiceTest {
     public void createGameSuccsessful() {
         when(authenticationWrapper.getCurrentUser()).thenReturn(currentUserInit());
         when(userService.getUserById(USER_ID)).thenReturn(currentUserInit());
-        gameServiceImpl.createGame(authenticationWrapper);
+
+        doReturn(true).when(gameServiceImpl).joinToGame(anyLong());
+        gameServiceImpl.createGame();
         ArgumentCaptor<Game> argumentCaptor = ArgumentCaptor.forClass(Game.class);
         verify(gameDao, new Times(1)).save(argumentCaptor.capture());
+        verify(gameServiceImpl, new Times(1)).joinToGame(anyLong());
         Game game = argumentCaptor.getValue();
-        assertEquals(GamePhase.KIT, GamePhase.valueOf(game.getPhase()));
-        ArgumentCaptor<UserInGame> userInGameArgumentCaptor = ArgumentCaptor.forClass(UserInGame.class);
-        verify(userInGameService, new Times(1)).save(userInGameArgumentCaptor.capture());
+        assertEquals(GamePhase.JOIN_PHASE, game.getPhase());
+    }
 
-        UserInGame userInGame = userInGameArgumentCaptor.getValue();
-        User user = userInGame.getUser();
-
-        assertEquals(USER_ID, user.getId());
-        assertEquals(USER_NAME, user.getUserName());
-        assertEquals(USER_EMAIL, user.getEmail());
-        assertEquals(USER_PASSWORD, user.getPassword());
-    }// check user in game save
 
     @Test(expected = RuntimeException.class)
     public void createGameValidId() {
         when(authenticationWrapper.getCurrentUser()).thenReturn(currentUserInit());
-
         try {
-            gameServiceImpl.createGame(authenticationWrapper);
+            gameServiceImpl.createGame();
         } catch (RuntimeException e) {
             assertEquals("No exist User with this id!!!", e.getMessage());
             throw e;
@@ -111,9 +104,9 @@ public class GameServiceTest {
         when(authenticationWrapper.getCurrentUser()).thenReturn(currentUserInit());
         User user = authenticationWrapper.getCurrentUser();
         when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(listUserInGameInit(1, GAME_ID));
-        when(gameDao.findById(GAME_ID)).thenReturn(gameInit(GAME_ID, 1, GamePhase.KIT));
+        when(gameDao.findById(GAME_ID)).thenReturn(gameInit(GAME_ID, 1, GamePhase.JOIN_PHASE));
         when(userService.getUserById(user.getId())).thenReturn(currentUserInit());
-        gameServiceImpl.joinToGame(GAME_ID, authenticationWrapper);
+        boolean result = gameServiceImpl.joinToGame(GAME_ID);
 
         ArgumentCaptor<UserInGame> userInGameArgumentCaptor = ArgumentCaptor.forClass(UserInGame.class);
         verify(userInGameService, new Times(1)).save(userInGameArgumentCaptor.capture());
@@ -121,19 +114,19 @@ public class GameServiceTest {
         assertEquals(userInGame.getUser().getId(), user.getId());
 
         assertEquals(userInGame.getGame().getId(), GAME_ID);
-        assertEquals(userInGame.getGame().getPhase(), GamePhase.KIT.toString());
+        assertEquals(userInGame.getGame().getPhase(), GamePhase.JOIN_PHASE);
 
-        assertEquals(true, gameServiceImpl.joinToGame(GAME_ID, authenticationWrapper));
+        assertEquals(true, result);
     }
 
 
     @Test(expected = RuntimeException.class)
     public void joinInGameFullGame() {
-        when(gameDao.findById(GAME_ID)).thenReturn(gameInit(GAME_ID, 14, GamePhase.KIT));
+        when(gameDao.findById(GAME_ID)).thenReturn(gameInit(GAME_ID, 14, GamePhase.JOIN_PHASE));
         when(userInGameService.getAllUserInGameByGameId(GAME_ID).size()).thenReturn((14));
 
         try {
-            gameServiceImpl.joinToGame(GAME_ID, authenticationWrapper);
+            gameServiceImpl.joinToGame(GAME_ID);
         } catch (RuntimeException e) {
             assertEquals("Game was full!!!", e.getMessage());
             throw e;
@@ -144,7 +137,7 @@ public class GameServiceTest {
     public void joinInNoExistGame() {
         when(gameDao.findById(GAME_ID)).thenReturn(null);
         try {
-            gameServiceImpl.joinToGame(GAME_ID, authenticationWrapper);
+            gameServiceImpl.joinToGame(GAME_ID);
         } catch (RuntimeException e) {
             assertEquals("No exist Game with this id!!!", e.getMessage());
             throw e;
@@ -188,7 +181,7 @@ public class GameServiceTest {
     public Game gameInit(Long gameId, Integer playersInGame, GamePhase gamePhase) {
         Game game = new Game();
         game.setId(gameId);
-        game.setPhase(gamePhase.toString());
+        game.setPhase(gamePhase);
         game.setUserInGames(listUserInGameInit(playersInGame, gameId));
         return game;
     }
@@ -196,24 +189,29 @@ public class GameServiceTest {
 
     public List<Game> gameInitListPhaseKid() {
         List<Game> gameList = new ArrayList<>();
-        gameList.add(gameInit(101L, 1, GamePhase.KIT));
-        gameList.add(gameInit(102L, 2, GamePhase.KIT));
-        gameList.add(gameInit(103L, 3, GamePhase.KIT));
-        gameList.add(gameInit(104L, 4, GamePhase.KIT));
-        gameList.add(gameInit(105L, 5, GamePhase.KIT));
+        gameList.add(gameInit(101L, 1, GamePhase.JOIN_PHASE));
+        gameList.add(gameInit(102L, 2, GamePhase.JOIN_PHASE));
+        gameList.add(gameInit(103L, 3, GamePhase.JOIN_PHASE));
+        gameList.add(gameInit(104L, 4, GamePhase.JOIN_PHASE));
+        gameList.add(gameInit(105L, 5, GamePhase.JOIN_PHASE));
         return gameList;
     }
 
 
+
+    // do dto this field which we need
     @Test
     public void showLobby() {
         List<Game> gameList = gameInitListPhaseKid();
-        doReturn(gameList).when(gameDao).findAllByPhase(GamePhase.KIT.toString());
-
-//        doReturn(userInGamesList).when(userInGameService).getAllUserInGameByGameId(GAME_ID);
-
-        assertEquals(gameList, gameServiceImpl.showLobby());
+        doReturn(gameList).when(gameDao).findAllByPhase(GamePhase.JOIN_PHASE);
+        List<UserInGame> userInGameList = listUserInGameInit(3, 103L);
+        doReturn(userInGameList).when(userInGameService).getAllUserInGameByGameId(GAME_ID);
+        List<Game> gameListResult = gameServiceImpl.showLobby();
+        assertTrue(gameListResult == gameList);
+//        assertEquals(userInGameList, gameServiceImpl.showLobby());
+//        assertEquals(gameList, gameServiceImpl.showLobby());
     }
+
 
     @Test
     public void userStartGameFullGameSuccsessful() {
@@ -223,7 +221,7 @@ public class GameServiceTest {
         verify(gameDao, new Times(1)).save(argumentCaptor.capture());
         Game game = argumentCaptor.getValue();
 
-        assertEquals(GamePhase.STROKE_AGE_1_1_START, GamePhase.valueOf(game.getPhase()));
+        assertEquals(GamePhase.STROKE_AGE_1_1_START,game.getPhase());
 
     }
 
