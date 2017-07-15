@@ -1,5 +1,6 @@
 package com.wonder.wonder.service.impl;
 
+import com.wonder.wonder.businessLogic.GamePhase;
 import com.wonder.wonder.dao.GameDao;
 import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.User;
@@ -13,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -69,45 +71,48 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void createGame(Long userId, Integer players) {
-//
-//        if (userDao.findById(userId) == null) {
-//            throw new RuntimeException("No exist User with this id!!!");
-//        }
-        Game game = new Game();
+    public void createGame(AuthenticationWrapper authenticationWrapper) {
+        User user = authenticationWrapper.getCurrentUser();
 
-        game.setPhase("KIT");
+        if (userService.getUserById(user.getId()) == null) {
+            throw new RuntimeException("No exist User with this id!!!");
+        }
+        Game game = new Game();
+        game.setPhase(GamePhase.KIT.toString());
 
         UserInGame userInGame = new UserInGame();
-        User user = new User();
-        user.setId(userId);
         userInGame.setUser(user);
-
+        userInGameService.save(userInGame);
         game.getUserInGames().add(userInGame);
         this.save(game);
+
+        //here question about collition game and userInGame missurenko 15.07.2017
+
     }
 
     @Override
     public List<Game> showLobby() {
-        return gameDao.findAllByPhase("KIT");
-    }// maybe rest controller
+        return gameDao.findAllByPhase(GamePhase.KIT.toString());
+    }
 
     @Override
-    public boolean joinToGame(Long gameId) {
-        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();                        // nullExeption or class
-        Game game = gameDao.findById(gameId);
-//todo  get user from spring security context
+    public boolean joinToGame(Long gameId, AuthenticationWrapper authenticationWrapper) {
+        User user = authenticationWrapper.getCurrentUser();
+        Game game = gameDao.findById(gameId); // what be here field
+
         if (game == null) {
             throw new RuntimeException("No exist Game with this id!!!");
         }
-        if (game.getUserInGames().size() == 10) {
+
+        if (userInGameService.getAllUserInGameByGameId(gameId).size() >= 14) {
             throw new RuntimeException("Game was full!!!");
         }
-        if (userService.getUseById(currentUser.getId()) == null) {
+        if (userService.getUserById(user.getId()) == null) {
             throw new RuntimeException("No exist User with this id!!!");
         }
         UserInGame userInGame = new UserInGame();
-        userInGame.setUser(currentUser);
+        userInGame.setUser(user);
+        userInGame.setGame(game); // here i need gameId
         userInGameService.save(userInGame);
         return true;
     }

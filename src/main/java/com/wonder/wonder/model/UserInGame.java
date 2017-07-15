@@ -28,11 +28,11 @@ public class UserInGame {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    protected User user;
+    protected User user; // too long іерархия запроса
 
     @Enumerated(EnumType.STRING)
     @Column(name = "wonder")
-    protected GameCard wonder;//todo card class ??
+    protected GameCard wonder;
 
     @Column(name = "position")
     protected Integer position;

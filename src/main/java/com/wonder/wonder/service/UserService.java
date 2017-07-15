@@ -13,7 +13,7 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    User getUseById(Long userId);
+    User getUserById(Long userId);
 
     void save(User user);
 

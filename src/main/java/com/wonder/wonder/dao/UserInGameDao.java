@@ -5,6 +5,7 @@ import com.wonder.wonder.model.UserInGame;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -13,7 +14,11 @@ import java.util.List;
 public interface UserInGameDao extends PagingAndSortingRepository<UserInGame, Long> {
     UserInGame findById(long id); // here must be long or Long ??
 
+    List<UserInGame> findAllByGameId(Long gameId);
+
     @Query("from UserInGame")
 
     List<UserInGame> hibernateQuery();
+
+
 }
