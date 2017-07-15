@@ -5,7 +5,7 @@ package com.wonder.wonder.businessLogic;
  */
 public enum GamePhase {
 
-    KIT, PREPARATION, FINISHED,
+    JOIN_PHASE, PREPARATION, FINISHED,
 
     STROKE_AGE_1_1_START,       ////set catr vonder DO_SET_FIRST_AGE,   CHOOSE_CARD_FROM_SET, //
     STROKE_AGE_1_1_END, // OPEN_CARD, //  EXCHANGE_CARD_SET,

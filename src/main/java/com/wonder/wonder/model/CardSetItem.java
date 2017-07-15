@@ -34,6 +34,7 @@ public class CardSetItem {
     protected String playerPhase;
 
     @Column(name = "card")
+    @Enumerated(EnumType.STRING)
     protected GameCard gameCard;
 
     @Override

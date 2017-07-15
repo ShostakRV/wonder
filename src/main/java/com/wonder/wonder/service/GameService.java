@@ -1,11 +1,6 @@
 package com.wonder.wonder.service;
 
-import com.wonder.wonder.model.Event;
 import com.wonder.wonder.model.Game;
-import com.wonder.wonder.model.User;
-import com.wonder.wonder.model.UserInGame;
-import com.wonder.wonder.util.AuthenticationWrapper;
-import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -16,11 +11,11 @@ import java.util.List;
 public interface GameService {
 
 
-    void createGame(AuthenticationWrapper authenticationWrapper);
+    Long createGame();
 
     List<Game> showLobby();
 
-    boolean joinToGame(Long gameId,AuthenticationWrapper authenticationWrapper);
+    boolean joinToGame(Long gameId);
 
     void userStartGameFullGame(Long gameId);
 
@@ -29,7 +24,6 @@ public interface GameService {
 //    // create cardSet
 //    void giveCardSetPlayers(UserInGame userInGame, String type, Integer age); // or game
 
-    void save(Game game);
 
     // thin
     void passCardTOAnotherUserInGame(Game game);
