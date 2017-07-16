@@ -1,6 +1,6 @@
 package com.wonder.wonder.service.impl;
 
-import com.wonder.wonder.businessLogic.GamePhase;
+import com.wonder.wonder.phase.GamePhase;
 import com.wonder.wonder.dao.GameDao;
 import com.wonder.wonder.dto.GameViewDto;
 import com.wonder.wonder.model.Game;

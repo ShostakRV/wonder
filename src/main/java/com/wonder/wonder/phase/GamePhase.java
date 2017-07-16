@@ -1,4 +1,4 @@
-package com.wonder.wonder.businessLogic;
+package com.wonder.wonder.phase;
 
 /**
  * Created by bm on 13.07.17.
@@ -15,7 +15,7 @@ public enum GamePhase {
     STROKE_AGE_3_7_END, // COUNT_POINT
 
 
-   // i delete another phase what i write
+   // i delete another userSelectedCard what i write
 
 
 
