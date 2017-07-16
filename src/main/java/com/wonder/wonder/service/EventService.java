@@ -7,7 +7,7 @@ import javax.smartcardio.Card;
 /**
  * Created by bm on 13.07.17.
  */
-public interface EventServise {
+public interface EventService {
 
     void eventInfluence(Event event);
 

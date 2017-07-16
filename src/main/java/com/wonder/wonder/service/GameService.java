@@ -25,11 +25,12 @@ public interface GameService {
 //    void giveCardSetPlayers(UserInGame userInGame, String type, Integer age); // or game
 
 
-    // thin
-    void passCardTOAnotherUserInGame(Game game);
+    //todo add annotation
+    void passCardToAnotherUserInGame(Game game);
 
     void war(Game game);
 
+    //todo add annotation
     void exchangeCardSetBetweenPlayers(Game game);
 
     void countPoint(Game game);

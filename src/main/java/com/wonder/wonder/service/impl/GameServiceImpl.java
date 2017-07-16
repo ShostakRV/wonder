@@ -42,7 +42,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void passCardTOAnotherUserInGame(Game game) {
+    public void passCardToAnotherUserInGame(Game game) {
 
     }
 
@@ -77,8 +77,6 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<Game> showLobby() {
-
-
         return gameDao.findAllByPhase(GamePhase.JOIN_PHASE);
     }
 

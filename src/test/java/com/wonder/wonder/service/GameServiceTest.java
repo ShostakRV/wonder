@@ -63,7 +63,7 @@ public class GameServiceTest {
 
 
     @Test
-    public void createGameSuccsessful() {
+    public void createGameSuccessful() {
         when(authenticationWrapper.getCurrentUser()).thenReturn(currentUserInit());
         when(userService.getUserById(USER_ID)).thenReturn(currentUserInit());
 
@@ -100,7 +100,7 @@ public class GameServiceTest {
 
 
     @Test
-    public void joinToGameSuccsessful() {
+    public void joinToGameSuccessful() {
         when(authenticationWrapper.getCurrentUser()).thenReturn(currentUserInit());
         User user = authenticationWrapper.getCurrentUser();
         when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(listUserInGameInit(1, GAME_ID));
