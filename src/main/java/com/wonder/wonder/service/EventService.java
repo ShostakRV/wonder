@@ -15,4 +15,5 @@ public interface EventService {
 
     void sellCard(Card card);
 
+    void save(Event event);
 }

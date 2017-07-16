@@ -1,5 +1,6 @@
 package com.wonder.wonder.dto.pb;
 
+import com.wonder.wonder.businessLogic.GamePhase;
 import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.dto.PlayerDto;
 import lombok.Data;
@@ -14,8 +15,8 @@ import java.util.List;
 @Data
 public class BoardDtoPb {
     private long gameId;
-    private List<PlayerDto> playerDto;
-    private int phase;
-    private int userPosition;
-    private List<GameCard> cardsOnHand;
+    private List<PlayerDtoPb> playerDto;
+    private GamePhase phase;
+//    private int userPosition;
+//    private List<GameCard> cardsOnHand; // todo make separate and point
 }
