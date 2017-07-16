@@ -63,7 +63,7 @@ public class GameServiceTest {
 
 
     @Test
-    public void createGameSuccsessful() {
+    public void createGameSuccessful() {
         when(authenticationWrapper.getCurrentUser()).thenReturn(currentUserInit());
         when(userService.getUserById(USER_ID)).thenReturn(currentUserInit());
 
@@ -100,7 +100,7 @@ public class GameServiceTest {
 
 
     @Test
-    public void joinToGameSuccsessful() {
+    public void joinToGameSuccessful() {
         when(authenticationWrapper.getCurrentUser()).thenReturn(currentUserInit());
         User user = authenticationWrapper.getCurrentUser();
         when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(listUserInGameInit(1, GAME_ID));
@@ -254,7 +254,8 @@ public class GameServiceTest {
     @Test(expected = RuntimeException.class)
     public void userStartGameNoHaveFourUser() {
         Game game = new Game();
-//        when(gameDao.findById(GAME_ID)).thenReturn(listUserInGameInit(3));
+// work here
+ //        when(gameDao.findById(GAME_ID)).thenReturn(listUserInGameInit(3));
         try {
             gameServiceImpl.userStartGameFullGame(GAME_ID);
         } catch (RuntimeException e) {
@@ -262,7 +263,7 @@ public class GameServiceTest {
             throw e;
         }
 
-
+// www
     }
 
 

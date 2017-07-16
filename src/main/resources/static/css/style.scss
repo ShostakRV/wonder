@@ -7,13 +7,10 @@ $card-price-height: 25px;
 @import "wonders";
 
 .wonder {
-  width: 100%;
-}
-
-.herbs > span {
-  font-size: 1.2em;
-  margin-left: -25px;
-  @extend .text-normal
+  width: 40%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .card {
@@ -24,6 +21,19 @@ $card-price-height: 25px;
   -webkit-transform: scale(1.5);
   -moz-transform: scale(1.5);
   -o-transform: scale(1.5);
-  margin: 10px;
+  //margin: 10px;
+}
+
+.big-img{
+  display: none;
+  //position: absolute;
+  //-webkit-transform: scale(2.5);
+  //-moz-transform: scale(2.5);
+  //-o-transform: scale(2.5);
+}
+.user-info{
+  overflow: visible;
+  border: solid  black 2px;
+  border-radius: 20px;
 }
 

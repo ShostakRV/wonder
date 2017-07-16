@@ -43,10 +43,6 @@ public class GameServiceImpl implements GameService {
         this.authenticationWrapper = authenticationWrapper;
     }
 
-    @Override
-    public void passCardTOAnotherUserInGame(Game game) {
-
-    }
 
     @Override
     public void war(Game game) {
@@ -131,4 +127,10 @@ public class GameServiceImpl implements GameService {
         }
 
     }
+
+    @Override
+    public void passCardToAnotherUserInGame(Game game) {
+
+    }
+
 }
