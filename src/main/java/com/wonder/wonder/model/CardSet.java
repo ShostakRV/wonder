@@ -5,9 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 //import org.hibernate.annotations.Table;
 
@@ -24,7 +22,7 @@ public class CardSet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    protected Long id;
+    protected long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id", nullable = false)
@@ -46,12 +44,12 @@ public class CardSet {
 
         CardSet cardSet = (CardSet) o;
 
-        return id.equals(cardSet.id);
+        return id == cardSet.id;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return Long.hashCode(id);
     }
 
 

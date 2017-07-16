@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Created by bm on 12.07.17.
@@ -26,8 +24,13 @@ public class UserInGameServiceImpl implements UserInGameService {
 
 
     @Override
-    public List<UserInGame> getAllUserInGameByGameId(Long gameId) {
+    public List<UserInGame> getAllUserInGameByGameId(long gameId) {
         return new ArrayList<UserInGame>(userInGameDao.findAllByGameId(gameId));
+    }
+
+    @Override
+    public UserInGame getUserInGameByGameIDAndUserId(long gameId, long userId) {
+        return userInGameDao.findByGameIdAndUserInGameId(gameId, userId);
     }
 
     @Override

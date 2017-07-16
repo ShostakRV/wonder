@@ -20,7 +20,7 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    protected Long id;
+    protected long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id", nullable = false)
@@ -57,11 +57,11 @@ public class Event {
 
         Event event = (Event) o;
 
-        return id.equals(event.id);
+        return id ==event.id;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return  Long.hashCode(id);
     }
 }

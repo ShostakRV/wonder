@@ -1,5 +1,6 @@
 package com.wonder.wonder.service;
 
+import com.wonder.wonder.dto.ShowLobbyDto;
 import com.wonder.wonder.model.Game;
 
 import java.util.List;
@@ -11,13 +12,13 @@ import java.util.List;
 public interface GameService {
 
 
-    Long createGame();
+    long createGame();
 
-    List<Game> showLobby();
+    List<ShowLobbyDto> showLobby();
 
     boolean joinToGame(Long gameId);
 
-    void userStartGameFullGame(Long gameId);
+    void userStartGameFullGame(long gameId);
 
 //    void startGame(UserInGame userInGame);  // in game + list enum vonder
 //

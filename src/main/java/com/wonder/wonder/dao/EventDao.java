@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface EventDao {
 
-    Event findById(Long id);
+    Event findById(long id);
 
 
 

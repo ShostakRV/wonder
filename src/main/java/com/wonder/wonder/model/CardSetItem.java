@@ -20,7 +20,7 @@ public class CardSetItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    protected Long id;
+    protected long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -42,13 +42,13 @@ public class CardSetItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CardSetItem that = (CardSetItem) o;
+        CardSetItem cardSetItem = (CardSetItem) o;
 
-        return id.equals(that.id);
+        return id == cardSetItem.id;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return Long.hashCode(id);
     }
 }

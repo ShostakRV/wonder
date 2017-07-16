@@ -4,7 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Creator: bm
@@ -19,7 +20,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    protected Long id;
+    protected long id;
     @Column(name = "email")
     protected String email;
     @Column(name = "username")
@@ -41,12 +42,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id);
+        return id == user.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Long.hashCode(id);
     }
 
 }

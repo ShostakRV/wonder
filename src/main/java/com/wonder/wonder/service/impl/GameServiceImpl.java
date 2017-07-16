@@ -2,6 +2,7 @@ package com.wonder.wonder.service.impl;
 
 import com.wonder.wonder.businessLogic.GamePhase;
 import com.wonder.wonder.dao.GameDao;
+import com.wonder.wonder.dto.ShowLobbyDto;
 import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.User;
 import com.wonder.wonder.model.UserInGame;
@@ -12,6 +13,7 @@ import com.wonder.wonder.util.AuthenticationWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,7 +64,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Long createGame() {
+    public long createGame() {
         User user = authenticationWrapper.getCurrentUser();
 
         if (userService.getUserById(user.getId()) == null) {
@@ -76,10 +78,19 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public List<Game> showLobby() {
-
-
-        return gameDao.findAllByPhase(GamePhase.JOIN_PHASE);
+    public List<ShowLobbyDto> showLobby() {
+        List<ShowLobbyDto> showLobbyDtoList = new ArrayList<>();
+        List<Game> gameList = gameDao.findAllByPhase(GamePhase.JOIN_PHASE);
+        List<UserInGame> userInGameList = null;
+        for (Game game : gameList) {
+            userInGameList = userInGameService.getAllUserInGameByGameId(game.getId());
+            ShowLobbyDto showLobbyDto = new ShowLobbyDto();
+            showLobbyDto.setPlayersInGameCount(userInGameList.size());
+            showLobbyDto.setGameId(game.getId());
+            showLobbyDto.setGameName(game.getName());
+            showLobbyDtoList.add(showLobbyDto);
+        }
+        return showLobbyDtoList;
     }
 
 
@@ -98,7 +109,9 @@ public class GameServiceImpl implements GameService {
         if (userService.getUserById(user.getId()) == null) {
             throw new RuntimeException("No exist User with this id!!!");
         }
-        // if user in game and try to join  game again
+        if (userInGameService.getUserInGameByGameIDAndUserId(gameId, user.getId()) != null) {
+            throw new RuntimeException("User try to join in Game again when user already in this game!!!");
+        }
         UserInGame userInGame = new UserInGame();
         userInGame.setUser(user);
         userInGame.setGame(game);
@@ -107,7 +120,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void userStartGameFullGame(Long gameId) {
+    public void userStartGameFullGame(long gameId) {
         Game game = gameDao.findById(gameId);
         // To do check if user has right to start game (get user from spring security context )
         if (game.getUserInGames().size() >= 3) {

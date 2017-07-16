@@ -10,9 +10,9 @@ import java.util.List;
  * Created by bm on 13.07.17.
  */
 public interface CardSetDao {
-    CardSet findById(Long id);
+    CardSet findById(long id);
 
-    CardSet findByPhase(Long id);
+    CardSet findByPhase(long id);
 
     @Query("from CardSet")
     List<CardSet> hibernateQuery();

@@ -23,12 +23,13 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     protected long id;
+
+    @Column(name = "name")
+    protected String name; // game name create
+
     @Column(name = "phase")
     @Enumerated(EnumType.STRING)
     protected GamePhase phase;
-
-
-    // game name create
 
     @Column(name = "start", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)

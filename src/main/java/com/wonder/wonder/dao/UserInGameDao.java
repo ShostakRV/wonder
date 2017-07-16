@@ -12,9 +12,11 @@ import java.util.List;
  * Created by bm on 11.07.17.
  */
 public interface UserInGameDao extends PagingAndSortingRepository<UserInGame, Long> {
-    UserInGame findById(long id); // here must be long or Long ??
+    UserInGame findById(long id);
 
-    List<UserInGame> findAllByGameId(Long gameId);
+    List<UserInGame> findAllByGameId(long gameId);
+
+    UserInGame findByGameIdAndUserInGameId(long gameId, long userInGameId );
 
     @Query("from UserInGame")
 

@@ -10,7 +10,9 @@ import java.util.List;
  */
 public interface UserInGameService {
 
-    List<UserInGame> getAllUserInGameByGameId(Long gameId);
+    List<UserInGame> getAllUserInGameByGameId(long gameId);
+
+    UserInGame getUserInGameByGameIDAndUserId(long gameId, long userId);
 
     void save(UserInGame userInGame);
 

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface GameDao extends PagingAndSortingRepository<Game, Long> {
 
-    Game findById(Long id);
+    Game findById(long id);
 
     List<Game> findAllByPhase(GamePhase phase);
 

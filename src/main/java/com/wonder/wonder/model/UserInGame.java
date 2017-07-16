@@ -20,7 +20,7 @@ public class UserInGame {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    protected Long id;
+    protected long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id", nullable = false)
@@ -65,12 +65,12 @@ public class UserInGame {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserInGame that = (UserInGame) o;
-        return Objects.equals(id, that.id);
+        UserInGame userInGame = (UserInGame) o;
+        return id == userInGame.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Long.hashCode(id);
     }
 }
