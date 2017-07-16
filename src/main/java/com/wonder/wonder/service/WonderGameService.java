@@ -6,4 +6,6 @@ package com.wonder.wonder.service;
  */
 public interface WonderGameService {
 
+
+
 }
