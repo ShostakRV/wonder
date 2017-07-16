@@ -28,10 +28,7 @@ public class UserInGameServiceImpl implements UserInGameService {
         return new ArrayList<UserInGame>(userInGameDao.findAllByGameId(gameId));
     }
 
-    @Override
-    public UserInGame getUserInGameByGameIDAndUserId(long gameId, long userId) {
-        return userInGameDao.findByGameIdAndUserInGameId(gameId, userId);
-    }
+
 
     @Override
     public void save(UserInGame userInGame) {

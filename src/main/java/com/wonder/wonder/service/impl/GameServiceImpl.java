@@ -109,9 +109,9 @@ public class GameServiceImpl implements GameService {
         if (userService.getUserById(user.getId()) == null) {
             throw new RuntimeException("No exist User with this id!!!");
         }
-        if (userInGameService.getUserInGameByGameIDAndUserId(gameId, user.getId()) != null) {
-            throw new RuntimeException("User try to join in Game again when user already in this game!!!");
-        }
+//        if (userInGameService.getUserInGameByGameIDAndUserId(gameId, user.getId()) != null) {
+//            throw new RuntimeException("User try to join in Game again when user already in this game!!!");
+//        }
         UserInGame userInGame = new UserInGame();
         userInGame.setUser(user);
         userInGame.setGame(game);

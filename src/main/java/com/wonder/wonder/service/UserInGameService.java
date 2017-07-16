@@ -12,9 +12,7 @@ public interface UserInGameService {
 
     List<UserInGame> getAllUserInGameByGameId(long gameId);
 
-    UserInGame getUserInGameByGameIDAndUserId(long gameId, long userId);
-
-    void save(UserInGame userInGame);
+     void save(UserInGame userInGame);
 
 
 

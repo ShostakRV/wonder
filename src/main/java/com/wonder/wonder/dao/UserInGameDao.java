@@ -16,7 +16,8 @@ public interface UserInGameDao extends PagingAndSortingRepository<UserInGame, Lo
 
     List<UserInGame> findAllByGameId(long gameId);
 
-    UserInGame findByGameIdAndUserInGameId(long gameId, long userInGameId );
+    UserInGame findByGame(long gameId);
+
 
     @Query("from UserInGame")
 
