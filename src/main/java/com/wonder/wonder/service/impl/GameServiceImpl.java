@@ -1,8 +1,8 @@
 package com.wonder.wonder.service.impl;
 
-import com.wonder.wonder.businessLogic.GamePhase;
+import com.wonder.wonder.phase.GamePhase;
 import com.wonder.wonder.dao.GameDao;
-import com.wonder.wonder.dto.ShowLobbyDto;
+import com.wonder.wonder.dto.GameViewDto;
 import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.User;
 import com.wonder.wonder.model.UserInGame;
@@ -44,15 +44,6 @@ public class GameServiceImpl implements GameService {
     }
 
 
-    @Override
-    public void war(Game game) {
-
-    }
-
-    @Override
-    public void exchangeCardSetBetweenPlayers(Game game) {
-
-    }
 
     @Override
     public void countPoint(Game game) {
@@ -61,11 +52,6 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public long createGame() {
-        User user = authenticationWrapper.getCurrentUser();
-
-        if (userService.getUserById(user.getId()) == null) {
-            throw new RuntimeException("No exist User with this id!!!");
-        }
         Game game = new Game();
         game.setPhase(GamePhase.JOIN_PHASE);
         gameDao.save(game);
@@ -74,19 +60,17 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public List<ShowLobbyDto> showLobby() {
-        List<ShowLobbyDto> showLobbyDtoList = new ArrayList<>();
+    public List<GameViewDto> getGameViewDtoForJoinPhase() {
+        List<GameViewDto> gameViewDtoList = new ArrayList<>();
         List<Game> gameList = gameDao.findAllByPhase(GamePhase.JOIN_PHASE);
-        List<UserInGame> userInGameList = null;
         for (Game game : gameList) {
-            userInGameList = userInGameService.getAllUserInGameByGameId(game.getId());
-            ShowLobbyDto showLobbyDto = new ShowLobbyDto();
-            showLobbyDto.setPlayersInGameCount(userInGameList.size());
-            showLobbyDto.setGameId(game.getId());
-            showLobbyDto.setGameName(game.getName());
-            showLobbyDtoList.add(showLobbyDto);
+            GameViewDto gameViewDto = new GameViewDto();
+            gameViewDto.setPlayersInGameCount(game.getUserInGames().size());
+            gameViewDto.setGameId(game.getId());
+            gameViewDto.setGameName(game.getName());
+            gameViewDtoList.add(gameViewDto);
         }
-        return showLobbyDtoList;
+        return gameViewDtoList;
     }
 
 
@@ -116,7 +100,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void userStartGameFullGame(long gameId) {
+    public void startGame(long gameId) {
         Game game = gameDao.findById(gameId);
         // To do check if user has right to start game (get user from spring security context )
         if (game.getUserInGames().size() >= 3) {
@@ -128,9 +112,6 @@ public class GameServiceImpl implements GameService {
 
     }
 
-    @Override
-    public void passCardToAnotherUserInGame(Game game) {
 
-    }
 
 }

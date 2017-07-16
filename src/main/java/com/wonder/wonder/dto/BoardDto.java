@@ -1,19 +1,19 @@
 package com.wonder.wonder.dto;
 
+import com.wonder.wonder.phase.GamePhase;
+import lombok.Data;
+
 import java.util.List;
 
 /**
- * bm
- * DATE 27.06.17.
+ * Creator: Pavlenko Bohdan
+ * Date: 29.06.2017
+ * Project: wonder
  */
-
-// for example board can be change
-
+@Data
 public class BoardDto {
-
     private long gameId;
     private List<PlayerDto> playerDto;
-    private int countPlayers;
-    private int phase;
+    private GamePhase phase;
 
 }

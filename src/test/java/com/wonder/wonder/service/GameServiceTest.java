@@ -1,8 +1,8 @@
 package com.wonder.wonder.service;
 
-import com.wonder.wonder.businessLogic.GamePhase;
+import com.wonder.wonder.phase.GamePhase;
 import com.wonder.wonder.dao.GameDao;
-import com.wonder.wonder.dto.ShowLobbyDto;
+import com.wonder.wonder.dto.GameViewDto;
 import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.User;
 import com.wonder.wonder.model.UserInGame;
@@ -39,7 +39,7 @@ public class GameServiceTest {
     private static final String USER_NAME = "Super";
     private static final String USER_PASSWORD = "Super";
     private static final String USER_EMAIL = "AdminWonder@gmail.com";
-
+//ww
     @Mock
     private GameDao gameDao;
 
@@ -64,9 +64,6 @@ public class GameServiceTest {
 
     @Test
     public void createGameSuccessful() {
-        when(authenticationWrapper.getCurrentUser()).thenReturn(currentUserInit());
-        when(userService.getUserById(USER_ID)).thenReturn(currentUserInit());
-
         doReturn(true).when(gameServiceImpl).joinToGame(anyLong());
         gameServiceImpl.createGame();
         ArgumentCaptor<Game> argumentCaptor = ArgumentCaptor.forClass(Game.class);
@@ -146,12 +143,12 @@ public class GameServiceTest {
 
     @Test(expected = RuntimeException.class)
     public void userInGameTryToJoinGameAgain() {
-//        when(userInGameService.getUserInGameByGameIDAndUserId(anyLong(), anyLong())).thenReturn(new UserInGame());
-//        try {
-//            gameServiceImpl.showLobby();
-//        } catch (RuntimeException e) {
-//            assertEquals("User try to join in Game again when user already in this game!!!", e.getMessage());
-//        }
+        when(gameDao.findById(anyLong())).thenReturn(new Game());
+        try {
+            gameServiceImpl.joinToGame(45L);
+        } catch (RuntimeException e) {
+            assertEquals("User try to join in Game again when user already in this game!!!", e.getMessage());
+        }
     }
 
 
@@ -191,6 +188,7 @@ public class GameServiceTest {
 
     public Game gameInit(Long gameId, Integer playersInGame, GamePhase gamePhase) {
         Game game = new Game();
+        game.setName(gameId.hashCode() + "");
         game.setId(gameId);
         game.setPhase(gamePhase);
         game.setUserInGames(listUserInGameInit(playersInGame, gameId));
@@ -198,7 +196,7 @@ public class GameServiceTest {
     }
 
 
-    public List<Game> gameInitListPhaseKid() {
+    public List<Game> gameInitListPhaseJoin_Phase() {
         List<Game> gameList = new ArrayList<>();
         gameList.add(gameInit(1L, 1, GamePhase.JOIN_PHASE));
         gameList.add(gameInit(2L, 2, GamePhase.JOIN_PHASE));
@@ -210,30 +208,28 @@ public class GameServiceTest {
 
     // do dto this field which we need
     @Test
-    public void showLobby() {
-        List<Game> gameList = gameInitListPhaseKid();
+    public void getShowLobbyTest() {
+        List<Game> gameList = gameInitListPhaseJoin_Phase();
         doReturn(gameList).when(gameDao).findAllByPhase(GamePhase.JOIN_PHASE);
-        List<UserInGame> userInGameList = listUserInGameInit(3, 103L);
-        doReturn(userInGameList).when(userInGameService).getAllUserInGameByGameId(GAME_ID);
-        List<ShowLobbyDto> showLobbyDtoList = gameServiceImpl.showLobby();
 
-//        verify(gameDao, new Times(1)).findAllByPhase(GamePhase.JOIN_PHASE);
-//        verify(userInGameService, new Times(1)).getAllUserInGameByGameId(anyLong());
-//        for (ShowLobbyDto showLobbyDto : showLobbyDtoList) {
-//            if (showLobbyDto.getGameId() == 3) {
-//                assertEquals(3, showLobbyDto.getPlayersInGameCount());
-//            }
-//
-//        }
+        List<GameViewDto> gameViewDtoList = gameServiceImpl.getGameViewDtoForJoinPhase();
+        for (int i = 0; i < gameList.size(); i++) {
+            GameViewDto viewDto = gameViewDtoList.get(i);
+            Game game = gameList.get(i);
+            assertEquals(game.getId(), viewDto.getGameId());
+            assertEquals(game.getName(), viewDto.getGameName());
+            assertEquals(game.getUserInGames().size(), viewDto.getPlayersInGameCount());
+        }
+
 
     }
 
 
-    public List<ShowLobbyDto> showLobbyDtoListInit() {
-        List<Game> gameList = gameInitListPhaseKid();
+    public List<GameViewDto> showLobbyDtoListInit() {
+        List<Game> gameList = gameInitListPhaseJoin_Phase();
         List<UserInGame> userInGameList = listUserInGameInit(3, 103L);
-        List<ShowLobbyDto> showLobbyDtoList = new ArrayList<>();
-        showLobbyDtoList.forEach(showLobbyDto -> showLobbyDto.setPlayersInGameCount(
+        List<GameViewDto> gameViewDtoList = new ArrayList<>();
+        gameViewDtoList.forEach(gameViewDto -> gameViewDto.setPlayersInGameCount(
                 userInGameList.size()));
         return null;
     }
@@ -242,7 +238,7 @@ public class GameServiceTest {
     @Test
     public void userStartGameFullGameSuccsessful() {
 //        when(gameDao.findById(GAME_ID)).thenReturn(listUserInGameInit(4));
-        gameServiceImpl.userStartGameFullGame(GAME_ID);
+        gameServiceImpl.startGame(GAME_ID);
         ArgumentCaptor<Game> argumentCaptor = ArgumentCaptor.forClass(Game.class);
         verify(gameDao, new Times(1)).save(argumentCaptor.capture());
         Game game = argumentCaptor.getValue();
@@ -255,9 +251,9 @@ public class GameServiceTest {
     public void userStartGameNoHaveFourUser() {
         Game game = new Game();
 // work here
- //        when(gameDao.findById(GAME_ID)).thenReturn(listUserInGameInit(3));
+        //        when(gameDao.findById(GAME_ID)).thenReturn(listUserInGameInit(3));
         try {
-            gameServiceImpl.userStartGameFullGame(GAME_ID);
+            gameServiceImpl.startGame(GAME_ID);
         } catch (RuntimeException e) {
             assertEquals("Need more users for start!!!", e.getMessage());
             throw e;

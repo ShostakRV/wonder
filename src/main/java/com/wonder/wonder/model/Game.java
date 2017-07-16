@@ -1,6 +1,6 @@
 package com.wonder.wonder.model;
 
-import com.wonder.wonder.businessLogic.GamePhase;
+import com.wonder.wonder.phase.GamePhase;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,7 +27,7 @@ public class Game {
     @Column(name = "name")
     protected String name; // game name create
 
-    @Column(name = "phase")
+    @Column(name = "userSelectedCard")
     @Enumerated(EnumType.STRING)
     protected GamePhase phase;
 

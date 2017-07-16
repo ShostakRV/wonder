@@ -33,7 +33,7 @@ public class Event {
     @Column(name = "action_name")
     protected String actionName;
 
-    @Column(name = "phase")
+    @Column(name = "userSelectedCard")
     protected String phase;
 
     @Enumerated(EnumType.STRING)

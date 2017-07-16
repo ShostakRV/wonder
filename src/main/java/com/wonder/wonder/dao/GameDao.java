@@ -1,8 +1,7 @@
 package com.wonder.wonder.dao;
 
-import com.wonder.wonder.businessLogic.GamePhase;
+import com.wonder.wonder.phase.GamePhase;
 import com.wonder.wonder.model.Game;
-import com.wonder.wonder.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 

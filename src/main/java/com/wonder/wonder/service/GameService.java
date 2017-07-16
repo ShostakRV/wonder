@@ -1,6 +1,6 @@
 package com.wonder.wonder.service;
 
-import com.wonder.wonder.dto.ShowLobbyDto;
+import com.wonder.wonder.dto.GameViewDto;
 import com.wonder.wonder.model.Game;
 
 import java.util.List;
@@ -14,11 +14,11 @@ public interface GameService {
 
     long createGame();
 
-    List<ShowLobbyDto> showLobby();
+    List<GameViewDto> getGameViewDtoForJoinPhase();
 
     boolean joinToGame(Long gameId);
 
-    void userStartGameFullGame(long gameId);
+    void startGame(long gameId);
 
 //    void startGame(UserInGame userInGame);  // in game + list enum vonder
 //
@@ -26,13 +26,13 @@ public interface GameService {
 //    void giveCardSetPlayers(UserInGame userInGame, String type, Integer age); // or game
 
 
-    //todo add annotation
-    void passCardToAnotherUserInGame(Game game);
+//
+//    void passCardToAnotherUserInGame(Game game);
+//
+//    void war(Game game);
 
-    void war(Game game);
-
-    //todo add annotation
-    void exchangeCardSetBetweenPlayers(Game game);
+//    //todo add annotation
+//    void exchangeCardSetBetweenPlayers(Game game);
 
     void countPoint(Game game);
 
