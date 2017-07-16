@@ -41,10 +41,7 @@ public class GameServiceImpl implements GameService {
         this.authenticationWrapper = authenticationWrapper;
     }
 
-    @Override
-    public void passCardTOAnotherUserInGame(Game game) {
 
-    }
 
     @Override
     public void war(Game game) {
@@ -77,11 +74,8 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<Game> showLobby() {
-
-
         return gameDao.findAllByPhase(GamePhase.JOIN_PHASE);
     }
-
 
     @Override
     public boolean joinToGame(Long gameId) {
@@ -116,6 +110,11 @@ public class GameServiceImpl implements GameService {
         } else {
             throw new RuntimeException("Need more users for start!!!");
         }
+
+    }
+
+    @Override
+    public void passCardTOAnotherUserInGame(Game game) {
 
     }
 }

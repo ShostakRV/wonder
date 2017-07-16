@@ -13,6 +13,6 @@ import org.springframework.stereotype.Component;
 public class AuthenticationWrapperImpl implements AuthenticationWrapper {
     @Override
     public User getCurrentUser() {
-        return (User) SecurityContextHolder.getContext().getAuthentication();
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }
