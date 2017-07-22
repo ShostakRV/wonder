@@ -1,6 +1,6 @@
 package com.wonder.wonder.service;
 
-import com.wonder.wonder.businessLogic.GamePhase;
+import com.wonder.wonder.phase.GamePhase;
 import com.wonder.wonder.cards.CardWonder;
 import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.dao.GameDao;
@@ -89,7 +89,7 @@ public class GameServiceTest {
         try {
             gameServiceImpl.createGame();
         } catch (RuntimeException e) {
-            assertEquals("No exist User with this id!!!", e.getMessage());
+            assertEquals("No exist Game with this id!!!", e.getMessage());
             throw e;
         }
     }

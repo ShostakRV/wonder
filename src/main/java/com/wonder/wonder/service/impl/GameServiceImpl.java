@@ -1,6 +1,6 @@
 package com.wonder.wonder.service.impl;
 
-import com.wonder.wonder.businessLogic.GamePhase;
+import com.wonder.wonder.phase.GamePhase;
 import com.wonder.wonder.cards.CardWonder;
 import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.cards.GameCardColor;
