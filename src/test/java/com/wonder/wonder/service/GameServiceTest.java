@@ -28,7 +28,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Mockito.*;
 
 /**
-  Created by bm on 27.06.17.
+ * Created by bm on 27.06.17.
  */
 //
 //стаешь на локальный мастер... git checkout master
@@ -37,7 +37,7 @@ import static org.mockito.Mockito.*;
 public class GameServiceTest {
 
     private static final long GAME_ID = 1L;
-    private static final Long USER_ID = 0L;
+    private static final long USER_ID = 1L;
     private static final Long USER_ID_SECOND = 2L;
     private static final String USER_NAME = "Super";
     private static final String USER_PASSWORD = "Super";
@@ -269,7 +269,7 @@ public class GameServiceTest {
         Game game = argumentCaptor.getValue();
         assertEquals(GamePhase.STROKE_AGE_1_1_START, game.getPhase());
         assertEquals(userInGameList.size(), game.getUserInGames().size());
-        List<GameCard> gameCards = gameServiceImpl.getAllCardByAgeAndNumberPlayers(1, 7);
+
 
     }
 
@@ -296,17 +296,19 @@ public class GameServiceTest {
         Game game = gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE);
         when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(listUserInGameInit(4, GAME_ID));
         when(gameDao.findById(GAME_ID)).thenReturn(gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE));
+
         gameServiceImpl.startGame(GAME_ID);
         ArgumentCaptor<CardSetItem> argumentCaptor = ArgumentCaptor.forClass(CardSetItem.class);
-        verify(cardSetItemService, new Times(4)).save(argumentCaptor.capture());
-//        List<CardSet> cardSetList = argumentCaptor.getAllValues();
-//        List<CardSetItem> cardSetItemList = cardSet.getCardSetItems();
-//        assertEquals(7, cardSetItemList.size());
-//        for (int j = 0; j < cardSetItemList.size(); j++) {
-//            CardSetItem cardSetItem = cardSetItemList.get(j);
-//            assertEquals(null, cardSetItem.getPlayerPhase());
-//            assertNotEquals(null, cardSetItem.getGameCard());
-//        }
+        verify(cardSetItemService, new Times(28)).save(argumentCaptor.capture());
+        List<CardSetItem> cardSetItemList = argumentCaptor.getAllValues();
+        assertEquals(28, cardSetItemList.size());
+        for (int j = 0; j < cardSetItemList.size(); j++) {
+            CardSetItem cardSetItem = cardSetItemList.get(j);
+
+            assertEquals(j ,cardSetItem.getCardSet().getId());
+            assertEquals(null, cardSetItem.getPlayerPhase());
+            assertNotEquals(null, cardSetItem.getGameCard());
+        }
 
     }
 

@@ -6,14 +6,8 @@ import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.cards.GameCardColor;
 import com.wonder.wonder.dao.GameDao;
 import com.wonder.wonder.dto.GameViewDto;
-import com.wonder.wonder.model.CardSet;
-import com.wonder.wonder.model.Game;
-import com.wonder.wonder.model.User;
-import com.wonder.wonder.model.UserInGame;
-import com.wonder.wonder.service.CardSetService;
-import com.wonder.wonder.service.GameService;
-import com.wonder.wonder.service.UserInGameService;
-import com.wonder.wonder.service.UserService;
+import com.wonder.wonder.model.*;
+import com.wonder.wonder.service.*;
 import com.wonder.wonder.util.AuthenticationWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -42,19 +36,17 @@ public class GameServiceImpl implements GameService {
 
     private final AuthenticationWrapper authenticationWrapper;
 
+    private CardSetItemService cardSetItemService;
+
     @Autowired
-    public GameServiceImpl(GameDao gameDao, UserService userService, UserInGameService userInGameService, CardSetService cardSetService, AuthenticationWrapper authenticationWrapper) {
+    public GameServiceImpl(GameDao gameDao, UserService userService, UserInGameService userInGameService, CardSetService cardSetService, AuthenticationWrapper authenticationWrapper, CardSetItemService cardSetItemService) {
         this.gameDao = gameDao;
         this.userService = userService;
         this.userInGameService = userInGameService;
         this.cardSetService = cardSetService;
         this.authenticationWrapper = authenticationWrapper;
+        this.cardSetItemService = cardSetItemService;
     }
-
-
-
-
-
 
 
     @Override
@@ -124,6 +116,7 @@ public class GameServiceImpl implements GameService {
         }
         Game game = gameDao.findById(gameId);
         game.setUserInGames(userInGameList);
+
         List<CardWonder> cardWonderList = Arrays.asList(CardWonder.values());
         Collections.shuffle(cardWonderList);
         for (int i = 0; i < userInGameList.size(); i++) {
@@ -131,21 +124,33 @@ public class GameServiceImpl implements GameService {
             game.getUserInGames().get(i).setWonder(cardWonder);
             game.getUserInGames().get(i).setPosition(i);
         }
-        List<GameCard> gameCardList = getAllCardByAgeAndNumberPlayers(age, userInGameList.size());
 
-        for(int i = 0; i<userInGameList.size();i++){
+
+        List<CardSet> cardSetList = new ArrayList<>();
+        for (int i = 0; i < userInGameList.size(); i++) {
             CardSet cardSet = new CardSet();
             cardSet.setAge(age);
             cardSet.setSetNumber(i);
             cardSet.setGame(game);
             cardSetService.save(cardSet);
+            cardSetList.add(cardSet);
         }
+        List<GameCard> gameCardList = getAllCardByAgeAndNumberPlayers(age, userInGameList.size());
+        Collections.shuffle(userInGameList);
+        int setNumber = 0;
         for (int start = 0; start < gameCardList.size(); start += 7) {
-
             int end = Math.min(start + 7, gameCardList.size());
             List<GameCard> gameCards = gameCardList.subList(start, end);
-
+            for (GameCard gameCard : gameCards) {
+                CardSetItem cardSetItem = new CardSetItem();
+                CardSet cardSet = cardSetList.get(setNumber);
+                cardSetItem.setCardSet(cardSet);
+                cardSetItem.setGameCard(gameCard);
+                cardSetItemService.save(cardSetItem);
+            }
+            setNumber++;
         }
+
         game.setPhase(GamePhase.STROKE_AGE_1_1_START);
         game.setStart(new Date());
         gameDao.save(game);
