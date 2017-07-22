@@ -9,14 +9,15 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by bm on 11.07.17.
+  Created by bm on 11.07.17.
  */
 public interface UserInGameDao extends PagingAndSortingRepository<UserInGame, Long> {
     UserInGame findById(long id);
 
     List<UserInGame> findAllByGameId(long gameId);
 
-    UserInGame findByGame(long gameId);
+    UserInGame findByGameId(long gameId);
+
 
 
     @Query("from UserInGame")

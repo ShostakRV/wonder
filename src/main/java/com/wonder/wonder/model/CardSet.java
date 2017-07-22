@@ -32,7 +32,7 @@ public class CardSet {
     protected Integer setNumber;
 
     @Column(name = "age")
-    protected String age;
+    protected Integer age;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cardSet")
     protected List<CardSetItem> cardSetItems = new ArrayList<>();

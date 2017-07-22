@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by bm on 12.07.17.
+  Created by bm on 12.07.17.
  */
 @Component
 public class UserInGameServiceImpl implements UserInGameService {
@@ -24,10 +24,15 @@ public class UserInGameServiceImpl implements UserInGameService {
 
 
     @Override
-    public List<UserInGame> getAllUserInGameByGameId(long gameId) {
-        return new ArrayList<UserInGame>(userInGameDao.findAllByGameId(gameId));
+    public UserInGame getUserInGameByGameId(long gameId) {
+        return userInGameDao.findByGameId(gameId);
+
     }
 
+    @Override
+    public List<UserInGame> getAllUserInGameByGameId(long gameId) {
+        return userInGameDao.findAllByGameId(gameId);
+    }
 
 
     @Override

@@ -1,11 +1,11 @@
 package com.wonder.wonder.service;
 
 import com.wonder.wonder.businessLogic.GamePhase;
+import com.wonder.wonder.cards.CardWonder;
+import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.dao.GameDao;
 import com.wonder.wonder.dto.GameViewDto;
-import com.wonder.wonder.model.Game;
-import com.wonder.wonder.model.User;
-import com.wonder.wonder.model.UserInGame;
+import com.wonder.wonder.model.*;
 import com.wonder.wonder.service.impl.GameServiceImpl;
 import com.wonder.wonder.util.AuthenticationWrapper;
 import org.junit.Before;
@@ -20,12 +20,15 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Mockito.*;
 
 /**
- * Created by bm on 27.06.17.
+  Created by bm on 27.06.17.
  */
 //
 //стаешь на локальный мастер... git checkout master
@@ -56,6 +59,12 @@ public class GameServiceTest {
     @Mock
     private AuthenticationWrapper authenticationWrapper;
 
+    @Mock
+    private CardSetService cardSetService;
+
+    @Mock
+    private CardSetItemService cardSetItemService;
+
     @Before
     public void setUp() throws Exception {
         System.out.println();
@@ -63,7 +72,7 @@ public class GameServiceTest {
 
 
     @Test
-    public void createGameSuccessful() {
+    public void createGameSuccessfulTest() {
         doReturn(true).when(gameServiceImpl).joinToGame(anyLong());
         gameServiceImpl.createGame();
         ArgumentCaptor<Game> argumentCaptor = ArgumentCaptor.forClass(Game.class);
@@ -75,7 +84,7 @@ public class GameServiceTest {
 
 
     @Test(expected = RuntimeException.class)
-    public void createGameValidId() {
+    public void createGameValidIdTest() {
         when(authenticationWrapper.getCurrentUser()).thenReturn(currentUserInit());
         try {
             gameServiceImpl.createGame();
@@ -97,7 +106,7 @@ public class GameServiceTest {
 
 
     @Test
-    public void joinToGameSuccessful() {
+    public void joinToGameSuccessfulTest() {
         when(authenticationWrapper.getCurrentUser()).thenReturn(currentUserInit());
         User user = authenticationWrapper.getCurrentUser();
         when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(listUserInGameInit(1, GAME_ID));
@@ -118,7 +127,7 @@ public class GameServiceTest {
 
 
     @Test(expected = RuntimeException.class)
-    public void joinInGameFullGame() {
+    public void joinInGameFullGameTest() {
         when(gameDao.findById(GAME_ID)).thenReturn(gameInit(GAME_ID, 14, GamePhase.JOIN_PHASE));
         when(userInGameService.getAllUserInGameByGameId(GAME_ID).size()).thenReturn((14));
 
@@ -131,7 +140,7 @@ public class GameServiceTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void joinInNoExistGame() {
+    public void joinInNoExistGameTest() {
         when(gameDao.findById(GAME_ID)).thenReturn(null);
         try {
             gameServiceImpl.joinToGame(GAME_ID);
@@ -142,12 +151,14 @@ public class GameServiceTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void userInGameTryToJoinGameAgain() {
-        when(gameDao.findById(anyLong())).thenReturn(new Game());
+    public void userInGameTryToJoinGameAgainTest() {
+        when(userInGameService.getUserInGameByGameId(GAME_ID)).thenReturn(new UserInGame());
+        doReturn(true).when(gameDao).findById(anyLong());
         try {
-            gameServiceImpl.joinToGame(45L);
+            gameServiceImpl.joinToGame(GAME_ID);
         } catch (RuntimeException e) {
             assertEquals("User try to join in Game again when user already in this game!!!", e.getMessage());
+            throw e;
         }
     }
 
@@ -158,15 +169,15 @@ public class GameServiceTest {
         game.setId(gameId);
         List<UserInGame> userInGames = new ArrayList<>();
         if (usersInGame >= 1) {
-            userInGames.add(userInGameInit(1L, game));
+            userInGames.add(userInGameInit(1L, 1L, game));
             if (usersInGame >= 2) {
-                userInGames.add(userInGameInit(2L, game));
+                userInGames.add(userInGameInit(2L, 2L, game));
                 if (usersInGame >= 3) {
-                    userInGames.add(userInGameInit(3L, game));
+                    userInGames.add(userInGameInit(3L, 3L, game));
                     if (usersInGame >= 4) {
-                        userInGames.add(userInGameInit(4L, game));
+                        userInGames.add(userInGameInit(4L, 4L, game));
                         if (usersInGame >= 5) {
-                            userInGames.add(userInGameInit(5L, game));
+                            userInGames.add(userInGameInit(5L, 5L, game));
                         }
                     }
                 }
@@ -176,12 +187,12 @@ public class GameServiceTest {
     }
 
     // here need game no usr id
-    public UserInGame userInGameInit(Long userInGameId, Game game) {
+    public UserInGame userInGameInit(long userId, Long userInGameId, Game game) {
         User user = new User();
-        user.setId(userInGameId);
+        user.setId(userId);
         UserInGame userInGame = new UserInGame();
         userInGame.setUser(user);
-
+        userInGame.setId(userInGameId);
         userInGame.setGame(game);
         return userInGame;
     }
@@ -208,11 +219,11 @@ public class GameServiceTest {
 
     // do dto this field which we need
     @Test
-    public void getShowLobbyTest() {
+    public void getGameforShowInLobbyTest() {
         List<Game> gameList = gameInitListPhaseJoin_Phase();
         doReturn(gameList).when(gameDao).findAllByPhase(GamePhase.JOIN_PHASE);
 
-        List<GameViewDto> gameViewDtoList = gameServiceImpl.getGameViewDtoForJoinPhase();
+        List<GameViewDto> gameViewDtoList = gameServiceImpl.showGameInJoinPhaseInLobby();
         for (int i = 0; i < gameList.size(); i++) {
             GameViewDto viewDto = gameViewDtoList.get(i);
             Game game = gameList.get(i);
@@ -235,32 +246,110 @@ public class GameServiceTest {
     }
 
 
-    @Test
-    public void userStartGameFullGameSuccsessful() {
-//        when(gameDao.findById(GAME_ID)).thenReturn(listUserInGameInit(4));
-        gameServiceImpl.startGame(GAME_ID);
-        ArgumentCaptor<Game> argumentCaptor = ArgumentCaptor.forClass(Game.class);
-        verify(gameDao, new Times(1)).save(argumentCaptor.capture());
-        Game game = argumentCaptor.getValue();
-
-        assertEquals(GamePhase.STROKE_AGE_1_1_START, game.getPhase());
-
-    }
-
     @Test(expected = RuntimeException.class)
-    public void userStartGameNoHaveFourUser() {
-        Game game = new Game();
-// work here
-        //        when(gameDao.findById(GAME_ID)).thenReturn(listUserInGameInit(3));
+    public void userStartGameNoHaveFourUserTest() {
+        when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(listUserInGameInit(2, GAME_ID));
         try {
             gameServiceImpl.startGame(GAME_ID);
         } catch (RuntimeException e) {
             assertEquals("Need more users for start!!!", e.getMessage());
             throw e;
         }
+    }
 
-// www
+    @Test
+    public void userStartGameFullGameSuccsessfulMetodStartGameTest() {
+        List<UserInGame> userInGameList = listUserInGameInit(4, GAME_ID);
+        when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(listUserInGameInit(4, GAME_ID));
+        when(gameDao.findById(GAME_ID)).thenReturn(gameInit(GAME_ID, 0, GamePhase.JOIN_PHASE));
+
+        gameServiceImpl.startGame(GAME_ID);
+        ArgumentCaptor<Game> argumentCaptor = ArgumentCaptor.forClass(Game.class);
+        verify(gameDao, new Times(1)).save(argumentCaptor.capture());
+        Game game = argumentCaptor.getValue();
+        assertEquals(GamePhase.STROKE_AGE_1_1_START, game.getPhase());
+        assertEquals(userInGameList.size(), game.getUserInGames().size());
+        List<GameCard> gameCards = gameServiceImpl.getAllCardByAgeAndNumberPlayers(1, 7);
+
+    }
+
+    @Test
+    public void correctSaveSetCardMetodStartGameTest() {
+        Game game = gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE);
+        when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(listUserInGameInit(4, GAME_ID));
+        when(gameDao.findById(GAME_ID)).thenReturn(gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE));
+        gameServiceImpl.startGame(GAME_ID);
+        ArgumentCaptor<CardSet> argumentCaptor = ArgumentCaptor.forClass(CardSet.class);
+        verify(cardSetService, new Times(4)).save(argumentCaptor.capture());
+        List<CardSet> cardSetList = argumentCaptor.getAllValues();
+        for (int i = 0; i < cardSetList.size(); i++) {
+            CardSet cardSet = cardSetList.get(i);
+            Game correctGame = cardSet.getGame();
+            assertEquals(game.getId(), correctGame.getId());
+            assertEquals(new Integer(1), cardSet.getAge());
+            assertEquals(new Integer(i), cardSet.getSetNumber());
+        }
+    }
+
+    @Test
+    public void correctSaveSetCardItemMetodStartGameTest() {
+        Game game = gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE);
+        when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(listUserInGameInit(4, GAME_ID));
+        when(gameDao.findById(GAME_ID)).thenReturn(gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE));
+        gameServiceImpl.startGame(GAME_ID);
+        ArgumentCaptor<CardSetItem> argumentCaptor = ArgumentCaptor.forClass(CardSetItem.class);
+        verify(cardSetItemService, new Times(4)).save(argumentCaptor.capture());
+//        List<CardSet> cardSetList = argumentCaptor.getAllValues();
+//        List<CardSetItem> cardSetItemList = cardSet.getCardSetItems();
+//        assertEquals(7, cardSetItemList.size());
+//        for (int j = 0; j < cardSetItemList.size(); j++) {
+//            CardSetItem cardSetItem = cardSetItemList.get(j);
+//            assertEquals(null, cardSetItem.getPlayerPhase());
+//            assertNotEquals(null, cardSetItem.getGameCard());
+//        }
+
+    }
+
+    // do use set like unique
+    // check dublicate field UserInGame
+    // check null field UserInGame set
+    @Test
+    public void allUserInGameHaveWonderAndpositionMetodStartGameTest() {
+        when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(listUserInGameInit(4, GAME_ID));
+        when(gameDao.findById(GAME_ID)).thenReturn(gameInit(GAME_ID, 0, GamePhase.JOIN_PHASE));
+        gameServiceImpl.startGame(GAME_ID);
+        ArgumentCaptor<Game> argumentCaptor = ArgumentCaptor.forClass(Game.class);
+        verify(gameDao, new Times(1)).save(argumentCaptor.capture());
+        Game game = argumentCaptor.getValue();
+        List<UserInGame> userInGameList = game.getUserInGames();
+        Set<CardWonder> correctContWonder = new TreeSet<>();
+        Set<Integer> correctCountPosition = new TreeSet<>();
+        for (UserInGame userInGame : userInGameList) {
+            assertNotEquals(null, userInGame.getWonder());
+            assertNotEquals(null, userInGame.getPosition());
+            correctContWonder.add(userInGame.getWonder());
+            correctCountPosition.add(userInGame.getPosition());
+        }
+        assertEquals(correctContWonder.size(), userInGameList.size());
+        assertEquals(correctCountPosition.size(), userInGameList.size());
+    }
+
+    @Test
+    public void getAllCardByAgeAndNumberPlayersSuccessfulMetodStartGameTest() {
+        for (int age = 1; age < 4; age++) {
+            for (int playersInGame = 3; playersInGame < 8; playersInGame++) {
+                List<GameCard> cards = gameServiceImpl.getAllCardByAgeAndNumberPlayers(age, playersInGame);
+                assertEquals(playersInGame * 7, cards.size());
+            }
+        }
+
+
     }
 
 
 }
+
+
+
+
+
