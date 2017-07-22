@@ -1,4 +1,4 @@
-package com.wonder.wonder.businessLogic;
+package com.wonder.wonder.phase;
 
 /**
  * Created by bm on 13.07.17.

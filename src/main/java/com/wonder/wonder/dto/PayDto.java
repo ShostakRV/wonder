@@ -1,4 +1,4 @@
-package com.wonder.wonder.dto.pb;
+package com.wonder.wonder.dto;
 
 import com.wonder.wonder.cards.BaseResource;
 import com.wonder.wonder.cards.GameCard;

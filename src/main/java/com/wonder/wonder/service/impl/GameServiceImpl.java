@@ -49,7 +49,7 @@ public class GameServiceImpl implements GameService {
     }
 
 
-    @Override
+      @Override
     public void countPoint(Game game) {
 
     }
