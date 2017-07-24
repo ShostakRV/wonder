@@ -156,7 +156,7 @@ public class GameServiceImpl implements GameService {
 // To do check if user has right to start game (get user from spring security context )
     }
 
-    protected List<GameCard> getAllCardByAgeAndNumberPlayers(int age, int numberPlayer) {
+    public List<GameCard> getAllCardByAgeAndNumberPlayers(int age, int numberPlayer) {
         final List<GameCard> startCards = new ArrayList<>();
         Arrays.stream(GameCard.values())
                 .filter(gameCard -> gameCard.getAge() == age)
