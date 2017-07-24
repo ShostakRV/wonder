@@ -248,7 +248,8 @@ public class GameServiceTest {
 
     @Test(expected = RuntimeException.class)
     public void userStartGameNoHaveFourUserTest() {
-        when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(listUserInGameInit(2, GAME_ID));
+        Game gameMock = gameInit(GAME_ID, 2, GamePhase.JOIN_PHASE);
+        when(gameDao.findById(GAME_ID)).thenReturn(gameMock);
         try {
             gameServiceImpl.startGame(GAME_ID);
         } catch (RuntimeException e) {
@@ -259,9 +260,9 @@ public class GameServiceTest {
 
     @Test
     public void userStartGameFullGameSuccsessfulMetodStartGameTest() {
-        List<UserInGame> userInGameList = listUserInGameInit(4, GAME_ID);
-        when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(listUserInGameInit(4, GAME_ID));
-        when(gameDao.findById(GAME_ID)).thenReturn(gameInit(GAME_ID, 0, GamePhase.JOIN_PHASE));
+        Game gameMock = gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE);
+        List<UserInGame> userInGameList = gameMock.getUserInGames();
+        when(gameDao.findById(GAME_ID)).thenReturn(gameMock);
 
         gameServiceImpl.startGame(GAME_ID);
         ArgumentCaptor<Game> argumentCaptor = ArgumentCaptor.forClass(Game.class);
@@ -317,8 +318,8 @@ public class GameServiceTest {
     // check null field UserInGame set
     @Test
     public void allUserInGameHaveWonderAndpositionMetodStartGameTest() {
-        when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(listUserInGameInit(4, GAME_ID));
-        when(gameDao.findById(GAME_ID)).thenReturn(gameInit(GAME_ID, 0, GamePhase.JOIN_PHASE));
+//        when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(listUserInGameInit(4, GAME_ID));
+        when(gameDao.findById(GAME_ID)).thenReturn(gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE));
         gameServiceImpl.startGame(GAME_ID);
         ArgumentCaptor<Game> argumentCaptor = ArgumentCaptor.forClass(Game.class);
         verify(gameDao, new Times(1)).save(argumentCaptor.capture());
@@ -332,8 +333,8 @@ public class GameServiceTest {
             correctContWonder.add(userInGame.getWonder());
             correctCountPosition.add(userInGame.getPosition());
         }
-        assertEquals(correctContWonder.size(), userInGameList.size());
-        assertEquals(correctCountPosition.size(), userInGameList.size());
+        assertEquals(userInGameList.size(), correctContWonder.size() );
+        assertEquals(userInGameList.size(), correctCountPosition.size() );
     }
 
     @Test

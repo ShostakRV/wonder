@@ -1,12 +1,12 @@
 package com.wonder.wonder.service.impl;
 
-import com.wonder.wonder.phase.GamePhase;
 import com.wonder.wonder.cards.CardWonder;
 import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.cards.GameCardColor;
 import com.wonder.wonder.dao.GameDao;
 import com.wonder.wonder.dto.GameViewDto;
 import com.wonder.wonder.model.*;
+import com.wonder.wonder.phase.GamePhase;
 import com.wonder.wonder.service.*;
 import com.wonder.wonder.util.AuthenticationWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class GameServiceImpl implements GameService {
     }
 
 
-      @Override
+    @Override
     public void countPoint(Game game) {
 
     }
@@ -110,12 +110,11 @@ public class GameServiceImpl implements GameService {
         int age = 1;
 
         //hibernate
-        List<UserInGame> userInGameList = userInGameService.getAllUserInGameByGameId(gameId);
+        Game game = gameDao.findById(gameId);
+        List<UserInGame> userInGameList = game.getUserInGames(); //
         if (userInGameList.size() < 3) {
             throw new RuntimeException("Need more users for start!!!");
         }
-        Game game = gameDao.findById(gameId);
-        game.setUserInGames(userInGameList);
 
         List<CardWonder> cardWonderList = Arrays.asList(CardWonder.values());
         Collections.shuffle(cardWonderList);
@@ -157,8 +156,8 @@ public class GameServiceImpl implements GameService {
 // To do check if user has right to start game (get user from spring security context )
     }
 
-    public List<GameCard> getAllCardByAgeAndNumberPlayers(int age, int numberPlayer) {
-        List<GameCard> startCards = new ArrayList<>();
+    protected List<GameCard> getAllCardByAgeAndNumberPlayers(int age, int numberPlayer) {
+        final List<GameCard> startCards = new ArrayList<>();
         Arrays.stream(GameCard.values())
                 .filter(gameCard -> gameCard.getAge() == age)
                 .forEach(gameCard ->
@@ -167,34 +166,31 @@ public class GameServiceImpl implements GameService {
                                 .filter(forPayers -> forPayers <= numberPlayer)
                                 .forEach(i -> startCards.add(gameCard))
                 );
-        List<GameCard> endResult = startCards;
         if (age == 3) {
             List<GameCard> purpurAll = startCards.stream().
                     filter(gameCard -> gameCard.getGameCardColor() == GameCardColor.PURPLE)
                     .collect(Collectors.toList());
-            endResult = startCards.stream().filter(gameCard -> gameCard.getGameCardColor() != GameCardColor.PURPLE)
-                    .collect(Collectors.toList());
             Collections.shuffle(purpurAll);
-            List<GameCard> resultPurpure = new ArrayList<>();
-            for (int i = 0; i < numberPlayer + 2; i++) {
-                resultPurpure.add(purpurAll.get(i));
+            for (int i = 0; i < purpurAll.size() - (numberPlayer + 2); i++) {
+                startCards.remove(purpurAll.get(i));
             }
-            endResult.addAll(resultPurpure);
         }
         if (numberPlayer >= 3 & age == 2) {
             //silver
-            endResult.add(GameCard.LOOM);
-            endResult.add(GameCard.GLASSWORKS);
-            endResult.add(GameCard.PRESS);
+            startCards.add(GameCard.LOOM);
+            startCards.add(GameCard.GLASSWORKS);
+            startCards.add(GameCard.PRESS);
             if (numberPlayer >= 5) {
                 //silver
-                endResult.add(GameCard.LOOM);
-                endResult.add(GameCard.GLASSWORKS);
-                endResult.add(GameCard.PRESS);
+                startCards.add(GameCard.LOOM);
+                startCards.add(GameCard.GLASSWORKS);
+                startCards.add(GameCard.PRESS);
             }
         }
-        Collections.shuffle(endResult);
-        return endResult;
+        Collections.shuffle(startCards);
+        return startCards;
     }
+
+    //    void passCardToAnotherUserInGame(Game game);
 
 }
