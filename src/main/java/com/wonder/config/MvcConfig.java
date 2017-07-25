@@ -1,6 +1,7 @@
 package com.wonder.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -9,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * Date: 03.06.17.
  */
 @Configuration
+@EnableWebMvc
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
@@ -18,7 +20,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/lobby").setViewName("lobby");
         registry.addViewController("/game").setViewName("game");
         registry.addViewController("/signin").setViewName("/user/signin");
-        registry.addViewController("/signup").setViewName("/user/signup");
+        registry.addViewController("/register").setViewName("/user/register");
 //        registry.addViewController("/hello").setViewName("hello");
 //        registry.addViewController("/login").setViewName("login");
     }

@@ -23,7 +23,7 @@ public class LoginController {
 //        return new ModelAndView("templates/login.html");
 //    }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+//    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public User getUser() {
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
