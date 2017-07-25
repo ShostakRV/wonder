@@ -6,13 +6,19 @@ import com.wonder.wonder.model.UserInGame;
 import java.util.List;
 
 /**
- * Created by bm on 12.07.17.
+  Created by bm on 12.07.17.
  */
 public interface UserInGameService {
 
+    UserInGame getUserInGameByGameId(long gameId);
+
+
+
     List<UserInGame> getAllUserInGameByGameId(long gameId);
 
+
      void save(UserInGame userInGame);
+
 
 
 

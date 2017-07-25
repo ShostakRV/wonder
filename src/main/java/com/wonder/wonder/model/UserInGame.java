@@ -1,5 +1,6 @@
 package com.wonder.wonder.model;
 
+import com.wonder.wonder.cards.CardWonder;
 import com.wonder.wonder.cards.GameCard;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +33,7 @@ public class UserInGame {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "wonder")
-    protected GameCard wonder;
+    protected CardWonder wonder;
 
     @Column(name = "position")
     protected Integer position;

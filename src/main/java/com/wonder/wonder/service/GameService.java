@@ -14,25 +14,12 @@ public interface GameService {
 
     long createGame();
 
-    List<GameViewDto> getGameViewDtoForJoinPhase();
+    List<GameViewDto> showGameInJoinPhaseInLobby();
 
     boolean joinToGame(Long gameId);
 
+
     void startGame(long gameId);
-
-//    void startGame(UserInGame userInGame);  // in game + list enum vonder
-//
-//    // create cardSet
-//    void giveCardSetPlayers(UserInGame userInGame, String type, Integer age); // or game
-
-
-//
-//    void passCardToAnotherUserInGame(Game game);
-//
-//    void war(Game game);
-
-//    //todo add annotation
-//    void exchangeCardSetBetweenPlayers(Game game);
 
     void countPoint(Game game);
 
