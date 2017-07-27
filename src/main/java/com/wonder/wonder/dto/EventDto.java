@@ -1,9 +1,9 @@
 package com.wonder.wonder.dto;
 
 import com.wonder.wonder.cards.GameCard;
+import com.wonder.wonder.model.UserInGame;
+import com.wonder.wonder.phase.EventPhase;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * Created by bm
@@ -12,13 +12,12 @@ import java.util.List;
 @Data
 public class EventDto {
 
-    private String nameEvent; // or enum
+    private EventPhase eventPhase;
     private GameCard gameCard;
 
 
 
-
-
+    private Integer userInGameId; // or you think take user in session
 
 
 }

@@ -23,8 +23,8 @@ public class CardSetItem {
     protected long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    protected User user;
+    @JoinColumn(name = "user_In_Game_Id", nullable = false)
+    protected UserInGame userInGame;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "card_set_id", nullable = false)

@@ -7,6 +7,6 @@ public enum  EventPhase { // or ivent do
 
     BUILD,
     SELL_CARD,
-    END_EVENT,
+    BUILD_WONDER,
 
 }

@@ -241,7 +241,7 @@ public enum GameCard {
     private final int goldNeededForConstruction;
     private final OnBuildEvent onBuildEvent;
     private final List<BaseResource> resourcesNeedForBuild;
-    // boolen tradeCard;
+
 
 
     GameCard(int age, List<Integer> onPlayers, GameCardColor gameCardColor, CalcPointStrategy calcPointStrategy, GameResource giveResource,

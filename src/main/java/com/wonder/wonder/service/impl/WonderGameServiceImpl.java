@@ -19,6 +19,9 @@ public class WonderGameServiceImpl implements WonderGameService {
     private GameService gameService;
 
     private EventService eventService;
+
+
+
 //    private List<Event> eventList;
 
     //    void exchangeCardSetBetweenPlayers(Game game);

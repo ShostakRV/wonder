@@ -1,11 +1,11 @@
 package com.wonder.wonder.service;
 
-import com.wonder.wonder.phase.GamePhase;
-import com.wonder.wonder.cards.CardWonder;
+import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.dao.GameDao;
 import com.wonder.wonder.dto.GameViewDto;
 import com.wonder.wonder.model.*;
+import com.wonder.wonder.phase.GamePhase;
 import com.wonder.wonder.service.impl.GameServiceImpl;
 import com.wonder.wonder.util.AuthenticationWrapper;
 import org.junit.Before;
@@ -128,7 +128,7 @@ public class GameServiceTest {
 
     @Test(expected = RuntimeException.class)
     public void joinInGameFullGameTest() {
-        when(gameDao.findById(GAME_ID)).thenReturn(gameInit(GAME_ID, 14, GamePhase.JOIN_PHASE));
+
         when(userInGameService.getAllUserInGameByGameId(GAME_ID).size()).thenReturn((14));
 
         try {
@@ -306,7 +306,7 @@ public class GameServiceTest {
         for (int j = 0; j < cardSetItemList.size(); j++) {
             CardSetItem cardSetItem = cardSetItemList.get(j);
 
-            assertEquals(j ,cardSetItem.getCardSet().getId());
+            assertEquals(0 ,cardSetItem.getCardSet().getId());
             assertEquals(null, cardSetItem.getPlayerPhase());
             assertNotEquals(null, cardSetItem.getGameCard());
         }
@@ -325,7 +325,7 @@ public class GameServiceTest {
         verify(gameDao, new Times(1)).save(argumentCaptor.capture());
         Game game = argumentCaptor.getValue();
         List<UserInGame> userInGameList = game.getUserInGames();
-        Set<CardWonder> correctContWonder = new TreeSet<>();
+        Set<WonderCard> correctContWonder = new TreeSet<>();
         Set<Integer> correctCountPosition = new TreeSet<>();
         for (UserInGame userInGame : userInGameList) {
             assertNotEquals(null, userInGame.getWonder());

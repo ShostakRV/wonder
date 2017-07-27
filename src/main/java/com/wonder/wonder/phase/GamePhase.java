@@ -1,25 +1,57 @@
 package com.wonder.wonder.phase;
 
 /**
- Created by bm on 13.07.17.
+ * Created by bm on 13.07.17.
  */
 public enum GamePhase {
 
     JOIN_PHASE, PREPARATION, FINISHED,
 
-    STROKE_AGE_1_1_START,       ////set catr vonder DO_SET_FIRST_AGE,   CHOOSE_CARD_FROM_SET, //
-    STROKE_AGE_2_1_START,
-    STROKE_AGE_3_1_START,
+    STROKE_AGE_1_1_START,  ////set catr vonder DO_SET_FIRST_AGE,   CHOOSE_CARD_FROM_SET, //
+    STROKE_AGE_1_2_START,
+    STROKE_AGE_1_3_START,
+    STROKE_AGE_1_4_START,
+    STROKE_AGE_1_5_START,
+    STROKE_AGE_1_6_START,
+    STROKE_AGE_1_7_START,
     STROKE_AGE_1_1_END, // OPEN_CARD, //  EXCHANGE_CARD_SET,
-
-    STROKE_AGE_1_7_END, //     WAR,
-
-    STROKE_AGE_3_7_END, // COUNT_POINT
-
-
-   // i delete another userSelectedCard what i write
-
-
-
+    STROKE_AGE_1_2_END,
+    STROKE_AGE_1_3_END,
+    STROKE_AGE_1_4_END,
+    STROKE_AGE_1_5_END,
+    STROKE_AGE_1_6_END,
+    STROKE_AGE_1_7_END, // do action reborn card or leave Seventh Card
+    STROKE_AGE_1_8_WAR,//
+    STROKE_AGE_2_1_START,
+    STROKE_AGE_2_2_START,
+    STROKE_AGE_2_3_START,
+    STROKE_AGE_2_4_START,
+    STROKE_AGE_2_5_START,
+    STROKE_AGE_2_6_START,
+    STROKE_AGE_2_7_START,
+    STROKE_AGE_2_1_END,
+    STROKE_AGE_2_2_END,
+    STROKE_AGE_2_3_END,
+    STROKE_AGE_2_4_END,
+    STROKE_AGE_2_5_END,
+    STROKE_AGE_2_6_END,
+    STROKE_AGE_2_7_END,
+    STROKE_AGE_2_8_WAR,
+    STROKE_AGE_3_1_START,
+    STROKE_AGE_3_2_START,
+    STROKE_AGE_3_3_START,
+    STROKE_AGE_3_4_START,
+    STROKE_AGE_3_5_START,
+    STROKE_AGE_3_6_START,
+    STROKE_AGE_3_7_START,
+    STROKE_AGE_3_1_END,
+    STROKE_AGE_3_2_END,
+    STROKE_AGE_3_3_END,
+    STROKE_AGE_3_4_END,
+    STROKE_AGE_3_5_END,
+    STROKE_AGE_3_6_END,
+    STROKE_AGE_3_7_END,
+    STROKE_AGE_3_8_WAR,
+    STROKE_AGE_3_9_COUNT, // COUNT_POINT
 
 }

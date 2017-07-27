@@ -1,6 +1,6 @@
 package com.wonder.wonder.service.impl;
 
-import com.wonder.wonder.cards.CardWonder;
+import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.cards.GameCardColor;
 import com.wonder.wonder.dao.GameDao;
@@ -116,11 +116,11 @@ public class GameServiceImpl implements GameService {
             throw new RuntimeException("Need more users for start!!!");
         }
 
-        List<CardWonder> cardWonderList = Arrays.asList(CardWonder.values());
-        Collections.shuffle(cardWonderList);
+        List<WonderCard> wonderCardList = Arrays.asList(WonderCard.values());
+        Collections.shuffle(wonderCardList);
         for (int i = 0; i < userInGameList.size(); i++) {
-            CardWonder cardWonder = cardWonderList.get(i);
-            game.getUserInGames().get(i).setWonder(cardWonder);
+            WonderCard wonderCard = wonderCardList.get(i);
+            game.getUserInGames().get(i).setWonder(wonderCard);
             game.getUserInGames().get(i).setPosition(i);
         }
 
