@@ -2,8 +2,12 @@ package com.wonder.wonder.web;
 
 import com.wonder.wonder.model.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * Creator: Pavlenko Bohdan
@@ -11,14 +15,14 @@ import org.springframework.web.servlet.ModelAndView;
  * Project: wonder
  */
 @Controller
-@SessionAttributes("user")
 public class RegisterController {
-//    @GetMapping("/register")
+    @GetMapping("/register")
     public ModelAndView login() {
         return new ModelAndView("templates/user/register.html");
     }
+
     @PostMapping("/register")
-    public ModelAndView registerUser(@SessionAttribute("user")User user){
+    public ModelAndView registerUser(@SessionAttribute("user") User user) {
 
         return new ModelAndView("templates/user/register.html");
     }

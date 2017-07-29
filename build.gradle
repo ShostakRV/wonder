@@ -1,13 +1,13 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.3.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '1.5.3.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 apply plugin: 'java'
@@ -18,34 +18,38 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
-	jcenter()
+    mavenCentral()
+    jcenter()
 }
 
 
 dependencies {
 
 // https://mvnrepository.com/artifact/org.mockito/mockito-core
-	testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.22'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.7.22'
 
 
-	compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.springframework.boot:spring-boot-devtools")
 
-	// https://mvnrepository.com/artifact/org.projectlombok/lombok
-	compile group: 'org.projectlombok', name: 'lombok', version: '1.16.16'
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.16'
 
-	// https://mvnrepository.com/artifact/org.hibernate/hibernate-core
-	compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.10.Final'
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.10.Final'
 
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager
-	compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.2.10.Final'
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.2.10.Final'
 
 
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-security')
-	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-	compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    compile('org.springframework.boot:spring-boot-starter-web')
 
-	runtime('mysql:mysql-connector-java')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    runtime('mysql:mysql-connector-java')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    // https://mvnrepository.com/artifact/net.sourceforge.nekohtml/nekohtml
+    compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
+
 }

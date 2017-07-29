@@ -1,6 +1,8 @@
 package com.wonder.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -22,7 +24,11 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/signin").setViewName("/user/signin");
         registry.addViewController("/register").setViewName("/user/register");
 //        registry.addViewController("/hello").setViewName("hello");
-//        registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/login").setViewName("login");
+    }
+    @RequestMapping(value="/", method = RequestMethod.GET)
+    public String getHomePage(){
+        return "home";
     }
 
 }

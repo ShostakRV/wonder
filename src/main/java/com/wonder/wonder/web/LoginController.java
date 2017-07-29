@@ -24,10 +24,10 @@ public class LoginController {
 //    }
 
 //    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public User getUser() {
-        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-    }
+//    public User getUser() {
+//        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//    }
 //    @RequestMapping(value="/login", method = RequestMethod.GET)
 //    public String printWelcome(ModelMap model, Principal principal ) {
 //

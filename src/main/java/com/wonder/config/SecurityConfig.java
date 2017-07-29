@@ -22,11 +22,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("PLAYER,USER");
     }
 
-    @Bean
+    /*@Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
-    }
+    }*/
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -38,16 +38,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         super.configure(http);
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/", "/home","/registry","/login").anonymous()
-                .antMatchers("/message/hello", "/lobby", "/game").anonymous()
+                .antMatchers("/", "/home","/registry").permitAll()
+                .antMatchers("/message/hello", "/lobby", "/game").permitAll()
                 .antMatchers("/css/**", "/js/**", "/font/**").permitAll()
                 .anyRequest().authenticated()
+                .and().anonymous().authorities("USER")
                 .and()
                 .formLogin().permitAll()
-//                .loginPage("/login")
+                .loginPage("/login")
                 .and()
-                .logout().permitAll()
-                .and()
-                .httpBasic();
+                .logout().permitAll();
     }
 }
