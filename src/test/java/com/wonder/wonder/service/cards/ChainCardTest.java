@@ -1,6 +1,6 @@
 package com.wonder.wonder.service.cards;
 
-import com.wonder.wonder.cards.GameCard;
+import com.wonder.wonder.cards.MainCard;
 import org.junit.Test;
 
 import java.lang.reflect.Array;
@@ -20,13 +20,13 @@ public class ChainCardTest {
     @Test
     public void getAllCards_3Players_1age() {
         Set<String> names = new TreeSet<>();
-        for (GameCard gC : GameCard.values()) {
+        for (MainCard gC : MainCard.values()) {
             names.add(gC.toString());
         }
-        for (GameCard gameCard : GameCard.values()) {
-            if (gameCard.getChain() != null) {
-                for (String chainName : gameCard.getChain()) {
-                    assertEquals(gameCard+" Not found chain=>"+chainName, true, names.contains(chainName.toString()));
+        for (MainCard mainCard : MainCard.values()) {
+            if (mainCard.getChain() != null) {
+                for (String chainName : mainCard.getChain()) {
+                    assertEquals(mainCard +" Not found chain=>"+chainName, true, names.contains(chainName.toString()));
                 }
             }
 

@@ -31,9 +31,6 @@ public class CardSet {
     @Column(name = "set_number")
     protected Integer setNumber;
 
-    @Column(name = "age")
-    protected Integer age;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cardSet")
     protected List<CardSetItem> cardSetItems = new ArrayList<>();
 

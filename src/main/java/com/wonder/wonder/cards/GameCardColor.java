@@ -11,7 +11,7 @@ public enum GameCardColor {
 
     // color card
 
-    BROWN(false), BLUE(false), SILVER(false), RED(false), GREEN(false), YELLOW(false), PURPLE(true);
+    BROWN(false), BLUE(false), SILVER(false), RED(false), GREEN(false), YELLOW(false), PURPLE(true), NO_COLOR(false);
     private final boolean cardNeedWeedAndMix;
 
     GameCardColor(boolean cardNeedWeedAndMix) {

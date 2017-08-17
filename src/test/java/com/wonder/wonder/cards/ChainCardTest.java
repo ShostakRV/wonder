@@ -12,10 +12,10 @@ public class ChainCardTest {
     @Test
     public void getAllCards_3Players_1age() {
 
-        for (GameCard gameCard : GameCard.values()) {
-            if (gameCard.getChain() != null) {
-                for (String chainName : gameCard.getChain()) {
-                    assertNotNull(gameCard + " Not found chain=>" + chainName, GameCard.valueOf(chainName));
+        for (MainCard mainCard : MainCard.values()) {
+            if (mainCard.getChain() != null) {
+                for (String chainName : mainCard.getChain()) {
+                    assertNotNull(mainCard + " Not found chain=>" + chainName, MainCard.valueOf(chainName));
                 }
             }
 

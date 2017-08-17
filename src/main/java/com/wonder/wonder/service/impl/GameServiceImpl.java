@@ -1,8 +1,8 @@
 package com.wonder.wonder.service.impl;
 
-import com.wonder.wonder.cards.WonderCard;
-import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.cards.GameCardColor;
+import com.wonder.wonder.cards.MainCard;
+import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.dao.GameDao;
 import com.wonder.wonder.dto.GameViewDto;
 import com.wonder.wonder.model.*;
@@ -57,7 +57,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public long createGame() {
         Game game = new Game();
-        game.setPhase(GamePhase.JOIN_PHASE);
+        game.setPhaseGame(GamePhase.JOIN_PHASE);
         gameDao.save(game);
         joinToGame(game.getId());
         return game.getId();
@@ -66,7 +66,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public List<GameViewDto> showGameInJoinPhaseInLobby() {
         List<GameViewDto> gameViewDtoList = new ArrayList<>();
-        List<Game> gameList = gameDao.findAllByPhase(GamePhase.JOIN_PHASE);
+        List<Game> gameList = gameDao.findAllByPhaseGame(GamePhase.JOIN_PHASE);
         for (Game game : gameList) {
             GameViewDto gameViewDto = new GameViewDto();
             gameViewDto.setPlayersInGameCount(game.getUserInGames().size());
@@ -79,7 +79,7 @@ public class GameServiceImpl implements GameService {
 
 
     @Override
-    public boolean joinToGame(Long gameId) {
+    public boolean joinToGame(long gameId) {
         User user = authenticationWrapper.getCurrentUser();
         Game game = gameDao.findById(gameId);
 
@@ -128,37 +128,39 @@ public class GameServiceImpl implements GameService {
         List<CardSet> cardSetList = new ArrayList<>();
         for (int i = 0; i < userInGameList.size(); i++) {
             CardSet cardSet = new CardSet();
-            cardSet.setAge(age);
             cardSet.setSetNumber(i);
             cardSet.setGame(game);
             cardSetService.save(cardSet);
             cardSetList.add(cardSet);
         }
-        List<GameCard> gameCardList = getAllCardByAgeAndNumberPlayers(age, userInGameList.size());
+        List<MainCard> mainCardList = getAllCardByAgeAndNumberPlayers(age, userInGameList.size());
         Collections.shuffle(userInGameList);
         int setNumber = 0;
-        for (int start = 0; start < gameCardList.size(); start += 7) {
-            int end = Math.min(start + 7, gameCardList.size());
-            List<GameCard> gameCards = gameCardList.subList(start, end);
-            for (GameCard gameCard : gameCards) {
+        for (int start = 0; start < mainCardList.size(); start += 7) {
+            int end = Math.min(start + 7, mainCardList.size());
+            List<MainCard> mainCards = mainCardList.subList(start, end);
+            for (MainCard mainCard : mainCards) {
                 CardSetItem cardSetItem = new CardSetItem();
                 CardSet cardSet = cardSetList.get(setNumber);
                 cardSetItem.setCardSet(cardSet);
-                cardSetItem.setGameCard(gameCard);
+                cardSetItem.setMainCard(mainCard);
                 cardSetItemService.save(cardSetItem);
             }
             setNumber++;
         }
 
-        game.setPhase(GamePhase.STROKE_AGE_1_1_START);
+//        game.setPhaseGame(GamePhase.STROKE_AGE_1_1_START); IN_Progress ??
+        game.setPhaseGame(GamePhase.AGE_1);
+        game.setPhaseRound(1);
+        game.setPhaseChooseDo(1);
         game.setStart(new Date());
         gameDao.save(game);
 // To do check if user has right to start game (get user from spring security context )
     }
 
-    public List<GameCard> getAllCardByAgeAndNumberPlayers(int age, int numberPlayer) {
-        final List<GameCard> startCards = new ArrayList<>();
-        Arrays.stream(GameCard.values())
+    public List<MainCard> getAllCardByAgeAndNumberPlayers(int age, int numberPlayer) {
+        final List<MainCard> startCards = new ArrayList<>();
+        Arrays.stream(MainCard.values())
                 .filter(gameCard -> gameCard.getAge() == age)
                 .forEach(gameCard ->
                         gameCard.getOnPlayers()
@@ -167,7 +169,7 @@ public class GameServiceImpl implements GameService {
                                 .forEach(i -> startCards.add(gameCard))
                 );
         if (age == 3) {
-            List<GameCard> purpurAll = startCards.stream().
+            List<MainCard> purpurAll = startCards.stream().
                     filter(gameCard -> gameCard.getGameCardColor() == GameCardColor.PURPLE)
                     .collect(Collectors.toList());
             Collections.shuffle(purpurAll);
@@ -177,14 +179,14 @@ public class GameServiceImpl implements GameService {
         }
         if (numberPlayer >= 3 & age == 2) {
             //silver
-            startCards.add(GameCard.LOOM);
-            startCards.add(GameCard.GLASSWORKS);
-            startCards.add(GameCard.PRESS);
+            startCards.add(MainCard.LOOM);
+            startCards.add(MainCard.GLASSWORKS);
+            startCards.add(MainCard.PRESS);
             if (numberPlayer >= 5) {
                 //silver
-                startCards.add(GameCard.LOOM);
-                startCards.add(GameCard.GLASSWORKS);
-                startCards.add(GameCard.PRESS);
+                startCards.add(MainCard.LOOM);
+                startCards.add(MainCard.GLASSWORKS);
+                startCards.add(MainCard.PRESS);
             }
         }
         Collections.shuffle(startCards);

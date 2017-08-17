@@ -16,7 +16,7 @@ public interface GameService {
 
     List<GameViewDto> showGameInJoinPhaseInLobby();
 
-    boolean joinToGame(Long gameId);
+    boolean joinToGame(long gameId);
 
 
     void startGame(long gameId);

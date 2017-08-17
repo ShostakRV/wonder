@@ -6,7 +6,9 @@ package com.wonder.wonder.phase;
 public enum GamePhase {
 
     JOIN_PHASE, PREPARATION, FINISHED,
+    WAR,COUNT,
 
+    // add age_1,2,3
     STROKE_AGE_1_1_START,  ////set catr vonder DO_SET_FIRST_AGE,   CHOOSE_CARD_FROM_SET, //
     STROKE_AGE_1_2_START,
     STROKE_AGE_1_3_START,
@@ -52,6 +54,6 @@ public enum GamePhase {
     STROKE_AGE_3_6_END,
     STROKE_AGE_3_7_END,
     STROKE_AGE_3_8_WAR,
-    STROKE_AGE_3_9_COUNT, // COUNT_POINT
+    STROKE_AGE_3_9_COUNT, AGE_1, // COUNT_POINT
 
 }

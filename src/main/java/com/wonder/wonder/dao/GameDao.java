@@ -1,7 +1,8 @@
 package com.wonder.wonder.dao;
 
-import com.wonder.wonder.phase.GamePhase;
 import com.wonder.wonder.model.Game;
+import com.wonder.wonder.phase.GamePhase;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -15,7 +16,7 @@ public interface GameDao extends PagingAndSortingRepository<Game, Long> {
 
     Game findById(long id);
 
-    List<Game> findAllByPhase(GamePhase phase);
+    List<Game> findAllByPhaseGame(GamePhase phase);
 
     @Query("from Game")
     List<Game> hibernateQuery();
