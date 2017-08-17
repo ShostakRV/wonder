@@ -1,6 +1,8 @@
 package com.wonder.wonder.model;
 
-import com.wonder.wonder.cards.GameCard;
+import com.wonder.wonder.cards.MainCard;
+import com.wonder.wonder.cards.MainCard;
+import com.wonder.wonder.phase.GamePhase;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,19 +25,26 @@ public class CardSetItem {
     protected long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    protected User user;
+    @JoinColumn(name = "user_in_game_id", nullable = false)
+    protected UserInGame userInGame;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "card_set_id", nullable = false)
     protected CardSet cardSet;
 
-    @Column(name = "player_phase")
-    protected String playerPhase;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "played_phase_game")
+    protected GamePhase playedGamePhase;
+
+    @Column(name = "played_phase_round")
+    protected Integer playedPhaseRound;
+
+    @Column(name = "played_phase_choose_do")
+    protected Integer playedPhaseChooseDo;
 
     @Column(name = "card")
     @Enumerated(EnumType.STRING)
-    protected GameCard gameCard;
+    protected MainCard mainCard;
 
     @Override
     public boolean equals(Object o) {

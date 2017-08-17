@@ -12,7 +12,7 @@ public interface UserInGameService {
 
     UserInGame getUserInGameByGameId(long gameId);
 
-
+    UserInGame getUserInGameById(long userInGameId);
 
     List<UserInGame> getAllUserInGameByGameId(long gameId);
 

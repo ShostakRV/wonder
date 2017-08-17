@@ -1,7 +1,8 @@
 package com.wonder.wonder.model;
 
-import com.wonder.wonder.cards.GameCard;
-import lombok.Data;
+import com.wonder.wonder.cards.MainCard;
+import com.wonder.wonder.phase.EventPhaseUserChoose;
+import com.wonder.wonder.phase.GamePhase;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,22 +28,30 @@ public class Event {
     protected Game game;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    protected User user;
+    @JoinColumn(name = "user_in_Game_id", nullable = false)
+    protected UserInGame userInGame;
 
-    @Column(name = "action_name")
-    protected String actionName;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "phase_game")
+    protected GamePhase gamePhase;
 
-    @Column(name = "userSelectedCard")
-    protected String phase;
+    @Column(name = "phase_round")
+    protected Integer phaseRound;
+
+    @Column(name = "phase_choose_do")
+    protected Integer phaseChooseDo;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "card")
-    protected GameCard card;
+    protected MainCard card;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "chain_card")
-    protected GameCard chainCard;
+    protected MainCard chainCard;
+
+    @Column(name = "action_name")
+    @Enumerated(EnumType.STRING)
+    protected EventPhaseUserChoose eventPhaseUserChoose;
 
     @Column(name = "gold_change")
     protected Integer goldChange;
@@ -57,11 +66,11 @@ public class Event {
 
         Event event = (Event) o;
 
-        return id ==event.id;
+        return id == event.id;
     }
 
     @Override
     public int hashCode() {
-        return  Long.hashCode(id);
+        return Long.hashCode(id);
     }
 }

@@ -1,7 +1,7 @@
 package com.wonder.wonder.dto;
 
-import com.wonder.wonder.cards.CardWonder;
-import com.wonder.wonder.cards.GameCard;
+import com.wonder.wonder.cards.WonderCard;
+import com.wonder.wonder.cards.MainCard;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -13,13 +13,13 @@ import java.util.List;
  */
 @Data
 public class PlayerDto{
-    private long playerId;
+    private long playerId; // userInGameId ???
     private String playerName;
     private int position; // possition player on board
     private int userSelectedCard;//  1 is turn end
 
-    private CardWonder wonder; // at start give player two card for choose
-    private List<GameCard> cardBuilded = new ArrayList<>(); // card what was build
+    private WonderCard wonder; // at start give player two card for choose
+    private List<MainCard> cardBuilded = new ArrayList<>(); // card what was build
     private int gold;
     private List<Integer> warFlagList = new ArrayList<>();
     private boolean onWar;

@@ -1,6 +1,8 @@
 package com.wonder.wonder.model;
 
 import com.wonder.wonder.phase.GamePhase;
+
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,9 +29,15 @@ public class Game {
     @Column(name = "name")
     protected String name; // game name create
 
-    @Column(name = "userSelectedCard")
+    @Column(name = "phase_game")
     @Enumerated(EnumType.STRING)
-    protected GamePhase phase;
+    protected GamePhase phaseGame;
+
+    @Column(name = "phase_round")
+    protected Integer phaseRound;
+
+    @Column(name = "phase_choose_do")
+    protected Integer phaseChooseDo;
 
     @Column(name = "start", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)

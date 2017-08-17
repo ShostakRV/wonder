@@ -1,7 +1,8 @@
 package com.wonder.wonder.dto;
 
+import com.wonder.wonder.cards.ActionSide;
 import com.wonder.wonder.cards.BaseResource;
-import com.wonder.wonder.cards.GameCard;
+import com.wonder.wonder.cards.MainCard;
 import lombok.Data;
 
 import java.util.List;
@@ -13,7 +14,8 @@ import java.util.List;
  */
 @Data
 public class PayDto {
-    private long userId;
-    private GameCard gameCard;
-    private List<BaseResource> resource;
+
+    private ActionSide actionSide;
+    private MainCard mainCard;
+    private List<BaseResource> buyResourceList;
 }
