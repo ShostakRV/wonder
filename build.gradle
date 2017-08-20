@@ -14,12 +14,26 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
-version = '0.0.1-SNAPSHOT'
+version = '0.0.4-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
     jcenter()
+}
+
+defaultTasks 'addCounter'
+task addCounter {
+    def buildCountFile = new File("gradle-counter.txt");
+    String content = "";
+    if(buildCountFile.exists()) {
+        content = buildCountFile.getText('UTF-8')
+    }
+    int count = 0;
+    if(content.isNumber()) {
+        count = content.toInteger() + 1;
+    }
+    buildCountFile.write(count.toString())
 }
 
 
@@ -50,7 +64,5 @@ dependencies {
     runtime('mysql:mysql-connector-java')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 
-    // https://mvnrepository.com/artifact/net.sourceforge.nekohtml/nekohtml
-    compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
-
+    compile("org.springframework.boot:spring-boot-devtools")
 }
