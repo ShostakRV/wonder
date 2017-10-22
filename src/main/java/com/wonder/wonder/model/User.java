@@ -31,11 +31,7 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     protected List<UserInGame> userInGames = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    protected List<Event> events = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    protected List<CardSetItem> cardSetItems = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

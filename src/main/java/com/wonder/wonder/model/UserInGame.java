@@ -1,12 +1,12 @@
 package com.wonder.wonder.model;
 
-import com.wonder.wonder.cards.CardWonder;
-import com.wonder.wonder.cards.GameCard;
+import com.wonder.wonder.cards.WonderCard;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Creator: Pavlenko Bohdan
@@ -31,9 +31,15 @@ public class UserInGame {
     @JoinColumn(name = "user_id", nullable = false)
     protected User user; // too long іерархия запроса
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userInGame")
+    protected List<Event> events = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userInGame")
+    protected List<CardSetItem> cardSetItems = new ArrayList<>();
+
     @Enumerated(EnumType.STRING)
     @Column(name = "wonder")
-    protected CardWonder wonder;
+    protected WonderCard wonder;
 
     @Column(name = "position")
     protected Integer position;

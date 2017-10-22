@@ -30,6 +30,11 @@ public class UserInGameServiceImpl implements UserInGameService {
     }
 
     @Override
+    public UserInGame getUserInGameById(long userInGameId) {
+        return userInGameDao.findById(userInGameId);
+    }
+
+    @Override
     public List<UserInGame> getAllUserInGameByGameId(long gameId) {
         return userInGameDao.findAllByGameId(gameId);
     }

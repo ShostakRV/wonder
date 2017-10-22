@@ -1,6 +1,8 @@
 package com.wonder.wonder.dto;
 
-import com.wonder.wonder.cards.GameCard;
+import com.wonder.wonder.cards.BaseResource;
+import com.wonder.wonder.cards.MainCard;
+import com.wonder.wonder.phase.EventPhaseUserChoose;
 import lombok.Data;
 
 import java.util.List;
@@ -12,13 +14,14 @@ import java.util.List;
 @Data
 public class EventDto {
 
-    private String nameEvent; // or enum
-    private GameCard gameCard;
+    private EventPhaseUserChoose eventUserChoose;
+    private MainCard playCard;
+    private MainCard chainCard;
 
+    private List<PayDto> payDtoList;
+    private List<ResourceChooseDto> resourceChooseDtoList;
 
-
-
-
+    private Integer userInGameId; // or you think take user in session
 
 
 }
