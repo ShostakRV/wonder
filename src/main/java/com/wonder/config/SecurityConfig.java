@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Creator: bm
@@ -40,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/", "/home","/registry").anonymous()
                 .antMatchers("/message/hello", "/lobby", "/game").anonymous()
-                .antMatchers("/css/**", "/js/**", "/font/**").anonymous()
+                .antMatchers("/css/**", "/js/**", "/font/**","/**/favicon.ico").permitAll()
                 .anyRequest().authenticated()
                 .and().anonymous().authorities("USER")
                 .and();
@@ -48,5 +50,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .loginPage("/login")
 //                .and()
 //                .logout().permitAll();
+    }
+
+    @Controller
+    static class FaviconController {
+        @RequestMapping("favicon.ico")
+        String favicon() {
+            return "forward:/resources/static/favicon.ico";
+        }
     }
 }
