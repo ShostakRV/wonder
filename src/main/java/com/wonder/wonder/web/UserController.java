@@ -21,11 +21,11 @@ public class UserController {
         return "templates/login.html";
     }
 
-    //    @RequestMapping(value = "/login", method = RequestMethod.GET)
+//        @RequestMapping(value = "/login", method = RequestMethod.GET)
     public User getUser() {
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
-    @RequestMapping(value="/login", method = RequestMethod.GET)
+//    @RequestMapping(value="/login", method = RequestMethod.GET)
     public String printWelcome(ModelMap model, Principal principal ) {
 
         String name = principal.getName(); //get logged in username
