@@ -8,17 +8,13 @@ var inConfig = new Array('0');
 require.config({
     paths: {
         css: '../css',
-        backbone: '../bower_components/backbone/backbone',
-        bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
-        d3: '../bower_components/d3/d3',
-        i18n: '../bower_components/requirejs-i18n/i18n',
-        jquery: '../bower_components/jquery/jquery',
-        json2: '../bower_components/json/json2',
-        'login-page': '../bower_components/hp-autonomy-login-page/src',
-        leaflet: '../bower_components/leaflet/dist/leaflet-src',
-        moment: '../bower_components/moment/moment',
-        text: '../bower_components/requirejs-text/text',
-        underscore: '../bower_components/underscore/underscore',
+        backbone: '../yarn_components/backbone/backbone',
+        bootstrap: '../yarn_components/bootstrap/dist/js/bootstrap',
+        i18n: '../yarn_components/requirejs-i18njs/dist/requirejs-i18njs.min',
+        jquery: '../yarn_components/jquery/dist/jquery.min',
+        moment: '../yarn_components/moment/moment',
+        text: '../yarn_components/requirejs-text/text',
+        underscore: '../yarn_components/underscore/underscore'
     },
     shim: {
         backbone: {
@@ -27,9 +23,6 @@ require.config({
         bootstrap: ['jquery','moment-adapter','chartjs'],
         'moment-adapter':{
             exports:'moment'
-        },
-        d3: {
-            exports: 'd3'
         },
         underscore: {
             exports: '_'

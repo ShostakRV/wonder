@@ -18,11 +18,14 @@
     "requirejs-text": "^2.0.15"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-cli": "^1.4.0",
+    "gulp-pug": "^3.3.0",
+    "gulp-watch": "^4.3.11",
     "yarn": "^1.2.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "productioninstall": "yarn install --production --modules-folder ./src/main/public/static/yarn_components"
+    "productioninstall1": "yarn install --production --modules-folder ./src/main/public/static/yarn_components"
   },
   "repository": "git+https://github.com/ShostakRV/wonder.git",
   "author": "PavlenkoB <godexxxx@gmail.com>",

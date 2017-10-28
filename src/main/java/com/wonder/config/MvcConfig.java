@@ -33,7 +33,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/css/**").addResourceLocations("/static/css/");
-//        registry.addResourceHandler("/js/**").addResourceLocations("/static/js/");
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/").setCachePeriod(5);
     }
 }
