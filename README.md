@@ -3,6 +3,16 @@
 Web realisation of "7 wonders game".
 An our test project.
 
+# Prepare for work
+#### You need
+
+* NodeJs
+* npm
+* git
+* gradel
+* jdk 1.8
+
+run 'grunt yarn'
 ## Used technologies
 
 * REST
