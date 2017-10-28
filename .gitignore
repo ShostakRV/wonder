@@ -24,3 +24,9 @@
 hs_err_pid*
 .gradle/
 build/
+
+#Libs
+node_modules
+src/main/public/static/yarn_components
+
+out/

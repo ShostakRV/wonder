@@ -48,3 +48,11 @@ img(s) or text of game rules
 [MySQL Workbench Download](https://dev.mysql.com/downloads/workbench/)
 
 [Download Visual Paradigm](https://www.visual-paradigm.com/download/)
+
+https://github.com/srs/gradle-node-plugin/blob/master/docs/node.md
+
+https://yarnpkg.com/en/
+
+https://nodejs.org/en/
+
+RequireJs
