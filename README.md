@@ -9,7 +9,7 @@ An our test project.
 * NodeJs
 * npm
 * git
-* gradel
+* gradle
 * jdk 1.8
 
 run 'grunt yarn'

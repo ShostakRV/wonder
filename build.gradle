@@ -29,6 +29,22 @@ repositories {
     jcenter()
 }
 
+sourceSets {
+    main {
+        java {
+            srcDir 'main'
+        }
+        resources {
+            srcDirs "src/main/resources", "src/main/public"
+        }
+    }
+    test {
+        java {
+            srcDir 'test'
+        }
+    }
+}
+
 /*defaultTasks 'addCounter'
 task addCounter {
     def buildCountFile = new File("gradle-build-counter.txt");
