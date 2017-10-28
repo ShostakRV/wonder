@@ -18,9 +18,16 @@ run 'grunt yarn'
 * REST
 * Spring
 
-## quic start
+## Quick start
 
-some text
+1. Clone project `git clone https://github.com/ShostakRV/wonder.git`
+2. `cd wonder`
+3. Install dev dependencies `npm install`
+4. Install web libs `gradlew yarn_install`
+5. Run project `gradlew bootRun`
+
+##For dev
+* `gulp default` watch resources for resources/static dir
 
 ## Requires
 

@@ -14,7 +14,8 @@ plugins {
     id "com.moowork.node" version "1.2.0"
 }
 yarn_install {
-    args = ['--production', '--modules-folder', './src/main/public/static/yarn_components']
+    description = "Install web dependencies"
+    args = ['--modules-folder', './src/main/public/static/yarn_components']
 }
 
 apply plugin: 'java'
@@ -77,7 +78,6 @@ dependencies {
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager
     compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.2.10.Final'
 
-
     //автоконфиги лутче убрать
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-security')
@@ -90,3 +90,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-devtools")
 }
 
+//add wrapper
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.2.1'
+}
