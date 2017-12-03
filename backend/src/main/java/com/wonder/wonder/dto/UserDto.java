@@ -17,6 +17,6 @@ import javax.persistence.Column;
 @EqualsAndHashCode
 @NoArgsConstructor
 public class UserDto {
-    protected long id;
-    protected String userName;
+    private long id;
+    private String userName;
 }

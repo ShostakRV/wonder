@@ -29,12 +29,11 @@ public class UserRestController {
         this.userConverter = userConverter;
     }
 
-    @RequestMapping("/user")
+    @RequestMapping("/list")
     public List<UserDto> list() {
         List<UserDto> userDtos = userService.getAllUsers().stream().map(user -> userConverter.convertToDto(user)).collect(Collectors.toList());
         return userDtos;
     }
-//
 
     @PostMapping("/register")
     @ResponseBody
