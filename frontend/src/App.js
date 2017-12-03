@@ -1,30 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-import Header from './Header';
+import {connect} from 'react-redux';
 
-const menu=[
-    {
-        link:'/articles',
-        label: 'Articles'
-    },
-    {
-        link:'/contacts',
-        label: 'Contacts'
-    },
-    {
-        link:'/posts',
-        label: 'Posts'
-    }
-];
+import {getTracks} from './actions/tracks';
+import Menu from './Menu';
 
-class App extends Component {
-    render() {
-        return (
-            <div>
-                <Header items={menu}/>
-            </div>
-        )
-    }
-}
+const App = () => {
+    return (
+        <div>
+        </div>
+    );
+};
 
-export default App
+export default connect(
+)(App);
