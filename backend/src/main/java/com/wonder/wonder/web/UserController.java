@@ -19,15 +19,8 @@ import java.security.Principal;
  * Date: 03.06.17.
  */
 @Controller                   // controller
-@RequestMapping("api/user")
+
 public class UserController {
-
-    private UserService userService;
-
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     //    @RequestMapping("/login")
     public String login() {
@@ -52,24 +45,7 @@ public class UserController {
         return "templates/user/register.html";
     }
 
-    @PostMapping("/registerNewUser")
-    @ResponseBody
-    public void registerNewUser(
-            HttpServletResponse response,
-            @RequestParam("name") String name,
-            @RequestParam("email") String email,
-            @RequestParam("password") String password
-    ) throws IOException {
-        try {
-            userService.register(name, email, password);
-            response.sendError(HttpServletResponse.SC_OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST,e.getMessage());
-        }
-    }
-
-    @PostMapping("/register")
+//    @PostMapping("/register")
     public ModelAndView registerUser(@SessionAttribute("user") User user) {
         return new ModelAndView("templates/user/register.html");
     }
