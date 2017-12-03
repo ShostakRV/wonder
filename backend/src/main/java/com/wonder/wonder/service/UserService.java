@@ -17,7 +17,7 @@ public interface UserService {
 
     void save(User user);
 
-    void register(String name,String mail,String pass);
+    void register(String name,String mail,String pass) throws Exception;
 
 
 

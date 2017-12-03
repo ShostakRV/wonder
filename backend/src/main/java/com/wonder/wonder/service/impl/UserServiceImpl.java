@@ -47,10 +47,10 @@ public class UserServiceImpl implements UserService {//,UserDetailsService
     }
 
     @Override
-    public void register(String name, String email, String pass) {
+    public void register(String name, String email, String pass) throws Exception {
         if (isValidEmail(email)) {
             if (userDao.findByEmail(email) != null) {
-                throw new RuntimeException("User with this email already exits!!!");
+                throw new Exception("User with this email already exits!!!");
             }
             User user = new User();
             user.setUserName(name);
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {//,UserDetailsService
             user.setPassword(Arrays.toString(DigestUtils.md5Digest(pass.getBytes())));
             userDao.save(user);
         } else {
-            throw new RuntimeException("Wrong email!!!");
+            throw new Exception("Wrong email!!!");
         }
     }
 
