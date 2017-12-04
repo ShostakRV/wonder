@@ -14,13 +14,13 @@ class Menu extends Component {
                         </div>
                         <ul className="nav navbar-nav">
                             <li className="nav-item">
-                                <Link to="/" activeStyle={{color: 'red'}}>Main</Link>
+                                <Link to="/">Main</Link>
                             </li>
                             <li className="nav-item">
                                 <Link to="/loby">Loby</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/about" activeStyle={{color: 'red'}}>About</Link>
+                                <Link to="/about">About</Link>
                             </li>
                         </ul>
                     </div>

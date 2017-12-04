@@ -6,6 +6,7 @@
     "react-scripts": "^1.0.17"
   },
   "dependencies": {
+    "jquery": "^3.2.1",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-devtools": "^3.0.0",
