@@ -1,7 +1,8 @@
 package com.wonder.wonder.dto;
 
+import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.cards.WonderCard;
-import com.wonder.wonder.cards.MainCard;
+import com.wonder.wonder.cards.WonderSide;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -12,17 +13,23 @@ import java.util.List;
  * Date: 29.06.2017
  */
 @Data
-public class PlayerDto{
+public class PlayerDto {
+    // public information
     private long playerId; // userInGameId ???
     private String playerName;
     private int position; // possition player on board
     private int userSelectedCard;//  1 is turn end
+// бачу як іф логіку де перебираємо що якщо якщо то хід завершено
 
     private WonderCard wonder; // at start give player two card for choose
-    private List<MainCard> cardBuilded = new ArrayList<>(); // card what was build
+    private WonderSide wonderSide;
+    private List<GameCard> cardBuilded = new ArrayList<>(); // card what was build
     private int gold;
     private List<Integer> warFlagList = new ArrayList<>();
-    private boolean onWar;
+
+    private boolean onWar; // нема такої карти в основах
+
+
+
 }
 
-//    private List<GameCard> cardsOnHand; // todo make separate and point

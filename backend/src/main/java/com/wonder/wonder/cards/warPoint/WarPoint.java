@@ -10,7 +10,7 @@ public interface WarPoint {
 
     int getPoints();
 
-    static WarPoint simple(int point) {
+    static WarPoint warPoint(int point) {
         return new SimplePointStrategyImpl(point);
     }
 

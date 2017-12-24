@@ -8,7 +8,7 @@ import com.wonder.wonder.cards.GameCardColor;
  * DATE: 20.06.17.
  */
 public interface OnBuildEvent {
-    static OnBuildEvent none() {
+    static OnBuildEvent emptyBuildEvent() {
         return () -> {        };
     }
 

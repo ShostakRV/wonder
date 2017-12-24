@@ -1,9 +1,8 @@
 package com.wonder.wonder.TestData.service;
 
 import com.wonder.wonder.cards.GameCard;
-import com.wonder.wonder.cards.MainCard;
 import com.wonder.wonder.model.*;
-import com.wonder.wonder.phase.EventPhaseUserChoose;
+import com.wonder.wonder.phase.UserActionOnCard;
 import com.wonder.wonder.phase.GamePhase;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ public class EventFactory {
 
     public static Event eventInit(UserInGame userInGame, Game game,
                                   GamePhase gamePhase, Integer round, Integer ohase_choose_do,
-                                  GameCard playCard, EventPhaseUserChoose eventPhaseUserChoose, MainCard chainCard,
+                                  GameCard playCard, UserActionOnCard userActionOnCard, GameCard chainCard,
                                   Integer goldChange) {
 
         Event event = new Event();
@@ -25,8 +24,8 @@ public class EventFactory {
         event.setGamePhase(gamePhase);
         event.setPhaseRound(round);
         event.setPhaseChooseDo(ohase_choose_do);
-        event.setCard((MainCard) playCard);
-        event.setEventPhaseUserChoose(eventPhaseUserChoose);
+        event.setCard((GameCard) playCard);
+        event.setUserActionOnCard(userActionOnCard);
         event.setChainCard(chainCard);
         event.setGoldChange(goldChange);
         return event;

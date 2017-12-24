@@ -40,7 +40,7 @@ DROP TABLE IF EXISTS `wonder`.`game` ;
 
 CREATE TABLE IF NOT EXISTS `wonder`.`game` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `phase` VARCHAR(45) NOT NULL,
+  `gamePhase` VARCHAR(45) NOT NULL,
   `start` DATETIME NOT NULL,
   `end` DATETIME NULL,
   `players` INT NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `wonder`.`event` (
   `game_id` INT NOT NULL,
   `user_id` INT NOT NULL,
   `action_name` VARCHAR(255) NOT NULL,
-  `phase` VARCHAR(255) NOT NULL,
+  `gamePhase` VARCHAR(255) NOT NULL,
   `card` VARCHAR(255) NOT NULL,
   `chain_card` VARCHAR(255) NULL,
   `gold_change` INT NULL DEFAULT 0,

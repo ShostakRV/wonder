@@ -15,15 +15,15 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
-        registry.addViewController("/home").setViewName("home");
-        registry.addViewController("/lobby").setViewName("lobby");
-        registry.addViewController("/game").setViewName("game");
-        registry.addViewController("/signin").setViewName("/user/signin");
-        registry.addViewController("/register").setViewName("/user/register");
-        registry.addViewController("/error").setViewName("/error");
+//        registry.addViewController("/").setViewName("index");
+//        registry.addViewController("/home").setViewName("home");
+//        registry.addViewController("/lobby").setViewName("lobby");
+//        registry.addViewController("/game").setViewName("game");
+//        registry.addViewController("/signin").setViewName("/user/signin");
+//        registry.addViewController("/register").setViewName("register");
+//        registry.addViewController("/error").setViewName("/error");
 //        registry.addViewController("/hello").setViewName("hello");
-//        registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/login").setViewName("login");
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)

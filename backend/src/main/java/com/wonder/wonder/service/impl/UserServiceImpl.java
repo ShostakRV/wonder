@@ -1,44 +1,42 @@
 package com.wonder.wonder.service.impl;
 
+import com.wonder.config.exeption.authorisation.EmailExistsException;
+import com.wonder.config.exeption.authorisation.UserByIdNotFoundException;
 import com.wonder.wonder.dao.UserDao;
 import com.wonder.wonder.model.User;
 import com.wonder.wonder.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.DigestUtils;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Creator: bm
  * Date: 03.06.17.
  */
+@Slf4j
 @Component
 public class UserServiceImpl implements UserService {//,UserDetailsService
-    private final UserDao userDao;
 
     @Autowired
-    public UserServiceImpl(UserDao userDao) {
-        this.userDao = userDao;
-    }
+    private UserDao userDao;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @Override
-    public List<User> getAllUsers() {
-        return StreamSupport.stream(userDao.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+    public Page<User> getAllUsers(Pageable pageable) {
+        return userDao.findAll(pageable);
     }
 
     @Override
     public User getUserById(long userId) {
-        return userDao.findById(userId);
+        log.info("Start getUserById");
+        return userDao.findById(userId).orElseThrow(() -> new UserByIdNotFoundException(userId));
     }
-
 
     @Override
     @Transactional
@@ -47,32 +45,20 @@ public class UserServiceImpl implements UserService {//,UserDetailsService
     }
 
     @Override
-    public void register(String name, String email, String pass) throws Exception {
-        if (isValidEmail(email)) {
-            if (userDao.findByEmail(email) != null) {
-                throw new Exception("User with this email already exits!!!");
-            }
-            User user = new User();
-            user.setUserName(name);
-            user.setEmail(email);
-            user.setPassword(Arrays.toString(DigestUtils.md5Digest(pass.getBytes())));
-            userDao.save(user);
-        } else {
-            throw new Exception("Wrong email!!!");
-        }
+    public void register(User newUser) {
+        userDao.findByEmail(newUser.getEmail())
+                .ifPresent(u -> {
+                    log.info("User already registered" +
+                            " with this email: " + newUser.getEmail());
+                    throw new EmailExistsException(newUser.getEmail());
+                });
+        newUser.isEnabled();
+        newUser.isAccountNonExpired();
+        newUser.isAccountNonLocked();
+        newUser.isCredentialsNonExpired();
+        newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
+        userDao.save(newUser);
     }
-
-    protected boolean isValidEmail(String email) {
-        String EMAIL_PATTERN =
-                "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        return null;
-//    }
 }
+
+

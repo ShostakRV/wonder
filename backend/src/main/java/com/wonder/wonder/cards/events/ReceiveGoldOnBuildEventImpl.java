@@ -26,7 +26,7 @@ public class ReceiveGoldOnBuildEventImpl implements OnBuildEvent {
 
     @Override
     public void doAction() {
-        ArrayList<Object> arrayList = new ArrayList<>();
-//        arrayList.stream().filter(bbb -> false).map(h->h.getssss).
+
+
     }
 }

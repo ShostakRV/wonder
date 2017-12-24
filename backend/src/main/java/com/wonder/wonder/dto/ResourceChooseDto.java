@@ -1,7 +1,7 @@
 package com.wonder.wonder.dto;
 
 import com.wonder.wonder.cards.BaseResource;
-import com.wonder.wonder.cards.MainCard;
+import com.wonder.wonder.cards.GameCard;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 public class ResourceChooseDto {
 
-    private MainCard card;
+    private GameCard card;
     private List<BaseResource> resourceChoose;
 
 }

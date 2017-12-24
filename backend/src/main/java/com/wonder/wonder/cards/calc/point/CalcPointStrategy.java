@@ -28,7 +28,7 @@ public interface CalcPointStrategy {
         return new WonderLevelCalcPointStrategyImpl(actionSide, pointForOneCard);
     }
 
-    static CalcPointStrategy none() {
+    static CalcPointStrategy nonePoints() {
         return new SimpleCalcPointStrategyImpl(0);
     }
 

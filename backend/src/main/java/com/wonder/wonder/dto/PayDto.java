@@ -2,7 +2,7 @@ package com.wonder.wonder.dto;
 
 import com.wonder.wonder.cards.ActionSide;
 import com.wonder.wonder.cards.BaseResource;
-import com.wonder.wonder.cards.MainCard;
+import com.wonder.wonder.cards.GameCard;
 import lombok.Data;
 
 import java.util.List;
@@ -16,6 +16,6 @@ import java.util.List;
 public class PayDto {
 
     private ActionSide actionSide;
-    private MainCard mainCard;
+    private GameCard gameCard;
     private List<BaseResource> buyResourceList;
 }

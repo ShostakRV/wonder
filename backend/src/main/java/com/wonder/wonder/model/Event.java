@@ -1,7 +1,7 @@
 package com.wonder.wonder.model;
 
-import com.wonder.wonder.cards.MainCard;
-import com.wonder.wonder.phase.EventPhaseUserChoose;
+import com.wonder.wonder.cards.GameCard;
+import com.wonder.wonder.phase.UserActionOnCard;
 import com.wonder.wonder.phase.GamePhase;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,15 +43,15 @@ public class Event {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "card")
-    protected MainCard card;
+    protected GameCard card;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "chain_card")
-    protected MainCard chainCard;
+    protected GameCard chainCard;
 
     @Column(name = "action_name")
     @Enumerated(EnumType.STRING)
-    protected EventPhaseUserChoose eventPhaseUserChoose;
+    protected UserActionOnCard userActionOnCard;
 
     @Column(name = "gold_change")
     protected Integer goldChange;

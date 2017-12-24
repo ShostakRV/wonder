@@ -3,10 +3,10 @@ package com.wonder.wonder.phase;
 /**
  * Created by bm on 13.07.17.
  */
-public enum EventPhaseUserChoose {
+public enum UserActionOnCard {
 
     BUILD,
-    BUILD_ZEUS,
+    BUILD_ZEUS, // може це видалити ?
     SELL_CARD,
     BUILD_WONDER,
 

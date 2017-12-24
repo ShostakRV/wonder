@@ -28,7 +28,7 @@ public class CardSet {
     @JoinColumn(name = "game_id", nullable = false)
     protected Game game;
 
-    @Column(name = "set_number")
+    @Column(name = "set_number",nullable = false)
     protected Integer setNumber;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cardSet")

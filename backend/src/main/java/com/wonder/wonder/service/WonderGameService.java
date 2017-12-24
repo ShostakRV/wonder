@@ -1,6 +1,7 @@
 package com.wonder.wonder.service;
 
 import com.wonder.wonder.dto.EventDto;
+import com.wonder.wonder.model.Game;
 
 /**
  * Created: Shostak Roman
@@ -9,6 +10,8 @@ import com.wonder.wonder.dto.EventDto;
 public interface WonderGameService  {
 
 
-    void playCard(EventDto eventDto);
+    boolean playCard(EventDto eventDto);
+
+    Game getCurrentBoard(Long gameId);
 }
 // todo end event dto buisness logic wonder game

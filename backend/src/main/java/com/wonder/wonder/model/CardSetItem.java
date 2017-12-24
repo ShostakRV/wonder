@@ -1,7 +1,6 @@
 package com.wonder.wonder.model;
 
-import com.wonder.wonder.cards.MainCard;
-import com.wonder.wonder.cards.MainCard;
+import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.phase.GamePhase;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,7 +32,7 @@ public class CardSetItem {
     protected CardSet cardSet;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "played_phase_game")
+    @Column(name = "played_phase_game", nullable = false)
     protected GamePhase playedGamePhase;
 
     @Column(name = "played_phase_round")
@@ -44,7 +43,7 @@ public class CardSetItem {
 
     @Column(name = "card")
     @Enumerated(EnumType.STRING)
-    protected MainCard mainCard;
+    protected GameCard gameCard;
 
     @Override
     public boolean equals(Object o) {

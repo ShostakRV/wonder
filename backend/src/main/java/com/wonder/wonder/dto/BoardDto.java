@@ -1,5 +1,6 @@
 package com.wonder.wonder.dto;
 
+import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.phase.GamePhase;
 import lombok.Data;
 
@@ -13,7 +14,11 @@ import java.util.List;
 @Data
 public class BoardDto {
     private long gameId;
-    private List<PlayerDto> playerDto;
-    private GamePhase phase;
 
+    private String name;
+    private List<PlayerDto> playerDto;
+    private GamePhase gamePhase;
+    private int phaseRound;
+    private int phaseChooseDo; // userSelectedCard схожі
+    private List<GameCard> cardsOnHand; // todo make separate and point, private information
 }

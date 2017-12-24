@@ -21,7 +21,7 @@ public class ChatMessage {
     @Column(name = "id")
     protected long id;
 
-    @Column(name = "message")
+    @Column(name = "message", nullable = false)
     protected String message;
 
     @ManyToOne(fetch = FetchType.LAZY)

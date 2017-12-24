@@ -1,5 +1,6 @@
 package com.wonder.wonder.service;
 
+import com.wonder.wonder.dto.BoardDto;
 import com.wonder.wonder.dto.GameViewDto;
 import com.wonder.wonder.model.Game;
 
@@ -12,7 +13,7 @@ import java.util.List;
 public interface GameService {
 
 
-    long createGame();
+    void createGame(String gameName);
 
     List<GameViewDto> showGameInJoinPhaseInLobby();
 

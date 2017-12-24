@@ -1,6 +1,8 @@
 package com.wonder.wonder.service;
 
 import com.wonder.wonder.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -11,13 +13,15 @@ import java.util.List;
 
 public interface UserService {
 
-    List<User> getAllUsers();
+
+
+    Page<User> getAllUsers(Pageable pageable);
 
     User getUserById(long userId);
 
     void save(User user);
 
-    void register(String name,String mail,String pass) throws Exception;
+    void register(User newUser);
 
 
 

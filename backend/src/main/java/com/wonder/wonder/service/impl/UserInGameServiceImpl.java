@@ -45,5 +45,12 @@ public class UserInGameServiceImpl implements UserInGameService {
         userInGameDao.save(userInGame);
     }
 
+    @Override
+    public List<UserInGame> getGameResult(Long gameId) {
+        return null;
+    }
+
+    //        playerDto.setGold(); // TODO METOD COUNT GOLD BY EVENT
+//        playerDto.getCardsOnHand(); TODO METOD Передачі кард між гравцями
 
 }

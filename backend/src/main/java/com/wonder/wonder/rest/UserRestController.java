@@ -5,10 +5,17 @@ import com.wonder.wonder.dto.conerter.UserConverter;
 import com.wonder.wonder.model.User;
 import com.wonder.wonder.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,38 +24,32 @@ import java.util.stream.Collectors;
  * Date: 03.06.17.
  */
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("/api/user")
 public class UserRestController {
 
+    @Autowired
     private UserService userService;
+    @Autowired
     private UserConverter userConverter;
 
-    @Autowired
-    public UserRestController(UserService userService, UserConverter userConverter) {
-        this.userService = userService;
-        this.userConverter = userConverter;
+    @GetMapping(value = "/")
+    public List<UserDto> list(
+            @RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
+            @RequestParam(value = "pageSize", defaultValue = "30", required = false) Integer pageSize
+    ) {
+        Page<User> userPage = userService.getAllUsers(new PageRequest(page, pageSize));
+        return userPage.getContent().stream()
+                .map(userConverter::convertToDto)
+                .collect(Collectors.toList());
+
     }
 
-    @RequestMapping("/list")
-    public List<UserDto> list() {
-        List<UserDto> userDtos = userService.getAllUsers().stream().map(user -> userConverter.convertToDto(user)).collect(Collectors.toList());
-        return userDtos;
+    @ResponseStatus(code = HttpStatus.CREATED)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public void registerNewUser(@Valid @RequestBody UserDto userDto) {
+        User newUser = userConverter.convertToEntity(userDto);
+        userService.register(newUser);
     }
 
-    @PostMapping("/register")
-    @ResponseBody
-    public void registerNewUser(
-            HttpServletResponse response,
-            @RequestParam("name") String name,
-            @RequestParam("email") String email,
-            @RequestParam("password") String password
-    ) throws IOException {
-        try {
-            userService.register(name, email, password);
-            response.sendError(HttpServletResponse.SC_OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST,e.getMessage());
-        }
-    }
+
 }
