@@ -82,6 +82,7 @@ public class GameServiceTest {
         assertEquals("GameName",game.getName());
     }
 
+
     @Test(expected = RuntimeException.class)
     public void createGameValidIdTest() {
         when(authenticationWrapper.getCurrentUser()).thenReturn(UserFactory.currentUserInit());

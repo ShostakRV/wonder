@@ -28,7 +28,7 @@ public class Event {
     protected Game game;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_in_Game_id", nullable = false)
+    @JoinColumn(name = "user_in_game_id", nullable = false)
     protected UserInGame userInGame;
 
     @Enumerated(EnumType.STRING)
