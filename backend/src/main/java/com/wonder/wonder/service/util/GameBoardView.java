@@ -25,104 +25,16 @@ public class GameBoardView {
         this.userInfoList = createGameUserInfo(game);
     }
 
-    protected boolean build(UserActionOnCard userActionOnCard) {
-        return userActionOnCard.equals(UserActionOnCard.BUILD);
-
-    }
-
-    protected boolean buildZeus(UserActionOnCard eventUserChoose) {
-        return eventUserChoose.equals(UserActionOnCard.BUILD_ZEUS);
-    }
-
-    protected boolean buildWonder(UserActionOnCard userActionOnCard) {
-        return userActionOnCard.equals(UserActionOnCard.BUILD_WONDER);
-    }
-
-    protected boolean cardGiveResources(GameResource pastCardgiveResource) {
-        return !pastCardgiveResource.equals(GameResource.NO_RESOURCE);
-    }
-
-    protected boolean buildChain(GameCard pastChainBuild) {
-        return pastChainBuild != null;
-    }
-
 
     protected List<GameUserInfo> createGameUserInfo(Game game) {
         List<GameUserInfo> userInfoList = game.getUserInGames().stream()
                 .map(GameUserInfo::new)
                 .sorted(Comparator.comparingLong(GameUserInfo::getPosition))
                 .collect(Collectors.toList());
-
-        for (GameUserInfo gameUserInfo : userInfoList) {
-            List<GameCard> cardWasBuild = new ArrayList<>();
-            List<GameResource> resourceWhatHaveUser = new ArrayList<>();
-//            List<PassiveAbility> passiveAbilities = new ArrayList<>();
-            int goldHaveUser = 0;
-            int wonderLevel = 0;
-            int warPoint = 0;
-            List<Event> sortedListEvents = events.stream()
-                    .sorted(Comparator.comparingLong(Event::getId))
-                    .collect(Collectors.toList());
-            if (resourceWhatHaveUser.size() == 0) {
-                resourceWhatHaveUser.add(gameUserInfo
-                        .getWonder()
-                        .getWonderLevelCard()
-                        .get(0)
-                        .getGiveResource());
-            }
-            for (Event event : sortedListEvents) {
-                goldHaveUser += event.getGoldChange();
-                GameCard eventCard = event.getCard();
-                UserActionOnCard playCardChoose = event.getUserActionOnCard();
-                GameCard chainBuild = event.getChainCard();
-                GameResource cardgiveResource = eventCard.getGiveResource();
-                /**
-                 * Count
-                 */
-
-                if (buildWonder(playCardChoose)) {
-                    ++wonderLevel;
-                    GameCard wonderLevelBuilt = gameUserInfo
-                            .getWonder()
-                            .getWonderLevelCard()
-                            .get(wonderLevel);
-                    warPoint += wonderLevelBuilt
-                            .getArmyPower()
-                            .getPoints();
-                    cardWasBuild.add(wonderLevelBuilt);
-                    if (cardGiveResources(wonderLevelBuilt
-                            .getGiveResource())) {
-                        resourceWhatHaveUser
-                                .add(wonderLevelBuilt.getGiveResource());
-                    }
-
-//                    if (cardGiveAbility(wonderLevelBuilt.getPassiveAbilityWrong())) {
-//                        passiveAbilities.add(wonderLevelBuilt.getPassiveAbilityWrong());
-//                    }
-                }
-                if (build(playCardChoose)
-                        | buildZeus(playCardChoose)
-                        | buildChain(chainBuild)) {
-                    goldHaveUser += eventCard
-                            .getGoldNeededForConstruction();
-                    cardWasBuild.add(eventCard);
-                    if (cardGiveResources(cardgiveResource)) {
-                        resourceWhatHaveUser.add(cardgiveResource);
-                    }
-                    warPoint += eventCard
-                            .getArmyPower()
-                            .getPoints();
-//                    if (cardGiveAbility(eventCard.getPassiveAbilityWrong())) {
-//                        passiveAbilities.add(eventCard.getPassiveAbilityWrong());
-//                    }
-                }
-            }
-            gameUserInfo.setUserBuiltCards(cardWasBuild);
-            gameUserInfo.setUserGold(goldHaveUser);
-            gameUserInfo.setUserResource(resourceWhatHaveUser);
-            gameUserInfo.setUserWarPoint(warPoint);
-
-        }
+        GameUserInfo gameUserInfo = userInfoList.stream()
+                .findFirst()
+                .orElseThrow(RuntimeException::new);
+        userInfoList = gameUserInfo.createGameUserInfo(userInfoList, events);
         return userInfoList;
     }
 
@@ -172,7 +84,6 @@ public class GameBoardView {
                 .orElseThrow(RuntimeException::new);
 
     }
-// UserInGame
 
     public GameUserInfo getRightSiteUser() {
         int position = getCurrentUserGameInfo()
@@ -190,42 +101,6 @@ public class GameBoardView {
 
     }
 
-//    public boolean isZeusDiscauntEnabled() {
-//        return getCurrentUserGameInfo()
-//                .getPassiveAbilityList()
-//                .stream()
-//                .anyMatch(passiveAbility -> passiveAbility.equals(PassiveAbility.BUILD_BY_ZEUS));
-//    }
-
-//    public boolean isHaveLastCardCanBuildPassive() {
-//        return getCurrentUserGameInfo()
-//                .getPassiveAbilityList()
-//                .stream()
-//                .anyMatch(passiveAbility -> passiveAbility.equals(PassiveAbility.KEEP_LAST_CARD));
-//    }
-
-//    public boolean isHaveLeftTradeBrownRight() {
-//        return getCurrentUserGameInfo()
-//                .getPassiveAbilityList()
-//                .stream()
-//                .anyMatch(passiveAbility -> passiveAbility.equals(PassiveAbility.TRADE_LEFT));
-//    }
-
-//    public boolean isHaveRigrhTradeBrownLeft() {
-//        return getCurrentUserGameInfo()
-//                .getPassiveAbilityList()
-//                .stream()
-//                .anyMatch(passiveAbility -> passiveAbility.equals(PassiveAbility.TRADE_RIGHT));
-//    }
-
-//    public boolean isHaveRigrhTradeSilverLeftAndRight() {
-//        return getCurrentUserGameInfo()
-//                .getPassiveAbilityList()
-//                .stream()
-//                .anyMatch(passiveAbility -> passiveAbility.equals(PassiveAbility.TRADE_BOTH_SIDE));
-//    }
-
-    // TODO ASK TRADE LEFT BROWN
     public int getWarFlagCount() {
         return getCurrentUserGameInfo()
                 .getUserWarPoint();
