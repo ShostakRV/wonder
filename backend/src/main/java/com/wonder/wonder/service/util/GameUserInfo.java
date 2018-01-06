@@ -2,7 +2,7 @@ package com.wonder.wonder.service.util;
 
 import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.cards.GameResource;
-import com.wonder.wonder.cards.PassiveAbility;
+
 import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.model.Event;
 import com.wonder.wonder.model.UserInGame;
@@ -17,7 +17,7 @@ public class GameUserInfo {
     private final long userId;
     private List<GameCard> userBuiltCards;
     private List<GameResource> userResource;
-    private List<PassiveAbility> passiveAbilityList;
+
     private WonderCard wonder;
 
     private int wonderLevel;

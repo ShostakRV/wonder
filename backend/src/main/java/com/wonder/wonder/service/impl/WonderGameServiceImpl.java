@@ -137,7 +137,7 @@ public class WonderGameServiceImpl implements WonderGameService {
 
         List<GameCard> cardWasBuild = new ArrayList<>();
         List<GameResource> resourceWhatHaveUser = new ArrayList<>();
-        List<PassiveAbility> passiveAbilities = new ArrayList<>();
+//        List<PassiveAbility> passiveAbilities = new ArrayList<>();
         int warPoint = 0;
         for (Event eventPastSteps : allEventUser) {
             goldHaveUser += eventPastSteps.getGoldChange();

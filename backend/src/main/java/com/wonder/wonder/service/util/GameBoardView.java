@@ -2,7 +2,7 @@ package com.wonder.wonder.service.util;
 
 import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.cards.GameResource;
-import com.wonder.wonder.cards.PassiveAbility;
+
 import com.wonder.wonder.model.Event;
 import com.wonder.wonder.model.Game;
 import com.wonder.wonder.phase.UserActionOnCard;
@@ -46,9 +46,6 @@ public class GameBoardView {
         return pastChainBuild != null;
     }
 
-    protected boolean cardGiveAbility(PassiveAbility passiveAbility) {
-        return !passiveAbility.equals(PassiveAbility.EMPTY_PASSIVE_ABILITY);
-    }
 
     protected List<GameUserInfo> createGameUserInfo(Game game) {
         List<GameUserInfo> userInfoList = game.getUserInGames().stream()
@@ -59,7 +56,7 @@ public class GameBoardView {
         for (GameUserInfo gameUserInfo : userInfoList) {
             List<GameCard> cardWasBuild = new ArrayList<>();
             List<GameResource> resourceWhatHaveUser = new ArrayList<>();
-            List<PassiveAbility> passiveAbilities = new ArrayList<>();
+//            List<PassiveAbility> passiveAbilities = new ArrayList<>();
             int goldHaveUser = 0;
             int wonderLevel = 0;
             int warPoint = 0;
@@ -99,9 +96,9 @@ public class GameBoardView {
                                 .add(wonderLevelBuilt.getGiveResource());
                     }
 
-                    if (cardGiveAbility(wonderLevelBuilt.getPassiveAbilityWrong())) {
-                        passiveAbilities.add(wonderLevelBuilt.getPassiveAbilityWrong());
-                    }
+//                    if (cardGiveAbility(wonderLevelBuilt.getPassiveAbilityWrong())) {
+//                        passiveAbilities.add(wonderLevelBuilt.getPassiveAbilityWrong());
+//                    }
                 }
                 if (build(playCardChoose)
                         | buildZeus(playCardChoose)
@@ -115,16 +112,16 @@ public class GameBoardView {
                     warPoint += eventCard
                             .getArmyPower()
                             .getPoints();
-                    if (cardGiveAbility(eventCard.getPassiveAbilityWrong())) {
-                        passiveAbilities.add(eventCard.getPassiveAbilityWrong());
-                    }
+//                    if (cardGiveAbility(eventCard.getPassiveAbilityWrong())) {
+//                        passiveAbilities.add(eventCard.getPassiveAbilityWrong());
+//                    }
                 }
             }
             gameUserInfo.setUserBuiltCards(cardWasBuild);
             gameUserInfo.setUserGold(goldHaveUser);
             gameUserInfo.setUserResource(resourceWhatHaveUser);
             gameUserInfo.setUserWarPoint(warPoint);
-            gameUserInfo.setPassiveAbilityList(passiveAbilities);
+
         }
         return userInfoList;
     }
@@ -193,40 +190,40 @@ public class GameBoardView {
 
     }
 
-    public boolean isZeusDiscauntEnabled() {
-        return getCurrentUserGameInfo()
-                .getPassiveAbilityList()
-                .stream()
-                .anyMatch(passiveAbility -> passiveAbility.equals(PassiveAbility.BUILD_BY_ZEUS));
-    }
+//    public boolean isZeusDiscauntEnabled() {
+//        return getCurrentUserGameInfo()
+//                .getPassiveAbilityList()
+//                .stream()
+//                .anyMatch(passiveAbility -> passiveAbility.equals(PassiveAbility.BUILD_BY_ZEUS));
+//    }
 
-    public boolean isHaveLastCardCanBuildPassive() {
-        return getCurrentUserGameInfo()
-                .getPassiveAbilityList()
-                .stream()
-                .anyMatch(passiveAbility -> passiveAbility.equals(PassiveAbility.KEEP_LAST_CARD));
-    }
+//    public boolean isHaveLastCardCanBuildPassive() {
+//        return getCurrentUserGameInfo()
+//                .getPassiveAbilityList()
+//                .stream()
+//                .anyMatch(passiveAbility -> passiveAbility.equals(PassiveAbility.KEEP_LAST_CARD));
+//    }
 
-    public boolean isHaveLeftTradeBrownRight() {
-        return getCurrentUserGameInfo()
-                .getPassiveAbilityList()
-                .stream()
-                .anyMatch(passiveAbility -> passiveAbility.equals(PassiveAbility.TRADE_LEFT));
-    }
+//    public boolean isHaveLeftTradeBrownRight() {
+//        return getCurrentUserGameInfo()
+//                .getPassiveAbilityList()
+//                .stream()
+//                .anyMatch(passiveAbility -> passiveAbility.equals(PassiveAbility.TRADE_LEFT));
+//    }
 
-    public boolean isHaveRigrhTradeBrownLeft() {
-        return getCurrentUserGameInfo()
-                .getPassiveAbilityList()
-                .stream()
-                .anyMatch(passiveAbility -> passiveAbility.equals(PassiveAbility.TRADE_RIGHT));
-    }
+//    public boolean isHaveRigrhTradeBrownLeft() {
+//        return getCurrentUserGameInfo()
+//                .getPassiveAbilityList()
+//                .stream()
+//                .anyMatch(passiveAbility -> passiveAbility.equals(PassiveAbility.TRADE_RIGHT));
+//    }
 
-    public boolean isHaveRigrhTradeSilverLeftAndRight() {
-        return getCurrentUserGameInfo()
-                .getPassiveAbilityList()
-                .stream()
-                .anyMatch(passiveAbility -> passiveAbility.equals(PassiveAbility.TRADE_BOTH_SIDE));
-    }
+//    public boolean isHaveRigrhTradeSilverLeftAndRight() {
+//        return getCurrentUserGameInfo()
+//                .getPassiveAbilityList()
+//                .stream()
+//                .anyMatch(passiveAbility -> passiveAbility.equals(PassiveAbility.TRADE_BOTH_SIDE));
+//    }
 
     // TODO ASK TRADE LEFT BROWN
     public int getWarFlagCount() {
