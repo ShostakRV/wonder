@@ -1,6 +1,7 @@
 package com.wonder.wonder.cards.events;
 
 import com.wonder.wonder.cards.ActionSide;
+import com.wonder.wonder.service.util.GameBoardView;
 import lombok.Data;
 
 /**
@@ -18,7 +19,7 @@ public class ReceiveGoldByWonderOnBuildEventImpl implements OnBuildEvent {
     }
 
     @Override
-    public void doAction() {
+    public void doAction(GameBoardView boardView) {
 
     }
 }

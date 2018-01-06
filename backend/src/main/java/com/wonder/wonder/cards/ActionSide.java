@@ -8,5 +8,5 @@ public enum ActionSide {
     // On who act card
     RIGHT, LEFT, DOWN, RIGHT_AND_LEFT, RIGHT_AND_LEFT_AND_DOWN,
 
-    ALL //(in future)
+    NONE, ALL //(in future)
 }

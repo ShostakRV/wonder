@@ -4,11 +4,9 @@ import com.wonder.wonder.dto.PlayerDto;
 import com.wonder.wonder.dto.UserDto;
 import com.wonder.wonder.model.User;
 import com.wonder.wonder.model.UserInGame;
-
 /**
- * Creator: Pavlenko Bohdan
- * Date: 03.12.2017
- * Project: wonder
+ * Created b.missurenko
+ * Date **.12.17.
  */
 public interface UserInGamePlayerDtoConverter {
 

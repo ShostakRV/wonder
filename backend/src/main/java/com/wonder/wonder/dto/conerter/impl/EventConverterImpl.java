@@ -3,7 +3,10 @@ package com.wonder.wonder.dto.conerter.impl;
 import com.wonder.wonder.dto.EventDto;
 import com.wonder.wonder.dto.conerter.EventConverter;
 import com.wonder.wonder.model.Event;
-
+/**
+ * Created b.missurenko
+ * Date **.12.17.
+ */
 public class EventConverterImpl implements EventConverter {
     @Override
     public EventDto convertToDto(Event event) {

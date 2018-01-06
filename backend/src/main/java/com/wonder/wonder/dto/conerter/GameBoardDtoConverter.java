@@ -6,9 +6,8 @@ import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.User;
 
 /**
- * Creator: Pavlenko Bohdan
- * Date: 03.12.2017
- * Project: wonder
+ * Created b.missurenko
+ * Date **.12.17.
  */
 public interface GameBoardDtoConverter {
     BoardDto convertToDto(Game game);

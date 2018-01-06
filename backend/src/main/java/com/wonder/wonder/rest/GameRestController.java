@@ -18,7 +18,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * Created b.missurenko
+ * Date **.12.17.
+ */
 @ReadingConverter
 @RequestMapping(name = "/api/game")
 public class GameRestController {

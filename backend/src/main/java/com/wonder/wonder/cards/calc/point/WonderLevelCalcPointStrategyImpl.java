@@ -10,11 +10,11 @@ import lombok.Data;
 @Data
 public class WonderLevelCalcPointStrategyImpl implements CalcPointStrategy {
     private final ActionSide actionSide;
-    private final int pointForOneCard; // maybe level ???
+    private final int pointForOneLevelCard;
 
-    public WonderLevelCalcPointStrategyImpl(ActionSide actionSide, int pointForOneCard) {
+    public WonderLevelCalcPointStrategyImpl(ActionSide actionSide, int pointForOneLevelCard) {
         this.actionSide = actionSide;
-        this.pointForOneCard = pointForOneCard;
+        this.pointForOneLevelCard = pointForOneLevelCard;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.wonder.wonder.cards.events;
 
 import com.wonder.wonder.cards.ActionSide;
 import com.wonder.wonder.cards.GameCardColor;
+import com.wonder.wonder.service.util.GameBoardView;
 
 /**
  * Created bm
@@ -20,7 +21,8 @@ public class ReceiveGoldByCardOnBuildEventImpl implements OnBuildEvent {
 //
 
     @Override
-    public void doAction() {
+    public void doAction(GameBoardView boardView) {
+        boardView.getCurrentUserGameInfo().addGoldToNewEvent(5555555);
 
     }
 }

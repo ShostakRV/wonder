@@ -96,6 +96,9 @@ public class WonderGameServiceImpl implements WonderGameService {
         UserInGame userInGame = userInGameService.getUserInGameById(eventDto.getUserInGameId());
         WonderCard userWonder = userInGame.getWonder();
         Game game = userInGame.getGame();
+
+
+
         GamePhase phaseGameAndAge = game.getPhaseGame();
         Integer round = game.getPhaseRound();
         Integer roundPhaseScooseDo = game.getPhaseChooseDo();

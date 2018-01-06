@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Created b.missurenko
+ * Date **.12.17.
+ */
 @ReadingConverter
 @RequestMapping(name = "/api/game")
 public class UserInGameController {

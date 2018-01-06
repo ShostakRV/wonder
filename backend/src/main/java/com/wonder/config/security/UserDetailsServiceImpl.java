@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
+/**
+ * Created b.missurenko
+ * Date **.12.17.
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -26,11 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LOG.info("Start find by name in class UserDetailsServiceImpl");
         Optional<User> user = userDao.findByUserName(username);
-        return user.map(u -> new org.springframework.security.core.userdetails.User(u.getUsername(),
-                u.getPassword(), u.isEnabled(),
-                u.isAccountNonExpired(),
-                u.isCredentialsNonExpired(),
-                u.isAccountNonLocked(),
-                u.getAuthorities())).orElseThrow(() ->  new UsernameNotFoundException(username));
+        return user.orElseThrow(() ->  new UsernameNotFoundException(username));
     }
 }

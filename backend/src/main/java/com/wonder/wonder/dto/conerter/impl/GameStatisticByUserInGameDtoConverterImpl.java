@@ -3,7 +3,10 @@ package com.wonder.wonder.dto.conerter.impl;
 import com.wonder.wonder.dto.GameStatisticDto;
 import com.wonder.wonder.dto.conerter.GameStatisticByUserInGameDtoConverter;
 import com.wonder.wonder.model.UserInGame;
-
+/**
+ * Created b.missurenko
+ * Date **.12.17.
+ */
 public class GameStatisticByUserInGameDtoConverterImpl implements GameStatisticByUserInGameDtoConverter {
     @Override
     public GameStatisticDto convertToDto(UserInGame userInGame) {

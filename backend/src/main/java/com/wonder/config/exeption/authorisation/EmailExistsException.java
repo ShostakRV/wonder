@@ -1,7 +1,7 @@
 package com.wonder.config.exeption.authorisation;
 /**
- * @author b.Missurenko
- * @version 0.1
+ * Created b.missurenko
+ * Date **.12.17.
  */
 public class EmailExistsException extends RuntimeException {
 

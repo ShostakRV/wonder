@@ -7,7 +7,10 @@ import com.wonder.wonder.model.UserInGame;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
-
+/**
+ * Created b.missurenko
+ * Date **.12.17.
+ */
 @Service
 public class UserInGamePlayerDtoConverterImpl implements UserInGamePlayerDtoConverter {
     @Override

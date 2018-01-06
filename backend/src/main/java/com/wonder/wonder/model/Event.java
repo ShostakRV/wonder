@@ -49,6 +49,10 @@ public class Event {
     @Column(name = "chain_card")
     protected GameCard chainCard;
 
+    // карта за яку будують
+    @Column(name = "build_card")
+    private GameCard buildCard;
+
     @Column(name = "action_name")
     @Enumerated(EnumType.STRING)
     protected UserActionOnCard userActionOnCard;

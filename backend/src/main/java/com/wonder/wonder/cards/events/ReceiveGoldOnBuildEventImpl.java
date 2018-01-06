@@ -1,11 +1,8 @@
 package com.wonder.wonder.cards.events;
 
 import com.wonder.wonder.cards.ActionSide;
-import com.wonder.wonder.cards.GameCardColor;
+import com.wonder.wonder.service.util.GameBoardView;
 import lombok.Data;
-
-import java.util.ArrayList;
-import java.util.function.Predicate;
 
 /**
  * Created: godex
@@ -25,7 +22,7 @@ public class ReceiveGoldOnBuildEventImpl implements OnBuildEvent {
 
 
     @Override
-    public void doAction() {
+    public void doAction(GameBoardView boardView) {
 
 
     }

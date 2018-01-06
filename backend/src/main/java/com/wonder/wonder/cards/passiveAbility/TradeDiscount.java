@@ -2,6 +2,7 @@ package com.wonder.wonder.cards.passiveAbility;
 
 import com.wonder.wonder.cards.ActionSide;
 import com.wonder.wonder.cards.BaseResource;
+import com.wonder.wonder.cards.GameCardColor;
 import com.wonder.wonder.cards.events.OnBuildEvent;
 import lombok.Data;
 
@@ -12,17 +13,16 @@ import java.util.List;
  * Date 25.06.17.
  */
 @Data
-public class TradeOnBuildAbilityImpl implements OnBuildAbility {
+public class TradeDiscount {
     private final ActionSide actionSide;
-    private final List<BaseResource> baseResourceList;
+    private final GameCardColor cardColor;
 
-    public TradeOnBuildAbilityImpl(ActionSide actionSide,List<BaseResource> baseResourceList) {
+    private TradeDiscount(ActionSide actionSide, GameCardColor cardColor) {
         this.actionSide = actionSide;
-        this.baseResourceList = baseResourceList;
+        this.cardColor = cardColor;
     }
 
-    @Override
-    public void ability() {
-
+    public static TradeDiscount create(ActionSide actionSide, GameCardColor cardColor){
+        return new TradeDiscount(actionSide, cardColor);
     }
 }
