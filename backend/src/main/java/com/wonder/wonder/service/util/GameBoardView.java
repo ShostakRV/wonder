@@ -6,6 +6,7 @@ import com.wonder.wonder.cards.GameResource;
 import com.wonder.wonder.model.Event;
 import com.wonder.wonder.model.Game;
 import com.wonder.wonder.phase.UserActionOnCard;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.codehaus.groovy.runtime.DefaultGroovyMethods.collect;
+
 
 public class GameBoardView {
     private final List<Event> events;
@@ -114,6 +116,10 @@ public class GameBoardView {
     public int getUserWonderLevel() {
         return getCurrentUserGameInfo()
                 .getWonderLevel();
+    }
+
+    public List<Event> getAllEvents() {
+        return events;
     }
 
 }

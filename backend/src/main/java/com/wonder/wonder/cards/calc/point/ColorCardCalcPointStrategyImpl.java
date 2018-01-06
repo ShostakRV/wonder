@@ -22,6 +22,7 @@ public class ColorCardCalcPointStrategyImpl implements CalcPointStrategy {
 
     @Override
     public int getPoints() {
+
         return 0;
     }
 }

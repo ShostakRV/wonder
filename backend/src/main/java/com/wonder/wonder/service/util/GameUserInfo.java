@@ -10,6 +10,7 @@ import com.wonder.wonder.model.UserInGame;
 import com.wonder.wonder.phase.UserActionOnCard;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -99,6 +100,7 @@ public class GameUserInfo {
                     .collect(Collectors.toList());
 
             addWonderBaseResourse(gameUserInfo);
+            userGold += 3;
 
             for (Event event : sortedListEvents) {
                 userGold += event.getGoldChange();
@@ -150,6 +152,9 @@ public class GameUserInfo {
                     tradeBrownRight = isHaveRigrhTradeBrown(eventCard);
 
                 }
+                if (sellCard(playCardChoose)) {
+                    userGold += 3;
+                }
 
             }
             gameUserInfo.setUserBuiltCards(userBuiltCards);
@@ -159,6 +164,11 @@ public class GameUserInfo {
 
         }
         return userInfoList;
+    }
+
+    protected boolean sellCard(UserActionOnCard userActionOnCard) {
+        return userActionOnCard.equals(UserActionOnCard.SELL_CARD);
+
     }
 
     public boolean isZeusDiscauntEnabled(GameCard eventCard) {

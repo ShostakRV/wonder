@@ -13,8 +13,8 @@ import java.util.List;
 @Data
 public class EventDto {
 
-    private UserActionOnCard eventUserChoose;
-    private GameCard playCard;
+    private UserActionOnCard userActionOnCard;
+    private GameCard playOnCardForEvent;
     private GameCard chainCard;
 
     private List<PayDto> payDtoList;

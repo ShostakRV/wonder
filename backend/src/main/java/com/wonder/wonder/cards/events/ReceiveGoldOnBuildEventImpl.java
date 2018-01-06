@@ -23,7 +23,13 @@ public class ReceiveGoldOnBuildEventImpl implements OnBuildEvent {
 
     @Override
     public void doAction(GameBoardView boardView) {
+            int addGold = 0;
+            if (actionSide.equals(ActionSide.DOWN)) {
+                addGold += pointForOneCard;
+            }
+            // TODO ASK ABOUT ABOTHER VERSION
+            boardView.getCurrentUserGameInfo().addGoldToNewEvent(addGold);
+        }
 
 
-    }
 }

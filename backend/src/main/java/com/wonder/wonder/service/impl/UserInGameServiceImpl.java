@@ -50,6 +50,11 @@ public class UserInGameServiceImpl implements UserInGameService {
         return null;
     }
 
+    @Override
+    public UserInGame getUserInGameByIdAndGameId(Long userInGameId, Long gameId) {
+        return userInGameDao.findByIdAndGameId(userInGameId,gameId);
+    }
+
     //        playerDto.setGold(); // TODO METOD COUNT GOLD BY EVENT
 //        playerDto.getCardsOnHand(); TODO METOD Передачі кард між гравцями
 

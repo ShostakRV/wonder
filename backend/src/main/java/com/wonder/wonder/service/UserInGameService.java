@@ -21,4 +21,6 @@ public interface UserInGameService {
 
 
     List<UserInGame> getGameResult(Long gameId);
+
+    UserInGame getUserInGameByIdAndGameId(Long userInGameId, Long gameId);
 }

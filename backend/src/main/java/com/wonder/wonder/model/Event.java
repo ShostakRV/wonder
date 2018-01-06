@@ -50,8 +50,8 @@ public class Event {
     protected GameCard chainCard;
 
     // карта за яку будують
-    @Column(name = "build_card")
-    private GameCard buildCard;
+    @Column(name = "to_put_on_for_build")
+    private GameCard ToPutOnForBuild;
 
     @Column(name = "action_name")
     @Enumerated(EnumType.STRING)

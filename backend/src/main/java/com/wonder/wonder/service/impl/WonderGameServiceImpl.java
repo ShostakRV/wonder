@@ -13,6 +13,8 @@ import com.wonder.wonder.service.EventService;
 import com.wonder.wonder.service.GameService;
 import com.wonder.wonder.service.UserInGameService;
 import com.wonder.wonder.service.WonderGameService;
+import com.wonder.wonder.service.util.GameBoardView;
+import com.wonder.wonder.service.util.GameUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -52,21 +54,8 @@ public class WonderGameServiceImpl implements WonderGameService {
     // end count point
 
 
-    private void save(UserInGame userInGame, Game game,
-                      GamePhase gamePhase, Integer round, Integer gamePhaseRound,
-                      GameCard playCard, UserActionOnCard userActionOnCard, GameCard chainCard,
-                      Integer goldChange) {
-        Event event = new Event();
-        event.setGame(game);
-        event.setUserInGame(userInGame);
-        event.setGamePhase(gamePhase);
-        event.setPhaseRound(round);
-        event.setPhaseChooseDo(gamePhaseRound);
-        event.setCard(playCard);
-        event.setUserActionOnCard(userActionOnCard);
-        event.setChainCard(chainCard);
-        event.setGoldChange(goldChange);
-        eventService.save(event);
+    private void save(Event currentEvent) {
+        eventService.save(currentEvent);
     }
 
     protected boolean sellCard(UserActionOnCard userActionOnCard) {
@@ -93,129 +82,63 @@ public class WonderGameServiceImpl implements WonderGameService {
         /**
          * basic parametr for users
          */
-        UserInGame userInGame = userInGameService.getUserInGameById(eventDto.getUserInGameId());
-        WonderCard userWonder = userInGame.getWonder();
+
+        UserInGame userInGame = userInGameService.getUserInGameByIdAndGameId(eventDto.getUserInGameId()
+                , eventDto.getGameId());
+
         Game game = userInGame.getGame();
 
+        GameBoardView gameBoardView = new GameBoardView(game, eventDto.getUserInGameId());
+        GameUserInfo gameUserInfo = gameBoardView.getCurrentUserGameInfo();
 
-
-        GamePhase phaseGameAndAge = game.getPhaseGame();
-        Integer round = game.getPhaseRound();
-        Integer roundPhaseScooseDo = game.getPhaseChooseDo();
-        GameCard playCard = eventDto.getPlayCard();
-        GameCard chainCard = eventDto.getChainCard();
-        UserActionOnCard eventUserChoose = eventDto.getEventUserChoose();
-        Integer goldHaveUser = 3;
-        Integer wonderLevel = 0;
+        Event currentEvent = gameUserInfo.getEventToSave();
+        currentEvent.setUserInGame(currentEvent.getUserInGame());
+        currentEvent.setGamePhase(game.getPhaseGame());
+        currentEvent.setPhaseRound(game.getPhaseRound());
+        currentEvent.setPhaseChooseDo(game.getPhaseChooseDo());
+        currentEvent.setCard(eventDto.getPlayOnCardForEvent());
+        currentEvent.setChainCard(eventDto.getChainCard());
+        currentEvent.setUserActionOnCard(eventDto.getUserActionOnCard());
 
         /**
          * Action sell card
          */
-        if (sellCard(eventUserChoose)) {
-            save(userInGame, game
-                    , phaseGameAndAge, round, roundPhaseScooseDo
-                    , playCard, eventUserChoose, chainCard
-                    , 3);
+        if (sellCard(currentEvent.getUserActionOnCard())) {
+            currentEvent.setGoldChange(3);
+            save(currentEvent);
             return true;
         }
 
         List<ResourceChooseDto> resourceChooseDto = eventDto.getResourceChooseDtoList();
         List<PayDto> payDtoList = eventDto.getPayDtoList();
 
-// TODO DAO CHANGE getAllEventByGameIdAndUserInGameId
-        List<Event> allEventInGame = eventService.getAllEventByGameId(game.getId());
-        List<Event> allEventUser = allEventInGame.stream().
-                filter(event -> event.getUserInGame().getId() == userInGame.getId()).
-                collect(Collectors.toList());
+        for (Event eventPastSteps : gameBoardView.getAllEvents()) {
 
-        /**
-         * Count resourse what have 
-         * Count gold what have
-         * Count what ability have
-         *
-         */
-
-        List<GameCard> cardWasBuild = new ArrayList<>();
-        List<GameResource> resourceWhatHaveUser = new ArrayList<>();
-//        List<PassiveAbility> passiveAbilities = new ArrayList<>();
-        int warPoint = 0;
-        for (Event eventPastSteps : allEventUser) {
-            goldHaveUser += eventPastSteps.getGoldChange();
             GameCard eventPastStepsCard = eventPastSteps.getCard();
             UserActionOnCard pastPlayCardChoose = eventPastSteps.getUserActionOnCard();
             GamePhase pastEventPhase = eventPastSteps.getGamePhase();
             GameCard pastChainBuild = eventPastSteps.getChainCard();
-            GameResource pastCardgiveResource = eventPastStepsCard.getGiveResource();
-            /**
-             * Count
-             */
-            if (resourceWhatHaveUser.size() == 0) {
-                resourceWhatHaveUser.add(userWonder.getWonderLevelCard().get(0).getGiveResource());
-            }
-            if (buildWonder(pastPlayCardChoose)) {
-                ++wonderLevel;
-                GameCard wonderLevelBuilNow = userWonder.getWonderLevelCard().get(wonderLevel);
-                warPoint += wonderLevelBuilNow.getArmyPower().getPoints();
-                if (cardGiveResources(wonderLevelBuilNow.getGiveResource())) {
-                    resourceWhatHaveUser.add(wonderLevelBuilNow.getGiveResource());
-                }
-                // count spell
-                // count money
-//                goldHaveUser +=
 
-            }
-            if (build(pastPlayCardChoose)) {
-                goldHaveUser -= eventPastStepsCard.getGoldNeededForConstruction();
-                cardWasBuild.add(eventPastStepsCard);
-                if (cardGiveResources(pastCardgiveResource)) {
-                    resourceWhatHaveUser.add(pastCardgiveResource);
-                }
-                // count spell
-                // count money
-            }
-            if (buildZeus(pastPlayCardChoose)) {
-                cardWasBuild.add(eventPastStepsCard);
-                if (cardGiveResources(pastCardgiveResource)) {
-                    resourceWhatHaveUser.add(pastCardgiveResource);
-                }
-                // count spell
-                // count money
-            }
 
-            if (sellCard(pastPlayCardChoose)) {
-                goldHaveUser += 3; // !!!!!!
-            }
-
-            if (buildChain(pastChainBuild)) {
-                cardWasBuild.add(eventPastStepsCard);
-                if (cardGiveResources(pastCardgiveResource)) {
-                    resourceWhatHaveUser.add(pastCardgiveResource);
-                }
-
-                // count spell
-                // count money
-            }
-            /**
-             * Count
-             */
             /**
              * exeptions
              */
-            if (wantBuildDublicate(eventPastStepsCard, playCard, pastPlayCardChoose)) {
+            if (wantBuildDublicate(eventPastStepsCard, currentEvent.getCard(), pastPlayCardChoose)) {
                 throw new RuntimeException("You want buil dublicate");
             }
-            if (wantBuildByZeusWhenUseInThisAge(eventUserChoose, phaseGameAndAge, pastPlayCardChoose, pastEventPhase)) {
+            if (wantBuildByZeusWhenUseInThisAge(currentEvent.getUserActionOnCard(), currentEvent.getGamePhase(), pastPlayCardChoose, pastEventPhase)) {
                 throw new RuntimeException("You use pover ZEVS wonder in this age");
             }
-            if (wonderLevel > userWonder.getWonderLevelCard().size()) {
+            if (gameUserInfo.getWonderLevel() > gameUserInfo.getWonder().getWonderLevelCard().size()) {
                 throw new RuntimeException("You want build wonderLEvel more then max");
             }
-            if (buildChain(chainCard) &
+            if (buildChain(currentEvent.getChainCard()) &
                     (buildChain(pastChainBuild) &
-                            Objects.equals(pastEventPhase, phaseGameAndAge))) {
+                            Objects.equals(pastEventPhase, currentEvent.getGamePhase()))) {
                 throw new RuntimeException("You no can build by doudle chain in one age");
             }
 
+            // TODO CHECK HAVE THIS BUILD CARD FOR CHAIN
             /**
              * exeptions
              */
@@ -223,28 +146,26 @@ public class WonderGameServiceImpl implements WonderGameService {
 /**
  * Build ZEUS,BUILD,CHAIN
  */
-        List<BaseResource> resourcesNeed = playCard.getResourcesNeedForBuild();
+        List<BaseResource> resourcesNeed = currentEvent.getCard().getResourcesNeedForBuild();
+
         int goldChangeOnBuild = 0; // TODO CNAHGE GOLD
-        if (build(eventUserChoose)) {
-            if (playCard.getGoldNeededForConstruction() == 0 &
-                    playCard.getResourcesNeedForBuild().get(0).equals(BaseResource.NONE)) {
 
-
-                save(userInGame, game
-                        , phaseGameAndAge, round, roundPhaseScooseDo
-                        , playCard, eventUserChoose, chainCard
-                        , goldChangeOnBuild);
+        if (build(currentEvent.getUserActionOnCard())) {
+            if (currentEvent.getCard().getGoldNeededForConstruction() == 0 &
+                    currentEvent.getCard().getResourcesNeedForBuild().get(0).equals(BaseResource.NONE)) {
+                currentEvent.setGoldChange(goldChangeOnBuild);
+                save(currentEvent);
                 return true;
             }
-            if ((playCard.getGoldNeededForConstruction() == 1) &
-                    ((goldHaveUser - 1) >= 0) &
-                    playCard.getResourcesNeedForBuild().get(0).equals(BaseResource.NONE)) {
-                save(userInGame, game
-                        , phaseGameAndAge, round, roundPhaseScooseDo
-                        , playCard, eventUserChoose, chainCard
-                        , goldChangeOnBuild - 1);
+            if ((currentEvent.getCard().getGoldNeededForConstruction() == 1) &
+                    ((currentEvent.getGoldChange() - 1) >= 0) &
+                    currentEvent.getCard().getResourcesNeedForBuild().get(0).equals(BaseResource.NONE)) {
+                currentEvent.setGoldChange(goldChangeOnBuild - 1);
+                save(currentEvent);
                 return true;
+
             }
+
             // TODO BUILD BY RESOURCE LIKE METOD
 
 //            if (resourceChooseDto.size() == 0 & payDtoList.size() == 0){
@@ -252,23 +173,22 @@ public class WonderGameServiceImpl implements WonderGameService {
 //            }
 
 
-            if (buildChain(chainCard)) {
-                // TODO CHECK HAVE THIS BUILD CARD
-                save(userInGame, game
-                        , phaseGameAndAge, round, roundPhaseScooseDo
-                        , playCard, eventUserChoose, chainCard
-                        , goldChangeOnBuild);
+            if (buildChain(currentEvent.getChainCard())) {
+
+                // TODO CHECK HAVE THIS BUILD CARD FOR CHAIN
+
+                currentEvent.setGoldChange(goldChangeOnBuild);
+                save(currentEvent);
                 return true;
             }
         }
-        if (buildZeus(eventUserChoose)) {
-            save(userInGame, game
-                    , phaseGameAndAge, round, roundPhaseScooseDo
-                    , playCard, eventUserChoose, chainCard
-                    , goldChangeOnBuild);
+        if (buildZeus(currentEvent.getUserActionOnCard())) {
+            currentEvent.setGoldChange(goldChangeOnBuild);
+            // TODO CHECK HAVE THIS BUILD CARD
+            save(currentEvent);
             return true;
         }
-        if (buildWonder(eventUserChoose)) {
+        if (buildWonder(currentEvent.getUserActionOnCard())) {
             // TODO BUILD BY RESOURCE LIKE METOD
             return true;
         }

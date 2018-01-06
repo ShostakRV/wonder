@@ -4,4 +4,5 @@ package com.wonder.wonder.cards.events;
  * Date 05.01.18.
  */
 public class CardResurrectionOnBuildEventImpl {
+
 }

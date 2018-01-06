@@ -25,4 +25,5 @@ public interface UserInGameDao extends PagingAndSortingRepository<UserInGame, Lo
     List<UserInGame> hibernateQuery();
 
 
+    UserInGame findByIdAndGameId(Long userInGameId, Long gameId);
 }

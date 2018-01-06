@@ -1,8 +1,10 @@
 package com.wonder.wonder.TestData.service;
 
+import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.User;
 import com.wonder.wonder.model.UserInGame;
+import com.wonder.wonder.phase.GamePhase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,4 +50,18 @@ public class UserInGameFactory {
 
         return userInGame;
     }
+
+    public static UserInGame userInGameInitPhaseAge_1() {
+        User user = new User();
+        user.setId(0);
+        UserInGame userInGame = new UserInGame();
+        userInGame.setUser(user);
+        userInGame.setId(101L);
+        userInGame.setGame(GameFactory.gameInit(1001L, 3, GamePhase.AGE_1));
+        userInGame.setPosition(0);
+        userInGame.setWonder(WonderCard.THE_PYRAMIDS_OF_GIZA_SIDE_A);
+        return userInGame;
+    }
+
+
 }
