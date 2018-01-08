@@ -76,6 +76,11 @@ public class WonderGameServiceImpl implements WonderGameService {
         return userActionOnCard.equals(UserActionOnCard.BUILD_WONDER);
     }
 
+    protected int getFoldChange(GameBoardView gameBoardView, Event currentEvent) {
+        currentEvent.getCard().getOnBuildEvent().doAction(gameBoardView);
+        return currentEvent.getGoldChange();
+    }
+
     @Override
     public boolean playCard(EventDto eventDto) {
 
@@ -109,9 +114,7 @@ public class WonderGameServiceImpl implements WonderGameService {
             return true;
         }
 
-        List<ResourceChooseDto> resourceChooseDto = eventDto.getResourceChooseDtoList();
-        List<PayDto> payDtoList = eventDto.getPayDtoList();
-
+        boolean canBuildByChain = false;
         for (Event eventPastSteps : gameBoardView.getAllEvents()) {
 
             GameCard eventPastStepsCard = eventPastSteps.getCard();
@@ -132,35 +135,61 @@ public class WonderGameServiceImpl implements WonderGameService {
             if (gameUserInfo.getWonderLevel() > gameUserInfo.getWonder().getWonderLevelCard().size()) {
                 throw new RuntimeException("You want build wonderLEvel more then max");
             }
-            if (buildChain(currentEvent.getChainCard()) &
-                    (buildChain(pastChainBuild) &
-                            Objects.equals(pastEventPhase, currentEvent.getGamePhase()))) {
-                throw new RuntimeException("You no can build by doudle chain in one age");
-            }
 
-            // TODO CHECK HAVE THIS BUILD CARD FOR CHAIN
             /**
              * exeptions
              */
+            if (buildChain(currentEvent.getChainCard())) {
+                // TODO CHECK HAVE THIS BUILD CARD FOR CHAIN
+            }
         }
 /**
  * Build ZEUS,BUILD,CHAIN
  */
-        List<BaseResource> resourcesNeed = currentEvent.getCard().getResourcesNeedForBuild();
+        if (buildZeus(currentEvent.getUserActionOnCard())) {
+            int goldChangeOnBuild = getFoldChange(gameBoardView, currentEvent);
 
-        int goldChangeOnBuild = 0; // TODO CNAHGE GOLD
+            currentEvent.setGoldChange(goldChangeOnBuild);
+            // TODO CHECK HAVE THIS BUILD CARD
+            save(currentEvent);
+            return true;
+        }
+
+
+        List<BaseResource> resourcesNeed = currentEvent.getCard().getResourcesNeedForBuild();
+        List<ResourceChooseDto> resourceChooseDto = eventDto.getResourceChooseDtoList();
+        List<PayDto> payDtoList = eventDto.getPayDtoList();
 
         if (build(currentEvent.getUserActionOnCard())) {
-            if (currentEvent.getCard().getGoldNeededForConstruction() == 0 &
-                    currentEvent.getCard().getResourcesNeedForBuild().get(0).equals(BaseResource.NONE)) {
+            int goldChangeOnBuild = getFoldChange(gameBoardView, currentEvent);
+
+            if (buildChain(currentEvent.getChainCard())) {
+                save(currentEvent);
+                return true;
+            }
+
+            if (currentEvent.getCard().getGoldNeededForConstruction() == 0
+                    & resourcesNeed.get(0).equals(BaseResource.NONE)) {
                 currentEvent.setGoldChange(goldChangeOnBuild);
                 save(currentEvent);
                 return true;
             }
-            if ((currentEvent.getCard().getGoldNeededForConstruction() == 1) &
-                    ((currentEvent.getGoldChange() - 1) >= 0) &
-                    currentEvent.getCard().getResourcesNeedForBuild().get(0).equals(BaseResource.NONE)) {
+            if ((currentEvent.getCard().getGoldNeededForConstruction() == 1)
+                    & ((currentEvent.getGoldChange() - 1) >= 0) &
+                    resourcesNeed.get(0).equals(BaseResource.NONE)) {
                 currentEvent.setGoldChange(goldChangeOnBuild - 1);
+                save(currentEvent);
+                return true;
+
+            }
+
+            if ((currentEvent.getCard().getGoldNeededForConstruction() == 0)
+                    & !resourcesNeed.get(0).equals(BaseResource.NONE)) {
+
+
+
+
+                currentEvent.setGoldChange(goldChangeOnBuild);
                 save(currentEvent);
                 return true;
 
@@ -172,22 +201,8 @@ public class WonderGameServiceImpl implements WonderGameService {
 //                throw new RuntimeException("You no can build this card, no choose resource for build");
 //            }
 
-
-            if (buildChain(currentEvent.getChainCard())) {
-
-                // TODO CHECK HAVE THIS BUILD CARD FOR CHAIN
-
-                currentEvent.setGoldChange(goldChangeOnBuild);
-                save(currentEvent);
-                return true;
-            }
         }
-        if (buildZeus(currentEvent.getUserActionOnCard())) {
-            currentEvent.setGoldChange(goldChangeOnBuild);
-            // TODO CHECK HAVE THIS BUILD CARD
-            save(currentEvent);
-            return true;
-        }
+
         if (buildWonder(currentEvent.getUserActionOnCard())) {
             // TODO BUILD BY RESOURCE LIKE METOD
             return true;
@@ -196,8 +211,6 @@ public class WonderGameServiceImpl implements WonderGameService {
         /**
          * Build ZEUS,BUILD,CHAIN
          */
-
-
         return true;
     }
 

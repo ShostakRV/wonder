@@ -25,9 +25,12 @@ public class ReceiveGoldByWonderOnBuildEventImpl implements OnBuildEvent {
         int addGold = 0;
         if (actionSide.equals(ActionSide.DOWN)) {
             addGold += pointForOneCard * boardView.getUserWonderLevel();
+            boardView.getCurrentUserGameInfo().addGoldToNewEvent(addGold);
+        }else {
+            throw new RuntimeException("unexpected behavior someting");
         }
 
-        boardView.getCurrentUserGameInfo().addGoldToNewEvent(addGold);
+
     }
 
 }

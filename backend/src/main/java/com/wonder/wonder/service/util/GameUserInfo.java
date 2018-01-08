@@ -5,20 +5,16 @@ import com.wonder.wonder.cards.GameResource;
 
 import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.model.Event;
-import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.UserInGame;
 import com.wonder.wonder.phase.UserActionOnCard;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.stereotype.Service;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter
-@Setter
+@Data
 public class GameUserInfo {
     private final long userId;
     private List<GameCard> userBuiltCards;
@@ -78,16 +74,12 @@ public class GameUserInfo {
         return pastChainBuild != null;
     }
 
-    protected boolean addWonderBaseResourse(GameUserInfo gameUserInfo) {
+    protected void addWonderBaseResourse(GameResource resource) {
         if (userResource.size() == 0) {
-            userResource.add(gameUserInfo
-                    .getWonder()
-                    .getWonderLevelCard()
-                    .get(0)
-                    .getGiveResource());
-            return true;
+            userResource.add(resource);
+
         } else {
-            return false;
+            throw new RuntimeException("");
         }
 
     }
@@ -95,11 +87,40 @@ public class GameUserInfo {
 
     public List<GameUserInfo> createGameUserInfo(List<GameUserInfo> userInfoList, List<Event> events) {
         for (GameUserInfo gameUserInfo : userInfoList) {
+            List<GameCard> userBuiltCards = new ArrayList<>();
+            List<GameResource> userResource = new ArrayList<>();
+
+            WonderCard wonder;
+
+            int wonderLevel = 0;
+
+            int userGold = 0;
+
+            int userWarPoint = 0;
+
+            Integer position;
+
+            boolean zeusPassiveWonder;
+
+            boolean garderPassiveWonder;
+
+            boolean tradeSilverRightAndLeft;
+
+            boolean tradeBrownRight;
+
+            boolean tradeBrownLeft;
+
+            final Event eventToSave;
+
             List<Event> sortedListEvents = events.stream()
                     .sorted(Comparator.comparingLong(Event::getId))
                     .collect(Collectors.toList());
-
-            addWonderBaseResourse(gameUserInfo);
+// TODO gameUserInfoMap
+            addWonderBaseResourse(gameUserInfo
+                    .getWonder()
+                    .getWonderLevelCard()
+                    .get(0)
+                    .getGiveResource());
             userGold += 3;
 
             for (Event event : sortedListEvents) {
@@ -111,7 +132,7 @@ public class GameUserInfo {
                 /**
                  * Count
                  */
-
+// TODO wonder card built by card
                 if (buildWonder(playCardChoose)) {
                     GameCard wonderLevelBuilt = gameUserInfo
                             .getWonder()
@@ -127,18 +148,18 @@ public class GameUserInfo {
                         userResource
                                 .add(wonderLevelBuilt.getGiveResource());
                     }
-
+                    // TODO for wonder ZEUS
                     zeusPassiveWonder = isZeusDiscauntEnabled(eventCard);
 
                     garderPassiveWonder = isHaveLastCardCanBuildPassive(eventCard);
 
+                    // TODO for wonder Garden
                     isHaveRigrhAndLeftTradeBrown(eventCard);
                 }
                 if (build(playCardChoose)
-                        | buildZeus(playCardChoose)
-                        | buildChain(chainBuild)) {
-                    userGold += eventCard
-                            .getGoldNeededForConstruction();
+                        || buildZeus(playCardChoose)
+                        || buildChain(chainBuild)) {
+
                     userBuiltCards.add(eventCard);
                     if (cardGiveResources(cardgiveResource)) {
                         userResource.add(cardgiveResource);
@@ -148,12 +169,7 @@ public class GameUserInfo {
                             .getPoints();
 
                     tradeBrownLeft = isHaveLeftTradeBrown(eventCard);
-
                     tradeBrownRight = isHaveRigrhTradeBrown(eventCard);
-
-                }
-                if (sellCard(playCardChoose)) {
-                    userGold += 3;
                 }
 
             }
@@ -166,7 +182,7 @@ public class GameUserInfo {
         return userInfoList;
     }
 
-    protected boolean sellCard(UserActionOnCard userActionOnCard) {
+    public boolean sellCard(UserActionOnCard userActionOnCard) {
         return userActionOnCard.equals(UserActionOnCard.SELL_CARD);
 
     }

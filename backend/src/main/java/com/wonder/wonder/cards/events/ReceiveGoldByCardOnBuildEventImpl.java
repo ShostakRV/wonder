@@ -27,18 +27,15 @@ public class ReceiveGoldByCardOnBuildEventImpl implements OnBuildEvent {
     @Override
     public void doAction(GameBoardView boardView) {
         int addGold = 0;
-        if (actionSide.equals(ActionSide.DOWN)
-                | actionSide.equals(ActionSide.RIGHT_AND_LEFT_AND_DOWN)) {
+        if (actionSide.equals(ActionSide.DOWN) || actionSide.equals(ActionSide.RIGHT_AND_LEFT_AND_DOWN)) {
             addGold += pointForOneCard * buildCardColorCount(boardView);
         }
-        if (actionSide.equals(ActionSide.LEFT)
-                | actionSide.equals(ActionSide.RIGHT_AND_LEFT)
-                | actionSide.equals(ActionSide.RIGHT_AND_LEFT_AND_DOWN)) {
+        if (actionSide.equals(ActionSide.LEFT) || actionSide.equals(ActionSide.RIGHT_AND_LEFT) || actionSide.equals(ActionSide.RIGHT_AND_LEFT_AND_DOWN)) {
             addGold += pointForOneCard * buildCardColorCountLeft(boardView);
         }
         if (actionSide.equals(ActionSide.RIGHT)
-                | actionSide.equals(ActionSide.RIGHT_AND_LEFT)
-                | actionSide.equals(ActionSide.RIGHT_AND_LEFT_AND_DOWN)) {
+                || actionSide.equals(ActionSide.RIGHT_AND_LEFT)
+                || actionSide.equals(ActionSide.RIGHT_AND_LEFT_AND_DOWN)) {
             addGold += pointForOneCard * buildCardColorCountRight(boardView);
         }
         boardView.getCurrentUserGameInfo().addGoldToNewEvent(addGold);
@@ -52,6 +49,7 @@ public class ReceiveGoldByCardOnBuildEventImpl implements OnBuildEvent {
                 .collect(Collectors.toList()).size();
 
     }
+
     protected int buildCardColorCountLeft(GameBoardView boardView) {
         return boardView.getLeftSiteUser()
                 .getUserBuiltCards()
@@ -60,6 +58,7 @@ public class ReceiveGoldByCardOnBuildEventImpl implements OnBuildEvent {
                 .collect(Collectors.toList()).size();
 
     }
+
     protected int buildCardColorCountRight(GameBoardView boardView) {
         return boardView.getRightSiteUser()
                 .getUserBuiltCards()
