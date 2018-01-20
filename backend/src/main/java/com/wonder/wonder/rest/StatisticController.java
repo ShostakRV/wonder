@@ -4,6 +4,7 @@ import com.wonder.wonder.dto.GameStatisticDto;
 import com.wonder.wonder.dto.conerter.GameStatisticByUserInGameDtoConverter;
 import com.wonder.wonder.model.UserInGame;
 import com.wonder.wonder.service.UserInGameService;
+import com.wonder.wonder.service.impl.GameServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.convert.ReadingConverter;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +19,9 @@ import java.util.List;
  */
 @ReadingConverter
 @RequestMapping(name = "/api/game")
-public class UserInGameController {
+public class StatisticController {
     @Autowired
-    private UserInGameService userInGameService;
+    private GameServiceImpl gameService;
 
     @Autowired
     private GameStatisticByUserInGameDtoConverter gameStatisticByUserInGameDtoConverter;
@@ -30,7 +31,7 @@ public class UserInGameController {
     public List<GameStatisticDto> gameResult(@PathVariable("gameId") long gameId) {
         // streem
         List<GameStatisticDto> gameStatisticDtos = new ArrayList<>();
-        for (UserInGame u : userInGameService.getGameResult(gameId)) {
+        for (UserInGame u : gameService.getGameResult(gameId)) {
             GameStatisticDto gs = gameStatisticByUserInGameDtoConverter.convertToDto(u);
             gameStatisticDtos.add(gs);
         }

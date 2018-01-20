@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 /**
  * Created b.missurenko
  * Date **.12.17.
@@ -27,8 +28,6 @@ import java.util.List;
 public class GameRestController {
     @Autowired
     GameService gameService;
-    @Autowired
-    GameBoardDtoConverter gameBoardDtoConverter;
     @Autowired
     private WonderGameService wonderGameService;
 
@@ -64,7 +63,8 @@ public class GameRestController {
     public BoardDto getBoard(@PathVariable(name = "gameId") Long gameId,
                              @RequestBody EventDto eventDto) {
         wonderGameService.playCard(eventDto);
-        return gameBoardDtoConverter.convertToDto(wonderGameService.getCurrentBoard(gameId));
+        return wonderGameService.getCurrentBoard(gameId);
     }
+
     // metod like i preperefor battle
 }

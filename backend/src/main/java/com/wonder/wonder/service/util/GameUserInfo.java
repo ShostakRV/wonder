@@ -4,21 +4,24 @@ import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.cards.GameResource;
 
 import com.wonder.wonder.cards.WonderCard;
+import com.wonder.wonder.dao.GameDao;
 import com.wonder.wonder.model.Event;
+import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.UserInGame;
+import com.wonder.wonder.phase.GamePhase;
 import com.wonder.wonder.phase.UserActionOnCard;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Data
 public class GameUserInfo {
+
     private final long userId;
-    private List<GameCard> userBuiltCards;
-    private List<GameResource> userResource;
+    private List<GameCard> userBuiltCards = new ArrayList<>();
+    private List<GameResource> userResource = new ArrayList<>();
 
     private WonderCard wonder;
 
@@ -32,6 +35,10 @@ public class GameUserInfo {
 
     private boolean zeusPassiveWonder;
 
+    private boolean zeusPassiveWonderActive;
+
+    private GamePhase zeusWasUserInAge;
+
     private boolean garderPassiveWonder;
 
     private boolean tradeSilverRightAndLeft;
@@ -42,187 +49,19 @@ public class GameUserInfo {
 
     private final Event eventToSave;
 
+    private boolean canBuildByChainCurrentCard;
 
     public GameUserInfo(UserInGame userInGame) {
         this.userId = userInGame.getUser().getId();
         this.wonder = userInGame.getWonder();
-        this.eventToSave = new Event();
         this.position = userInGame.getPosition();
+        this.eventToSave = new Event();
         eventToSave.setUserInGame(userInGame);
         eventToSave.setGame(userInGame.getGame());
-
-    }
-
-    protected boolean build(UserActionOnCard userActionOnCard) {
-        return userActionOnCard.equals(UserActionOnCard.BUILD);
-
-    }
-
-    protected boolean buildZeus(UserActionOnCard eventUserChoose) {
-        return eventUserChoose.equals(UserActionOnCard.BUILD_ZEUS);
-    }
-
-    protected boolean buildWonder(UserActionOnCard userActionOnCard) {
-        return userActionOnCard.equals(UserActionOnCard.BUILD_WONDER);
-    }
-
-    protected boolean cardGiveResources(GameResource pastCardgiveResource) {
-        return !pastCardgiveResource.equals(GameResource.NO_RESOURCE);
-    }
-
-    protected boolean buildChain(GameCard pastChainBuild) {
-        return pastChainBuild != null;
-    }
-
-    protected void addWonderBaseResourse(GameResource resource) {
-        if (userResource.size() == 0) {
-            userResource.add(resource);
-
-        } else {
-            throw new RuntimeException("");
-        }
-
-    }
-
-
-    public List<GameUserInfo> createGameUserInfo(List<GameUserInfo> userInfoList, List<Event> events) {
-        for (GameUserInfo gameUserInfo : userInfoList) {
-            List<GameCard> userBuiltCards = new ArrayList<>();
-            List<GameResource> userResource = new ArrayList<>();
-
-            WonderCard wonder;
-
-            int wonderLevel = 0;
-
-            int userGold = 0;
-
-            int userWarPoint = 0;
-
-            Integer position;
-
-            boolean zeusPassiveWonder;
-
-            boolean garderPassiveWonder;
-
-            boolean tradeSilverRightAndLeft;
-
-            boolean tradeBrownRight;
-
-            boolean tradeBrownLeft;
-
-            final Event eventToSave;
-
-            List<Event> sortedListEvents = events.stream()
-                    .sorted(Comparator.comparingLong(Event::getId))
-                    .collect(Collectors.toList());
-// TODO gameUserInfoMap
-            addWonderBaseResourse(gameUserInfo
-                    .getWonder()
-                    .getWonderLevelCard()
-                    .get(0)
-                    .getGiveResource());
-            userGold += 3;
-
-            for (Event event : sortedListEvents) {
-                userGold += event.getGoldChange();
-                GameCard eventCard = event.getCard();
-                UserActionOnCard playCardChoose = event.getUserActionOnCard();
-                GameCard chainBuild = event.getChainCard();
-                GameResource cardgiveResource = eventCard.getGiveResource();
-                /**
-                 * Count
-                 */
-// TODO wonder card built by card
-                if (buildWonder(playCardChoose)) {
-                    GameCard wonderLevelBuilt = gameUserInfo
-                            .getWonder()
-                            .getWonderLevelCard()
-                            .get(wonderLevel);
-                    ++wonderLevel;
-                    userWarPoint += wonderLevelBuilt
-                            .getArmyPower()
-                            .getPoints();
-                    userBuiltCards.add(wonderLevelBuilt);
-                    if (cardGiveResources(wonderLevelBuilt
-                            .getGiveResource())) {
-                        userResource
-                                .add(wonderLevelBuilt.getGiveResource());
-                    }
-                    // TODO for wonder ZEUS
-                    zeusPassiveWonder = isZeusDiscauntEnabled(eventCard);
-
-                    garderPassiveWonder = isHaveLastCardCanBuildPassive(eventCard);
-
-                    // TODO for wonder Garden
-                    isHaveRigrhAndLeftTradeBrown(eventCard);
-                }
-                if (build(playCardChoose)
-                        || buildZeus(playCardChoose)
-                        || buildChain(chainBuild)) {
-
-                    userBuiltCards.add(eventCard);
-                    if (cardGiveResources(cardgiveResource)) {
-                        userResource.add(cardgiveResource);
-                    }
-                    userWarPoint += eventCard
-                            .getArmyPower()
-                            .getPoints();
-
-                    tradeBrownLeft = isHaveLeftTradeBrown(eventCard);
-                    tradeBrownRight = isHaveRigrhTradeBrown(eventCard);
-                }
-
-            }
-            gameUserInfo.setUserBuiltCards(userBuiltCards);
-            gameUserInfo.setUserGold(userGold);
-            gameUserInfo.setUserResource(userResource);
-            gameUserInfo.setUserWarPoint(userWarPoint);
-
-        }
-        return userInfoList;
-    }
-
-    public boolean sellCard(UserActionOnCard userActionOnCard) {
-        return userActionOnCard.equals(UserActionOnCard.SELL_CARD);
-
-    }
-
-    public boolean isZeusDiscauntEnabled(GameCard eventCard) {
-        return eventCard.equals(GameCard.STATUE_SECOND_B);
-    }
-
-    public boolean isHaveLastCardCanBuildPassive(GameCard eventCard) {
-        return eventCard.equals(GameCard.GARDENS_SECOND_B);
-    }
-
-    public boolean isHaveLeftTradeBrown(GameCard eventCard) {
-        return eventCard.equals(GameCard.WEST_TRADING_POST);
-    }
-
-    public boolean isHaveRigrhTradeBrown(GameCard eventCard) {
-        return eventCard.equals(GameCard.EAST_TRADING_POST);
-    }
-
-    public boolean isHaveRigrhAndLeftTradeBrown(GameCard eventCard) {
-        if (eventCard.equals(GameCard.GARDENS_SECOND_B)) {
-            tradeBrownRight = true;
-            tradeBrownLeft = true;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isHaveRigrhAndLeftTradeSilver(GameCard eventCard) {
-        return eventCard.equals(GameCard.STATUE_FIRST_B);
-    }
-
-
-    public void addGoldToNewEvent(int gold) {
-        eventToSave.setGoldChange(gold);
-    }
-
-    public Event getEventToSave() {
-        return eventToSave;
+        eventToSave.setUserInGame(userInGame);
+        Game game = userInGame.getGame();
+        eventToSave.setGamePhase(game.getPhaseGame());
+        eventToSave.setPhaseRound(game.getPhaseRound());
+        eventToSave.setPhaseChooseDo(game.getPhaseChooseDo());
     }
 }

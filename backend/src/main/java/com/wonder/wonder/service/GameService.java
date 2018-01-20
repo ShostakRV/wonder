@@ -3,6 +3,7 @@ package com.wonder.wonder.service;
 import com.wonder.wonder.dto.BoardDto;
 import com.wonder.wonder.dto.GameViewDto;
 import com.wonder.wonder.model.Game;
+import com.wonder.wonder.model.UserInGame;
 
 import java.util.List;
 
@@ -19,8 +20,11 @@ public interface GameService {
 
     boolean joinToGame(long gameId);
 
+    List<UserInGame> getGameResult(Long gameId);
 
     void startGame(long gameId);
+
+    Game findGameById(long gameId);
 
     void countPoint(Game game);
 

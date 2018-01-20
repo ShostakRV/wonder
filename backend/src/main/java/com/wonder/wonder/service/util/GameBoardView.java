@@ -5,13 +5,8 @@ import com.wonder.wonder.cards.GameResource;
 
 import com.wonder.wonder.model.Event;
 import com.wonder.wonder.model.Game;
-import com.wonder.wonder.phase.UserActionOnCard;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.codehaus.groovy.runtime.DefaultGroovyMethods.collect;
 
@@ -21,23 +16,10 @@ public class GameBoardView {
     private final List<GameUserInfo> userInfoList;
     private long currentUserId;
 
-    public GameBoardView(Game game, long currentUserId) {
+    public GameBoardView(Game game, long currentUserId, List<GameUserInfo> gameUserInfoList) {
         this.events = game.getEvents();
         this.currentUserId = currentUserId;
-        this.userInfoList = createGameUserInfo(game);
-    }
-
-
-    protected List<GameUserInfo> createGameUserInfo(Game game) {
-        List<GameUserInfo> userInfoList = game.getUserInGames().stream()
-                .map(GameUserInfo::new)
-                .sorted(Comparator.comparingLong(GameUserInfo::getPosition))
-                .collect(Collectors.toList());
-        GameUserInfo gameUserInfo = userInfoList.stream()
-                .findFirst()
-                .orElseThrow(RuntimeException::new);
-        userInfoList = gameUserInfo.createGameUserInfo(userInfoList, events);
-        return userInfoList;
+        this.userInfoList = gameUserInfoList;
     }
 
     public GameUserInfo getCurrentUserGameInfo() {

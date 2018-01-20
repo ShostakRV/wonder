@@ -20,7 +20,7 @@ public interface UserInGameService {
      void save(UserInGame userInGame);
 
 
-    List<UserInGame> getGameResult(Long gameId);
+
 
     UserInGame getUserInGameByIdAndGameId(Long userInGameId, Long gameId);
 }

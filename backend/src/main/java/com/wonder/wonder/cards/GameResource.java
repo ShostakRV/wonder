@@ -41,8 +41,8 @@ public enum GameResource {
 
 
     private final Boolean shouldBeChosen;
-    private final int count; // what whis field do ?
-    private final List<BaseResource> resources;  // For doudle resouce we put two recource ?
+    private final int count;
+    private final List<BaseResource> resources;
 
 
     GameResource(Boolean shouldBeChosen, int count, BaseResource... resources) {

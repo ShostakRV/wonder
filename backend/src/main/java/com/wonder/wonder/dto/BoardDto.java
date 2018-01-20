@@ -15,10 +15,11 @@ import java.util.List;
 public class BoardDto {
     private long gameId;
 
-    private String name;
+//    private String name;
     private List<PlayerDto> playerDto;
     private GamePhase gamePhase;
-    private int phaseRound;
-    private int phaseChooseDo; // userSelectedCard схожі
+    private int round;
+    private int roundPhase; // userSelectedCard схожі
+
     private List<GameCard> cardsOnHand; // todo make separate and point, private information
 }

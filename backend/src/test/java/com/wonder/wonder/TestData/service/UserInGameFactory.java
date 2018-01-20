@@ -51,17 +51,37 @@ public class UserInGameFactory {
         return userInGame;
     }
 
-    public static UserInGame userInGameInitPhaseAge_1() {
+    public static UserInGame userInGameInitPhaseAge_1_ZERO() {
         User user = new User();
         user.setId(0);
         UserInGame userInGame = new UserInGame();
         userInGame.setUser(user);
-        userInGame.setId(101L);
+        userInGame.setId(100L);
         userInGame.setGame(GameFactory.gameInit(1001L, 3, GamePhase.AGE_1));
         userInGame.setPosition(0);
         userInGame.setWonder(WonderCard.THE_PYRAMIDS_OF_GIZA_SIDE_A);
         return userInGame;
     }
-
-
+    public static UserInGame userInGameInitPhaseAge_1_FIRST() {
+        User user = new User();
+        user.setId(1);
+        UserInGame userInGame = new UserInGame();
+        userInGame.setUser(user);
+        userInGame.setId(101L);
+        userInGame.setGame(GameFactory.gameInit(1001L, 3, GamePhase.AGE_1));
+        userInGame.setPosition(1);
+        userInGame.setWonder(WonderCard.THE_TEMPLE_OF_ARTEMIS_IN_EPHESUS_SIDE_A);
+        return userInGame;
+    }
+    public static UserInGame userInGameInitPhaseAge_1_SECOND() {
+        User user = new User();
+        user.setId(2);
+        UserInGame userInGame = new UserInGame();
+        userInGame.setUser(user);
+        userInGame.setId(102L);
+        userInGame.setGame(GameFactory.gameInit(1001L, 3, GamePhase.AGE_1));
+        userInGame.setPosition(2);
+        userInGame.setWonder(WonderCard.THE_LIGHTHOUSE_OF_ALEXANDRIA_SIDE_A);
+        return userInGame;
+    }
 }

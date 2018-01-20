@@ -26,7 +26,6 @@ public class UserInGameServiceImpl implements UserInGameService {
     @Override
     public UserInGame getUserInGameByGameId(long gameId) {
         return userInGameDao.findByGameId(gameId);
-
     }
 
     @Override
@@ -39,15 +38,9 @@ public class UserInGameServiceImpl implements UserInGameService {
         return userInGameDao.findAllByGameId(gameId);
     }
 
-
     @Override
     public void save(UserInGame userInGame) {
         userInGameDao.save(userInGame);
-    }
-
-    @Override
-    public List<UserInGame> getGameResult(Long gameId) {
-        return null;
     }
 
     @Override
@@ -55,7 +48,6 @@ public class UserInGameServiceImpl implements UserInGameService {
         return userInGameDao.findByIdAndGameId(userInGameId,gameId);
     }
 
-    //        playerDto.setGold(); // TODO METOD COUNT GOLD BY EVENT
 //        playerDto.getCardsOnHand(); TODO METOD Передачі кард між гравцями
 
 }

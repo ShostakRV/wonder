@@ -31,10 +31,15 @@ public class EventFactory {
         return event;
     }
 
-    public static List<Event> eventListInitThreeUser(Integer age, Integer round, Integer usersCount) {
+    public static List<Event> eventListForOneUser(Integer age, Integer round) {
         List<Event> allEvent = new ArrayList<>();
-
+        if (age == 1) {
+            if (round == 1) {
+                return allEvent;
+            }
+        }
         return allEvent;
     }
+
 
 }

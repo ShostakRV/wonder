@@ -157,6 +157,16 @@ public class GameServiceImpl implements GameService {
 
     }
 
+    @Override
+    public Game findGameById(long gameId) {
+        return gameDao.findById(gameId);
+    }
+
+    @Override
+    public List<UserInGame> getGameResult(Long gameId) {
+        return gameDao.findById(gameId).getUserInGames();
+    }
+
     public List<GameCard> getAllCardByAgeAndNumberPlayers(int age, int numberPlayer) {
         final List<GameCard> startCards = new ArrayList<>();
         Arrays.stream(GameCard.values())
@@ -191,6 +201,7 @@ public class GameServiceImpl implements GameService {
         Collections.shuffle(startCards);
         return startCards;
     }
+
 
     //    void passCardToAnotherUserInGame(Game game);
 

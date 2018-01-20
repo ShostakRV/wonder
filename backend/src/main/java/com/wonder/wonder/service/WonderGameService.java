@@ -1,5 +1,6 @@
 package com.wonder.wonder.service;
 
+import com.wonder.wonder.dto.BoardDto;
 import com.wonder.wonder.dto.EventDto;
 import com.wonder.wonder.model.Game;
 
@@ -12,6 +13,6 @@ public interface WonderGameService  {
 
     boolean playCard(EventDto eventDto);
 
-    Game getCurrentBoard(Long gameId);
+    BoardDto getCurrentBoard(Long gameId);
 }
-// todo end event dto buisness logic wonder game
+
