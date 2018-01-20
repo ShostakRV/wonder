@@ -1,4 +1,4 @@
-package com.wonder.wonder.service.impl;
+package com.wonder.wonder.service.util;
 
 import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.cards.GameResource;
@@ -6,9 +6,6 @@ import com.wonder.wonder.model.Event;
 import com.wonder.wonder.model.UserInGame;
 import com.wonder.wonder.phase.GamePhase;
 import com.wonder.wonder.phase.UserActionOnCard;
-import com.wonder.wonder.service.GameUserInfoService;
-import com.wonder.wonder.service.util.GameUserInfo;
-import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -16,45 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Service
-public class GameUserInfoServiceImpl implements GameUserInfoService {
+public class GameUserInfoFactory {
 
-    @Override
-    public boolean build(UserActionOnCard userActionOnCard) {
-        return userActionOnCard.equals(UserActionOnCard.BUILD);
-    }
-
-    @Override
-    public boolean buildZeus(UserActionOnCard eventUserChoose) {
-        return eventUserChoose.equals(UserActionOnCard.BUILD_ZEUS);
-    }
-
-    @Override
-    public boolean buildWonder(UserActionOnCard userActionOnCard) {
-        return userActionOnCard.equals(UserActionOnCard.BUILD_WONDER);
-    }
-
-    @Override
-    public boolean cardGiveResources(GameResource pastCardgiveResource) {
-        return !pastCardgiveResource.equals(GameResource.NO_RESOURCE);
-    }
-
-    @Override
-    public boolean buildChain(GameCard pastChainBuild) {
-        return pastChainBuild != null;
-    }
-
-    @Override
-    public void addWonderBaseResourse(GameUserInfo gameUserInfo, GameResource resource) {
-        if (gameUserInfo.getUserResource().size() == 0) {
-            gameUserInfo.getUserResource().add(resource);
-        } else {
-            throw new RuntimeException("you huck game you no can have resource before wonder");
-        }
-    }
-
-    @Override
-    public Map<Long, GameUserInfo> createGameUserInfo(List<Event> events) {
+    public static Map<Long, GameUserInfo> createGameUserInfo(List<Event> events) {
         List<Event> sortedListEvents = events.stream()
                 .sorted(Comparator.comparingLong(Event::getId))
                 .collect(Collectors.toList());
@@ -124,8 +85,8 @@ public class GameUserInfoServiceImpl implements GameUserInfoService {
 
             if (buildZeus(playCardChoose)) {
                 GamePhase gamePhase = event.getGamePhase();
-                if(!gamePhase.equals(gameUserInfo.getZeusWasUserInAge())){
-
+                if (!gamePhase.equals(gameUserInfo.getZeusWasUserInAge())) {
+//TODO ZEUS
                 }
 
             }
@@ -156,33 +117,65 @@ public class GameUserInfoServiceImpl implements GameUserInfoService {
         return mapGameUserInfo;
     }
 
-    @Override
-    public boolean isZeusDiscauntEnabledCard(GameCard eventCard) {
+    public static boolean build(UserActionOnCard userActionOnCard) {
+        return userActionOnCard.equals(UserActionOnCard.BUILD);
+    }
+
+
+    public static boolean buildZeus(UserActionOnCard eventUserChoose) {
+        return eventUserChoose.equals(UserActionOnCard.BUILD_ZEUS);
+    }
+
+
+    public static boolean buildWonder(UserActionOnCard userActionOnCard) {
+        return userActionOnCard.equals(UserActionOnCard.BUILD_WONDER);
+    }
+
+
+    public static boolean cardGiveResources(GameResource pastCardgiveResource) {
+        return !pastCardgiveResource.equals(GameResource.NO_RESOURCE);
+    }
+
+
+    public static boolean buildChain(GameCard pastChainBuild) {
+        return pastChainBuild != null;
+    }
+
+
+    protected static void addWonderBaseResourse(GameUserInfo gameUserInfo, GameResource resource) {
+        if (gameUserInfo.getUserResource().size() == 0) {
+            gameUserInfo.getUserResource().add(resource);
+        } else {
+            throw new RuntimeException("you huck game you no can have resource before wonder");
+        }
+    }
+
+
+    public static boolean isZeusDiscauntEnabledCard(GameCard eventCard) {
         return eventCard.equals(GameCard.STATUE_SECOND_B);
     }
 
-    @Override
-    public boolean isHaveLastCardCanBuildPassiveCard(GameCard eventCard) {
+
+    public static boolean isHaveLastCardCanBuildPassiveCard(GameCard eventCard) {
         return eventCard.equals(GameCard.GARDENS_SECOND_B);
     }
 
-    @Override
-    public boolean isHaveLeftTradeBrownCard(GameCard eventCard) {
+
+    public static boolean isHaveLeftTradeBrownCard(GameCard eventCard) {
         return eventCard.equals(GameCard.WEST_TRADING_POST);
     }
 
-    @Override
-    public boolean isHaveRigrhTradeBrownCard(GameCard eventCard) {
+
+    public static boolean isHaveRigrhTradeBrownCard(GameCard eventCard) {
         return eventCard.equals(GameCard.EAST_TRADING_POST);
     }
 
-    @Override
-    public boolean isHaveRigrhAndLeftTradeBrownCard(GameCard eventCard) {
+
+    public static boolean isHaveRigrhAndLeftTradeBrownCard(GameCard eventCard) {
         return eventCard.equals(GameCard.STATUE_SECOND_B);
     }
 
-    @Override
-    public boolean isHaveRigrhAndLeftTradeSilverCard(GameCard eventCard) {
+    public static boolean isHaveRigrhAndLeftTradeSilverCard(GameCard eventCard) {
         return eventCard.equals(GameCard.MARKETPLACE);
     }
 }

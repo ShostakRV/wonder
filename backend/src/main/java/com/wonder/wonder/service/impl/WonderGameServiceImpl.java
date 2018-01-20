@@ -13,6 +13,7 @@ import com.wonder.wonder.phase.UserActionOnCard;
 import com.wonder.wonder.service.*;
 import com.wonder.wonder.service.util.GameBoardView;
 import com.wonder.wonder.service.util.GameUserInfo;
+import com.wonder.wonder.service.util.GameUserInfoFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,8 +33,6 @@ public class WonderGameServiceImpl implements WonderGameService {
     private UserInGameService userInGameService;
     @Autowired
     private GameBoardDtoConverter gameBoardDtoConverter;
-    @Autowired
-    private GameUserInfoService gameUserInfoService;
 
 //    private List<Event> eventList;
 
@@ -59,18 +58,6 @@ public class WonderGameServiceImpl implements WonderGameService {
     protected boolean sellCard(UserActionOnCard userActionOnCard) {
         return userActionOnCard.equals(UserActionOnCard.SELL_CARD);
     }
-//
-//    protected boolean build(UserActionOnCard userActionOnCard) {
-//        return userActionOnCard.equals(UserActionOnCard.BUILD);
-//    }
-//
-//    protected boolean buildZeus(UserActionOnCard eventUserChoose) {
-//        return eventUserChoose.equals(UserActionOnCard.BUILD_ZEUS);
-//    }
-//
-//    protected boolean buildWonder(UserActionOnCard userActionOnCard) {
-//        return userActionOnCard.equals(UserActionOnCard.BUILD_WONDER);
-//    }
 
     protected int getGoldChange(GameBoardView gameBoardView, Event currentEvent) {
         currentEvent.getCard().getOnBuildEvent().doAction(gameBoardView);
@@ -86,7 +73,7 @@ public class WonderGameServiceImpl implements WonderGameService {
                 , eventDto.getGameId());
         Game game = userInGame.getGame();
 
-        List<GameUserInfo> gameUserInfos = new ArrayList<>(gameUserInfoService
+        List<GameUserInfo> gameUserInfos = new ArrayList<>(GameUserInfoFactory
                 .createGameUserInfo(game.getEvents()).values());
 
         GameBoardView gameBoardView = new GameBoardView(game, eventDto.getUserInGameId(), gameUserInfos);
@@ -110,9 +97,9 @@ public class WonderGameServiceImpl implements WonderGameService {
             for (GameCard builtCard : gameBoardView.getCurrentUserBuildCard()) {
 
                 if (builtCard.equals(currentEvent.getCard())
-                        && gameUserInfoService.build(currentEvent.getUserActionOnCard())
+                        && GameUserInfoFactory.build(currentEvent.getUserActionOnCard())
                         || builtCard.equals(currentEvent.getCard())
-                        && gameUserInfoService.buildZeus(currentEvent.getUserActionOnCard())
+                        && GameUserInfoFactory.buildZeus(currentEvent.getUserActionOnCard())
                         || builtCard.equals(currentEvent.getCard())
                         && buildChain(currentEvent.getChainCard())) {
                     throw new RuntimeException("You want buil dublicate");
@@ -126,7 +113,7 @@ public class WonderGameServiceImpl implements WonderGameService {
                 }
             }
 
-            if (gameUserInfoService.buildZeus(currentEvent.getUserActionOnCard())
+            if (GameUserInfoFactory.buildZeus(currentEvent.getUserActionOnCard())
                     && !gameUserInfo.isZeusPassiveWonderActive()) {
                 throw new RuntimeException("You use pover ZEVS wonder in this age");
             }
@@ -141,14 +128,15 @@ public class WonderGameServiceImpl implements WonderGameService {
  * Build ZEUS,BUILD,CHAIN
  */
             int goldChangeOnBuild = getGoldChange(gameBoardView, currentEvent);
-            if (gameUserInfoService.buildZeus(currentEvent.getUserActionOnCard())) {
+            if (GameUserInfoFactory.buildZeus(currentEvent.getUserActionOnCard())) {
                 currentEvent.setGoldChange(goldChangeOnBuild);
             } else {
                 List<BaseResource> resourcesNeed = currentEvent.getCard().getResourcesNeedForBuild();
                 List<ResourceChooseDto> resourceChooseDtos = eventDto.getResourceChooseDtoList();
                 List<PayDto> payDtoList = eventDto.getPayDtoList();
-                if (gameUserInfoService.build(currentEvent.getUserActionOnCard())) {
-                    if (buildChain(currentEvent.getChainCard())) {
+                if (GameUserInfoFactory.build(currentEvent.getUserActionOnCard())) {
+                    if (buildChain(currentEvent.getChainCard())
+                            && gameUserInfo.isCanBuildByChainCurrentCard()) {
                         currentEvent.setGoldChange(goldChangeOnBuild);
 
                     } else if (currentEvent.getCard().getGoldNeededForConstruction() == 0
@@ -162,8 +150,8 @@ public class WonderGameServiceImpl implements WonderGameService {
 
                     }
 
-                } else if (gameUserInfoService.build(currentEvent.getUserActionOnCard())
-                        || gameUserInfoService.buildWonder(currentEvent.getUserActionOnCard())) {
+                } else if (GameUserInfoFactory.build(currentEvent.getUserActionOnCard())
+                        || GameUserInfoFactory.buildWonder(currentEvent.getUserActionOnCard())) {
 
                     if ((currentEvent.getCard().getGoldNeededForConstruction() == 0)
                             && !resourcesNeed.get(0).equals(BaseResource.NONE)
