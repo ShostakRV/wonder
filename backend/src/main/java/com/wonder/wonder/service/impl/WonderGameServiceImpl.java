@@ -90,7 +90,6 @@ public class WonderGameServiceImpl implements WonderGameService {
                 .createGameUserInfo(game.getEvents()).values());
 
         GameBoardView gameBoardView = new GameBoardView(game, eventDto.getUserInGameId(), gameUserInfos);
-
         GameUserInfo gameUserInfo = gameBoardView.getCurrentUserGameInfo();
 
         Event currentEvent = gameUserInfo.getEventToSave();
@@ -103,111 +102,99 @@ public class WonderGameServiceImpl implements WonderGameService {
          */
         if (sellCard(currentEvent.getUserActionOnCard())) {
             currentEvent.setGoldChange(3);
-            save(currentEvent);
-            return true;
-        }
-        /**
-         * exeptions
-         */
-        for (GameCard builtCard : gameBoardView.getCurrentUserBuildCard()) {
 
+        } else {
+            /**
+             * exeptions
+             */
+            for (GameCard builtCard : gameBoardView.getCurrentUserBuildCard()) {
 
-            if (builtCard.equals(currentEvent.getCard())
-                    && gameUserInfoService.build(currentEvent.getUserActionOnCard())
-                    || builtCard.equals(currentEvent.getCard())
-                    && gameUserInfoService.buildZeus(currentEvent.getUserActionOnCard())
-                    || builtCard.equals(currentEvent.getCard())
-                    && buildChain(currentEvent.getChainCard())) {
-                throw new RuntimeException("You want buil dublicate");
-            }
+                if (builtCard.equals(currentEvent.getCard())
+                        && gameUserInfoService.build(currentEvent.getUserActionOnCard())
+                        || builtCard.equals(currentEvent.getCard())
+                        && gameUserInfoService.buildZeus(currentEvent.getUserActionOnCard())
+                        || builtCard.equals(currentEvent.getCard())
+                        && buildChain(currentEvent.getChainCard())) {
+                    throw new RuntimeException("You want buil dublicate");
+                }
 
-            if (buildChain(currentEvent.getChainCard())
-                    && checkCorrectChain(currentEvent.getCard(), currentEvent.getChainCard())) {
-                if (builtCard.equals(currentEvent.getChainCard())) {
-                    gameUserInfo.setCanBuildByChainCurrentCard(true);
+                if (buildChain(currentEvent.getChainCard())
+                        && checkCorrectChain(currentEvent.getCard(), currentEvent.getChainCard())) {
+                    if (builtCard.equals(currentEvent.getChainCard())) {
+                        gameUserInfo.setCanBuildByChainCurrentCard(true);
+                    }
                 }
             }
-        }
 
-        if (gameUserInfoService.buildZeus(currentEvent.getUserActionOnCard())
-                && !gameUserInfo.isZeusPassiveWonderActive()) {
-            throw new RuntimeException("You use pover ZEVS wonder in this age");
-        }
+            if (gameUserInfoService.buildZeus(currentEvent.getUserActionOnCard())
+                    && !gameUserInfo.isZeusPassiveWonderActive()) {
+                throw new RuntimeException("You use pover ZEVS wonder in this age");
+            }
 
-        if (gameUserInfo.getWonderLevel() > gameUserInfo.getWonder().getWonderLevelCard().size()) {
-            throw new RuntimeException("You want build wonderLEvel more then max");
-        }
-        /**
-         * exeptions
-         */
+            if (gameUserInfo.getWonderLevel() > gameUserInfo.getWonder().getWonderLevelCard().size()) {
+                throw new RuntimeException("You want build wonderLEvel more then max");
+            }
+            /**
+             * exeptions
+             */
 /**
  * Build ZEUS,BUILD,CHAIN
  */
-        if (gameUserInfoService.buildZeus(currentEvent.getUserActionOnCard())) {
             int goldChangeOnBuild = getGoldChange(gameBoardView, currentEvent);
-
-            currentEvent.setGoldChange(goldChangeOnBuild);
-            save(currentEvent);
-            return true;
-        }
-
-        List<BaseResource> resourcesNeed = currentEvent.getCard().getResourcesNeedForBuild();
-        List<ResourceChooseDto> resourceChooseDtos = eventDto.getResourceChooseDtoList();
-        List<PayDto> payDtoList = eventDto.getPayDtoList();
-
-        int goldChangeOnBuild = getGoldChange(gameBoardView, currentEvent);
-        if (gameUserInfoService.build(currentEvent.getUserActionOnCard())) {
-            if (buildChain(currentEvent.getChainCard())) {
-                save(currentEvent);
-                return true;
-            }
-
-            if (currentEvent.getCard().getGoldNeededForConstruction() == 0
-                    && resourcesNeed.get(0).equals(BaseResource.NONE)) {
+            if (gameUserInfoService.buildZeus(currentEvent.getUserActionOnCard())) {
                 currentEvent.setGoldChange(goldChangeOnBuild);
-                save(currentEvent);
-                return true;
-            }
-            if ((currentEvent.getCard().getGoldNeededForConstruction() == 1)
-                    && ((currentEvent.getGoldChange() - 1) >= 0) &
-                    resourcesNeed.get(0).equals(BaseResource.NONE)) {
-                currentEvent.setGoldChange(goldChangeOnBuild - 1);
-                save(currentEvent);
-                return true;
+            } else {
+                List<BaseResource> resourcesNeed = currentEvent.getCard().getResourcesNeedForBuild();
+                List<ResourceChooseDto> resourceChooseDtos = eventDto.getResourceChooseDtoList();
+                List<PayDto> payDtoList = eventDto.getPayDtoList();
+                if (gameUserInfoService.build(currentEvent.getUserActionOnCard())) {
+                    if (buildChain(currentEvent.getChainCard())) {
+                        currentEvent.setGoldChange(goldChangeOnBuild);
+
+                    } else if (currentEvent.getCard().getGoldNeededForConstruction() == 0
+                            && resourcesNeed.get(0).equals(BaseResource.NONE)) {
+                        currentEvent.setGoldChange(goldChangeOnBuild);
+
+                    } else if ((currentEvent.getCard().getGoldNeededForConstruction() == 1)
+                            && ((currentEvent.getGoldChange() - 1) >= 0) &
+                            resourcesNeed.get(0).equals(BaseResource.NONE)) {
+                        currentEvent.setGoldChange(goldChangeOnBuild - 1);
+
+                    }
+
+                } else if (gameUserInfoService.build(currentEvent.getUserActionOnCard())
+                        || gameUserInfoService.buildWonder(currentEvent.getUserActionOnCard())) {
+
+                    if ((currentEvent.getCard().getGoldNeededForConstruction() == 0)
+                            && !resourcesNeed.get(0).equals(BaseResource.NONE)
+                            && userChooseTrueResourcesByCard(resourceChooseDtos)) {
+
+                        if (resourceChooseDtos.size() == 0 & payDtoList.size() == 0) {
+                            throw new RuntimeException("You no can build this card, no choose resource for build");
+                        }
+
+                        if (payDtoList.size() == 0
+                                && canBuildUseResource(resourceChooseDtos, resourcesNeed, payDtoList)) {
+                            currentEvent.setGoldChange(goldChangeOnBuild);
+
+                        } else if (userChooseTrueResourcesByCardPay(payDtoList)
+                                && (userChooseTrueCardForBuy(payDtoList, gameBoardView))
+                                && canBuildUseResource(resourceChooseDtos, resourcesNeed, payDtoList)) {
+                            currentEvent.setGoldChange(goldChangeOnBuild);
+
+                        }
+                    }
+                }
+                /**
+                 * Build ZEUS,BUILD,CHAIN
+                 */
             }
         }
-        if (gameUserInfoService.build(currentEvent.getUserActionOnCard())
-                || gameUserInfoService.buildWonder(currentEvent.getUserActionOnCard())) {
-
-            if ((currentEvent.getCard().getGoldNeededForConstruction() == 0)
-                    && !resourcesNeed.get(0).equals(BaseResource.NONE)
-                    && userChooseTrueResourcesByCard(resourceChooseDtos)) {
-
-                if (resourceChooseDtos.size() == 0 & payDtoList.size() == 0) {
-                    throw new RuntimeException("You no can build this card, no choose resource for build");
-                }
-
-                if (payDtoList.size() == 0
-                        && canBuildUseResource(resourceChooseDtos, resourcesNeed, payDtoList)) {
-                    currentEvent.setGoldChange(goldChangeOnBuild);
-                    save(currentEvent);
-                    return true;
-                } else if (userChooseTrueResourcesByCardPay(payDtoList)
-                        && (userChooseTrueCardForBy(payDtoList, gameBoardView))
-                        && canBuildUseResource(resourceChooseDtos, resourcesNeed, payDtoList)) {
-                    currentEvent.setGoldChange(goldChangeOnBuild);
-                    save(currentEvent);
-                    return true;
-                }
-            }
-        }
-        /**
-         * Build ZEUS,BUILD,CHAIN
-         */
+        save(currentEvent);
         return true;
     }
 
-    protected boolean userChooseTrueCardForBy(List<PayDto> payDtoList, GameBoardView gameBoardView) {
+    protected boolean userChooseTrueCardForBuy(List<PayDto> payDtoList, GameBoardView gameBoardView) {
         GameUserInfo left = gameBoardView.getLeftSiteUser();
         GameUserInfo right = gameBoardView.getRightSiteUser();
         for (PayDto payDto : payDtoList) {
