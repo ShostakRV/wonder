@@ -405,9 +405,10 @@ public enum GameCard {
         this.chain = chain;
         this.goldNeededForConstruction = goldNeededForConstruction;
         this.onBuildEvent = onBuildEvent;
-        List<BaseResource> baseResources = Arrays.asList(resourcesNeedForBuild);
-        baseResources.remove(BaseResource.NONE);
-        this.resourcesNeedForBuild = Collections.unmodifiableList(baseResources);
+        this.resourcesNeedForBuild = Collections.unmodifiableList(Arrays.asList(resourcesNeedForBuild));
+//        List<BaseResource> baseResources = Arrays.asList(resourcesNeedForBuild);
+//        baseResources.remove(BaseResource.NONE);
+//        this.resourcesNeedForBuild = Collections.unmodifiableList(baseResources);
     }
 
     private static List<String> noChains() {
