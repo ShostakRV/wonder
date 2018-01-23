@@ -13,7 +13,7 @@ import com.wonder.wonder.phase.UserActionOnCard;
 import com.wonder.wonder.service.*;
 import com.wonder.wonder.service.util.GameBoardView;
 import com.wonder.wonder.service.util.GameUserInfo;
-import com.wonder.wonder.service.util.GameUserInfoFactory;
+import com.wonder.wonder.service.util.GameUserInfoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -65,7 +65,7 @@ public class WonderGameServiceImpl implements WonderGameService {
     }
 
     @Override
-    public boolean playCard(EventDto eventDto) {
+    public void playCard(EventDto eventDto) {
         /**
          * basic parametr for users
          */
@@ -73,7 +73,7 @@ public class WonderGameServiceImpl implements WonderGameService {
                 , eventDto.getGameId());
         Game game = userInGame.getGame();
 
-        List<GameUserInfo> gameUserInfos = new ArrayList<>(GameUserInfoFactory
+        List<GameUserInfo> gameUserInfos = new ArrayList<>(GameUserInfoUtils
                 .createGameUserInfo(game.getEvents()).values());
 
         GameBoardView gameBoardView = new GameBoardView(game, eventDto.getUserInGameId(), gameUserInfos);
@@ -97,9 +97,9 @@ public class WonderGameServiceImpl implements WonderGameService {
             for (GameCard builtCard : gameBoardView.getCurrentUserBuildCard()) {
 
                 if (builtCard.equals(currentEvent.getCard())
-                        && GameUserInfoFactory.build(currentEvent.getUserActionOnCard())
+                        && GameUserInfoUtils.build(currentEvent.getUserActionOnCard())
                         || builtCard.equals(currentEvent.getCard())
-                        && GameUserInfoFactory.buildZeus(currentEvent.getUserActionOnCard())
+                        && GameUserInfoUtils.buildZeus(currentEvent.getUserActionOnCard())
                         || builtCard.equals(currentEvent.getCard())
                         && buildChain(currentEvent.getChainCard())) {
                     throw new RuntimeException("You want buil dublicate");
@@ -113,7 +113,7 @@ public class WonderGameServiceImpl implements WonderGameService {
                 }
             }
 
-            if (GameUserInfoFactory.buildZeus(currentEvent.getUserActionOnCard())
+            if (GameUserInfoUtils.buildZeus(currentEvent.getUserActionOnCard())
                     && !gameUserInfo.isZeusPassiveWonderActive()) {
                 throw new RuntimeException("You use pover ZEVS wonder in this age");
             }
@@ -128,33 +128,33 @@ public class WonderGameServiceImpl implements WonderGameService {
  * Build ZEUS,BUILD,CHAIN
  */
             int goldChangeOnBuild = getGoldChange(gameBoardView, currentEvent);
-            if (GameUserInfoFactory.buildZeus(currentEvent.getUserActionOnCard())) {
+            if (GameUserInfoUtils.buildZeus(currentEvent.getUserActionOnCard())) {
                 currentEvent.setGoldChange(goldChangeOnBuild);
             } else {
                 List<BaseResource> resourcesNeed = currentEvent.getCard().getResourcesNeedForBuild();
                 List<ResourceChooseDto> resourceChooseDtos = eventDto.getResourceChooseDtoList();
                 List<PayDto> payDtoList = eventDto.getPayDtoList();
-                if (GameUserInfoFactory.build(currentEvent.getUserActionOnCard())) {
+                boolean noResorcesNeeded = resourcesNeed.get(0).equals(BaseResource.NONE);
+                if (GameUserInfoUtils.build(currentEvent.getUserActionOnCard())) {
                     if (buildChain(currentEvent.getChainCard())
                             && gameUserInfo.isCanBuildByChainCurrentCard()) {
-                        currentEvent.setGoldChange(goldChangeOnBuild);
+//                        currentEvent.setGoldChange(goldChangeOnBuild);
 
                     } else if (currentEvent.getCard().getGoldNeededForConstruction() == 0
-                            && resourcesNeed.get(0).equals(BaseResource.NONE)) {
+                            && noResorcesNeeded) {
                         currentEvent.setGoldChange(goldChangeOnBuild);
 
                     } else if ((currentEvent.getCard().getGoldNeededForConstruction() == 1)
                             && ((currentEvent.getGoldChange() - 1) >= 0) &
-                            resourcesNeed.get(0).equals(BaseResource.NONE)) {
+                            noResorcesNeeded) {
                         currentEvent.setGoldChange(goldChangeOnBuild - 1);
-
                     }
 
-                } else if (GameUserInfoFactory.build(currentEvent.getUserActionOnCard())
-                        || GameUserInfoFactory.buildWonder(currentEvent.getUserActionOnCard())) {
+                } else if (GameUserInfoUtils.build(currentEvent.getUserActionOnCard())
+                        || GameUserInfoUtils.buildWonder(currentEvent.getUserActionOnCard())) {
 
                     if ((currentEvent.getCard().getGoldNeededForConstruction() == 0)
-                            && !resourcesNeed.get(0).equals(BaseResource.NONE)
+                            && !noResorcesNeeded
                             && userChooseTrueResourcesByCard(resourceChooseDtos)) {
 
                         if (resourceChooseDtos.size() == 0 & payDtoList.size() == 0) {
@@ -169,7 +169,6 @@ public class WonderGameServiceImpl implements WonderGameService {
                                 && (userChooseTrueCardForBuy(payDtoList, gameBoardView))
                                 && canBuildUseResource(resourceChooseDtos, resourcesNeed, payDtoList)) {
                             currentEvent.setGoldChange(goldChangeOnBuild);
-
                         }
                     }
                 }
@@ -179,7 +178,6 @@ public class WonderGameServiceImpl implements WonderGameService {
             }
         }
         save(currentEvent);
-        return true;
     }
 
     protected boolean userChooseTrueCardForBuy(List<PayDto> payDtoList, GameBoardView gameBoardView) {

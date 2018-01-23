@@ -11,7 +11,7 @@ import com.wonder.wonder.model.Game;
 public interface WonderGameService  {
 
 
-    boolean playCard(EventDto eventDto);
+    void playCard(EventDto eventDto);
 
     BoardDto getCurrentBoard(Long gameId);
 }

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class GameUserInfoFactory {
+public class GameUserInfoUtils {
 
     public static Map<Long, GameUserInfo> createGameUserInfo(List<Event> events) {
         List<Event> sortedListEvents = events.stream()
@@ -63,8 +63,7 @@ public class GameUserInfoFactory {
                 gameUserInfo.setUserWarPoint(warPoint);
                 gameUserInfo.getUserBuiltCards().add(wonderLevelBuilt);
 
-                if (cardGiveResources(wonderLevelBuilt
-                        .getGiveResource())) {
+                if (cardGiveResources(wonderLevelBuilt.getGiveResource())) {
                     gameUserInfo.getUserResource()
                             .add(wonderLevelBuilt.getGiveResource());
                 }

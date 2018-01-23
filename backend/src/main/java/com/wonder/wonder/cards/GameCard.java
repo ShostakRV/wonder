@@ -392,7 +392,8 @@ public enum GameCard {
              ScientistGuild signScientistGuild,
              List<String> chain,
              int goldNeededForConstruction,
-             TradeDiscount passiveDiscount, OnBuildEvent onBuildEvent,
+             TradeDiscount passiveDiscount,
+             OnBuildEvent onBuildEvent,
              BaseResource... resourcesNeedForBuild) {
         this.age = age;
         this.onPlayers = onPlayers;
@@ -404,7 +405,9 @@ public enum GameCard {
         this.chain = chain;
         this.goldNeededForConstruction = goldNeededForConstruction;
         this.onBuildEvent = onBuildEvent;
-        this.resourcesNeedForBuild = Collections.unmodifiableList(Arrays.asList(resourcesNeedForBuild));
+        List<BaseResource> baseResources = Arrays.asList(resourcesNeedForBuild);
+        baseResources.remove(BaseResource.NONE);
+        this.resourcesNeedForBuild = Collections.unmodifiableList(baseResources);
     }
 
     private static List<String> noChains() {
