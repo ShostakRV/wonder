@@ -27,41 +27,41 @@ public enum GameCard {
 
     // brown card first age resource card
 // 3, 4
-    LUMBER_YARD(1, players(3, 4), BROWN, nonePoints(), WOOD, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    LUMBER_YARD(1, players(3, 4), BROWN, nonePoints(), WOOD, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
     // 3.5
-    STONE_PIT(1, players(3, 5), BROWN, nonePoints(), STONE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    STONE_PIT(1, players(3, 5), BROWN, nonePoints(), STONE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
     //3.5
-    CLAY_POOL(1, players(3, 5), BROWN, nonePoints(), CLAY, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    CLAY_POOL(1, players(3, 5), BROWN, nonePoints(), CLAY, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
     //3.4
-    ORE_VEIN(1, players(3, 4), BROWN, nonePoints(), IRON, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    ORE_VEIN(1, players(3, 4), BROWN, nonePoints(), IRON, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
 
     // brown second age
 //3.4
-    SAWMILL(2, players(3, 4), BROWN, nonePoints(), DOUBLE_WOOD, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    SAWMILL(2, players(3, 4), BROWN, nonePoints(), DOUBLE_WOOD, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
     //3.4
-    QUARRY(2, players(3, 4), BROWN, nonePoints(), DOUBLE_STONE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    QUARRY(2, players(3, 4), BROWN, nonePoints(), DOUBLE_STONE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
     //3.4
-    BRICKYARD(2, players(3, 4), BROWN, nonePoints(), DOUBLE_CLAY, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    BRICKYARD(2, players(3, 4), BROWN, nonePoints(), DOUBLE_CLAY, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
     //3.4
-    FOUNDRY(2, players(3, 4), BROWN, nonePoints(), DOUBLE_IRON, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    FOUNDRY(2, players(3, 4), BROWN, nonePoints(), DOUBLE_IRON, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
 
 
 //brown half
 
-    TREE_FARM(1, players(6), BROWN, nonePoints(), WOOD_OR_CLAY, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
-    EXCAVATION(1, players(4), BROWN, nonePoints(), STONE_OR_CLAY, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
-    CLAY_PIT(1, players(3), BROWN, nonePoints(), IRON_OR_CLAY, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
-    TIMBER_YARD(1, players(3), BROWN, nonePoints(), STONE_OR_WOOD, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
-    FOREST_CAVE(1, players(5), BROWN, nonePoints(), WOOD_OR_IRON, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
-    MINE(1, players(6), BROWN, nonePoints(), STONE_OR_IRON, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    TREE_FARM(1, players(6), BROWN, nonePoints(), WOOD_OR_CLAY, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
+    EXCAVATION(1, players(4), BROWN, nonePoints(), STONE_OR_CLAY, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
+    CLAY_PIT(1, players(3), BROWN, nonePoints(), IRON_OR_CLAY, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
+    TIMBER_YARD(1, players(3), BROWN, nonePoints(), STONE_OR_WOOD, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
+    FOREST_CAVE(1, players(5), BROWN, nonePoints(), WOOD_OR_IRON, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
+    MINE(1, players(6), BROWN, nonePoints(), STONE_OR_IRON, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
 
     ////silver card first + second age
 //3.6
-    LOOM(1, players(3, 6), GameCardColor.SILVER, nonePoints(), SILK, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    LOOM(1, players(3, 6), GameCardColor.SILVER, nonePoints(), SILK, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
     //3.6
-    GLASSWORKS(1, players(3, 6), GameCardColor.SILVER, nonePoints(), GLASS, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    GLASSWORKS(1, players(3, 6), GameCardColor.SILVER, nonePoints(), GLASS, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
     //3.6
-    PRESS(1, players(3, 6), GameCardColor.SILVER, nonePoints(), PARCHMENT, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    PRESS(1, players(3, 6), GameCardColor.SILVER, nonePoints(), PARCHMENT, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
 // second age
     //3.5
     //3.5
@@ -71,15 +71,15 @@ public enum GameCard {
 
     // trade card
     //3.7
-    EAST_TRADING_POST(1, players(3, 7), GameCardColor.YELLOW, nonePoints(), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    EAST_TRADING_POST(1, players(3, 7), GameCardColor.YELLOW, nonePoints(), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
     //3.7
-    WEST_TRADING_POST(1, players(3, 7), GameCardColor.YELLOW, nonePoints(), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    WEST_TRADING_POST(1, players(3, 7), GameCardColor.YELLOW, nonePoints(), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
     //3.6
-    MARKETPLACE(1, players(3, 6), GameCardColor.YELLOW, nonePoints(), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    MARKETPLACE(1, players(3, 6), GameCardColor.YELLOW, nonePoints(), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
 
     // give gold
     //4.5.7
-    TAVERN(1, players(4, 5, 7), GameCardColor.YELLOW, nonePoints(), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), OnBuildEvent.receiveGold(ActionSide.DOWN, 5), BaseResource.NONE),
+    TAVERN(1, players(4, 5, 7), GameCardColor.YELLOW, nonePoints(), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), OnBuildEvent.receiveGold(ActionSide.DOWN, 5)),
 
 // Yellow card second age
 
@@ -91,10 +91,10 @@ public enum GameCard {
     //
 // end
 //3.6
-    VINEYARD(2, players(3, 6), GameCardColor.YELLOW, nonePoints(), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), OnBuildEvent.receiveGoldByColorCard(ActionSide.RIGHT_AND_LEFT_AND_DOWN, 1, BROWN), BaseResource.NONE),
+    VINEYARD(2, players(3, 6), GameCardColor.YELLOW, nonePoints(), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), OnBuildEvent.receiveGoldByColorCard(ActionSide.RIGHT_AND_LEFT_AND_DOWN, 1, BROWN)),
 
     //4.7
-    BAZAR(2, players(4, 7), GameCardColor.YELLOW, nonePoints(), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), OnBuildEvent.receiveGoldByColorCard(ActionSide.RIGHT_AND_LEFT_AND_DOWN, 2, GameCardColor.SILVER), BaseResource.NONE),
+    BAZAR(2, players(4, 7), GameCardColor.YELLOW, nonePoints(), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), OnBuildEvent.receiveGoldByColorCard(ActionSide.RIGHT_AND_LEFT_AND_DOWN, 2, GameCardColor.SILVER)),
 
 // thierd  age gold
 
@@ -116,13 +116,13 @@ public enum GameCard {
 
     //first age blue
 //4.7
-    PAWNSHOP(1, players(4, 7), GameCardColor.BLUE, CalcPointStrategy.simple(3), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    PAWNSHOP(1, players(4, 7), GameCardColor.BLUE, CalcPointStrategy.simple(3), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
     //3.7
     BATHS(1, players(3, 7), GameCardColor.BLUE, CalcPointStrategy.simple(3), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.STONE),
     //3.5
-    ALTAR(1, players(3, 5), GameCardColor.BLUE, CalcPointStrategy.simple(2), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    ALTAR(1, players(3, 5), GameCardColor.BLUE, CalcPointStrategy.simple(2), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
     //3.6
-    THEATER(1, players(3, 6), GameCardColor.BLUE, CalcPointStrategy.simple(2), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    THEATER(1, players(3, 6), GameCardColor.BLUE, CalcPointStrategy.simple(2), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
     // second age  blue
 //3.7
     AQUEDUCT(2, players(3, 7), GameCardColor.BLUE, CalcPointStrategy.simple(5), NO_RESOURCE, warPoint(0), ScientistGuild.NONE, Collections.singletonList("BATHS"), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.STONE, BaseResource.STONE, BaseResource.STONE),
@@ -240,7 +240,7 @@ public enum GameCard {
 
 
     // giza
-    GIZA_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.STONE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    GIZA_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.STONE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
 
 
     GIZA_FIRST_A(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(3), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.STONE, BaseResource.STONE),
@@ -261,7 +261,7 @@ public enum GameCard {
 
 //colos
 
-    COLOSSUS_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.IRON, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    COLOSSUS_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.IRON, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
 
 
     COLOSSUS_FIRST_A(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(3), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.WOOD, BaseResource.WOOD),
@@ -278,7 +278,7 @@ public enum GameCard {
 
 //LIGHTHOUSE
 
-    ALEXANDRIA_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.GLASS, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    ALEXANDRIA_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.GLASS, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
 
 
     ALEXANDRIA_FIRST_A(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(3), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.STONE, BaseResource.STONE),
@@ -297,7 +297,7 @@ public enum GameCard {
 
     // TEMPLE_OF_ARTEMIS_IN_EPHESUS
 
-    ARTEMIS_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.PARCHMENT, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    ARTEMIS_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.PARCHMENT, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
 
 
     ARTEMIS_FIRST_A(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(3), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.STONE, BaseResource.STONE),
@@ -316,7 +316,7 @@ public enum GameCard {
 
     //Garden
 
-    GARDENS_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.CLAY, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    GARDENS_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.CLAY, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
 
 
     GARDENS_FIRST_A(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(3), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.CLAY, BaseResource.CLAY),
@@ -335,7 +335,7 @@ public enum GameCard {
 
     //ZEUS
 
-    STATUE_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.WOOD, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    STATUE_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.WOOD, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
 
 
     STATUE_FIRST_A(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(3), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.WOOD, BaseResource.WOOD),
@@ -354,7 +354,7 @@ public enum GameCard {
 
 //MAUSOLEUM
 
-    MAUSOLEUM_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.SILK, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.NONE),
+    MAUSOLEUM_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.SILK, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
 
 
     MAUSOLEUM_FIRST_A(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(3), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.CLAY, BaseResource.CLAY),
@@ -406,9 +406,6 @@ public enum GameCard {
         this.goldNeededForConstruction = goldNeededForConstruction;
         this.onBuildEvent = onBuildEvent;
         this.resourcesNeedForBuild = Collections.unmodifiableList(Arrays.asList(resourcesNeedForBuild));
-//        List<BaseResource> baseResources = Arrays.asList(resourcesNeedForBuild);
-//        baseResources.remove(BaseResource.NONE);
-//        this.resourcesNeedForBuild = Collections.unmodifiableList(baseResources);
     }
 
     private static List<String> noChains() {
