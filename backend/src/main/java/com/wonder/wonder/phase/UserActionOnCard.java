@@ -9,7 +9,7 @@ public enum UserActionOnCard {
     BUILD_ZEUS,
     SELL_CARD,
     BUILD_WONDER,
-    BUILD_GALICARNAS
+    RESORECT_CARD
 
     // add field here
     //side who do

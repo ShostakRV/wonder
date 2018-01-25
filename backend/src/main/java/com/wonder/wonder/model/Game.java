@@ -33,9 +33,6 @@ public class Game {
     @Enumerated(EnumType.STRING)
     protected GamePhase phaseGame;
 
-    @Column(name = "phase_age_war")
-    private Integer PhaseAgeWar;
-
     @Column(name = "phase_round")
     protected Integer phaseRound;
 

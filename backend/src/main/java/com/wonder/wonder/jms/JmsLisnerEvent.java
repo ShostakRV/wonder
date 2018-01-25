@@ -1,9 +1,8 @@
-package com.wonder.wonder.service.util;
+package com.wonder.wonder.jms;
 
-import com.wonder.wonder.model.Event;
-import com.wonder.wonder.model.Game;
 import com.wonder.wonder.service.EventService;
 import com.wonder.wonder.service.GameService;
+import com.wonder.wonder.service.util.TransferEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ReceiverForEventByWonderGameServer {
+public class JmsLisnerEvent {
 
     @Autowired
     private EventService eventService;
@@ -20,10 +19,10 @@ public class ReceiverForEventByWonderGameServer {
     @Autowired
     GameService gameService;
 
-    private List<Event> Events = new ArrayList<>();
+    private List<String> Events = new ArrayList<>();
 
     @JmsListener(destination = "eventToSave", containerFactory = "myFactory")
-    public void receiveMessage(String message) {
+    public void receiveMessage(TransferEvent message) {
 //
 //        Events.add(transferEvent);
 //        if (Events.size() == 7) {

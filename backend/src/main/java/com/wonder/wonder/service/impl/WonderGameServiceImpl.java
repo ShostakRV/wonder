@@ -16,7 +16,6 @@ import com.wonder.wonder.service.util.GameUserInfo;
 import com.wonder.wonder.service.util.GameUserInfoUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
@@ -266,7 +265,7 @@ public class WonderGameServiceImpl implements WonderGameService {
     }
 
     private boolean buildGalicarnas(UserActionOnCard userActionOnCard) {
-        return userActionOnCard.equals(UserActionOnCard.BUILD_GALICARNAS);
+        return userActionOnCard.equals(UserActionOnCard.RESORECT_CARD);
     }
 
     /**

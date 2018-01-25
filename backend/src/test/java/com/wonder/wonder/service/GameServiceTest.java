@@ -95,7 +95,7 @@ public class GameServiceTest {
         User user = authenticationWrapper.getCurrentUser();
         when(userInGameService.getAllUserInGameByGameId(GAME_ID)).
                 thenReturn(UserInGameFactory.listUserInGameInit(1, GAME_ID));
-        when(gameDao.findById(GAME_ID)).thenReturn(GameFactory.gameInit(GAME_ID, 1, GamePhase.JOIN_PHASE, 0));
+        when(gameDao.findById(GAME_ID)).thenReturn(GameFactory.gameInit(GAME_ID, 1, GamePhase.JOIN_PHASE));
         when(userService.getUserById(user.getId())).thenReturn(UserFactory.currentUserInit());
         boolean result = gameServiceImpl.joinToGame(GAME_ID);
 
@@ -157,7 +157,7 @@ public class GameServiceTest {
 
     @Test(expected = RuntimeException.class)
     public void userStartGameNoHaveFourUserTest() {
-        Game gameMock = GameFactory.gameInit(GAME_ID, 2, GamePhase.JOIN_PHASE,0);
+        Game gameMock = GameFactory.gameInit(GAME_ID, 2, GamePhase.JOIN_PHASE);
         when(gameDao.findById(GAME_ID)).thenReturn(gameMock);
         gameServiceImpl.startGame(GAME_ID);
 
@@ -165,15 +165,14 @@ public class GameServiceTest {
 
     @Test
     public void userStartGameFullGameSuccsessfulMetodStartGameTest() {
-        Game gameMock = GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE,0);
+        Game gameMock = GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE);
         List<UserInGame> userInGameList = gameMock.getUserInGames();
         when(gameDao.findById(GAME_ID)).thenReturn(gameMock);
         gameServiceImpl.startGame(GAME_ID);
         ArgumentCaptor<Game> argumentCaptor = ArgumentCaptor.forClass(Game.class);
         verify(gameDao, new Times(1)).save(argumentCaptor.capture());
         Game game = argumentCaptor.getValue();
-        assertEquals(GamePhase.AGE, game.getPhaseGame());
-        assertEquals(new Integer(1), game.getPhaseAgeWar());
+        assertEquals(GamePhase.AGE_1, game.getPhaseGame());
         assertEquals(new Integer(1), game.getPhaseRound());
         assertEquals(new Integer(1), game.getPhaseChooseDo());
         assertEquals(userInGameList.size(), game.getUserInGames().size());
@@ -181,10 +180,10 @@ public class GameServiceTest {
 
     @Test
     public void correctSaveSetCardMetodStartGameTest() {
-        Game game = GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE,0);
+        Game game = GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE);
         when(userInGameService.getAllUserInGameByGameId(GAME_ID)).
                 thenReturn(UserInGameFactory.listUserInGameInit(4, GAME_ID));
-        when(gameDao.findById(GAME_ID)).thenReturn(GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE,0));
+        when(gameDao.findById(GAME_ID)).thenReturn(GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE));
         gameServiceImpl.startGame(GAME_ID);
         ArgumentCaptor<CardSet> argumentCaptor = ArgumentCaptor.forClass(CardSet.class);
         verify(cardSetService, new Times(4)).save(argumentCaptor.capture());
@@ -199,10 +198,10 @@ public class GameServiceTest {
 
     @Test
     public void correctSaveSetCardItemMetodStartGameTest() {
-        Game game = GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE,0);
+        Game game = GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE);
         when(userInGameService.getAllUserInGameByGameId(GAME_ID)).
                 thenReturn(UserInGameFactory.listUserInGameInit(4, GAME_ID));
-        when(gameDao.findById(GAME_ID)).thenReturn(GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE,0));
+        when(gameDao.findById(GAME_ID)).thenReturn(GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE));
         gameServiceImpl.startGame(GAME_ID);
         ArgumentCaptor<CardSetItem> argumentCaptor = ArgumentCaptor.forClass(CardSetItem.class);
         verify(cardSetItemService, new Times(28)).save(argumentCaptor.capture());
@@ -223,7 +222,7 @@ public class GameServiceTest {
     @Test
     public void allUserInGameHaveWonderAndpositionMetodStartGameTest() {
         when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(UserInGameFactory.listUserInGameInit(4, GAME_ID));
-        when(gameDao.findById(GAME_ID)).thenReturn(GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE,0));
+        when(gameDao.findById(GAME_ID)).thenReturn(GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE));
         gameServiceImpl.startGame(GAME_ID);
         ArgumentCaptor<Game> argumentCaptor = ArgumentCaptor.forClass(Game.class);
         verify(gameDao, new Times(1)).save(argumentCaptor.capture());

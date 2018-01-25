@@ -35,9 +35,6 @@ public class Event {
     @Column(name = "phase_game")
     protected GamePhase gamePhase;
 
-    @Column(name = "phase_age_war")
-    private Integer PhaseAgeWar;
-
     @Column(name = "phase_round")
     protected Integer phaseRound;
 
