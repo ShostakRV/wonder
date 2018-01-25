@@ -2,6 +2,7 @@ package com.wonder.wonder.service.util;
 
 import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.cards.GameResource;
+import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.model.Event;
 import com.wonder.wonder.model.UserInGame;
 import com.wonder.wonder.phase.GamePhase;
@@ -23,15 +24,22 @@ public class GameUserInfoUtils {
         Map<Long, GameUserInfo> mapGameUserInfo = new HashMap<>();
 
         for (Event event : sortedListEvents) {
-
             UserInGame userInGame = event.getUserInGame();
-
             long userInGameId = userInGame.getId();
             GameUserInfo gameUserInfo = mapGameUserInfo.get(userInGameId);
             if (gameUserInfo == null) {
                 gameUserInfo = new GameUserInfo(userInGame);
                 mapGameUserInfo.put(userInGameId, gameUserInfo);
             }
+//* MAVZOLEUM
+            if (gameUserInfo.getWonder().equals(WonderCard.THE_MAUSOLEUM_OF_HALICARNASSUS_SIDE_A)
+                    || gameUserInfo.getWonder().equals(WonderCard.THE_MAUSOLEUM_OF_HALICARNASSUS_SIDE_B)) {
+                if (event.getUserActionOnCard().equals(UserActionOnCard.SELL_CARD)) {
+                    gameUserInfo.getAllDropsCards().add(event.getCard());
+                }
+            }
+
+//* MAVZOLEUM
             int userGold = gameUserInfo.getUserGold() + event.getGoldChange();
             gameUserInfo.setUserGold(userGold);
             GameCard eventCard = event.getCard();
@@ -75,10 +83,17 @@ public class GameUserInfoUtils {
                     gameUserInfo.setTradeBrownRight(true);
                     gameUserInfo.setTradeBrownLeft(true);
                 } else if (isZeusDiscauntEnabledCard(eventCard)) {
-                    gameUserInfo.setZeusPassiveWonder(true);
+                    gameUserInfo.setZeusPassiveWonder(true);  // wonder ZEUS
                     gameUserInfo.setZeusPassiveWonderActive(true);
                 }
-                // wonder ZEUS
+// TODO NEED IN ANOTHER CLASS TOO
+                if (event.getCard().equals(GameCard.MAUSOLEUM_SECOND_A)
+                        || event.getCard().equals(GameCard.MAUSOLEUM_FIRST_B)
+                        || event.getCard().equals(GameCard.MAUSOLEUM_SECOND_B)
+                        || event.getCard().equals(GameCard.MAUSOLEUM_THIRD_B)) {
+                    gameUserInfo.setBuildGalicarnas(true);
+                }
+
 
             }
 

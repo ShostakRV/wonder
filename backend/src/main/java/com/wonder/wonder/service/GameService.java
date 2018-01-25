@@ -29,4 +29,5 @@ public interface GameService {
     void countPoint(Game game);
 
 
+    void save(Game game);
 }

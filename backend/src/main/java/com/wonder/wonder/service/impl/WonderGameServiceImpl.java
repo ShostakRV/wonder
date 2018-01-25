@@ -14,6 +14,7 @@ import com.wonder.wonder.service.*;
 import com.wonder.wonder.service.util.GameBoardView;
 import com.wonder.wonder.service.util.GameUserInfo;
 import com.wonder.wonder.service.util.GameUserInfoUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
@@ -102,6 +103,8 @@ public class WonderGameServiceImpl implements WonderGameService {
         currentEvent.setChainCard(eventDto.getChainCard());
         currentEvent.setUserActionOnCard(eventDto.getUserActionOnCard());
 
+        //TODO FOR WONDER WHAT PUT
+//        currentEvent.setToPutOnForBuild(eventDto.ge);
         /**
          * Action sell card
          */
@@ -119,7 +122,9 @@ public class WonderGameServiceImpl implements WonderGameService {
                         || builtCard.equals(currentEvent.getCard())
                         && GameUserInfoUtils.buildZeus(currentEvent.getUserActionOnCard())
                         || builtCard.equals(currentEvent.getCard())
-                        && buildChain(currentEvent.getChainCard())) {
+                        && buildChain(currentEvent.getChainCard())
+                        || builtCard.equals(currentEvent.getCard())
+                        && buildGalicarnas(currentEvent.getUserActionOnCard())) {
                     throw new RuntimeException("You want buil dublicate");
                 }
 
@@ -138,6 +143,11 @@ public class WonderGameServiceImpl implements WonderGameService {
             if (GameUserInfoUtils.buildZeus(currentEvent.getUserActionOnCard())
                     && !gameUserInfo.isZeusPassiveWonderActive()) {
                 throw new RuntimeException("You use pover ZEVS wonder in this age");
+            }
+
+            if (buildGalicarnas(currentEvent.getUserActionOnCard())
+                    && !gameUserInfo.isBuildGalicarnas()) {
+                throw new RuntimeException("You no build GalicarnasAbility in this raund");
             }
 
             if (gameUserInfo.getWonderLevel() > gameUserInfo.getWonder().getWonderLevelCard().size()) {
@@ -245,11 +255,18 @@ public class WonderGameServiceImpl implements WonderGameService {
              */
         }
 
-
-
+// TODO ASK NEED SAVE CARD_SET_ITEM
         save(currentEvent);
         // Send a message with a POJO - the template reuse the message converter
-        jmsTemplate.convertAndSend("eventToSave", currentEvent);
+
+
+
+
+        jmsTemplate.convertAndSend("eventToSave", "Hello");
+    }
+
+    private boolean buildGalicarnas(UserActionOnCard userActionOnCard) {
+        return userActionOnCard.equals(UserActionOnCard.BUILD_GALICARNAS);
     }
 
     /**
@@ -324,7 +341,6 @@ public class WonderGameServiceImpl implements WonderGameService {
         // TODO CARD ON HAND
         return gameBoardDtoConverter.convertToDto(game);
     }
-
 
 
 }

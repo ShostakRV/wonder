@@ -23,6 +23,9 @@ public class GameUserInfo {
     private List<GameCard> userBuiltCards = new ArrayList<>();
     private List<GameResource> userResource = new ArrayList<>();
 
+    // IF YOU HAVE WONDER GALICARNAS YOU HAVE CARD HERE
+    private List<GameCard> allDropsCards = new ArrayList<>();
+
     private WonderCard wonder;
 
     private int wonderLevel;
@@ -51,6 +54,10 @@ public class GameUserInfo {
 
     private boolean canBuildByChainCurrentCard;
 
+    private int changeGoldByOnBuildEvent;
+
+    private boolean buildGalicarnas;
+
     public GameUserInfo(UserInGame userInGame) {
         this.userId = userInGame.getUser().getId();
         this.wonder = userInGame.getWonder();
@@ -63,9 +70,11 @@ public class GameUserInfo {
         eventToSave.setGamePhase(game.getPhaseGame());
         eventToSave.setPhaseRound(game.getPhaseRound());
         eventToSave.setPhaseChooseDo(game.getPhaseChooseDo());
+
     }
+
     public void addGoldToNewEvent(int gold) {
-        userGold += gold;
+        changeGoldByOnBuildEvent += gold;
     }
 
 }

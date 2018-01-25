@@ -49,6 +49,11 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    public void save(Game game) {
+        gameDao.save(game);
+    }
+
+    @Override
     public void createGame(String gameName) {
         Game game = new Game();
         game.setPhaseGame(GamePhase.JOIN_PHASE);
@@ -148,7 +153,9 @@ public class GameServiceImpl implements GameService {
         }
 
 
-        game.setPhaseGame(GamePhase.AGE_1);
+        game.setPhaseGame(GamePhase.AGE);
+        game.setPhaseAgeWar(1);
+        // DO CHANGE AGE_! TO AGE and setPhaseAgeWar 1
         game.setPhaseRound(1);
         game.setPhaseChooseDo(1);
         game.setStart(new Date());

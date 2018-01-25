@@ -35,6 +35,9 @@ public class CardSetItem {
     @Column(name = "played_phase_game", nullable = false)
     protected GamePhase playedGamePhase;
 
+    @Column(name = "phase_age_war")
+    private Integer PhaseAgeWar;
+
     @Column(name = "played_phase_round")
     protected Integer playedPhaseRound;
 

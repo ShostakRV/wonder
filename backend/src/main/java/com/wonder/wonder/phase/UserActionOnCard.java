@@ -6,9 +6,10 @@ package com.wonder.wonder.phase;
 public enum UserActionOnCard {
 
     BUILD,
-    BUILD_ZEUS, // може це видалити ?
+    BUILD_ZEUS,
     SELL_CARD,
     BUILD_WONDER,
+    BUILD_GALICARNAS
 
     // add field here
     //side who do

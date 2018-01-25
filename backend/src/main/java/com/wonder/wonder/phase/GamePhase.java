@@ -6,5 +6,5 @@ package com.wonder.wonder.phase;
 public enum GamePhase {
 
     JOIN_PHASE, PREPARATION, FINISHED,
-    WAR,COUNT,AGE_1,AGE_2,AGE_3
+    WAR,COUNT,AGE
 }
