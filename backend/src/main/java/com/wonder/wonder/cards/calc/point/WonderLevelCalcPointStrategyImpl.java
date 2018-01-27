@@ -20,6 +20,14 @@ public class WonderLevelCalcPointStrategyImpl implements CalcPointStrategy {
 
     @Override
     public int getPoints(GameBoardView boardView) {
-        return 0;
+        int points = 0;
+        if (actionSide.equals(ActionSide.DOWN)) {
+            points = pointForOneLevelCard * boardView.getUserWonderLevel();
+        } else if (actionSide.equals(ActionSide.RIGHT_AND_LEFT_AND_DOWN)) {
+            int wonderLevelRight = boardView.getRightSiteUser().getWonderLevel();
+            int wonderLevelLeft = boardView.getLeftSiteUser().getWonderLevel();
+            points = pointForOneLevelCard * (wonderLevelLeft + wonderLevelRight + boardView.getUserWonderLevel());
+        }
+        return points;
     }
 }
