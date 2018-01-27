@@ -1,5 +1,6 @@
 package com.wonder.wonder.cards.calc.point;
 
+import com.wonder.wonder.service.util.GameBoardView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -11,4 +12,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class SimpleCalcPointStrategyImpl implements CalcPointStrategy {
     final int points;
+
+    @Override
+    public int getPoints(GameBoardView boardView) {
+        return points;
+    }
 }

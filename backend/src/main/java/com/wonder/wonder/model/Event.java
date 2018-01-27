@@ -1,6 +1,8 @@
 package com.wonder.wonder.model;
 
+import com.wonder.wonder.cards.ActionSide;
 import com.wonder.wonder.cards.GameCard;
+import com.wonder.wonder.jms.Items;
 import com.wonder.wonder.phase.UserActionOnCard;
 import com.wonder.wonder.phase.GamePhase;
 import lombok.Getter;
@@ -53,7 +55,13 @@ public class Event {
     @Column(name = "to_put_on_for_build")
     private GameCard ToPutOnForBuild;
 
-    @Column(name = "action_name")
+    @Column(name = "from_user")
+    private ActionSide from_user;
+
+    @Column(name = "item")
+    private Items items;
+
+    @Column(name = "user_action_on_card")
     @Enumerated(EnumType.STRING)
     protected UserActionOnCard userActionOnCard;
 

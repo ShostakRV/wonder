@@ -12,6 +12,7 @@ import java.util.List;
  * Created bm
  * Date 25.06.17.
  */
+// NOT USE
 @Data
 public class TradeDiscount {
     private final ActionSide actionSide;

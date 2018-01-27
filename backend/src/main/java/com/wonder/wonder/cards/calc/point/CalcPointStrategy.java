@@ -2,6 +2,7 @@ package com.wonder.wonder.cards.calc.point;
 
 import com.wonder.wonder.cards.ActionSide;
 import com.wonder.wonder.cards.GameCardColor;
+import com.wonder.wonder.service.util.GameBoardView;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * DATE: 20.06.17.
  */
 public interface CalcPointStrategy {
-    int getPoints();
+    int getPoints(GameBoardView boardView);
 
     static CalcPointStrategy simple(int point) {
         return new SimpleCalcPointStrategyImpl(point);

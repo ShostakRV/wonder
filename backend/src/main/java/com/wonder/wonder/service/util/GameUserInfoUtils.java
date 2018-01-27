@@ -86,11 +86,8 @@ public class GameUserInfoUtils {
                     gameUserInfo.setZeusPassiveWonder(true);  // wonder ZEUS
                     gameUserInfo.setZeusPassiveWonderActive(true);
                 }
-// TODO NEED IN ANOTHER CLASS TOO
-                if (event.getCard().equals(GameCard.MAUSOLEUM_SECOND_A)
-                        || event.getCard().equals(GameCard.MAUSOLEUM_FIRST_B)
-                        || event.getCard().equals(GameCard.MAUSOLEUM_SECOND_B)
-                        || event.getCard().equals(GameCard.MAUSOLEUM_THIRD_B)) {
+
+                if (isBuildMavzoleumGalicarnasResorectionCard(event.getCard())) {
                     gameUserInfo.setBuildGalicarnas(true);
                 }
 
@@ -162,6 +159,13 @@ public class GameUserInfoUtils {
         } else {
             throw new RuntimeException("you huck game you no can have resource before wonder");
         }
+    }
+
+    public static boolean isBuildMavzoleumGalicarnasResorectionCard(GameCard gameCard) {
+        return gameCard.equals(GameCard.MAUSOLEUM_SECOND_A)
+                || gameCard.equals(GameCard.MAUSOLEUM_FIRST_B)
+                || gameCard.equals(GameCard.MAUSOLEUM_SECOND_B)
+                || gameCard.equals(GameCard.MAUSOLEUM_THIRD_B);
     }
 
 

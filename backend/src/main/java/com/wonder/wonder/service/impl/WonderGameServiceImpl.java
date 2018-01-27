@@ -15,6 +15,7 @@ import com.wonder.wonder.service.util.GameBoardView;
 import com.wonder.wonder.service.util.GameUserInfo;
 import com.wonder.wonder.service.util.GameUserInfoUtils;
 
+import com.wonder.wonder.service.util.TransferEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
@@ -63,12 +64,6 @@ public class WonderGameServiceImpl implements WonderGameService {
 
     protected boolean sellCard(UserActionOnCard userActionOnCard) {
         return userActionOnCard.equals(UserActionOnCard.SELL_CARD);
-    }
-
-    // TODO GO TO PHASE TWO
-    protected int getGoldChange(GameBoardView gameBoardView, Event currentEvent) {
-        currentEvent.getCard().getOnBuildEvent().doAction(gameBoardView);
-        return currentEvent.getGoldChange();
     }
 
     protected Event createNewEventAndSetNeedFields(Event currentEvent, int goldChange) {
@@ -257,11 +252,9 @@ public class WonderGameServiceImpl implements WonderGameService {
 // TODO ASK NEED SAVE CARD_SET_ITEM
         save(currentEvent);
         // Send a message with a POJO - the template reuse the message converter
-
-
-
-
-        jmsTemplate.convertAndSend("eventToSave", "Hello");
+        TransferEvent transferEvent = new TransferEvent(game.getId(), userInGame.getId(), game.getPhaseGame(),
+                game.getPhaseRound(), game.getPhaseChooseDo());
+        jmsTemplate.convertAndSend("transferEvent", transferEvent);
     }
 
     private boolean buildGalicarnas(UserActionOnCard userActionOnCard) {

@@ -29,7 +29,7 @@ public class GameBoardView {
                 .orElseThrow(RuntimeException::new);
     }
 
-    public void setCurrentUser(int userId) {
+    public void setCurrentUser(long userId) {
         currentUserId = userId;
     }
 
@@ -85,9 +85,15 @@ public class GameBoardView {
 
     }
 
-    public int getWarFlagCount() {
-        return getCurrentUserGameInfo()
-                .getUserWarPoint();
+
+    public boolean isWinLeftPlayerInWar() {
+        return (getCurrentUserGameInfo()
+                .getUserWarPoint() - getLeftSiteUser().getUserWarPoint()) > 0;
+    }
+
+    public boolean isWinRightPlayerInWar() {
+        return (getCurrentUserGameInfo()
+                .getUserWarPoint() - getRightSiteUser().getUserWarPoint()) > 0;
     }
 
     public int getGoldHaveUser() {

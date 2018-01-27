@@ -1,6 +1,7 @@
 package com.wonder.wonder.cards.calc.point;
 
 import com.wonder.wonder.cards.ActionSide;
+import com.wonder.wonder.service.util.GameBoardView;
 import lombok.Data;
 
 /**
@@ -18,7 +19,7 @@ public class WonderLevelCalcPointStrategyImpl implements CalcPointStrategy {
     }
 
     @Override
-    public int getPoints() {
+    public int getPoints(GameBoardView boardView) {
         return 0;
     }
 }
