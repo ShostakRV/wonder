@@ -23,7 +23,7 @@ public class GameUserInfo {
     private List<GameCard> userBuiltCards = new ArrayList<>();
     private List<GameResource> userResource = new ArrayList<>();
 
-    // IF YOU HAVE WONDER GALICARNAS YOU HAVE CARD HERE
+    // IF YOU HAVE WONDER GALICARNAS MAUSOLEUM YOU HAVE CARD HERE
     private List<GameCard> allDropsCards = new ArrayList<>();
 
     private WonderCard wonder;
@@ -35,28 +35,35 @@ public class GameUserInfo {
     private int userWarPoint;
 
     private Integer position;
-
+    //**
+   //  ZEUS WONDER // IS BUILD SECOND CARD ZEUS SIDE B
     private boolean zeusPassiveWonder;
-
+  // IS USER OR NOT ZEUS ABILITY IN THIS AGE
     private boolean zeusPassiveWonderActive;
+  // IN WHAT AGE WAS USED ZEUS ABILITY
+    private GamePhase zeusWasUsedInThisAge;
+    // ZEUS WONDER
+    //**
+    // if YOU SHOOCE CARD FOR BUILT LIKE CHAIN AND YOU HAVE CARD FOR CHAIN
+    private boolean canBuildByChainCurrentCard;
 
-    private GamePhase zeusWasUserInAge;
+    private boolean buildGalicarnas;
 
     private boolean garderPassiveWonder;
 
+    //**
+    //TRADE PASSIVE RESOURSE buy COST 1 gold
     private boolean tradeSilverRightAndLeft;
 
     private boolean tradeBrownRight;
 
     private boolean tradeBrownLeft;
+    //TRADE PASSIVE RESOURSE buy COST 1 gold
+    //**
 
     private final Event eventToSave;
 
-    private boolean canBuildByChainCurrentCard;
-
     private int changeGoldByOnBuildEvent;
-
-    private boolean buildGalicarnas;
 
     public GameUserInfo(UserInGame userInGame) {
         this.userId = userInGame.getUser().getId();

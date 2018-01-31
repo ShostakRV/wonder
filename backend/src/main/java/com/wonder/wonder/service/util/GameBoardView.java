@@ -3,6 +3,7 @@ package com.wonder.wonder.service.util;
 import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.cards.GameResource;
 
+import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.model.Event;
 import com.wonder.wonder.model.Game;
 
@@ -12,7 +13,7 @@ import static org.codehaus.groovy.runtime.DefaultGroovyMethods.collect;
 
 
 public class GameBoardView {
-    private final List<Event> events;
+    private final List<Event> events; // TODO ASK WE NOT USE THIS
     private final List<GameUserInfo> userInfoList;
     private long currentUserId;
 
@@ -33,6 +34,16 @@ public class GameBoardView {
         currentUserId = userId;
     }
 
+    public boolean isGarbenPassiveBuilt() {
+        return userInfoList.stream()
+                .anyMatch(GameUserInfo::isGarderPassiveWonder);
+    }
+
+    //TODO ASK HOW FIND AND IS TRUE RETURN ID
+    public boolean isMavzoleumPowerWasBuilt() {
+        return userInfoList.stream()
+                .anyMatch(GameUserInfo::isBuildGalicarnas);
+    }
 
     public GameCard getLastBuiltCard() {
         return getCurrentUserGameInfo()

@@ -6,17 +6,17 @@ import lombok.Getter;
 public enum Items {
 
 
-    WAR_LOOSE_FIRST(1, -1),
+    WAR_LOOSE_1(1, -1),
 
-    WAR_LOOSE_SECOND(2, -1),
+    WAR_LOOSE_2(2, -1),
 
-    WAR_LOOSE_THIRD(3, -1),
+    WAR_LOOSE_3(3, -1),
 
-    WAR_WIN_FIRST(1, 1),
+    WAR_WIN_1(1, 1),
 
-    WAR_WIN_SECOND(2, 3),
+    WAR_WIN_2(2, 3),
 
-    WAR_WIN_THIRD(3, 5);
+    WAR_WIN_3(3, 5);
 
     private final int age;
 

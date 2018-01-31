@@ -13,15 +13,21 @@ import java.util.List;
 @Data
 public class EventDto {
 
+    // WHAT DO THIS CARD
     private UserActionOnCard userActionOnCard;
+    // WHAT CARD PLAY USER
     private GameCard playOnCardForEvent;
+    //WHAT CARD NEED PUT WHEN BUILD WONDER LEVEL CARD
+    private GameCard toPutOnForBuild;
+    // WHAT CARD IS PARANT FOR CHAIN
     private GameCard chainCard;
-
+// WHAT USER BUY AND TO WHOM
     private List<PayDto> payDtoList;
-    private List<ResourceChooseDto> resourceChooseDtoList; // TODO HOW CONVERT THIS
+    // WHAT USER RESOURSE CHOOSE USER  FOR BUILD
+    private List<ResourceChooseDto> resourceChooseDtoList;
 
     private Long gameId;
-    private Long userInGameId; // or you think take user in session
+    private Long userInGameId;
 
 
 }
