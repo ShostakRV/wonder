@@ -16,7 +16,8 @@ public class WarLooseCalcPointStrategyImpl implements CalcPointStrategy {
 
     @Override
     public int getPoints(GameBoardView boardView) {
-        //TODO ITEMS EVENT COUNT
-        return 0;
+        int warLoosePointRight = boardView.getRightSiteUser().getCountLoose();
+        int warLoosePointLeft = boardView.getLeftSiteUser().getCountLoose();
+        return warLoosePointLeft + warLoosePointRight;
     }
 }

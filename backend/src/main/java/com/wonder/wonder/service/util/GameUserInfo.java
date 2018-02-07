@@ -3,8 +3,10 @@ package com.wonder.wonder.service.util;
 import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.cards.GameResource;
 
+import com.wonder.wonder.cards.ScientistGuild;
 import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.dao.GameDao;
+import com.wonder.wonder.jms.Items;
 import com.wonder.wonder.model.Event;
 import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.UserInGame;
@@ -36,11 +38,11 @@ public class GameUserInfo {
 
     private Integer position;
     //**
-   //  ZEUS WONDER // IS BUILD SECOND CARD ZEUS SIDE B
+    //  ZEUS WONDER // IS BUILD SECOND CARD ZEUS SIDE B
     private boolean zeusPassiveWonder;
-  // IS USER OR NOT ZEUS ABILITY IN THIS AGE
+    // IS USER OR NOT ZEUS ABILITY IN THIS AGE
     private boolean zeusPassiveWonderActive;
-  // IN WHAT AGE WAS USED ZEUS ABILITY
+    // IN WHAT AGE WAS USED ZEUS ABILITY
     private GamePhase zeusWasUsedInThisAge;
     // ZEUS WONDER
     //**
@@ -49,7 +51,7 @@ public class GameUserInfo {
 
     private boolean buildGalicarnas;
 
-    private boolean garderPassiveWonder;
+    private boolean garderPassiveChooseEightCard;
 
     //**
     //TRADE PASSIVE RESOURSE buy COST 1 gold
@@ -61,9 +63,26 @@ public class GameUserInfo {
     //TRADE PASSIVE RESOURSE buy COST 1 gold
     //**
 
+    //**
+    // parametrs for calculate points
+    private int countLoose;
+
+    private boolean purpureCardWarLooseOn;
+    // NEED TAKE USER ACTION CHOOSE CARD
+    boolean canShooseScientist;
+    // NEED TAKE USER ACTION CHOOSE CARD
+    boolean canShoosePurpure;
+
+    private int countWinWar;
+
+    private Map<ScientistGuild, Integer> countScientistSymbol = new HashMap<>();
+    //**
+
+    //**
     private final Event eventToSave;
 
     private int changeGoldByOnBuildEvent;
+    //**
 
     public GameUserInfo(UserInGame userInGame) {
         this.userId = userInGame.getUser().getId();

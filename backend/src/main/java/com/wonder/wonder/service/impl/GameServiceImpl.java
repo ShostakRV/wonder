@@ -30,6 +30,8 @@ public class GameServiceImpl implements GameService {
     @Autowired
     private GameDao gameDao;
     @Autowired
+    private EventService eventService;
+    @Autowired
     private UserService userService;
     @Autowired
     private UserInGameService userInGameService;
@@ -152,14 +154,21 @@ public class GameServiceImpl implements GameService {
             setNumber++;
         }
 
+        List<Event> startGoldSaveEvents = new ArrayList<>();
+        for (UserInGame u : userInGameList) {
+            Event saveStartGold = createNewEvent(game, u);
+            startGoldSaveEvents.add(saveStartGold);
+        }
 
         game.setPhaseGame(GamePhase.AGE_1);
-
-        // DO CHANGE AGE_! TO AGE and setPhaseAgeWar 1
         game.setPhaseRound(1);
         game.setPhaseChooseDo(1);
         game.setStart(new Date());
         gameDao.save(game);
+        for (Event e : startGoldSaveEvents) {
+            eventService.save(e);
+        }
+
 // To do check if user has right to start game (get user from spring security context )
 
     }
@@ -209,7 +218,16 @@ public class GameServiceImpl implements GameService {
         return startCards;
     }
 
-
+    protected Event createNewEvent(Game game, UserInGame userInGame) {
+        Event newEvent = new Event();
+        newEvent.setGame(game);
+        newEvent.setUserInGame(userInGame);
+        newEvent.setGamePhase(game.getPhaseGame());
+        newEvent.setPhaseRound(game.getPhaseRound());
+        newEvent.setPhaseChooseDo(game.getPhaseChooseDo());
+        newEvent.setGoldChange(3);
+        return newEvent;
+    }
     //    void passCardToAnotherUserInGame(Game game);
 
 }

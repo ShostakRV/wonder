@@ -22,7 +22,6 @@ public class GameUserInfoUtils {
                 .collect(Collectors.toList());
 
         Map<Long, GameUserInfo> mapGameUserInfo = new HashMap<>();
-//TODO THINK ABOUT FIRST ХОД
         for (Event event : sortedListEvents) {
             UserInGame userInGame = event.getUserInGame();
             long userInGameId = userInGame.getId();
@@ -30,7 +29,13 @@ public class GameUserInfoUtils {
             GameUserInfo gameUserInfo = mapGameUserInfo.get(userInGameId);
             if (gameUserInfo == null) {
                 gameUserInfo = new GameUserInfo(userInGame);
+                addWonderBaseResourse(gameUserInfo, gameUserInfo
+                        .getWonder()
+                        .getWonderLevelCard()
+                        .get(0)
+                        .getGiveResource());
                 mapGameUserInfo.put(userInGameId, gameUserInfo);
+
             }
 //* MAUSOLEUM
 // DO LIST ALL CARD WHAT MAUSOLEUM CAN DO REDIRECTION
@@ -53,16 +58,7 @@ public class GameUserInfoUtils {
             GameResource cardGiveResource = eventCard.getGiveResource();
 // WHAT DO EVENT AND WHAT GIVE
             /**
-             * Count
-             * */
-//ADD FIRST RESOURCE // TODO THINK MAYBE CAN CHANGE ADD IN END AFTER ALL EVENT
-            addWonderBaseResourse(gameUserInfo, gameUserInfo
-                    .getWonder()
-                    .getWonderLevelCard()
-                    .get(0)
-                    .getGiveResource());
-//ADD FIRST 3 gold BASIC FOR ALL PLAYER // TODO THINK MAYBE NEED SAVE FIRST EVENTS FIKE GIVE +3 GOLD
-            userGoldByNow += gameUserInfo.getUserGold() + 3;
+             * Count  * */
             gameUserInfo.setUserGold(userGoldByNow);
             int warPoint;
             int wonderLervel;
@@ -92,7 +88,7 @@ public class GameUserInfoUtils {
 
 // ACTIVE OR NOT Wonder Garden PASSIVE
                 if (isHaveLastCardCanBuildPassiveCard(eventCard)) {
-                    gameUserInfo.setGarderPassiveWonder(true);
+                    gameUserInfo.setGarderPassiveChooseEightCard(true);
                 } else if (isHaveRigrhAndLeftTradeBrownCard(eventCard)) {
 // ACTIVE OR NOT BROWN TRADE
                     gameUserInfo.setTradeBrownRight(true);
@@ -149,6 +145,13 @@ public class GameUserInfoUtils {
 
 
             }
+            if (event.getItems().getGivePoint() == -1) {
+                gameUserInfo.setCountLoose(gameUserInfo.getCountLoose() + 1);
+            } else if (event.getItems().getGivePoint() > 0) {
+                gameUserInfo.setCountWinWar(gameUserInfo.getCountWinWar() + event.getItems().getGivePoint());
+            }
+
+
         }
         return mapGameUserInfo;
     }
@@ -178,9 +181,8 @@ public class GameUserInfoUtils {
     }
 
     /**
-     *
      * @param gameUserInfo current user now
-     * @param resource base resource by main WONDER
+     * @param resource     base resource by main WONDER
      */
     protected static void addWonderBaseResourse(GameUserInfo gameUserInfo, GameResource resource) {
         if (gameUserInfo.getUserResource().size() == 0) {

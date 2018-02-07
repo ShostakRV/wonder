@@ -1,5 +1,8 @@
 package com.wonder.wonder.jms;
 
+import com.wonder.wonder.cards.GameCard;
+import com.wonder.wonder.cards.GameCardColor;
+import com.wonder.wonder.cards.ScientistGuild;
 import com.wonder.wonder.model.Event;
 import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.UserInGame;
@@ -13,8 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.smartcardio.Card;
+import java.lang.reflect.Array;
+import java.util.*;
 
 @Component
 public class JmsLisnerEvent {
@@ -55,11 +59,11 @@ public class JmsLisnerEvent {
 
         Game game = gameService.findGameById(gameId);
 
-        // TODO ASK // WHAT DO THIS NULL
-        GameBoardView gameBoardView = null;
+        GameBoardView gameBoardView;
 
         boolean mausoleumWasBuild = false;
         boolean gardenHavePassive = false;
+
         List<Event> eventForSave = new ArrayList<>();
         if (allLastEvent.size() == game.getUserInGames().size()) {
 //BASIC EVENT ON BUILD
@@ -146,18 +150,56 @@ public class JmsLisnerEvent {
         saveEvents(eventForSave);
 // START CALCULATE USERS POINTS IN GAME
         if (game.getPhaseGame().equals(GamePhase.FINISHED)) {
-            List<Event> allEventsInGame = eventService.getAllEventByGameId(gameId);
-            // TODO LOGIC CALCULATE
-            List<UserGamePointsInfo> gameUserInfos = new ArrayList<>(UserGamePointsUtils
-                    .createUserGamePoints(allEventsInGame).values());
-// CREATE BOARD LIKE ORIGIN IN GAME FOR KNOW WHO LEFT WHO RIGHT
-//            GameBoardView gameBoardView = new GameBoardView(game, eventDto.getUserInGameId(), gameUserInfos);
-// CURRENT USER INFORMATION ABOUT GAME
-            GameUserInfo currentUserGameInfo = gameBoardView.getCurrentUserGameInfo();
+            gameBoardView = getGameBoardView(message.getUserInGameId());
+            List<UserInGame> userInGameList = new ArrayList<>(game.getUserInGames());
+            for (UserInGame userInGame : userInGameList) {
+                gameBoardView.setCurrentUser(userInGame.getId());
+                GameUserInfo currecntGameUserInfo = gameBoardView.getCurrentUserGameInfo();
+
+                userInGame.setPWars(currecntGameUserInfo.getCountWinWar() - currecntGameUserInfo.getCountLoose());
+                Map<ScientistGuild, Integer> scientistMap = new HashMap<>();
+                for (GameCard gameCard : currecntGameUserInfo.getUserBuiltCards()) {
+                    if (gameCard.getAge() == 0) {
+                        userInGame.setPWonder(userInGame.getPWonder()
+                                + gameCard.getStrategy().getPoints(gameBoardView));
+                    } else {
+                        if (gameCard.getGameCardColor().equals(GameCardColor.BLUE)) {
+                            userInGame.setPBlue(userInGame.getPBlue() +
+                                    gameCard.getStrategy().getPoints(gameBoardView));
+                        } else if (gameCard.getGameCardColor().equals(GameCardColor.YELLOW)) {
+                            userInGame.setPYellow(userInGame.getPBlue() +
+                                    gameCard.getStrategy().getPoints(gameBoardView));
+                        } else if (gameCard.getGameCardColor().equals(GameCardColor.PURPLE)) {
+                            userInGame.setPPurple(userInGame.getPBlue() +
+                                    gameCard.getStrategy().getPoints(gameBoardView));
+                        } else if (gameCard.getSignScientistGuild() != ScientistGuild.NONE ||
+                                gameCard.getSignScientistGuild() != ScientistGuild.NAMEPLATE_OR_COMPASSE_OR_GEAR) {
+                            if (scientistMap.containsKey(gameCard.getSignScientistGuild())) {
+                                scientistMap.put(gameCard.getSignScientistGuild()
+                                        , scientistMap.get(gameCard.getSignScientistGuild()) + 1);
+                            } else {
+                                scientistMap.put(gameCard.getSignScientistGuild(), 1);
+                            }
+                        }
+                    }
+                }
+                List<Integer> allSymvol = new ArrayList<>(scientistMap.values());
+                boolean addSevenPoint = false;
+                if (allSymvol.size() == 3) {
+                    addSevenPoint = true;
+                }
+                int lowCombination = 0;
+                for (int count : allSymvol) {
+                    if (addSevenPoint &&
+                            lowCombination > count) {
+                        lowCombination = count;
+                    }
+                    userInGame.setPGreen(userInGame.getPGreen() + count * count);
+                }
+                userInGame.setPGreen(userInGame.getPGreen() + lowCombination * 7);
+            }
         }
-
     }
-
 
 
     protected List<Event> createNewEventByWar(GameBoardView gameBoardView, Game game) {

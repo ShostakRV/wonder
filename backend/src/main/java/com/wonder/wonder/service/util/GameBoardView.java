@@ -3,7 +3,6 @@ package com.wonder.wonder.service.util;
 import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.cards.GameResource;
 
-import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.model.Event;
 import com.wonder.wonder.model.Game;
 
@@ -36,7 +35,7 @@ public class GameBoardView {
 
     public boolean isGarbenPassiveBuilt() {
         return userInfoList.stream()
-                .anyMatch(GameUserInfo::isGarderPassiveWonder);
+                .anyMatch(GameUserInfo::isGarderPassiveChooseEightCard);
     }
 
     //TODO ASK HOW FIND AND IS TRUE RETURN ID
@@ -116,9 +115,4 @@ public class GameBoardView {
         return getCurrentUserGameInfo()
                 .getWonderLevel();
     }
-
-    public List<Event> getAllEvents() {
-        return events;
-    }
-
 }
