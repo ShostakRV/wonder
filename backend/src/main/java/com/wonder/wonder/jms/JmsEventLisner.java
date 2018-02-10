@@ -109,7 +109,7 @@ public class JmsEventLisner {
                 startEndGame(game);
             }
         }
-        // TODO THINK NEED OR NOT GamePhase.CALCULATE ^^^????
+        // TODO THINK NEED OR NOT GamePhase.CALCULATE ^^^???? // CHOOSE PURPLE
         if (game.getPhaseGame().equals(GamePhase.FINISHED)) {
             List<UserInGame> userInGamesCauculatePoints = calculatePointsAndFinishGame(game, userInGameId);
             saveOnBuildEvents(userInGamesCauculatePoints);

@@ -49,6 +49,8 @@ public class GameUserInfo {
     // if YOU SHOOCE CARD FOR BUILT LIKE CHAIN AND YOU HAVE CARD FOR CHAIN
     private boolean canBuildByChainCurrentCard;
 
+
+    // TODO THINK
     private boolean buildGalicarnas;
 
     private boolean garderPassiveChooseEightCard;

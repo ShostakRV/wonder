@@ -25,160 +25,196 @@ public class GameUserInfoUtils {
         for (Event event : sortedListEvents) {
             UserInGame userInGame = event.getUserInGame();
             long userInGameId = userInGame.getId();
-// CREATE GameUserInfo if no HAVE USER ID LIKE KEY
             GameUserInfo gameUserInfo = mapGameUserInfo.get(userInGameId);
             if (gameUserInfo == null) {
                 gameUserInfo = new GameUserInfo(userInGame);
-                addWonderBaseResourse(gameUserInfo, gameUserInfo
-                        .getWonder()
-                        .getWonderLevelCard()
-                        .get(0)
-                        .getGiveResource());
+                GameResource wonderResource = gameUserInfo.getWonder().getWonderLevelCard().get(0).getGiveResource();
+                addWonderBaseResourse(gameUserInfo, wonderResource);
                 mapGameUserInfo.put(userInGameId, gameUserInfo);
-
             }
-//* MAUSOLEUM
-// DO LIST ALL CARD WHAT MAUSOLEUM CAN DO REDIRECTION
-            if (gameUserInfo.getWonder().equals(WonderCard.THE_MAUSOLEUM_OF_HALICARNASSUS_SIDE_A)
-                    || gameUserInfo.getWonder().equals(WonderCard.THE_MAUSOLEUM_OF_HALICARNASSUS_SIDE_B)) {
-                if (event.getUserActionOnCard().equals(UserActionOnCard.SELL_CARD)) {
+            WonderCard userWonder = gameUserInfo.getWonder();
+
+            boolean isAddDropCard = false;
+            if (userWonder.equals(WonderCard.THE_MAUSOLEUM_OF_HALICARNASSUS_SIDE_A)
+                    || userWonder.equals(WonderCard.THE_MAUSOLEUM_OF_HALICARNASSUS_SIDE_B)) {
+                isAddDropCard = true;
+            }
+
+            UserActionOnCard userActionOnCard = event.getUserActionOnCard();
+            if (isAddDropCard) {
+                boolean isDropCard = false;
+                if (userActionOnCard.equals(UserActionOnCard.SELL_CARD)) {
+                    isDropCard = true;
+                }
+                if (isDropCard) {
                     gameUserInfo.getAllDropsCards().add(event.getCard());
                 }
             }
 
-//* MAUSOLEUM
-
-// COUNT GOLD BY NOW
-// WHAT DO EVENT AND WHAT GIVE
             int userGoldByNow = gameUserInfo.getUserGold() + event.getGoldChange();
             gameUserInfo.setUserGold(userGoldByNow);
-            GameCard eventCard = event.getCard();
-            UserActionOnCard playCardChoose = event.getUserActionOnCard();
             GameCard chainBuild = event.getChainCard();
-            GameResource cardGiveResource = eventCard.getGiveResource();
-// WHAT DO EVENT AND WHAT GIVE
-            /**
-             * Count  * */
+
             gameUserInfo.setUserGold(userGoldByNow);
-            int warPoint;
-            int wonderLervel;
-
-            if (buildWonder(playCardChoose)) {
-// BUILT WONDER LEVEL CARD
-                GameCard wonderLevelBuilt = gameUserInfo
-                        .getWonder()
-                        .getWonderLevelCard()
-                        .get(gameUserInfo.getWonderLevel());
-// ADD +! LEVEL WONDER
-                wonderLervel = gameUserInfo.getWonderLevel() + 1;
-                gameUserInfo.setWonderLevel(wonderLervel);
-//ADD WAR POINT BY WONDER
-                warPoint = gameUserInfo.getUserWarPoint() + wonderLevelBuilt
-                        .getArmyPower()
-                        .getPoints();
-                gameUserInfo.setUserWarPoint(warPoint);
-//ADD BUILT CARD WONDER
-                gameUserInfo.getUserBuiltCards().add(wonderLevelBuilt);
-
-                if (cardGiveResources(wonderLevelBuilt.getGiveResource())) {
-//ADD USER RESOURCE BY WONDER
-                    gameUserInfo.getUserResource()
-                            .add(wonderLevelBuilt.getGiveResource());
-                }
-
-// ACTIVE OR NOT Wonder Garden PASSIVE
-                if (isHaveLastCardCanBuildPassiveCard(eventCard)) {
-                    gameUserInfo.setGarderPassiveChooseEightCard(true);
-                } else if (isHaveRigrhAndLeftTradeBrownCard(eventCard)) {
-// ACTIVE OR NOT BROWN TRADE
-                    gameUserInfo.setTradeBrownRight(true);
-                    gameUserInfo.setTradeBrownLeft(true);
-                } else if (isZeusDiscauntEnabledCard(eventCard)) {
-// ACTIVE OR NOT ZEUS FREE BUILD CARD
-// AND ZEUS NOT USE PASSIVE YET
-                    gameUserInfo.setZeusPassiveWonder(true);  // wonder ZEUS
-                    gameUserInfo.setZeusPassiveWonderActive(true);
-                }
-// ACTIVE OR NOT MAUSOLEUM RESURRECTION
-                if (isBuildMausoleumResectionCard(event.getCard())) {
-                    gameUserInfo.setBuildGalicarnas(true);// todo 100% bug
-                }
+            if (isBuildWonder(userActionOnCard)) {
+                buildWonder(gameUserInfo, event);
             }
-//ACTIVE OR DEACTIVATE ABILITY IF ZEUS BUILT IN THIS AGE
-// IF DEACTIVATE SET AGE WHEN USED
-            if (buildZeus(playCardChoose)) {
-                GamePhase gamePhase = event.getGamePhase();
-                if (gamePhase.equals(gameUserInfo.getZeusWasUsedInThisAge())) {
-                    gameUserInfo.setZeusPassiveWonderActive(true);
-                } else {
-                    gameUserInfo.setZeusWasUsedInThisAge(gamePhase);
-                    gameUserInfo.setZeusPassiveWonderActive(false);
-                }
+
+            if (isBuildZeus(userActionOnCard)) {
+                useZeusPower(gameUserInfo, event);
             }
-//BUILT CARD BY BASIC RULE
-            // BY ZEUS AND
-            // BY CHAIN
-            if (build(playCardChoose)
-                    || buildZeus(playCardChoose)
-                    || buildChain(chainBuild)) {
-// ADD USER BUILT CARD
-                gameUserInfo.getUserBuiltCards().add(eventCard);
-// ADD RESOURCE BY CARD
-                if (cardGiveResources(cardGiveResource)) {
-                    gameUserInfo.getUserResource().add(cardGiveResource);
-                }
-//ADD WAR POINT BY CARD
-                warPoint = gameUserInfo.getUserWarPoint() + eventCard
-                        .getArmyPower()
-                        .getPoints();
 
-                gameUserInfo.setUserWarPoint(warPoint);
-// ACTIVE OR NOT BROWN TRADE
-                if (isHaveLeftTradeBrownCard(eventCard)) {
-                    gameUserInfo.setTradeBrownLeft(true);
-                } else if (isHaveRigrhTradeBrownCard(eventCard)) {
-                    gameUserInfo.setTradeBrownRight(true);
-// ACTIVE OR NOT SILVER TRADE
-                } else if (isHaveRigrhAndLeftTradeSilverCard(eventCard)) {
-                    gameUserInfo.setTradeSilverRightAndLeft(true);
-                }
+            boolean isBuildChain = false;
+            if (chainBuild != null) {
+                isBuildChain = true;
+            }
 
+            if (isBuild(userActionOnCard) || isBuildZeus(userActionOnCard) || isBuildChain) {
+                build(gameUserInfo, event);
 
             }
-            //TODO
+
+            //TODO WAR CALCULATE
 //            if (event.getItems().getGivePoint() == -1) {
 //                gameUserInfo.setCountLoose(gameUserInfo.getCountLoose() + 1);
 //            } else if (event.getItems().getGivePoint() > 0) {
 //                gameUserInfo.setCountWinWar(gameUserInfo.getCountWinWar() + event.getItems().getGivePoint());
 //            }
-
-
         }
         return mapGameUserInfo;
     }
 
-    public static boolean build(UserActionOnCard userActionOnCard) {
+    private static void build(GameUserInfo gameUserInfo, Event event) {
+        GameCard eventCard = event.getCard();
+        GameResource cardGiveResource = eventCard.getGiveResource();
+        addBuiltCard(gameUserInfo, eventCard);
+
+        if (isCardGiveResources(cardGiveResource)) {
+            gameUserInfo.getUserResource().add(cardGiveResource);
+        }
+
+        int warPoint = gameUserInfo.getUserWarPoint() + eventCard
+                .getArmyPower()
+                .getPoints();
+
+        gameUserInfo.setUserWarPoint(warPoint);
+// ACTIVE OR NOT BROWN TRADE
+        if (isHaveLeftTradeBrownCard(eventCard)) {
+            gameUserInfo.setTradeBrownLeft(true);
+        } else if (isHaveRigrhTradeBrownCard(eventCard)) {
+            gameUserInfo.setTradeBrownRight(true);
+// ACTIVE OR NOT SILVER TRADE
+        } else if (isHaveRigrhAndLeftTradeSilverCard(eventCard)) {
+            gameUserInfo.setTradeSilverRightAndLeft(true);
+        }
+    }
+
+    protected static void useZeusPower(GameUserInfo gameUserInfo, Event event) {
+        GamePhase gamePhase = event.getGamePhase();
+        if (gamePhase.equals(gameUserInfo.getZeusWasUsedInThisAge())) {
+            gameUserInfo.setZeusPassiveWonderActive(true);
+        } else {
+            gameUserInfo.setZeusWasUsedInThisAge(gamePhase);
+            gameUserInfo.setZeusPassiveWonderActive(false);
+        }
+
+    }
+
+    public static boolean isBuildWonder(UserActionOnCard userActionOnCard) {
+        return userActionOnCard.equals(UserActionOnCard.BUILD_WONDER);
+    }
+
+    private static void buildWonder(GameUserInfo gameUserInfo, Event event) {
+        GameCard eventCard = event.getCard();
+        List<GameCard> allLevelWonderCard = gameUserInfo.getWonder().getWonderLevelCard();
+        GameCard wonderLevelBuilt = allLevelWonderCard.get(gameUserInfo.getWonderLevel());
+        addWonderLevel(gameUserInfo);
+        addWarpower(gameUserInfo, wonderLevelBuilt);
+        addBuiltCard(gameUserInfo, wonderLevelBuilt);
+
+        boolean isCardGiveResources = isCardGiveResources(wonderLevelBuilt.getGiveResource());
+        if (isCardGiveResources) {
+            addHasResource(gameUserInfo, wonderLevelBuilt);
+        }
+
+        boolean isHaveLastCardCanBuildPassiveCard = eventCard.equals(GameCard.GARDENS_SECOND_B);
+        if (isHaveLastCardCanBuildPassiveCard) {
+            addHaveLastCardCanBuildPassiveCard(gameUserInfo);
+        }
+
+        boolean isHaveRightAndLeftTradeBrownCard = eventCard.equals(GameCard.STATUE_SECOND_B);
+        if (isHaveRightAndLeftTradeBrownCard) {
+            addHaveRightAndLeftTradeBrownCard(gameUserInfo);
+        }
+
+        boolean isZeusDiscauntEnabledCard = eventCard.equals(GameCard.STATUE_SECOND_B);
+        if (isZeusDiscauntEnabledCard) {
+            addZeusDiscauntEnabledCard(gameUserInfo);
+        }
+
+        boolean isBuildMausoleumResectionCard = false;
+
+        if (eventCard.equals(GameCard.MAUSOLEUM_SECOND_A)
+                || eventCard.equals(GameCard.MAUSOLEUM_FIRST_B)
+                || eventCard.equals(GameCard.MAUSOLEUM_SECOND_B)
+                || eventCard.equals(GameCard.MAUSOLEUM_THIRD_B)) {
+            isBuildMausoleumResectionCard = true;
+        }
+
+        if (isBuildMausoleumResectionCard) {
+            gameUserInfo.setBuildGalicarnas(true);  // todo 100% bug
+        }
+
+    }
+
+    protected static void addZeusDiscauntEnabledCard(GameUserInfo gameUserInfo) {
+        gameUserInfo.setZeusPassiveWonder(true);
+        gameUserInfo.setZeusPassiveWonderActive(true);
+    }
+
+    protected static void addHaveLastCardCanBuildPassiveCard(GameUserInfo gameUserInfo) {
+        gameUserInfo.setGarderPassiveChooseEightCard(true);
+    }
+
+    protected static void addHaveRightAndLeftTradeBrownCard(GameUserInfo gameUserInfo) {
+        gameUserInfo.setTradeBrownRight(true);
+        gameUserInfo.setTradeBrownLeft(true);
+    }
+
+    protected static void addHasResource(GameUserInfo gameUserInfo, GameCard gameCard) {
+        gameUserInfo.getUserResource()
+                .add(gameCard.getGiveResource());
+
+    }
+
+    protected static void addBuiltCard(GameUserInfo gameUserInfo, GameCard gameCard) {
+        gameUserInfo.getUserBuiltCards().add(gameCard);
+    }
+
+    protected static void addWarpower(GameUserInfo gameUserInfo, GameCard gameCard) {
+        int warPoint = gameUserInfo.getUserWarPoint() + gameCard
+                .getArmyPower()
+                .getPoints();
+        gameUserInfo.setUserWarPoint(warPoint);
+    }
+
+    protected static void addWonderLevel(GameUserInfo gameUserInfo) {
+        int wonderLervel = gameUserInfo.getWonderLevel() + 1;
+        gameUserInfo.setWonderLevel(wonderLervel);
+    }
+
+    public static boolean isBuild(UserActionOnCard userActionOnCard) {
         return userActionOnCard.equals(UserActionOnCard.BUILD);
     }
 
 
-    public static boolean buildZeus(UserActionOnCard eventUserChoose) {
+    public static boolean isBuildZeus(UserActionOnCard eventUserChoose) {
         return eventUserChoose.equals(UserActionOnCard.BUILD_ZEUS);
     }
 
 
-    public static boolean buildWonder(UserActionOnCard userActionOnCard) {
-        return userActionOnCard.equals(UserActionOnCard.BUILD_WONDER);
-    }
-
-
-    public static boolean cardGiveResources(GameResource pastCardgiveResource) {
+    public static boolean isCardGiveResources(GameResource pastCardgiveResource) {
         return !pastCardgiveResource.equals(GameResource.NO_RESOURCE);
-    }
-
-
-    public static boolean buildChain(GameCard pastChainBuild) {
-        return pastChainBuild != null;
     }
 
     /**
@@ -193,24 +229,6 @@ public class GameUserInfoUtils {
         }
     }
 
-    public static boolean isBuildMausoleumResectionCard(GameCard gameCard) {
-        return gameCard.equals(GameCard.MAUSOLEUM_SECOND_A)
-                || gameCard.equals(GameCard.MAUSOLEUM_FIRST_B)
-                || gameCard.equals(GameCard.MAUSOLEUM_SECOND_B)
-                || gameCard.equals(GameCard.MAUSOLEUM_THIRD_B);
-    }
-
-
-    public static boolean isZeusDiscauntEnabledCard(GameCard eventCard) {
-        return eventCard.equals(GameCard.STATUE_SECOND_B);
-    }
-
-
-    public static boolean isHaveLastCardCanBuildPassiveCard(GameCard eventCard) {
-        return eventCard.equals(GameCard.GARDENS_SECOND_B);
-    }
-
-
     public static boolean isHaveLeftTradeBrownCard(GameCard eventCard) {
         return eventCard.equals(GameCard.WEST_TRADING_POST);
     }
@@ -218,11 +236,6 @@ public class GameUserInfoUtils {
 
     public static boolean isHaveRigrhTradeBrownCard(GameCard eventCard) {
         return eventCard.equals(GameCard.EAST_TRADING_POST);
-    }
-
-
-    public static boolean isHaveRigrhAndLeftTradeBrownCard(GameCard eventCard) {
-        return eventCard.equals(GameCard.STATUE_SECOND_B);
     }
 
     public static boolean isHaveRigrhAndLeftTradeSilverCard(GameCard eventCard) {

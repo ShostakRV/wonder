@@ -9,7 +9,6 @@ import com.wonder.wonder.dto.conerter.GameBoardDtoConverter;
 import com.wonder.wonder.model.Event;
 import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.UserInGame;
-import com.wonder.wonder.phase.GamePhase;
 import com.wonder.wonder.phase.UserActionOnCard;
 import com.wonder.wonder.service.*;
 import com.wonder.wonder.service.util.GameBoardView;
@@ -81,10 +80,10 @@ public class WonderGameServiceImpl implements WonderGameService {
 // EXCEPTION IF USER WANT BUILD DUPLICATE ***
             for (GameCard builtCard : gameBoardView.getCurrentUserBuildCard()) {
                 if (builtCard.equals(currentEvent.getCard())
-                        && GameUserInfoUtils.build(currentEvent.getUserActionOnCard())
+                        && GameUserInfoUtils.isBuild(currentEvent.getUserActionOnCard())
 // *** FOR BUILD AND CHAIN
                         || builtCard.equals(currentEvent.getCard())
-                        && GameUserInfoUtils.buildZeus(currentEvent.getUserActionOnCard())
+                        && GameUserInfoUtils.isBuildZeus(currentEvent.getUserActionOnCard())
 // *** FOR ZEUS
                         || builtCard.equals(currentEvent.getCard())
                         && buildChain(currentEvent.getChainCard())
@@ -109,7 +108,7 @@ public class WonderGameServiceImpl implements WonderGameService {
                 throw new RuntimeException("You no can build by chain");
             }
 //EXCEPTION IF USER WANT BUILD WHEN ZEUS POWER NO ACTIVE OR HE USE BEFORE IN THIS AGE
-            if (GameUserInfoUtils.buildZeus(currentEvent.getUserActionOnCard())
+            if (GameUserInfoUtils.isBuildZeus(currentEvent.getUserActionOnCard())
                     && !currentUserGameInfo.isZeusPassiveWonderActive()) {
                 throw new RuntimeException("You use pover ZEUS wonder in this age");
             }
@@ -126,8 +125,8 @@ public class WonderGameServiceImpl implements WonderGameService {
  * Build ZEUS,BUILD,CHAIN
  */
 // ACTION BUILD CARD OR BUILD WONDER
-            if (GameUserInfoUtils.build(currentEvent.getUserActionOnCard())
-                    || GameUserInfoUtils.buildWonder(currentEvent.getUserActionOnCard())) {
+            if (GameUserInfoUtils.isBuild(currentEvent.getUserActionOnCard())
+                    || GameUserInfoUtils.isBuildWonder(currentEvent.getUserActionOnCard())) {
 
                 List<BaseResource> resourcesNeed = currentEvent.getCard().getResourcesNeedForBuild();
                 List<ResourceChooseDto> resourceChooseDtos = eventDto.getResourceChooseDtoList();

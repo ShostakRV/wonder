@@ -35,7 +35,7 @@ public class GameUserInfoTest {
 //
 //    @Test
 //    public void userChooseActionOnCardBuildZeusTest() {
-//        boolean result = gameUserInfo.buildZeus(UserActionOnCard.BUILD_ZEUS);
+//        boolean result = gameUserInfo.isBuildZeus(UserActionOnCard.BUILD_ZEUS);
 //        assertEquals(result, true);
 //
 //    }
