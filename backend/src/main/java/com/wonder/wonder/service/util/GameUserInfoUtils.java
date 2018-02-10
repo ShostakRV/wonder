@@ -4,6 +4,7 @@ import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.cards.GameResource;
 import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.model.Event;
+import com.wonder.wonder.model.Item;
 import com.wonder.wonder.model.UserInGame;
 import com.wonder.wonder.phase.GamePhase;
 import com.wonder.wonder.phase.UserActionOnCard;
@@ -71,42 +72,62 @@ public class GameUserInfoUtils {
 
             if (isBuild(userActionOnCard) || isBuildZeus(userActionOnCard) || isBuildChain) {
                 build(gameUserInfo, event);
-
             }
-
-            //TODO WAR CALCULATE
-//            if (event.getItems().getGivePoint() == -1) {
-//                gameUserInfo.setCountLoose(gameUserInfo.getCountLoose() + 1);
-//            } else if (event.getItems().getGivePoint() > 0) {
-//                gameUserInfo.setCountWinWar(gameUserInfo.getCountWinWar() + event.getItems().getGivePoint());
-//            }
+            addWarItem(gameUserInfo, event);
         }
         return mapGameUserInfo;
     }
 
-    private static void build(GameUserInfo gameUserInfo, Event event) {
+    // TODO RENAME ITEM AND ITEMS // todo refactoring for A_DRAW
+    protected static void addWarItem(GameUserInfo gameUserInfo, Event event) {
+        List<Item> warAndLooseAndA_Draw = event.getItemList();
+        for (Item item : warAndLooseAndA_Draw) {
+            int givePoints = item.getItems().getGivePoint();
+            if (givePoints == -1) {
+                gameUserInfo.setCountLoose(gameUserInfo.getCountLoose() + 1);
+            } else if (givePoints > 0) {
+                gameUserInfo.setCountWinWar(gameUserInfo.getCountWinWar() + givePoints);
+            }
+        }
+
+    }
+
+    protected static void build(GameUserInfo gameUserInfo, Event event) {
         GameCard eventCard = event.getCard();
-        GameResource cardGiveResource = eventCard.getGiveResource();
         addBuiltCard(gameUserInfo, eventCard);
 
-        if (isCardGiveResources(cardGiveResource)) {
-            gameUserInfo.getUserResource().add(cardGiveResource);
+        if (isCardGiveResources(eventCard.getGiveResource())) {
+            addHasResource(gameUserInfo, eventCard);
+        }
+        addWarpower(gameUserInfo, eventCard);
+
+        boolean isHaveLeftTradeBrownCard = eventCard.equals(GameCard.WEST_TRADING_POST);
+        if (isHaveLeftTradeBrownCard) {
+            addHaveLeftTradeBrownCard(gameUserInfo);
         }
 
-        int warPoint = gameUserInfo.getUserWarPoint() + eventCard
-                .getArmyPower()
-                .getPoints();
-
-        gameUserInfo.setUserWarPoint(warPoint);
-// ACTIVE OR NOT BROWN TRADE
-        if (isHaveLeftTradeBrownCard(eventCard)) {
-            gameUserInfo.setTradeBrownLeft(true);
-        } else if (isHaveRigrhTradeBrownCard(eventCard)) {
-            gameUserInfo.setTradeBrownRight(true);
-// ACTIVE OR NOT SILVER TRADE
-        } else if (isHaveRigrhAndLeftTradeSilverCard(eventCard)) {
-            gameUserInfo.setTradeSilverRightAndLeft(true);
+        boolean isHaveRigrhTradeBrownCard = eventCard.equals(GameCard.EAST_TRADING_POST);
+        if (isHaveRigrhTradeBrownCard) {
+            addHaveRigrhTradeBrownCard(gameUserInfo);
         }
+
+        boolean isHaveRigrhAndLeftTradeSilverCard = eventCard.equals(GameCard.MARKETPLACE);
+        if (isHaveRigrhAndLeftTradeSilverCard) {
+            addHaveRigrhAndLeftTradeSilverCard(gameUserInfo);
+
+        }
+    }
+
+    protected static void addHaveRigrhAndLeftTradeSilverCard(GameUserInfo gameUserInfo) {
+        gameUserInfo.setTradeSilverRightAndLeft(true);
+    }
+
+    protected static void addHaveRigrhTradeBrownCard(GameUserInfo gameUserInfo) {
+        gameUserInfo.setTradeBrownRight(true);
+    }
+
+    protected static void addHaveLeftTradeBrownCard(GameUserInfo gameUserInfo) {
+        gameUserInfo.setTradeBrownLeft(true);
     }
 
     protected static void useZeusPower(GameUserInfo gameUserInfo, Event event) {
@@ -227,18 +248,5 @@ public class GameUserInfoUtils {
         } else {
             throw new RuntimeException("you huck game you no can have resource before wonder");
         }
-    }
-
-    public static boolean isHaveLeftTradeBrownCard(GameCard eventCard) {
-        return eventCard.equals(GameCard.WEST_TRADING_POST);
-    }
-
-
-    public static boolean isHaveRigrhTradeBrownCard(GameCard eventCard) {
-        return eventCard.equals(GameCard.EAST_TRADING_POST);
-    }
-
-    public static boolean isHaveRigrhAndLeftTradeSilverCard(GameCard eventCard) {
-        return eventCard.equals(GameCard.MARKETPLACE);
     }
 }
