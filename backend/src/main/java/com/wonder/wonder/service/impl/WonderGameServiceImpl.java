@@ -48,16 +48,6 @@ public class WonderGameServiceImpl implements WonderGameService {
         return userActionOnCard.equals(UserActionOnCard.SELL_CARD);
     }
 
-    protected Event createNewEventAndSetNeedFields(Event currentEvent, int goldChange) {
-        Event newEvent = new Event();
-        newEvent.setGame(currentEvent.getGame());
-        newEvent.setUserInGame(currentEvent.getUserInGame());
-        newEvent.setGamePhase(currentEvent.getGamePhase());
-        newEvent.setPhaseRound(currentEvent.getPhaseRound());
-        newEvent.setPhaseChooseDo(currentEvent.getPhaseChooseDo());
-        newEvent.setGoldChange(goldChange);
-        return newEvent;
-    }
 
     @Override
     public void playCard(EventDto eventDto) {
@@ -222,10 +212,15 @@ public class WonderGameServiceImpl implements WonderGameService {
                             }
                         }
                         if (goldNeedPayLeft > 0) {
-                            save(createNewEventAndSetNeedFields(currentEvent, goldNeedPayLeft));
+                            Event eventToSave = gameBoardView.getLeftSiteUser().getEventToSave();
+                            eventToSave.setGoldChange(goldNeedPayLeft);
+                            save(eventToSave);
                         }
                         if (goldNeedPayRight > 0) {
-                            save(createNewEventAndSetNeedFields(currentEvent, goldNeedPayRight));
+                            Event eventToSave = gameBoardView.getRightSiteUser().getEventToSave();
+                            eventToSave.setGoldChange(goldNeedPayRight);
+                            save(eventToSave);
+
                         }
                     }
                 }

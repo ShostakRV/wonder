@@ -15,4 +15,6 @@ public interface EventService {
     void save(Event event);
 
     List<Event> getAllLastEvent(long gameId, GamePhase gamePhase, Integer phaseRound, Integer phaseChooseDo);
+
+    List<Event> getAllRaundLastEvent(long gameId, GamePhase gamePhase, Integer phaseRound, Integer phaseChooseDo);
 }

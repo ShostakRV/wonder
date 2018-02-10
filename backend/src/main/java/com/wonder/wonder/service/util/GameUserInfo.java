@@ -65,6 +65,7 @@ public class GameUserInfo {
 
     //**
     // parametrs for calculate points
+    //TODO NEED COUNT
     private int countLoose;
 
     private boolean purpureCardWarLooseOn;
@@ -73,6 +74,8 @@ public class GameUserInfo {
     // NEED TAKE USER ACTION CHOOSE CARD
     boolean canShoosePurpure;
 
+
+    //TODO NEED COUNT
     private int countWinWar;
 
     private Map<ScientistGuild, Integer> countScientistSymbol = new HashMap<>();
@@ -81,8 +84,6 @@ public class GameUserInfo {
     //**
     private final Event eventToSave;
 
-    private int changeGoldByOnBuildEvent;
-    //**
 
     public GameUserInfo(UserInGame userInGame) {
         this.userId = userInGame.getUser().getId();
@@ -91,7 +92,6 @@ public class GameUserInfo {
         this.eventToSave = new Event();
         eventToSave.setUserInGame(userInGame);
         eventToSave.setGame(userInGame.getGame());
-        eventToSave.setUserInGame(userInGame);
         Game game = userInGame.getGame();
         eventToSave.setGamePhase(game.getPhaseGame());
         eventToSave.setPhaseRound(game.getPhaseRound());
@@ -100,7 +100,7 @@ public class GameUserInfo {
     }
 
     public void addGoldToNewEvent(int gold) {
-        changeGoldByOnBuildEvent += gold;
+        eventToSave.setGoldChange(eventToSave.getGoldChange() + gold);
     }
 
 }

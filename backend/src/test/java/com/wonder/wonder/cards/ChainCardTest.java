@@ -2,7 +2,9 @@ package com.wonder.wonder.cards;
 
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertTrue;
 
 /**
  * Created: godex
@@ -20,5 +22,14 @@ public class ChainCardTest {
             }
 
         }
+    }
+    @Test
+    public void ss() {
+        String s1 = new String(new char[]{'s', 's'});
+        String s2 = "ss";
+        if(s1 == s2){
+
+        }
+        assertTrue(s1 == s2);
     }
 }

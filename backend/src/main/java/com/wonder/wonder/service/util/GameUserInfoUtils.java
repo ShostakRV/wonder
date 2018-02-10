@@ -101,7 +101,7 @@ public class GameUserInfoUtils {
                 }
 // ACTIVE OR NOT MAUSOLEUM RESURRECTION
                 if (isBuildMausoleumResectionCard(event.getCard())) {
-                    gameUserInfo.setBuildGalicarnas(true);
+                    gameUserInfo.setBuildGalicarnas(true);// todo 100% bug
                 }
             }
 //ACTIVE OR DEACTIVATE ABILITY IF ZEUS BUILT IN THIS AGE
@@ -145,11 +145,12 @@ public class GameUserInfoUtils {
 
 
             }
-            if (event.getItems().getGivePoint() == -1) {
-                gameUserInfo.setCountLoose(gameUserInfo.getCountLoose() + 1);
-            } else if (event.getItems().getGivePoint() > 0) {
-                gameUserInfo.setCountWinWar(gameUserInfo.getCountWinWar() + event.getItems().getGivePoint());
-            }
+            //TODO
+//            if (event.getItems().getGivePoint() == -1) {
+//                gameUserInfo.setCountLoose(gameUserInfo.getCountLoose() + 1);
+//            } else if (event.getItems().getGivePoint() > 0) {
+//                gameUserInfo.setCountWinWar(gameUserInfo.getCountWinWar() + event.getItems().getGivePoint());
+//            }
 
 
         }

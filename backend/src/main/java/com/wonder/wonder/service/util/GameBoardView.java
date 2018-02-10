@@ -3,8 +3,10 @@ package com.wonder.wonder.service.util;
 import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.cards.GameResource;
 
+import com.wonder.wonder.jms.Items;
 import com.wonder.wonder.model.Event;
 import com.wonder.wonder.model.Game;
+import com.wonder.wonder.model.Item;
 
 import java.util.List;
 
@@ -13,7 +15,7 @@ import static org.codehaus.groovy.runtime.DefaultGroovyMethods.collect;
 
 public class GameBoardView {
     private final List<Event> events; // TODO ASK WE NOT USE THIS
-    private final List<GameUserInfo> userInfoList;
+    private final List<GameUserInfo> userInfoList;// todo map <positionId, GameUserInfo >
     private long currentUserId;
 
     public GameBoardView(Game game, long currentUserId, List<GameUserInfo> gameUserInfoList) {
@@ -114,5 +116,13 @@ public class GameBoardView {
     public int getUserWonderLevel() {
         return getCurrentUserGameInfo()
                 .getWonderLevel();
+    }
+
+    public void addItemToNewEvent(Items items) {
+        Event toSave = getCurrentUserGameInfo().getEventToSave();
+        Item item = new Item();
+        item.setItems(items);
+        item.setEvent(toSave);
+        toSave.getItemList().add(item);
     }
 }

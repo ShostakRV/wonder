@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Creator: Pavlenko Bohdan
@@ -58,12 +60,12 @@ public class Event {
     @Column(name = "from_user")
     private ActionSide from_user;
 
-    @Column(name = "item")
-    private Items items;
-
     @Column(name = "user_action_on_card")
     @Enumerated(EnumType.STRING)
     protected UserActionOnCard userActionOnCard;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "event") //, cascade = CascadeType.ALL example
+    protected List<Item> itemList = new ArrayList<>();
 
     @Column(name = "gold_change")
     protected Integer goldChange;

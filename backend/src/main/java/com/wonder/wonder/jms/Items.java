@@ -16,7 +16,9 @@ public enum Items {
 
     WAR_WIN_2(2, 3),
 
-    WAR_WIN_3(3, 5);
+    WAR_WIN_3(3, 5),
+
+    WAR_A_DRAW(0, 0);
 
     private final int age;
 

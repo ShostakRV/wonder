@@ -30,4 +30,14 @@ public interface EventDao extends JpaRepository<Event, Long> {
                                 @Param("phaseChooseDo") int phaseChooseDo);
 
 
+    @Query("select e from Event e where e.game.id = :gameId and" +
+            " e.gamePhase >= 1 AND" +
+            " e.gamePhase <= :gamePhase AND" +
+            " e.phaseRound = :phaseRound AND" +
+            " e.phaseChooseDo = :phaseChooseDo and" +
+            " e.userActionOnCard IS NOT NULL")
+    List<Event> getAllRaundLastEvent(@Param("gameId") long gameId,
+                                     @Param("gamePhase") GamePhase gamePhase,
+                                     @Param("phaseRound") int phaseRound,
+                                     @Param("phaseChooseDo") int phaseChooseDo);
 }
