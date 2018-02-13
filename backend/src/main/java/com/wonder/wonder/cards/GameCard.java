@@ -6,7 +6,6 @@ import com.wonder.wonder.cards.passiveAbility.TradeDiscount;
 import com.wonder.wonder.cards.warPoint.WarPoint;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -383,6 +382,7 @@ public enum GameCard {
 
     private final OnBuildEvent onBuildEvent;
     private final List<BaseResource> resourcesNeedForBuild;
+    private final TradeDiscount tradeDiscount;
 
 
     GameCard(int age, List<Integer> onPlayers, GameCardColor gameCardColor,
@@ -392,7 +392,7 @@ public enum GameCard {
              ScientistGuild signScientistGuild,
              List<String> chain,
              int goldNeededForConstruction,
-             TradeDiscount passiveDiscount,
+             TradeDiscount tradeDiscount,
              OnBuildEvent onBuildEvent,
              BaseResource... resourcesNeedForBuild) {
         this.age = age;
@@ -403,6 +403,7 @@ public enum GameCard {
         this.armyPower = armyPower;
         this.signScientistGuild = signScientistGuild;
         this.chain = chain;
+        this.tradeDiscount = tradeDiscount;
         this.goldNeededForConstruction = goldNeededForConstruction;
         this.onBuildEvent = onBuildEvent;
         this.resourcesNeedForBuild = Collections.unmodifiableList(Arrays.asList(resourcesNeedForBuild));

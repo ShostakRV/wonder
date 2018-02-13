@@ -23,7 +23,7 @@ public class GameUserInfo {
 
     private final long userId;
     private List<GameCard> userBuiltCards = new ArrayList<>();
-    private List<GameResource> userResource = new ArrayList<>();
+//    private List<GameResource> userResource = new ArrayList<>();
 
     // IF YOU HAVE WONDER GALICARNAS MAUSOLEUM YOU HAVE CARD HERE
     private List<GameCard> allDropsCards = new ArrayList<>();
@@ -51,7 +51,7 @@ public class GameUserInfo {
 
 
     // TODO THINK
-    private boolean buildGalicarnas;
+    private boolean builtGalicarnas;
 
     private boolean garderPassiveChooseEightCard;
 
@@ -105,4 +105,51 @@ public class GameUserInfo {
         eventToSave.setGoldChange(eventToSave.getGoldChange() + gold);
     }
 
+    public void addWonderLavel() {
+        wonderLevel++;
+    }
+
+    public void addZeusDiscauntEnabledCard() {
+        setZeusPassiveWonder(zeusPassiveWonderActive);
+        setZeusPassiveWonderActive(zeusPassiveWonderActive);
+    }
+
+    public void addZeusPassiveWonderActive(boolean state) {
+        setZeusPassiveWonderActive(state);
+    }
+
+    public void addZeusWasUsedInThisAge(GamePhase gamePhase) {
+        setZeusWasUsedInThisAge(gamePhase);
+    }
+
+    public void addHaveRigrhAndLeftTradeSilver() {
+        setTradeSilverRightAndLeft(true);
+    }
+
+    public void addHaveRigrhTradeBrown() {
+        setTradeBrownRight(true);
+    }
+
+    public void addHaveLeftTradeBrown() {
+        setTradeBrownLeft(true);
+    }
+
+    public void addHaveLastCardCanBuildPassive() {
+        setGarderPassiveChooseEightCard(true);
+    }
+
+    public void addHaveRightAndLeftTradeBrown() {
+        setTradeBrownRight(true);
+        setTradeBrownLeft(true);
+    }
+
+    protected void addBuiltCard(GameCard gameCard) {
+        getUserBuiltCards().add(gameCard);
+    }
+
+    protected void addWarPower(GameCard gameCard) {
+        int warPointsForCard = gameCard.getArmyPower().getPoints();
+        int warPoint = getUserWarPoint() + warPointsForCard;
+        setUserWarPoint(warPoint);
+    }
 }

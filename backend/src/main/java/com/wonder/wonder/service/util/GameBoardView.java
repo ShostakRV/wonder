@@ -43,7 +43,7 @@ public class GameBoardView {
     //TODO ASK HOW FIND AND IS TRUE RETURN ID
     public boolean isMavzoleumPowerWasBuilt() {
         return userInfoList.stream()
-                .anyMatch(GameUserInfo::isBuildGalicarnas);
+                .anyMatch(GameUserInfo::isBuiltGalicarnas);
     }
 
     public GameCard getLastBuiltCard() {
@@ -52,12 +52,6 @@ public class GameBoardView {
                 .get(getCurrentUserGameInfo()
                         .getUserBuiltCards()
                         .size() - 1);
-    }
-
-
-    public List<GameResource> getUserResources() {
-        return getCurrentUserGameInfo()
-                .getUserResource();
     }
 
     public List<GameCard> getCurrentUserBuildCard() {
@@ -106,11 +100,6 @@ public class GameBoardView {
     public boolean isWinRightPlayerInWar() {
         return (getCurrentUserGameInfo()
                 .getUserWarPoint() - getRightSiteUser().getUserWarPoint()) > 0;
-    }
-
-    public int getGoldHaveUser() {
-        return getCurrentUserGameInfo()
-                .getUserGold();
     }
 
     public int getUserWonderLevel() {

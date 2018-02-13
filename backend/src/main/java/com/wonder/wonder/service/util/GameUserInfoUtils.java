@@ -1,8 +1,6 @@
 package com.wonder.wonder.service.util;
 
-import com.wonder.wonder.cards.GameCard;
-import com.wonder.wonder.cards.GameResource;
-import com.wonder.wonder.cards.WonderCard;
+import com.wonder.wonder.cards.*;
 import com.wonder.wonder.model.Event;
 import com.wonder.wonder.model.Item;
 import com.wonder.wonder.model.UserInGame;
@@ -29,24 +27,16 @@ public class GameUserInfoUtils {
             GameUserInfo gameUserInfo = mapGameUserInfo.get(userInGameId);
             if (gameUserInfo == null) {
                 gameUserInfo = new GameUserInfo(userInGame);
-                GameResource wonderResource = gameUserInfo.getWonder().getWonderLevelCard().get(0).getGiveResource();
-                addWonderBaseResourse(gameUserInfo, wonderResource);
                 mapGameUserInfo.put(userInGameId, gameUserInfo);
             }
             WonderCard userWonder = gameUserInfo.getWonder();
 
-            boolean isAddDropCard = false;
-            if (userWonder.equals(WonderCard.THE_MAUSOLEUM_OF_HALICARNASSUS_SIDE_A)
-                    || userWonder.equals(WonderCard.THE_MAUSOLEUM_OF_HALICARNASSUS_SIDE_B)) {
-                isAddDropCard = true;
-            }
+            boolean isAddDropCard = userWonder.equals(WonderCard.THE_MAUSOLEUM_OF_HALICARNASSUS_SIDE_A)
+                    || userWonder.equals(WonderCard.THE_MAUSOLEUM_OF_HALICARNASSUS_SIDE_B);
 
             UserActionOnCard userActionOnCard = event.getUserActionOnCard();
             if (isAddDropCard) {
-                boolean isDropCard = false;
-                if (userActionOnCard.equals(UserActionOnCard.SELL_CARD)) {
-                    isDropCard = true;
-                }
+                boolean isDropCard = userActionOnCard.equals(UserActionOnCard.SELL_CARD);
                 if (isDropCard) {
                     gameUserInfo.getAllDropsCards().add(event.getCard());
                 }
@@ -54,24 +44,45 @@ public class GameUserInfoUtils {
 
             int userGoldByNow = gameUserInfo.getUserGold() + event.getGoldChange();
             gameUserInfo.setUserGold(userGoldByNow);
-            GameCard chainBuild = event.getChainCard();
 
-            gameUserInfo.setUserGold(userGoldByNow);
-            if (isBuildWonder(userActionOnCard)) {
-                buildWonder(gameUserInfo, event);
+            boolean wonderIsBuilt = userActionOnCard.equals(UserActionOnCard.BUILD_WONDER);
+            if (wonderIsBuilt) {
+                gameUserInfo.addWonderLavel();
             }
-
             if (isBuildZeus(userActionOnCard)) {
-                useZeusPower(gameUserInfo, event);
+                GamePhase gamePhase = event.getGamePhase();
+                if (gamePhase.equals(gameUserInfo.getZeusWasUsedInThisAge())) {
+                    gameUserInfo.addZeusPassiveWonderActive(true);
+                } else {
+                    gameUserInfo.addZeusWasUsedInThisAge(gamePhase);
+                    gameUserInfo.addZeusPassiveWonderActive(false);
+                }
             }
 
-            boolean isBuildChain = false;
-            if (chainBuild != null) {
-                isBuildChain = true;
-            }
+            GameCard chainBuild = event.getChainCard();
+            boolean isBuildChain = chainBuild != null;
 
-            if (isBuild(userActionOnCard) || isBuildZeus(userActionOnCard) || isBuildChain) {
-                build(gameUserInfo, event);
+            if (isBuild(userActionOnCard) || isBuildZeus(userActionOnCard) || isBuildChain || wonderIsBuilt) {
+                GameCard eventCard = event.getCard();
+                gameUserInfo.addBuiltCard(eventCard);
+                gameUserInfo.addWarPower(eventCard);
+                eventCard.getTradeDiscount().doActivePasiive(gameUserInfo);
+
+                boolean isHaveLastCardCanBuildPassiveCard = eventCard.equals(GameCard.GARDENS_SECOND_B);
+                if (isHaveLastCardCanBuildPassiveCard) {
+                    gameUserInfo.addHaveLastCardCanBuildPassive();
+                }
+
+                if (eventCard.equals(GameCard.STATUE_SECOND_B)) {
+                    gameUserInfo.addZeusDiscauntEnabledCard();
+                }
+
+                if (eventCard.equals(GameCard.MAUSOLEUM_SECOND_A)
+                        || eventCard.equals(GameCard.MAUSOLEUM_FIRST_B)
+                        || eventCard.equals(GameCard.MAUSOLEUM_SECOND_B)
+                        || eventCard.equals(GameCard.MAUSOLEUM_THIRD_B)) {
+                    gameUserInfo.setBuiltGalicarnas(true);  // todo 100% bug
+                }
             }
             addWarItem(gameUserInfo, event);
         }
@@ -92,161 +103,12 @@ public class GameUserInfoUtils {
 
     }
 
-    protected static void build(GameUserInfo gameUserInfo, Event event) {
-        GameCard eventCard = event.getCard();
-        addBuiltCard(gameUserInfo, eventCard);
-
-        if (isCardGiveResources(eventCard.getGiveResource())) {
-            addHasResource(gameUserInfo, eventCard);
-        }
-        addWarpower(gameUserInfo, eventCard);
-
-        boolean isHaveLeftTradeBrownCard = eventCard.equals(GameCard.WEST_TRADING_POST);
-        if (isHaveLeftTradeBrownCard) {
-            addHaveLeftTradeBrownCard(gameUserInfo);
-        }
-
-        boolean isHaveRigrhTradeBrownCard = eventCard.equals(GameCard.EAST_TRADING_POST);
-        if (isHaveRigrhTradeBrownCard) {
-            addHaveRigrhTradeBrownCard(gameUserInfo);
-        }
-
-        boolean isHaveRigrhAndLeftTradeSilverCard = eventCard.equals(GameCard.MARKETPLACE);
-        if (isHaveRigrhAndLeftTradeSilverCard) {
-            addHaveRigrhAndLeftTradeSilverCard(gameUserInfo);
-
-        }
-    }
-
-    protected static void addHaveRigrhAndLeftTradeSilverCard(GameUserInfo gameUserInfo) {
-        gameUserInfo.setTradeSilverRightAndLeft(true);
-    }
-
-    protected static void addHaveRigrhTradeBrownCard(GameUserInfo gameUserInfo) {
-        gameUserInfo.setTradeBrownRight(true);
-    }
-
-    protected static void addHaveLeftTradeBrownCard(GameUserInfo gameUserInfo) {
-        gameUserInfo.setTradeBrownLeft(true);
-    }
-
-    protected static void useZeusPower(GameUserInfo gameUserInfo, Event event) {
-        GamePhase gamePhase = event.getGamePhase();
-        if (gamePhase.equals(gameUserInfo.getZeusWasUsedInThisAge())) {
-            gameUserInfo.setZeusPassiveWonderActive(true);
-        } else {
-            gameUserInfo.setZeusWasUsedInThisAge(gamePhase);
-            gameUserInfo.setZeusPassiveWonderActive(false);
-        }
-
-    }
-
-    public static boolean isBuildWonder(UserActionOnCard userActionOnCard) {
-        return userActionOnCard.equals(UserActionOnCard.BUILD_WONDER);
-    }
-
-    private static void buildWonder(GameUserInfo gameUserInfo, Event event) {
-        GameCard eventCard = event.getCard();
-        List<GameCard> allLevelWonderCard = gameUserInfo.getWonder().getWonderLevelCard();
-        GameCard wonderLevelBuilt = allLevelWonderCard.get(gameUserInfo.getWonderLevel());
-        addWonderLevel(gameUserInfo);
-        addWarpower(gameUserInfo, wonderLevelBuilt);
-        addBuiltCard(gameUserInfo, wonderLevelBuilt);
-
-        boolean isCardGiveResources = isCardGiveResources(wonderLevelBuilt.getGiveResource());
-        if (isCardGiveResources) {
-            addHasResource(gameUserInfo, wonderLevelBuilt);
-        }
-
-        boolean isHaveLastCardCanBuildPassiveCard = eventCard.equals(GameCard.GARDENS_SECOND_B);
-        if (isHaveLastCardCanBuildPassiveCard) {
-            addHaveLastCardCanBuildPassiveCard(gameUserInfo);
-        }
-
-        boolean isHaveRightAndLeftTradeBrownCard = eventCard.equals(GameCard.STATUE_SECOND_B);
-        if (isHaveRightAndLeftTradeBrownCard) {
-            addHaveRightAndLeftTradeBrownCard(gameUserInfo);
-        }
-
-        boolean isZeusDiscauntEnabledCard = eventCard.equals(GameCard.STATUE_SECOND_B);
-        if (isZeusDiscauntEnabledCard) {
-            addZeusDiscauntEnabledCard(gameUserInfo);
-        }
-
-        boolean isBuildMausoleumResectionCard = false;
-
-        if (eventCard.equals(GameCard.MAUSOLEUM_SECOND_A)
-                || eventCard.equals(GameCard.MAUSOLEUM_FIRST_B)
-                || eventCard.equals(GameCard.MAUSOLEUM_SECOND_B)
-                || eventCard.equals(GameCard.MAUSOLEUM_THIRD_B)) {
-            isBuildMausoleumResectionCard = true;
-        }
-
-        if (isBuildMausoleumResectionCard) {
-            gameUserInfo.setBuildGalicarnas(true);  // todo 100% bug
-        }
-
-    }
-
-    protected static void addZeusDiscauntEnabledCard(GameUserInfo gameUserInfo) {
-        gameUserInfo.setZeusPassiveWonder(true);
-        gameUserInfo.setZeusPassiveWonderActive(true);
-    }
-
-    protected static void addHaveLastCardCanBuildPassiveCard(GameUserInfo gameUserInfo) {
-        gameUserInfo.setGarderPassiveChooseEightCard(true);
-    }
-
-    protected static void addHaveRightAndLeftTradeBrownCard(GameUserInfo gameUserInfo) {
-        gameUserInfo.setTradeBrownRight(true);
-        gameUserInfo.setTradeBrownLeft(true);
-    }
-
-    protected static void addHasResource(GameUserInfo gameUserInfo, GameCard gameCard) {
-        gameUserInfo.getUserResource()
-                .add(gameCard.getGiveResource());
-
-    }
-
-    protected static void addBuiltCard(GameUserInfo gameUserInfo, GameCard gameCard) {
-        gameUserInfo.getUserBuiltCards().add(gameCard);
-    }
-
-    protected static void addWarpower(GameUserInfo gameUserInfo, GameCard gameCard) {
-        int warPoint = gameUserInfo.getUserWarPoint() + gameCard
-                .getArmyPower()
-                .getPoints();
-        gameUserInfo.setUserWarPoint(warPoint);
-    }
-
-    protected static void addWonderLevel(GameUserInfo gameUserInfo) {
-        int wonderLervel = gameUserInfo.getWonderLevel() + 1;
-        gameUserInfo.setWonderLevel(wonderLervel);
-    }
-
     public static boolean isBuild(UserActionOnCard userActionOnCard) {
         return userActionOnCard.equals(UserActionOnCard.BUILD);
     }
-
 
     public static boolean isBuildZeus(UserActionOnCard eventUserChoose) {
         return eventUserChoose.equals(UserActionOnCard.BUILD_ZEUS);
     }
 
-
-    public static boolean isCardGiveResources(GameResource pastCardgiveResource) {
-        return !pastCardgiveResource.equals(GameResource.NO_RESOURCE);
-    }
-
-    /**
-     * @param gameUserInfo current user now
-     * @param resource     base resource by main WONDER
-     */
-    protected static void addWonderBaseResourse(GameUserInfo gameUserInfo, GameResource resource) {
-        if (gameUserInfo.getUserResource().size() == 0) {
-            gameUserInfo.getUserResource().add(resource);
-        } else {
-            throw new RuntimeException("you huck game you no can have resource before wonder");
-        }
-    }
 }

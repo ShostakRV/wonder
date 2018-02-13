@@ -42,7 +42,7 @@ public class GameUserInfoTest {
 //
 //    @Test
 //    public void userChooseActionOnCardBuildByChainTest() {
-//        boolean result = gameUserInfo.buildChain(GameCard.EAST_TRADING_POST);
+//        boolean result = gameUserInfo.isBuildChain(GameCard.EAST_TRADING_POST);
 //        assertEquals(result, true);
 //
 //    }

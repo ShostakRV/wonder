@@ -11,11 +11,8 @@ import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.UserInGame;
 import com.wonder.wonder.phase.UserActionOnCard;
 import com.wonder.wonder.service.*;
-import com.wonder.wonder.service.util.GameBoardView;
-import com.wonder.wonder.service.util.GameUserInfo;
-import com.wonder.wonder.service.util.GameUserInfoUtils;
+import com.wonder.wonder.service.util.*;
 
-import com.wonder.wonder.service.util.TransferEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
@@ -38,32 +35,23 @@ public class WonderGameServiceImpl implements WonderGameService {
     private GameBoardDtoConverter gameBoardDtoConverter;
     @Autowired
     JmsTemplate jmsTemplate;
+    private boolean moreLevelWonderThenMax;
 
     private void save(Event currentEvent) {
         eventService.save(currentEvent);
     }
 
-    protected boolean sellCard(UserActionOnCard userActionOnCard) {
-        return userActionOnCard.equals(UserActionOnCard.SELL_CARD);
-    }
-
-
     @Override
     public void playCard(EventDto eventDto) {
-        /**
-         * basic parametr for users
-         */
-// GET CURRENT USERINGAME FOR CURRENT GAME
-        UserInGame userInGame = userInGameService.getUserInGameByIdAndGameId(eventDto.getUserInGameId()
-                , eventDto.getGameId());
+        long userInGameId = eventDto.getUserInGameId();
+        long gameId = eventDto.getGameId();
+        UserInGame userInGame = userInGameService.getUserInGameByIdAndGameId(userInGameId, gameId);
         Game game = userInGame.getGame();
-
 // CALCULATE ALL NEED INFORMATION
         List<GameUserInfo> gameUserInfos = new ArrayList<>(GameUserInfoUtils
                 .createGameUserInfo(game.getEvents()).values());
-// CREATE BOARD LIKE ORIGIN IN GAME FOR KNOW WHO LEFT WHO RIGHT
+
         GameBoardView gameBoardView = new GameBoardView(game, eventDto.getUserInGameId(), gameUserInfos);
-// CURRENT USER INFORMATION ABOUT GAME
         GameUserInfo currentUserGameInfo = gameBoardView.getCurrentUserGameInfo();
 
         Event currentEvent = currentUserGameInfo.getEventToSave();
@@ -72,92 +60,88 @@ public class WonderGameServiceImpl implements WonderGameService {
         currentEvent.setUserActionOnCard(eventDto.getUserActionOnCard());
         currentEvent.setToPutOnForBuild(eventDto.getToPutOnForBuild());
 
-// ACTION SELL GET 3 GOLD
-        if (sellCard(currentEvent.getUserActionOnCard())) {
-            currentEvent.setGoldChange(3);
+        UserActionOnCard userActionOnCard = currentEvent.getUserActionOnCard();
+        GameCard currentEventGameCard = currentEvent.getCard();
+
+        boolean isSellCard = userActionOnCard.equals(UserActionOnCard.SELL_CARD);
+        if (isSellCard) {
+            addGoldForSale(currentEvent);
         } else {
+            GameCard chainCard = currentEvent.getChainCard();
+            boolean isBuildChain = isBuildChain(chainCard);
 
-// EXCEPTION IF USER WANT BUILD DUPLICATE ***
             for (GameCard builtCard : gameBoardView.getCurrentUserBuildCard()) {
-                if (builtCard.equals(currentEvent.getCard())
-                        && GameUserInfoUtils.isBuild(currentEvent.getUserActionOnCard())
-// *** FOR BUILD AND CHAIN
-                        || builtCard.equals(currentEvent.getCard())
-                        && GameUserInfoUtils.isBuildZeus(currentEvent.getUserActionOnCard())
-// *** FOR ZEUS
-                        || builtCard.equals(currentEvent.getCard())
-                        && buildChain(currentEvent.getChainCard())
-// *** FOR MAUSOLEUM
-                        || builtCard.equals(currentEvent.getCard())
-                        && buildGalicarnas(currentEvent.getUserActionOnCard())) {
-                    throw new RuntimeException("You want buil duplicate");
+                boolean checkPossibilityToDublicate = builtCard.equals(currentEventGameCard);
+                if (checkPossibilityToDublicate) {
+                    exeptionForDublicate(userActionOnCard, currentEvent);
                 }
-//END EXCEPTION IF USER WANT BUILD DUPLICATE ***
 
-// DO ACTIVE OR NOT, USER CAN BUILD BY CHAIN
-                if (buildChain(currentEvent.getChainCard())
-                        && checkCorrectChain(currentEvent.getCard(), currentEvent.getChainCard())) {
-                    if (builtCard.equals(currentEvent.getChainCard())) {
-                        currentUserGameInfo.setCanBuildByChainCurrentCard(true);
-                    }
+                if (isBuildChain && checkCorrectChain(currentEventGameCard, chainCard) && builtCard.equals(chainCard)) {
+                    addCanBuildByChain(currentUserGameInfo);
                 }
             }
-//EXCEPTION IF USER WANT BUILD WHEN NO HAVE PARENT CARD FOR CHAIN
-            if (buildChain(currentEvent.getChainCard())
-                    && !currentUserGameInfo.isCanBuildByChainCurrentCard()) {
+
+            boolean noCanBuildByChain = !currentUserGameInfo.isCanBuildByChainCurrentCard();
+            if (isBuildChain && noCanBuildByChain) {
                 throw new RuntimeException("You no can build by chain");
             }
-//EXCEPTION IF USER WANT BUILD WHEN ZEUS POWER NO ACTIVE OR HE USE BEFORE IN THIS AGE
-            if (GameUserInfoUtils.isBuildZeus(currentEvent.getUserActionOnCard())
-                    && !currentUserGameInfo.isZeusPassiveWonderActive()) {
+
+            boolean isBuildZeus = GameUserInfoUtils.isBuildZeus(userActionOnCard);
+            boolean zeusPassiveWasUse = !currentUserGameInfo.isZeusPassiveWonderActive();
+            if (isBuildZeus && zeusPassiveWasUse) {
                 throw new RuntimeException("You use pover ZEUS wonder in this age");
             }
-//EXCEPTION IF USER WANT RESURRECT BY NOT BUILD CARD BEFORE (IF HAVE PROBLEM HERE PROBLEM WITH LOGIC)
-            if (buildGalicarnas(currentEvent.getUserActionOnCard())
-                    && !currentUserGameInfo.isBuildGalicarnas()) {
+            boolean isBuildUseGalicarnas = buildGalicarnas(userActionOnCard);
+            boolean noBuiltGalicarnas = !currentUserGameInfo.isBuiltGalicarnas();
+            if (isBuildUseGalicarnas && noBuiltGalicarnas) {
                 throw new RuntimeException("You no build GalicarnasAbility in this raund");
             }
-//EXCEPTION IF USER WANT BUILD WONDER LEVEL MORE THEN MAX
-            if (currentUserGameInfo.getWonderLevel() > currentUserGameInfo.getWonder().getWonderLevelCard().size()) {
+
+            boolean isMoreLevelWonderThenMax = isMoreLevelWonderThenMax(currentUserGameInfo);
+            if (isMoreLevelWonderThenMax) {
                 throw new RuntimeException("You want build wonder Level more then max");
             }
 /**
  * Build ZEUS,BUILD,CHAIN
  */
 // ACTION BUILD CARD OR BUILD WONDER
-            if (GameUserInfoUtils.isBuild(currentEvent.getUserActionOnCard())
-                    || GameUserInfoUtils.isBuildWonder(currentEvent.getUserActionOnCard())) {
+            if (GameUserInfoUtils.isBuild(userActionOnCard) || userActionOnCard.equals(UserActionOnCard.BUILD_WONDER)) {
 
-                List<BaseResource> resourcesNeed = currentEvent.getCard().getResourcesNeedForBuild();
+                List<BaseResource> resourcesNeed = currentEventGameCard.getResourcesNeedForBuild();
                 List<ResourceChooseDto> resourceChooseDtos = eventDto.getResourceChooseDtoList();
                 List<PayDto> payDtoList = eventDto.getPayDtoList();
-//EXCEPTION NOT HAVE ENOUGH MONEY
-                if (currentUserGameInfo.getUserGold() - currentEvent.getCard().getGoldNeededForConstruction() < 0) {
+                int goldNeedForConstuction = currentEventGameCard.getGoldNeededForConstruction();
+                int userGoldAfterEvent = currentUserGameInfo.getUserGold() - goldNeedForConstuction;
+                boolean isNoHaveEnoughtMoney = userGoldAfterEvent < 0;
+                if (isNoHaveEnoughtMoney) {
                     throw new RuntimeException("You no have gold for constraction");
                 } else {
-//SET CHANGE GOLD FOR PAY FOR CONSTRUCTION
-                    currentEvent.setGoldChange(currentEvent.getCard().getGoldNeededForConstruction());
-                    if (resourcesNeed.size() > 0) {
-//EXCEPTION IF NEED RESOURCE BUT NOT CHOOSE
-                        if (resourceChooseDtos.size() == 0 & payDtoList.size() == 0) {
-                            throw new RuntimeException("You no can build this card, no choose resource for build");
-                        }
+                    payGoldForBuild(currentEvent, goldNeedForConstuction);
+
+                    boolean isCardNeedResourceForBuild = resourcesNeed.size() > 0;
+                    if (isCardNeedResourceForBuild) {
+
+                        int userResourceSize = resourceChooseDtos.size();
+                        int buyResourceSize = payDtoList.size();
+                        isUserChooseResourceForBuild(userResourceSize, buyResourceSize);
 
                         GameUserInfo leftUserInfo = gameBoardView.getLeftSiteUser();
                         GameUserInfo rightUserInfo = gameBoardView.getRightSiteUser();
 // BASIC RESOURCE COST IN GAME
-                        int buyBrouwnLeft = 2;
-                        int buyBrouwnRight = 2;
-                        int buySilver = 2;
-//*** SET ANOTHER COST IF HAVE SPECIAL CARD
-                        if (currentUserGameInfo.isTradeBrownLeft()) {
-                            buyBrouwnLeft = 1;
+                        TradeOperation tradeOperation = new TradeOperation();
+
+                        boolean isTradeDiscountBrownLeft = currentUserGameInfo.isTradeBrownLeft();
+                        if (isTradeDiscountBrownLeft) {
+                            tradeOperation.setBuyBrouwnLeft(1);
                         }
-                        if (currentUserGameInfo.isTradeBrownRight()) {
-                            buyBrouwnRight = 1;
+                        boolean isTradeDiscountBrownRight = currentUserGameInfo.isTradeBrownRight();
+                        if (isTradeDiscountBrownRight) {
+                            tradeOperation.setBuyBrouwnRight(1);
                         }
-                        if (currentUserGameInfo.isTradeSilverRightAndLeft()) {
-                            buySilver = 1;
+
+                        boolean isTradeSilverDiscountRightAndLeft = currentUserGameInfo.isTradeSilverRightAndLeft();
+                        if (isTradeSilverDiscountRightAndLeft) {
+                            tradeOperation.setBuySilver(1);
                         }
 //*** SET ANOTHER COST IF HAVE SPECIAL CARD
                         int goldNeedPayLeft = 0;
@@ -171,16 +155,20 @@ public class WonderGameServiceImpl implements WonderGameService {
                         }
 
                         for (PayDto payDto : payDtoList) {
-                            if (payDto.getActionSide().equals(ActionSide.LEFT)) {
+                            ActionSide actionSide = payDto.getActionSide();
+                            GameCardColor cardColor = payDto.getGameCard().getGameCardColor();
+                            if (actionSide.equals(ActionSide.LEFT)) {
 
-                                if (!leftUserInfo.getUserBuiltCards().contains(payDto.getGameCard())) {
+                                boolean noHaveChooseCardLeft = !leftUserInfo.getUserBuiltCards().contains(payDto.getGameCard());
+                                if (noHaveChooseCardLeft) {
                                     throw new RuntimeException("Left player no have card whis this name" + payDto.getGameCard());
                                 } else {
+                                    // TODO REFACTORING
                                     userChooseTrueResourcesByCardPay(payDto);
-                                    if (payDto.getGameCard().getGameCardColor().equals(GameCardColor.BROWN)) {
-                                        goldNeedPayLeft += buyBrouwnLeft;
-                                    } else if (payDto.getGameCard().getGameCardColor().equals(GameCardColor.SILVER)) {
-                                        goldNeedPayLeft += buySilver;
+                                    if (cardColor.equals(GameCardColor.BROWN)) {
+                                        goldNeedPayLeft += tradeOperation.getBuyBrouwnLeft();
+                                    } else if (cardColor.equals(GameCardColor.SILVER)) {
+                                        goldNeedPayLeft += tradeOperation.getBuySilver();
                                     }
                                     if (currentUserGameInfo.getUserGold() - (goldNeedPayLeft + goldNeedPayRight) < 0) {
                                         throw new RuntimeException("Need more gold more buying resourse");
@@ -188,15 +176,16 @@ public class WonderGameServiceImpl implements WonderGameService {
                                     allChooseResource.addAll(payDto.getBuyResourceList());
                                 }
 
-                            } else if (payDto.getActionSide().equals(ActionSide.RIGHT)) {
+                            } else if (actionSide.equals(ActionSide.RIGHT)) {
                                 if (!rightUserInfo.getUserBuiltCards().contains(payDto.getGameCard())) {
                                     throw new RuntimeException("right player no have card whis this name" + payDto.getGameCard());
                                 } else {
+                                    // TODO REFACTORING
                                     userChooseTrueResourcesByCardPay(payDto);
-                                    if (payDto.getGameCard().getGameCardColor().equals(GameCardColor.BROWN)) {
-                                        goldNeedPayRight += buyBrouwnRight;
-                                    } else if (payDto.getGameCard().getGameCardColor().equals(GameCardColor.SILVER)) {
-                                        goldNeedPayRight += buySilver;
+                                    if (cardColor.equals(GameCardColor.BROWN)) {
+                                        goldNeedPayRight += tradeOperation.getBuyBrouwnRight();
+                                    } else if (cardColor.equals(GameCardColor.SILVER)) {
+                                        goldNeedPayRight += tradeOperation.getBuySilver();
                                     }
                                     if (currentUserGameInfo.getUserGold() - (goldNeedPayLeft + goldNeedPayRight) < 0) {
                                         throw new RuntimeException("Need more gold more buying resourse");
@@ -237,7 +226,36 @@ public class WonderGameServiceImpl implements WonderGameService {
         jmsTemplate.convertAndSend("transferEvent", transferEvent);
     }
 
-    private boolean buildGalicarnas(UserActionOnCard userActionOnCard) {
+    protected void isUserChooseResourceForBuild(int userResourceSize, int buyResourceSize) {
+        boolean isUserNoChooseResourceForBuild = userResourceSize == 0 & buyResourceSize == 0;
+        if (isUserNoChooseResourceForBuild) {
+            throw new RuntimeException("You no can build this card, no choose resource for build");
+        }
+    }
+
+    protected void payGoldForBuild(Event currentEvent, int goldNeedForConstuction) {
+        currentEvent.setGoldChange(goldNeedForConstuction);
+    }
+
+    protected void addCanBuildByChain(GameUserInfo currentUserGameInfo) {
+        currentUserGameInfo.setCanBuildByChainCurrentCard(true);
+    }
+
+    protected void exeptionForDublicate(UserActionOnCard userActionOnCard, Event currentEvent) {
+        if (GameUserInfoUtils.isBuild(userActionOnCard) ||
+                GameUserInfoUtils.isBuildZeus(userActionOnCard) ||
+                isBuildChain(currentEvent.getChainCard()) ||
+                buildGalicarnas(userActionOnCard)) {
+            throw new RuntimeException("You want buil duplicate");
+        }
+
+    }
+
+    protected void addGoldForSale(Event currentEvent) {
+        currentEvent.setGoldChange(3);
+    }
+
+    protected boolean buildGalicarnas(UserActionOnCard userActionOnCard) {
         return userActionOnCard.equals(UserActionOnCard.RESORECT_CARD);
     }
 
@@ -301,7 +319,7 @@ public class WonderGameServiceImpl implements WonderGameService {
                 .anyMatch(s -> s.equals(chainCard.name()));
     }
 
-    protected boolean buildChain(GameCard chainCard) {
+    protected boolean isBuildChain(GameCard chainCard) {
         return chainCard != null;
     }
 
@@ -315,6 +333,11 @@ public class WonderGameServiceImpl implements WonderGameService {
     }
 
 
+    public boolean isMoreLevelWonderThenMax(GameUserInfo currentUserGameInfo) {
+        int wonderLevel = currentUserGameInfo.getWonderLevel();
+        int maxWonderLevel = currentUserGameInfo.getWonder().getWonderLevelCard().size();
+        return wonderLevel >= maxWonderLevel;
+    }
 }
 
 

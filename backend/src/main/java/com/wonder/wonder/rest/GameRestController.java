@@ -1,20 +1,15 @@
 package com.wonder.wonder.rest;
 
 
-import com.sun.net.httpserver.Authenticator;
+import com.wonder.wonder.Constants;
 import com.wonder.wonder.dto.BoardDto;
 import com.wonder.wonder.dto.EventDto;
 import com.wonder.wonder.dto.GameViewDto;
-import com.wonder.wonder.dto.conerter.GameBoardDtoConverter;
-import com.wonder.wonder.model.Game;
 import com.wonder.wonder.service.GameService;
 import com.wonder.wonder.service.WonderGameService;
-import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.convert.ReadingConverter;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +19,7 @@ import java.util.List;
  * Date **.12.17.
  */
 @ReadingConverter
-@RequestMapping(name = "/api/game")
+@RequestMapping(name = Constants.BASE_GAME_PATH)
 public class GameRestController {
     @Autowired
     GameService gameService;
