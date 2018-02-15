@@ -21,13 +21,14 @@ public class EventDto {
     private GameCard toPutOnForBuild;
     // WHAT CARD IS PARANT FOR CHAIN
     private GameCard chainCard;
-// WHAT USER BUY AND TO WHOM
+    // WHAT USER BUY AND TO WHOM
     private List<PayDto> payDtoList;
     // WHAT USER RESOURSE CHOOSE USER  FOR BUILD
     private List<ResourceChooseDto> resourceChooseDtoList;
 
     private Long gameId;
     private Long userInGameId;
+    private Long cardSetId;
 
 
 }

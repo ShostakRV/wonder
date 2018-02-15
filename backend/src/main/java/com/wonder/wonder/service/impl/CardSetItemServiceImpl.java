@@ -1,13 +1,15 @@
 package com.wonder.wonder.service.impl;
 
+import com.wonder.wonder.cards.GameCard;
 import com.wonder.wonder.dao.CardSetItemDao;
+import com.wonder.wonder.model.CardSet;
 import com.wonder.wonder.model.CardSetItem;
 import com.wonder.wonder.service.CardSetItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
-  Created by bm on 22.07.17.
+ * Created by bm on 22.07.17.
  */
 @Component
 public class CardSetItemServiceImpl implements CardSetItemService {
@@ -17,6 +19,11 @@ public class CardSetItemServiceImpl implements CardSetItemService {
     @Autowired
     public CardSetItemServiceImpl(CardSetItemDao cardSetItemDao) {
         this.cardSetItemDao = cardSetItemDao;
+    }
+
+    @Override
+    public CardSetItem findByCardSetAndGameCard(CardSet cardSet, GameCard gameCard) {
+        return cardSetItemDao.findByCardSetAndGameCard(cardSet, gameCard);
     }
 
     @Override

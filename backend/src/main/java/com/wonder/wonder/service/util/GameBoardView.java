@@ -1,7 +1,6 @@
 package com.wonder.wonder.service.util;
 
 import com.wonder.wonder.cards.GameCard;
-import com.wonder.wonder.cards.GameResource;
 
 import com.wonder.wonder.jms.Items;
 import com.wonder.wonder.model.Event;
@@ -15,6 +14,7 @@ import static org.codehaus.groovy.runtime.DefaultGroovyMethods.collect;
 
 public class GameBoardView {
     private final List<Event> events; // TODO ASK WE NOT USE THIS
+
     private final List<GameUserInfo> userInfoList;// todo map <positionId, GameUserInfo >
     private long currentUserId;
 
@@ -43,7 +43,7 @@ public class GameBoardView {
     //TODO ASK HOW FIND AND IS TRUE RETURN ID
     public boolean isMavzoleumPowerWasBuilt() {
         return userInfoList.stream()
-                .anyMatch(GameUserInfo::isBuiltGalicarnas);
+                .anyMatch(GameUserInfo::isActivateResurrectAction);
     }
 
     public GameCard getLastBuiltCard() {

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
-  Created by bm on 20.07.17.
+ * Created by bm on 20.07.17.
  */
 @Component
 public class CardSetServiceImpl implements CardSetService {
@@ -27,5 +27,10 @@ public class CardSetServiceImpl implements CardSetService {
     @Override
     public void save(CardSet cardSet) {
         cardSetDao.save(cardSet);
+    }
+
+    @Override
+    public CardSet findById(Long cardSetId) {
+        return cardSetDao.findById(cardSetId);
     }
 }

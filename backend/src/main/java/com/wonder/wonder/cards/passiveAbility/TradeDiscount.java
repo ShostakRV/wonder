@@ -28,7 +28,7 @@ public class TradeDiscount {
         return new TradeDiscount(actionSide, cardColor);
     }
 
-    public void doActivePasiive(GameUserInfo gameUserInfo) {
+    public void doActive(GameUserInfo gameUserInfo) {
         if (actionSide == ActionSide.RIGHT_AND_LEFT) {
             if (cardColor == GameCardColor.BROWN) {
                 gameUserInfo.addHaveRightAndLeftTradeBrown();

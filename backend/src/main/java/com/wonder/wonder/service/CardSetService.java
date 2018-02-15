@@ -14,4 +14,6 @@ public interface CardSetService {
     List<CardSet> getListCardSetByGameId(long gameId);
 
     void save(CardSet cardSet);
+
+    CardSet findById(Long cardSetId);
 }

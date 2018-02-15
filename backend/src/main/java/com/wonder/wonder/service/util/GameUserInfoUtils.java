@@ -38,12 +38,12 @@ public class GameUserInfoUtils {
             if (isAddDropCard) {
                 boolean isDropCard = userActionOnCard.equals(UserActionOnCard.SELL_CARD);
                 if (isDropCard) {
-                    gameUserInfo.getAllDropsCards().add(event.getCard());
+                    gameUserInfo.addDropCard(event.getCard());
                 }
             }
 
             int userGoldByNow = gameUserInfo.getUserGold() + event.getGoldChange();
-            gameUserInfo.setUserGold(userGoldByNow);
+            gameUserInfo.addGoldToNewEvent(userGoldByNow);
 
             boolean wonderIsBuilt = userActionOnCard.equals(UserActionOnCard.BUILD_WONDER);
             if (wonderIsBuilt) {
@@ -66,7 +66,7 @@ public class GameUserInfoUtils {
                 GameCard eventCard = event.getCard();
                 gameUserInfo.addBuiltCard(eventCard);
                 gameUserInfo.addWarPower(eventCard);
-                eventCard.getTradeDiscount().doActivePasiive(gameUserInfo);
+                eventCard.getTradeDiscount().doActive(gameUserInfo);
 
                 boolean isHaveLastCardCanBuildPassiveCard = eventCard.equals(GameCard.GARDENS_SECOND_B);
                 if (isHaveLastCardCanBuildPassiveCard) {
@@ -81,7 +81,7 @@ public class GameUserInfoUtils {
                         || eventCard.equals(GameCard.MAUSOLEUM_FIRST_B)
                         || eventCard.equals(GameCard.MAUSOLEUM_SECOND_B)
                         || eventCard.equals(GameCard.MAUSOLEUM_THIRD_B)) {
-                    gameUserInfo.setBuiltGalicarnas(true);  // todo 100% bug
+                    gameUserInfo.addResurrectActivate(event.getGamePhase(), event.getPhaseRound());
                 }
             }
             addWarItem(gameUserInfo, event);
