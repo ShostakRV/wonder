@@ -24,3 +24,13 @@
 hs_err_pid*
 .gradle/
 build/
+
+
+#Libs
+node_modules
+src/main/public/static/yarn_components
+
+out/
+
+#Gradle wrapper
+!gradle/wrapper/gradle-wrapper.jar

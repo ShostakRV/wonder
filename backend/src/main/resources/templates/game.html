@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>7 Wonders</title>
+    <!--<link rel="stylesheet" href="../static/css/bootstrap.min.css"/>-->
+    <!--<link rel="stylesheet" href="../static/css/style.css"/>-->
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <!--<script src="../static/js/jquery-3.2.1.min.js" type="application/javascript"></script>-->
+    <script src="/js/jquery-3.2.1.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div class="col-xs-offset-0 col-xs-12">
+    <div class="col-xs-12 user-info">
+        <div class="row">
+            <div class="col-xs-2">
+                <img class="CLAY_PIT"/>
+                <div class="STONE_PIT"></div>
+                <div class="TREE_FARM"></div>
+            </div>
+            <div class="col-xs-2">
+                <div class="ALTAR"></div>
+            </div>
+            <div class="col-xs-2">
+                <div class="TAVERN"></div>
+
+            </div>
+            <div class="col-xs-2">
+                <div class="BARRACKS"></div>
+            </div>
+            <div class="col-xs-2">
+                <div class="APOTHECARY"></div>
+            </div>
+            <div class="col-xs-2">
+            </div>
+            <div class="col-xs-2">
+
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                jQuery('.wonder').click(function (self) {
+                    jQuery(self.target).css('width', '80%');
+                });
+                jQuery('.wonder').mouseleave(function (self) {
+                    jQuery(self.target).css('width', '40%');
+                });
+            });
+        </script>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="wonder wonder-colossus-a">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 user-info">
+        <div class="row">
+            <div class="col-xs-2">
+                <div class="CLAY_PIT"></div>
+                <div class="STONE_PIT"></div>
+                <div class="TREE_FARM"></div>
+            </div>
+            <div class="col-xs-2">
+                <div class="ALTAR"></div>
+            </div>
+            <div class="col-xs-2">
+                <div class="TAVERN"></div>
+
+            </div>
+            <div class="col-xs-2">
+                <div class="BARRACKS"></div>
+            </div>
+            <div class="col-xs-2">
+                <div class="APOTHECARY"></div>
+            </div>
+            <div class="col-xs-2">
+            </div>
+            <div class="col-xs-2">
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="wonder wonder-colossus-a"></div>
+        </div>
+    </div>
+    <div class="col-xs-12 user-info">
+        <div class="col-xs-2">2</div>
+    </div>
+</div>
+</body>
+</html>
