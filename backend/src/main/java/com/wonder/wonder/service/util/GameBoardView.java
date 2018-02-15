@@ -92,14 +92,14 @@ public class GameBoardView {
     }
 
 
-    public boolean isWinLeftPlayerInWar() {
-        return (getCurrentUserGameInfo()
-                .getUserWarPoint() - getLeftSiteUser().getUserWarPoint()) > 0;
+    public int isWinLeftPlayerInWar() {
+        int warPoint = getCurrentUserGameInfo().getUserWarPoint() - getLeftSiteUser().getUserWarPoint();
+        return Integer.compare(warPoint, 0);
     }
 
-    public boolean isWinRightPlayerInWar() {
-        return (getCurrentUserGameInfo()
-                .getUserWarPoint() - getRightSiteUser().getUserWarPoint()) > 0;
+    public int isWinRightPlayerInWar() {
+        int warPoint = getCurrentUserGameInfo().getUserWarPoint() - getRightSiteUser().getUserWarPoint();
+        return Integer.compare(warPoint, 0);
     }
 
     public int getUserWonderLevel() {
@@ -113,5 +113,10 @@ public class GameBoardView {
         item.setItems(items);
         item.setEvent(toSave);
         toSave.getItemList().add(item);
+    }
+
+    public boolean isPurpleWasBuild() {
+        return userInfoList.stream()
+                .anyMatch(GameUserInfo::isZuesPurpleChoose);
     }
 }

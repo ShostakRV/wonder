@@ -32,6 +32,7 @@ public class TradeDiscount {
         if (actionSide == ActionSide.RIGHT_AND_LEFT) {
             if (cardColor == GameCardColor.BROWN) {
                 gameUserInfo.addHaveRightAndLeftTradeBrown();
+                gameUserInfo.changeCostBuyBrownLeft();// example
 
             }
             if (cardColor == GameCardColor.SILVER) {

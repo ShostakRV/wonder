@@ -47,58 +47,80 @@ public class JmsEventLisner {
         Game game = gameService.findGameById(gameId);
         long userInGameId = message.getUserInGameId();
         final GameBoardView gameBoardView = getGameBoardView(userInGameId);
+        UserActionOnCard userActionOnCard = allLastEvent.get(0).getUserActionOnCard();
         boolean isPlayOnBuildEvent = false;
         boolean gardenHasPassive = gameBoardView.isGarbenPassiveBuilt();
-        boolean cardWasResurected;
-        boolean mausoleumWasBuild;
         int playersPlayInGame = game.getUserInGames().size();
-        UserActionOnCard userActionOnCard = allLastEvent.get(0).getUserActionOnCard();
-        mausoleumWasBuild = gameBoardView.isMavzoleumPowerWasBuilt();
-        cardWasResurected = userActionOnCard.equals(UserActionOnCard.RESURRECT_CARD);
-        if (mausoleumWasBuild) {
+        if (gameBoardView.isMavzoleumPowerWasBuilt()) {
             game.setPhaseChooseDo(game.getPhaseChooseDo() + 1);
             gameService.save(game);
         }
-        if (cardWasResurected || allLastEvent.size() == playersPlayInGame && !mausoleumWasBuild || phaseRound.equals(8)) {
+        if (userActionOnCard.equals(UserActionOnCard.RESURRECT_CARD) //bug check
+                || allLastEvent.size() == playersPlayInGame && !gameBoardView.isMavzoleumPowerWasBuilt()
+                || phaseRound.equals(8)) {
             isPlayOnBuildEvent = true;
         }
-        boolean checkPossibilityToPlayWar = false;
+
+        boolean playWar = false;
+        boolean changeAge = false;
         if (isPlayOnBuildEvent) {
             List<Event> onBuildEvents = eventService.getAllRaundLastEvent(gameId, gamePhase, phaseRound, phaseChooseDo);
             playOnBuildEvent(gameBoardView, onBuildEvents, phaseChooseDo + 1);
-            checkPossibilityToPlayWar = true;
             saveOnBuildEvents(gameBoardView, game);
             gameService.save(game);
+            phaseRound = game.getPhaseRound();
+            playWar = !gardenHasPassive && phaseRound == 7 || gardenHasPassive && phaseRound == 8;
         }
-        boolean isPlayWar = false;
-        if (checkPossibilityToPlayWar) {
-            isPlayWar = !gardenHasPassive && phaseRound == 7 || gardenHasPassive && phaseRound == 8;
-        }
-        boolean changePhase = false;
-        if (isPlayWar) {
+        if (playWar) {
             playWar(game);
-            //TODO THINK ZERO POINTS
-            GameBoardView calculatedWarEventBoard = calculateWar(game, userInGameId);
+            GameBoardView calculatedWarEventBoard = getGameBoardView(userInGameId);
+            for (UserInGame userInGame : game.getUserInGames()) {
+                int resultLeft = gameBoardView.isWinLeftPlayerInWar();
+                int resultRight = gameBoardView.isWinRightPlayerInWar();
+                calculateResultWar(game, gameBoardView, userInGame, resultLeft);
+                calculateResultWar(game, gameBoardView, userInGame, resultRight);
+            }
             saveWarEvents(calculatedWarEventBoard, game);
-            changePhase = true;
+            changeAge = true;
         }
-        if (changePhase) {
+        // todo round and phase
+        if (changeAge) {
             int currentAge = Integer.parseInt(splitGamePhase(game)[1]);
             if (currentAge != 3) {
-                startNewRound(game, currentAge);
+                startNewAge(game, currentAge);
             } else {
                 startEndGame(game);
             }
+            gameService.save(game);
         }
-        // TODO THINK NEED OR NOT GamePhase.CALCULATE ^^^???? // CHOOSE PURPLE
-        if (game.getPhaseGame().equals(GamePhase.FINISHED)) {
-            List<UserInGame> userInGamesCauculatePoints = calculatePointsAndFinishGame(game, userInGameId);
-            saveOnBuildEvents(userInGamesCauculatePoints);
+        gamePhase = game.getPhaseGame();
+        if (gamePhase.equals(GamePhase.CALCULATE)) {
+            boolean oneOfUserHavePurpleCardChoose = gameBoardView.isPurpleWasBuild();
+            boolean userShoosePurpleCardActrion = userActionOnCard.equals(UserActionOnCard.CHOOSE_PURPURE_ZEUS);
+            if (!oneOfUserHavePurpleCardChoose || userShoosePurpleCardActrion) {
+                List<UserInGame> userInGamesCauculatePoints = calculatePointsAndFinishGame(game, userInGameId);
+                saveOnBuildEvents(userInGamesCauculatePoints);
+                game.setPhaseGame(GamePhase.FINISHED);
+                gameService.save(game);
+            }
+        }
+    }
+
+    protected void calculateResultWar(Game game, GameBoardView gameBoardView, UserInGame userInGame, int resultLeft) {
+        gameBoardView.setCurrentUser(userInGame.getId());
+        String[] phaseGame = splitGamePhase(game);
+        String age = phaseGame[1];
+        if (resultLeft == 1) {
+            gameBoardView.addItemToNewEvent(Items.valueOf("WAR_WIN_" + age));
+        } else if (resultLeft == -1) {
+            gameBoardView.addItemToNewEvent(Items.valueOf("WAR_LOOSE_" + age));
+        } else {
+            gameBoardView.addItemToNewEvent(Items.WAR_A_DRAW);
         }
     }
 
     protected void startEndGame(Game game) {
-        game.setPhaseGame(GamePhase.FINISHED);
+        game.setPhaseGame(GamePhase.CALCULATE);
         game.setPhaseChooseDo(0);
         game.setPhaseRound(0);
     }
@@ -128,7 +150,8 @@ public class JmsEventLisner {
             }
         }
     }
-    //TODO THINK
+
+    //TODO ASK
     protected List<UserInGame> calculatePointsAndFinishGame(Game game, long userInGameId) {
         GameBoardView gameBoardView = getGameBoardView(userInGameId);
         List<UserInGame> userInGameList = new ArrayList<>(game.getUserInGames());
@@ -136,22 +159,23 @@ public class JmsEventLisner {
             gameBoardView.setCurrentUser(userInGame.getId());
             GameUserInfo currentGameUserInfo = gameBoardView.getCurrentUserGameInfo();
             List<GameCard> currentGameUserInfoBuiltCard = currentGameUserInfo.getUserBuiltCards();
-            int pRed = currentGameUserInfo.getCountWinWar() - currentGameUserInfo.getCountLoose();
-            int pBlue = calculateBluePoints(currentGameUserInfoBuiltCard, gameBoardView);
-            int pYellow = calculateYellowPoints(currentGameUserInfoBuiltCard, gameBoardView);
-            int pPurple = calculatePurpurePoints(currentGameUserInfoBuiltCard, gameBoardView);
-            int pWonder = calculateWonderPoints(currentGameUserInfoBuiltCard, gameBoardView);
-            Map<ScientistGuild, Integer> allGreenSymvol = calculateGreenSymvol(currentGameUserInfoBuiltCard, gameBoardView);
-            int pGreen = playCalculateGreenPoints(allGreenSymvol);
-            userInGame.setPWars(pRed);
-            userInGame.setPBlue(pBlue);
-            userInGame.setPYellow(pYellow);
-            userInGame.setPPurple(pPurple);
-            userInGame.setPWonder(pWonder);
-            userInGame.setPGreen(pGreen);
+
+            Map<ScientistGuild, Integer> allGreenSymvol = calculateGreenSymvol(currentGameUserInfoBuiltCard);
+
+            userInGame.setPWars(calculateRedPoints(currentGameUserInfo));
+            userInGame.setPBlue(calculatePointsByStrategy(currentGameUserInfoBuiltCard, gameBoardView, GameCardColor.BLUE));
+            userInGame.setPYellow(calculatePointsByStrategy(currentGameUserInfoBuiltCard, gameBoardView, GameCardColor.YELLOW));
+            userInGame.setPPurple(calculatePointsByStrategy(currentGameUserInfoBuiltCard, gameBoardView, GameCardColor.PURPLE));
+            userInGame.setPWonder(calculateWonderPoints(currentGameUserInfoBuiltCard, gameBoardView));
+            userInGame.setPGreen(playCalculateGreenPoints(allGreenSymvol));
         }
         return userInGameList;
     }
+
+    private int calculateRedPoints(GameUserInfo currentGameUserInfo) {
+        return currentGameUserInfo.getCountWinWar() - currentGameUserInfo.getCountLoose();
+    }
+
     //TODO THINK
     protected int playCalculateGreenPoints(Map<ScientistGuild, Integer> allGreenSymvol) {
         int freeSymvol = allGreenSymvol.get(ScientistGuild.NAMEPLATE_OR_COMPASSE_OR_GEAR);
@@ -162,12 +186,49 @@ public class JmsEventLisner {
         }
         List<Integer> greenSymvol = new ArrayList<>(allGreenSymvol.values());
         if (isHaveFreeSymvol) {
-// TODO GREEN FREE
-            return calculateGreenPoint(greenSymvol);
+            int maxPoint = 0;
+            for (int i = 0; i < allGreenSymvol.size(); i++) {
+                Integer countSymvol = greenSymvol.get(i);
+                Integer main = countSymvol + freeSymvol;
+                greenSymvol.set(i, main);
+                int pointsMain = calculateGreenPoint(greenSymvol);
+
+                if (maxPoint < pointsMain) {
+                    maxPoint = pointsMain;
+                }
+
+                if (freeSymvol > 1 && i < 2) {
+
+                    greenSymvol = new ArrayList<>(allGreenSymvol.values());
+                    Integer first = greenSymvol.get(i) + freeSymvol - 1;
+                    greenSymvol.set(i, first);
+                    Integer second = greenSymvol.get(i + 1) + freeSymvol - 1;
+                    greenSymvol.set(i + 1, second);
+
+                    int pointsFirstSecond = calculateGreenPoint(greenSymvol);
+                    if (maxPoint < pointsFirstSecond) {
+                        maxPoint = pointsFirstSecond;
+                    }
+                    if (i < 1) {
+                        greenSymvol = new ArrayList<>(allGreenSymvol.values());
+                        second = greenSymvol.get(i + 1) + freeSymvol - 1;
+                        greenSymvol.set(i + 1, second);
+                        Integer trierd = greenSymvol.get(i + 2) + freeSymvol - 1;
+                        greenSymvol.set(i + 1, trierd);
+                        int pointsSecondTrierd = calculateGreenPoint(greenSymvol);
+
+                        if (maxPoint < pointsSecondTrierd) {
+                            maxPoint = pointsSecondTrierd;
+                        }
+                    }
+                }
+            }
+            return maxPoint;
         } else {
             return calculateGreenPoint(greenSymvol);
         }
     }
+
 
     protected int calculateGreenPoint(List<Integer> greenSymvol) {
         boolean plusSevenForThreeSymvol = false;
@@ -175,22 +236,28 @@ public class JmsEventLisner {
             plusSevenForThreeSymvol = true;
         }
         int countPoints = 0;
-        int minLevel = 0;
+        int minLevel = -1;
         for (Integer symvol : greenSymvol) {
-            if (plusSevenForThreeSymvol) {
-                if (minLevel == 0) {
-                    minLevel = symvol;
-                } else if (minLevel > symvol) {
-                    minLevel = symvol;
-                }
-            }
+            //TODO ASK
+            minLevel = getMinLevel(plusSevenForThreeSymvol, minLevel, symvol);
             countPoints += symvol * symvol;
         }
         countPoints += minLevel * 7;
         return countPoints;
     }
 
-    protected Map<ScientistGuild, Integer> calculateGreenSymvol(List<GameCard> currentGameUserInfoBuiltCard, GameBoardView gameBoardView) {
+    private int getMinLevel(boolean plusSevenForThreeSymvol, int minLevel, Integer symvol) {
+        if (plusSevenForThreeSymvol) {
+            if (minLevel == -1) {
+                minLevel = symvol;
+            } else if (minLevel > symvol) {
+                minLevel = symvol;
+            }
+        }
+        return minLevel;
+    }
+
+    protected Map<ScientistGuild, Integer> calculateGreenSymvol(List<GameCard> currentGameUserInfoBuiltCard) {
         Map<ScientistGuild, Integer> scientistMap = new HashMap<>();
         for (GameCard gameCard : currentGameUserInfoBuiltCard) {
             ScientistGuild signScientistGuild = gameCard.getSignScientistGuild();
@@ -209,47 +276,24 @@ public class JmsEventLisner {
         int allWonderPoints = 0;
         for (GameCard gameCard : currentGameUserInfoBuiltCard) {
             if (gameCard.getAge() == 0) {
-                allWonderPoints += calculatePointsByStrategy(gameCard, gameBoardView);
+                CalcPointStrategy strategy = gameCard.getStrategy();
+                allWonderPoints += strategy.getPoints(gameBoardView);
             }
         }
         return allWonderPoints;
     }
 
-    protected int calculateBluePoints(List<GameCard> currentGameUserInfoBuiltCard, GameBoardView gameBoardView) {
-        int allBluePoints = 0;
-        for (GameCard gameCard : currentGameUserInfoBuiltCard) {
-            if (gameCard.getGameCardColor().equals(GameCardColor.BLUE)) {
-                allBluePoints += calculatePointsByStrategy(gameCard, gameBoardView);
+
+    protected int calculatePointsByStrategy(List<GameCard> currentUserBuiltCard, GameBoardView gameBoardView, GameCardColor gameCardColor) {
+        int allPoints = 0;
+        for (GameCard gameCard : currentUserBuiltCard) {
+            if (gameCard.getGameCardColor().equals(gameCardColor)) {
+                CalcPointStrategy strategy = gameCard.getStrategy();
+                allPoints += strategy.getPoints(gameBoardView);
             }
         }
-        return allBluePoints;
+        return allPoints;
     }
-
-    protected int calculateYellowPoints(List<GameCard> currentGameUserInfoBuiltCard, GameBoardView gameBoardView) {
-        int allYellowPoints = 0;
-        for (GameCard gameCard : currentGameUserInfoBuiltCard) {
-            if (gameCard.getGameCardColor().equals(GameCardColor.YELLOW)) {
-                allYellowPoints += calculatePointsByStrategy(gameCard, gameBoardView);
-            }
-        }
-        return allYellowPoints;
-    }
-
-    protected int calculatePurpurePoints(List<GameCard> currentGameUserInfoBuiltCard, GameBoardView gameBoardView) {
-        int allPurplePoints = 0;
-        for (GameCard gameCard : currentGameUserInfoBuiltCard) {
-            if (gameCard.getGameCardColor().equals(GameCardColor.PURPLE)) {
-                allPurplePoints += calculatePointsByStrategy(gameCard, gameBoardView);
-            }
-        }
-        return allPurplePoints;
-    }
-
-    protected int calculatePointsByStrategy(GameCard gameCard, GameBoardView gameBoardView) {
-        CalcPointStrategy strategy = gameCard.getStrategy();
-        return strategy.getPoints(gameBoardView);
-    }
-
 
     protected void playWar(Game game) {
         game.setPhaseRound(0);
@@ -259,41 +303,21 @@ public class JmsEventLisner {
         game.setPhaseGame(GamePhase.valueOf("WAR" + "_" + ageNow));
     }
 
-    protected void startNewRound(Game game, int ageNow) {
+    protected void startNewAge(Game game, int ageNow) {
         ageNow += 1;
         game.setPhaseGame(GamePhase.valueOf("AGE_" + ageNow));
         game.setPhaseChooseDo(1);
         game.setPhaseRound(1);
     }
 
-
-    protected GameBoardView calculateWar(Game game, long userInGameId) {
-        GameBoardView gameBoardView = getGameBoardView(userInGameId);
-        for (UserInGame userInGame : game.getUserInGames()) {
-            gameBoardView.setCurrentUser(userInGame.getId());
-            String[] phaseGame = splitGamePhase(game);
-            String age = phaseGame[1];
-            if (gameBoardView.isWinLeftPlayerInWar()) {
-                gameBoardView.addItemToNewEvent(Items.valueOf("WAR_WIN_" + age));
-            } else {
-                gameBoardView.addItemToNewEvent(Items.valueOf("WAR_LOOSE_" + age));
-            }
-            if (gameBoardView.isWinRightPlayerInWar()) {
-                gameBoardView.addItemToNewEvent(Items.valueOf("WAR_WIN_" + age));
-            } else {
-                gameBoardView.addItemToNewEvent(Items.valueOf("WAR_LOOSE_" + age));
-            }
-        }
-        return gameBoardView;
-    }
-
     protected void playOnBuildEvent(GameBoardView gameBoardView, List<Event> eventByPhaseBeforeList, int phaseRound) {
+        Event eventToSave = gameBoardView.getCurrentUserGameInfo().getEventToSave();
         for (Event eventByPhaseBefore : eventByPhaseBeforeList) {
             UserInGame userInGame = eventByPhaseBefore.getUserInGame();
             gameBoardView.setCurrentUser(userInGame.getId());
-            if (gameBoardView.getCurrentUserGameInfo().getEventToSave().getGoldChange() == 0) {
+            if (eventToSave.getGoldChange() == 0) {
                 eventByPhaseBefore.getCard().getOnBuildEvent().doAction(gameBoardView);
-                gameBoardView.getCurrentUserGameInfo().getEventToSave().setPhaseChooseDo(phaseRound);
+                eventToSave.setPhaseChooseDo(phaseRound);
             }
         }
     }

@@ -58,7 +58,7 @@ public class Event {
     private GameCard ToPutOnForBuild;
 
     @Column(name = "from_user")
-    private ActionSide from_user;
+    private ActionSide from_user; // todo UserInGame
 
     @Column(name = "user_action_on_card")
     @Enumerated(EnumType.STRING)

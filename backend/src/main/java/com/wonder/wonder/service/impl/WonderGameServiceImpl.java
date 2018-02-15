@@ -55,33 +55,38 @@ public class WonderGameServiceImpl implements WonderGameService {
         GameBoardView gameBoardView = new GameBoardView(game, eventDto.getUserInGameId(), gameUserInfos);
         GameUserInfo currentUserGameInfo = gameBoardView.getCurrentUserGameInfo();
         UserActionOnCard userActionOnCard = eventDto.getUserActionOnCard();
-        GameCard currentEventGameCard = eventDto.getPlayOnCardForEvent();
+        GameCard targetCard = eventDto.getPlayOnCardForEvent();
         Event currentEvent = addInformationToEventForSave(currentUserGameInfo, eventDto);
         boolean isSellCard = userActionOnCard.equals(UserActionOnCard.SELL_CARD);
         if (isSellCard) {
             currentUserGameInfo.addGoldForSale();
         } else {
             GameCard chainCard = currentEvent.getChainCard();
-            boolean isBuildChain = isBuildChain(chainCard);
-            for (GameCard builtCard : gameBoardView.getCurrentUserBuildCard()) {
-                exceptionForDuplicate(userActionOnCard, currentEventGameCard, currentEvent, builtCard);
-                if (isBuildChain && builtCard.equals(chainCard) && checkCorrectChain(currentEventGameCard, chainCard)) {
-                    currentUserGameInfo.addCanBuildByChain();
+            boolean isBuildChain = chainCard != null;
+            exceptionForDuplicate(gameBoardView, chainCard);
+            if (isBuildChain) {
+                boolean chainIsCorrect = gameBoardView.getCurrentUserBuildCard().contains(chainCard)
+                        && checkCorrectChain(targetCard, chainCard);
+                if (chainIsCorrect) {
+                    currentUserGameInfo.getEventToSave().setChainCard(chainCard);
+                } else {
+                    throw new RuntimeException("You no can build by chain");
                 }
             }
-            exeptionNoCanBuildByChain(isBuildChain, currentUserGameInfo.isCanBuildByChainCurrentCard());
             exeptionZeusPowerDeactivateWhenUserActionZeus(currentUserGameInfo, userActionOnCard);
             exceptionNoBuiltMausoleumForActionResurrect(game, currentUserGameInfo, userActionOnCard);
-            exeptionBuildMoreLevelWonderThenMax(currentUserGameInfo);
+
+            exeptionBuildMoreLevelWonderThenMax(currentUserGameInfo);// bug
+            //todo like with zeus
             if (GameUserInfoUtils.isBuild(userActionOnCard) || userActionOnCard.equals(UserActionOnCard.BUILD_WONDER)) {
                 GameUserInfo leftUserInfo = gameBoardView.getLeftSiteUser();
                 GameUserInfo rightUserInfo = gameBoardView.getRightSiteUser();
-                List<BaseResource> resourcesNeed = currentEventGameCard.getResourcesNeedForBuild();
+                List<BaseResource> resourcesNeed = targetCard.getResourcesNeedForBuild();
                 List<ResourceChooseDto> resourceChooseDtos = eventDto.getResourceChooseDtoList();
                 List<PayDto> payDtoList = eventDto.getPayDtoList();
-                int goldNeedForConstuction = currentEventGameCard.getGoldNeededForConstruction();
-                exeptionNoHaveEnoughtMoney(currentUserGameInfo, goldNeedForConstuction);
-                payGoldForBuild(currentEvent, goldNeedForConstuction);
+                int goldNeedForConstruction = targetCard.getGoldNeededForConstruction();
+                exeptionNoHaveEnoughtMoney(currentUserGameInfo, goldNeedForConstruction);
+                payGoldForBuild(currentEvent, goldNeedForConstruction);
                 boolean isCardNeedResourceForBuild = resourcesNeed.size() > 0;
 
                 if (isCardNeedResourceForBuild) {
@@ -96,10 +101,11 @@ public class WonderGameServiceImpl implements WonderGameService {
                         currentUserGameInfo.addResourcesForBuild(chooseDto.getResourceChoose());
                     }
                     // TODO ASK
-                    changeTradeDiscountBrownLeftIsHaveTrade(currentUserGameInfo);
+                    changeTradeDiscountBrownLeftIsHaveTrade(currentUserGameInfo);// todo remove one field
                     changeTradeDiscountBrownRightIsHaveTrade(currentUserGameInfo);
                     changeTradeDiscountSilverIsHaveTrade(currentUserGameInfo);
 
+                    //todo method pay
                     for (PayDto payDto : payDtoList) {
                         List<BaseResource> baseResourcesChooseUser = new ArrayList<>(payDto.getBuyResourceList());
                         GameResource cardGiveResourse = payDto.getGameCard().getGiveResource();
@@ -128,13 +134,18 @@ public class WonderGameServiceImpl implements WonderGameService {
                 saveEventIfNeedPay(rightUserInfo, ActionSide.LEFT);
             }
         }
-        saveCardSetItem(eventDto.getCardSetId(), currentEventGameCard, game, userInGame);
+        saveCardSetItem(eventDto.getCardSetId(), targetCard, game, userInGame);
         saveEvent(currentEvent);
         // Send a message with a POJO - the template reuse the message converter
         TransferEvent transferEvent = new TransferEvent(game.getId(), userInGame.getId(), game.getPhaseGame(),
                 game.getPhaseRound(), game.getPhaseChooseDo());
         jmsTemplate.convertAndSend("transferEvent", transferEvent);
 
+    }
+
+    private void exceptionForDuplicate(GameBoardView gameBoardView, GameCard chainCard) {
+        if (gameBoardView.getCurrentUserBuildCard().contains(chainCard))
+            throw new RuntimeException("You want to build duplicate");
     }
 
     protected void changeTradeDiscountSilverIsHaveTrade(GameUserInfo currentUserGameInfo) {
@@ -211,16 +222,6 @@ public class WonderGameServiceImpl implements WonderGameService {
         }
     }
 
-    protected void exceptionForDuplicate(UserActionOnCard userActionOnCard, GameCard currentEventGameCard, Event currentEvent, GameCard builtCard) {
-        boolean checkPossibilityToDuplicate = builtCard.equals(currentEventGameCard);
-        if (checkPossibilityToDuplicate) {
-            if (GameUserInfoUtils.isBuild(userActionOnCard) || GameUserInfoUtils.isBuildZeus(userActionOnCard) ||
-                    isBuildChain(currentEvent.getChainCard()) || isResurrectCard(userActionOnCard)) {
-                throw new RuntimeException("You want buil duplicate");
-            }
-        }
-    }
-
     protected void exeptionNoHaveEnoughtMoney(GameUserInfo currentUserGameInfo, int goldNeedForConstuction) {
         int userGoldAfterEvent = currentUserGameInfo.getUserGold() - goldNeedForConstuction;
         boolean isNoHaveEnoughtMoney = userGoldAfterEvent < 0;
@@ -229,23 +230,15 @@ public class WonderGameServiceImpl implements WonderGameService {
         }
     }
 
-    protected void exeptionNoCanBuildByChain(boolean isBuildChain, boolean canBuildByChainCurrentCard) {
-        boolean noCanBuildByChain = !canBuildByChainCurrentCard;
-        if (isBuildChain && noCanBuildByChain) {
-            throw new RuntimeException("You no can build by chain");
-        }
-    }
-
     protected void exeptionZeusPowerDeactivateWhenUserActionZeus(GameUserInfo currentUserGameInfo, UserActionOnCard userActionOnCard) {
-        boolean isBuildZeus = GameUserInfoUtils.isBuildZeus(userActionOnCard);
         boolean zeusPassiveDeactivate = !currentUserGameInfo.isZeusPassiveWonderActive();
-        if (isBuildZeus && zeusPassiveDeactivate) {
+        if (userActionOnCard.isBuildZeus() && zeusPassiveDeactivate) {
             throw new RuntimeException("ZEUS power wonder is Deactivate");
         }
     }
 
     protected void exceptionNoBuiltMausoleumForActionResurrect(Game game, GameUserInfo currentUserGameInfo, UserActionOnCard userActionOnCard) {
-        boolean isResurrectCard = isResurrectCard(userActionOnCard);
+        boolean isResurrectCard = isResurrectCard(userActionOnCard); //todo like with zeus
         if (isResurrectCard) {
             int gameRound = game.getPhaseRound();
             GamePhase gamePhase = game.getPhaseGame();
@@ -308,10 +301,6 @@ public class WonderGameServiceImpl implements WonderGameService {
 
     protected boolean checkCorrectChain(GameCard card, GameCard chainCard) {
         return card.getChain().stream().anyMatch(s -> s.equals(chainCard.name()));
-    }
-
-    protected boolean isBuildChain(GameCard chainCard) {
-        return chainCard != null;
     }
 
     protected void exeptionBuildMoreLevelWonderThenMax(GameUserInfo currentUserGameInfo) {

@@ -10,11 +10,15 @@ public enum UserActionOnCard {
     SELL_CARD,
     BUILD_WONDER,
     RESURRECT_CARD,
-    CHOOSE_PURPURE_ZEUS
+    CHOOSE_PURPURE_ZEUS;
 
     // add field here
     //side who do
     // where buy resource
     // and other
+
+    public boolean isBuildZeus() {
+        return this == BUILD_ZEUS;
+    }
 
 }

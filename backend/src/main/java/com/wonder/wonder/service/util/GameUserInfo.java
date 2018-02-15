@@ -30,12 +30,12 @@ public class GameUserInfo {
 
     private Integer position;
     //**
-    //  ZEUS WONDER // IS BUILD SECOND CARD ZEUS SIDE B
-    private boolean zeusPassiveWonder;
     // IS USER OR NOT ZEUS ABILITY IN THIS AGE
     private boolean zeusPassiveWonderActive;
     // IN WHAT AGE WAS USED ZEUS ABILITY
     private GamePhase zeusWasUsedInThisAge;
+
+    private boolean zuesPurpleChoose;
     // ZEUS WONDER
     //**
     // if YOU SHOOCE CARD FOR BUILT LIKE CHAIN AND YOU HAVE CARD FOR CHAIN
@@ -112,10 +112,6 @@ public class GameUserInfo {
         wonderLevel++;
     }
 
-    public void addZeusDiscauntEnabledCard() {
-        setZeusPassiveWonder(true);
-        setZeusPassiveWonderActive(true);
-    }
 
     public void addZeusPassiveWonderActive(boolean state) {
         setZeusPassiveWonderActive(state);
@@ -187,5 +183,10 @@ public class GameUserInfo {
 
     public void addResourcesForBuild(List<BaseResource> baseResources) {
         allResourceForBuild.addAll(baseResources);
+    }
+
+    public void addCanChoosePurpleCardInEnd() {
+        setCanBuildByChainCurrentCard(true);
+
     }
 }

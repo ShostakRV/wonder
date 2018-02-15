@@ -49,7 +49,7 @@ public class GameUserInfoUtils {
             if (wonderIsBuilt) {
                 gameUserInfo.addWonderLavel();
             }
-            if (isBuildZeus(userActionOnCard)) {
+            if (userActionOnCard.isBuildZeus()) {
                 GamePhase gamePhase = event.getGamePhase();
                 if (gamePhase.equals(gameUserInfo.getZeusWasUsedInThisAge())) {
                     gameUserInfo.addZeusPassiveWonderActive(true);
@@ -62,7 +62,8 @@ public class GameUserInfoUtils {
             GameCard chainBuild = event.getChainCard();
             boolean isBuildChain = chainBuild != null;
 
-            if (isBuild(userActionOnCard) || isBuildZeus(userActionOnCard) || isBuildChain || wonderIsBuilt) {
+            if (isBuild(userActionOnCard) || userActionOnCard.isBuildZeus() || isBuildChain || wonderIsBuilt ||
+                    userActionOnCard.equals(UserActionOnCard.RESURRECT_CARD)) {
                 GameCard eventCard = event.getCard();
                 gameUserInfo.addBuiltCard(eventCard);
                 gameUserInfo.addWarPower(eventCard);
@@ -72,9 +73,9 @@ public class GameUserInfoUtils {
                 if (isHaveLastCardCanBuildPassiveCard) {
                     gameUserInfo.addHaveLastCardCanBuildPassive();
                 }
-
-                if (eventCard.equals(GameCard.STATUE_SECOND_B)) {
-                    gameUserInfo.addZeusDiscauntEnabledCard();
+                boolean isCanChoosePurpleCardInEnd = eventCard.equals(GameCard.STATUE_ZEUS_THIRD_B);
+                if (isCanChoosePurpleCardInEnd) {
+                    gameUserInfo.addCanChoosePurpleCardInEnd();
                 }
 
                 if (eventCard.equals(GameCard.MAUSOLEUM_SECOND_A)
@@ -89,7 +90,6 @@ public class GameUserInfoUtils {
         return mapGameUserInfo;
     }
 
-    // TODO RENAME ITEM AND ITEMS // todo refactoring for A_DRAW
     protected static void addWarItem(GameUserInfo gameUserInfo, Event event) {
         List<Item> warAndLooseAndA_Draw = event.getItemList();
         for (Item item : warAndLooseAndA_Draw) {
@@ -100,15 +100,10 @@ public class GameUserInfoUtils {
                 gameUserInfo.setCountWinWar(gameUserInfo.getCountWinWar() + givePoints);
             }
         }
-
     }
 
     public static boolean isBuild(UserActionOnCard userActionOnCard) {
-        return userActionOnCard.equals(UserActionOnCard.BUILD);
-    }
-
-    public static boolean isBuildZeus(UserActionOnCard eventUserChoose) {
-        return eventUserChoose.equals(UserActionOnCard.BUILD_ZEUS);
+        return userActionOnCard.equals(UserActionOnCard.BUILD);//todo like with zeus
     }
 
 }
