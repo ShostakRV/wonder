@@ -36,7 +36,7 @@ public class GameUserInfoUtils {
 
             UserActionOnCard userActionOnCard = event.getUserActionOnCard();
             if (isAddDropCard) {
-                boolean isDropCard = userActionOnCard.equals(UserActionOnCard.SELL_CARD);
+                boolean isDropCard = userActionOnCard.isSellCard();
                 if (isDropCard) {
                     gameUserInfo.addDropCard(event.getCard());
                 }
@@ -45,7 +45,7 @@ public class GameUserInfoUtils {
             int userGoldByNow = gameUserInfo.getUserGold() + event.getGoldChange();
             gameUserInfo.addGoldToNewEvent(userGoldByNow);
 
-            boolean wonderIsBuilt = userActionOnCard.equals(UserActionOnCard.BUILD_WONDER);
+            boolean wonderIsBuilt = userActionOnCard.isBuildWonder();
             if (wonderIsBuilt) {
                 gameUserInfo.addWonderLavel();
             }
@@ -62,8 +62,8 @@ public class GameUserInfoUtils {
             GameCard chainBuild = event.getChainCard();
             boolean isBuildChain = chainBuild != null;
 
-            if (isBuild(userActionOnCard) || userActionOnCard.isBuildZeus() || isBuildChain || wonderIsBuilt ||
-                    userActionOnCard.equals(UserActionOnCard.RESURRECT_CARD)) {
+            if (userActionOnCard.isBuild() || userActionOnCard.isBuildZeus() || isBuildChain || wonderIsBuilt ||
+                    userActionOnCard.isRessurectCard()) {
                 GameCard eventCard = event.getCard();
                 gameUserInfo.addBuiltCard(eventCard);
                 gameUserInfo.addWarPower(eventCard);
@@ -100,10 +100,6 @@ public class GameUserInfoUtils {
                 gameUserInfo.setCountWinWar(gameUserInfo.getCountWinWar() + givePoints);
             }
         }
-    }
-
-    public static boolean isBuild(UserActionOnCard userActionOnCard) {
-        return userActionOnCard.equals(UserActionOnCard.BUILD);//todo like with zeus
     }
 
 }

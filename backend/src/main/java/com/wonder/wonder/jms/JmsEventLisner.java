@@ -151,8 +151,7 @@ public class JmsEventLisner {
         }
     }
 
-    //TODO ASK
-    protected List<UserInGame> calculatePointsAndFinishGame(Game game, long userInGameId) {
+       protected List<UserInGame> calculatePointsAndFinishGame(Game game, long userInGameId) {
         GameBoardView gameBoardView = getGameBoardView(userInGameId);
         List<UserInGame> userInGameList = new ArrayList<>(game.getUserInGames());
         for (UserInGame userInGame : userInGameList) {
@@ -238,8 +237,7 @@ public class JmsEventLisner {
         int countPoints = 0;
         int minLevel = -1;
         for (Integer symvol : greenSymvol) {
-            //TODO ASK
-            minLevel = getMinLevel(plusSevenForThreeSymvol, minLevel, symvol);
+                        minLevel = getMinLevel(plusSevenForThreeSymvol, minLevel, symvol);
             countPoints += symvol * symvol;
         }
         countPoints += minLevel * 7;

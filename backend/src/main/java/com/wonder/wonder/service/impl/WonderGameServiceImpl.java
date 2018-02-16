@@ -57,8 +57,7 @@ public class WonderGameServiceImpl implements WonderGameService {
         UserActionOnCard userActionOnCard = eventDto.getUserActionOnCard();
         GameCard targetCard = eventDto.getPlayOnCardForEvent();
         Event currentEvent = addInformationToEventForSave(currentUserGameInfo, eventDto);
-        boolean isSellCard = userActionOnCard.equals(UserActionOnCard.SELL_CARD);
-        if (isSellCard) {
+        if (userActionOnCard.isSellCard()) {
             currentUserGameInfo.addGoldForSale();
         } else {
             GameCard chainCard = currentEvent.getChainCard();
@@ -75,10 +74,10 @@ public class WonderGameServiceImpl implements WonderGameService {
             }
             exeptionZeusPowerDeactivateWhenUserActionZeus(currentUserGameInfo, userActionOnCard);
             exceptionNoBuiltMausoleumForActionResurrect(game, currentUserGameInfo, userActionOnCard);
-
-            exeptionBuildMoreLevelWonderThenMax(currentUserGameInfo);// bug
-            //todo like with zeus
-            if (GameUserInfoUtils.isBuild(userActionOnCard) || userActionOnCard.equals(UserActionOnCard.BUILD_WONDER)) {
+            if (userActionOnCard.isBuildWonder()) {
+                exeptionBuildMoreLevelWonderThenMax(currentUserGameInfo);
+            }
+            if (userActionOnCard.isBuild() ||userActionOnCard.isBuildWonder()) {
                 GameUserInfo leftUserInfo = gameBoardView.getLeftSiteUser();
                 GameUserInfo rightUserInfo = gameBoardView.getRightSiteUser();
                 List<BaseResource> resourcesNeed = targetCard.getResourcesNeedForBuild();
@@ -86,9 +85,8 @@ public class WonderGameServiceImpl implements WonderGameService {
                 List<PayDto> payDtoList = eventDto.getPayDtoList();
                 int goldNeedForConstruction = targetCard.getGoldNeededForConstruction();
                 exeptionNoHaveEnoughtMoney(currentUserGameInfo, goldNeedForConstruction);
-                payGoldForBuild(currentEvent, goldNeedForConstruction);
+                payGoldForConstruction(currentEvent, goldNeedForConstruction);
                 boolean isCardNeedResourceForBuild = resourcesNeed.size() > 0;
-
                 if (isCardNeedResourceForBuild) {
                     int userResourceSize = resourceChooseDtos.size();
                     int buyResourceSize = payDtoList.size();
@@ -100,34 +98,7 @@ public class WonderGameServiceImpl implements WonderGameService {
                         exeptionChooseFailResourceInCard(baseResourcesChooseUser, cardGiveResource);
                         currentUserGameInfo.addResourcesForBuild(chooseDto.getResourceChoose());
                     }
-                    // TODO ASK
-                    changeTradeDiscountBrownLeftIsHaveTrade(currentUserGameInfo);// todo remove one field
-                    changeTradeDiscountBrownRightIsHaveTrade(currentUserGameInfo);
-                    changeTradeDiscountSilverIsHaveTrade(currentUserGameInfo);
-
-                    //todo method pay
-                    for (PayDto payDto : payDtoList) {
-                        List<BaseResource> baseResourcesChooseUser = new ArrayList<>(payDto.getBuyResourceList());
-                        GameResource cardGiveResourse = payDto.getGameCard().getGiveResource();
-                        exeptionChooseTwoResourseNeedOne(baseResourcesChooseUser, cardGiveResourse);
-                        exeptionChooseFailResourceInCard(baseResourcesChooseUser, cardGiveResourse);
-                        ActionSide actionSide = payDto.getActionSide();
-                        int needPayGold;
-                        int buySilver = currentUserGameInfo.getBuySilver();
-                        if (actionSide.equals(ActionSide.LEFT)) {
-                            exeptionPlayerNoHaveThisCard(leftUserInfo, payDto, actionSide);
-                            int buyBrownLeft = currentUserGameInfo.getBuyBrouwnLeft();
-                            needPayGold = getAddGold(payDto, buySilver, buyBrownLeft);
-                            leftUserInfo.addGoldToNewEvent(needPayGold);
-                        } else if (actionSide.equals(ActionSide.RIGHT)) {
-                            exeptionPlayerNoHaveThisCard(rightUserInfo, payDto, actionSide);
-                            int buyBrownRight = currentUserGameInfo.getBuyBrouwnRight();
-                            needPayGold = getAddGold(payDto, buySilver, buyBrownRight);
-                            rightUserInfo.addGoldToNewEvent(needPayGold);
-                        }
-                        exceptionNotEnoughMoney(currentUserGameInfo, rightUserInfo, leftUserInfo);
-                        currentUserGameInfo.addResourcesForBuild(payDto.getBuyResourceList());
-                    }
+                    payGoldToAtherUser(currentUserGameInfo, leftUserInfo, rightUserInfo, payDtoList);
                 }
                 exeptionNotEnoughtResourseForConstruct(currentUserGameInfo, resourcesNeed);
                 saveEventIfNeedPay(leftUserInfo, ActionSide.RIGHT);
@@ -143,30 +114,34 @@ public class WonderGameServiceImpl implements WonderGameService {
 
     }
 
+    protected void payGoldToAtherUser(GameUserInfo currentUserGameInfo, GameUserInfo leftUserInfo, GameUserInfo rightUserInfo, List<PayDto> payDtoList) {
+        for (PayDto payDto : payDtoList) {
+            List<BaseResource> baseResourcesChooseUser = new ArrayList<>(payDto.getBuyResourceList());
+            GameResource cardGiveResourse = payDto.getGameCard().getGiveResource();
+            exeptionChooseTwoResourseNeedOne(baseResourcesChooseUser, cardGiveResourse);
+            exeptionChooseFailResourceInCard(baseResourcesChooseUser, cardGiveResourse);
+            ActionSide actionSide = payDto.getActionSide();
+            int needPayGold;
+            int buySilver = currentUserGameInfo.getBuySilver();
+            if (actionSide.equals(ActionSide.LEFT)) {
+                exeptionPlayerNoHaveThisCard(leftUserInfo, payDto, actionSide);
+                int buyBrownLeft = currentUserGameInfo.getBuyBrouwnLeft();
+                needPayGold = getAddGold(payDto, buySilver, buyBrownLeft);
+                leftUserInfo.addGoldToNewEvent(needPayGold);
+            } else if (actionSide.equals(ActionSide.RIGHT)) {
+                exeptionPlayerNoHaveThisCard(rightUserInfo, payDto, actionSide);
+                int buyBrownRight = currentUserGameInfo.getBuyBrouwnRight();
+                needPayGold = getAddGold(payDto, buySilver, buyBrownRight);
+                rightUserInfo.addGoldToNewEvent(needPayGold);
+            }
+            exceptionNotEnoughMoney(currentUserGameInfo, rightUserInfo, leftUserInfo);
+            currentUserGameInfo.addResourcesForBuild(payDto.getBuyResourceList());
+        }
+    }
+
     private void exceptionForDuplicate(GameBoardView gameBoardView, GameCard chainCard) {
         if (gameBoardView.getCurrentUserBuildCard().contains(chainCard))
             throw new RuntimeException("You want to build duplicate");
-    }
-
-    protected void changeTradeDiscountSilverIsHaveTrade(GameUserInfo currentUserGameInfo) {
-        boolean isTradeSilverDiscountRightAndLeft = currentUserGameInfo.isTradeSilverRightAndLeft();
-        if (isTradeSilverDiscountRightAndLeft) {
-            currentUserGameInfo.changeBuySilverRightAndLeft();
-        }
-    }
-
-    protected void changeTradeDiscountBrownRightIsHaveTrade(GameUserInfo currentUserGameInfo) {
-        boolean isTradeDiscountBrownRight = currentUserGameInfo.isTradeBrownRight();
-        if (isTradeDiscountBrownRight) {
-            currentUserGameInfo.changeBuyBrouwnRight();
-        }
-    }
-
-    protected void changeTradeDiscountBrownLeftIsHaveTrade(GameUserInfo currentUserGameInfo) {
-        boolean isTradeDiscountBrownLeft = currentUserGameInfo.isTradeBrownLeft();
-        if (isTradeDiscountBrownLeft) {
-            currentUserGameInfo.changeCostBuyBrownLeft();
-        }
     }
 
     protected void exeptionPlayerNoHaveThisCard(GameUserInfo gameUserInfo, PayDto payDto, ActionSide actionSide) {
@@ -238,8 +213,7 @@ public class WonderGameServiceImpl implements WonderGameService {
     }
 
     protected void exceptionNoBuiltMausoleumForActionResurrect(Game game, GameUserInfo currentUserGameInfo, UserActionOnCard userActionOnCard) {
-        boolean isResurrectCard = isResurrectCard(userActionOnCard); //todo like with zeus
-        if (isResurrectCard) {
+        if (userActionOnCard.isRessurectCard()) {
             int gameRound = game.getPhaseRound();
             GamePhase gamePhase = game.getPhaseGame();
             boolean noBuildMavzoleumInThisRound = currentUserGameInfo.getRoundResurrectActivate() != gameRound;
@@ -290,13 +264,9 @@ public class WonderGameServiceImpl implements WonderGameService {
         }
     }
 
-    protected void payGoldForBuild(Event currentEvent, int goldNeedForConstruction) {
+    protected void payGoldForConstruction(Event currentEvent, int goldNeedForConstruction) {
         int minusGoldNeedForConstruction = -goldNeedForConstruction;
         currentEvent.setGoldChange(minusGoldNeedForConstruction);
-    }
-
-    protected boolean isResurrectCard(UserActionOnCard userActionOnCard) {
-        return userActionOnCard.equals(UserActionOnCard.RESURRECT_CARD);
     }
 
     protected boolean checkCorrectChain(GameCard card, GameCard chainCard) {

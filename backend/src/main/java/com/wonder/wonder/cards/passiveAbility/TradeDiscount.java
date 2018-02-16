@@ -31,19 +31,18 @@ public class TradeDiscount {
     public void doActive(GameUserInfo gameUserInfo) {
         if (actionSide == ActionSide.RIGHT_AND_LEFT) {
             if (cardColor == GameCardColor.BROWN) {
-                gameUserInfo.addHaveRightAndLeftTradeBrown();
-                gameUserInfo.changeCostBuyBrownLeft();// example
-
+                gameUserInfo.changeCostBuyBrownLeft();
+                gameUserInfo.changeBuyBrouwnRight();
             }
             if (cardColor == GameCardColor.SILVER) {
-                gameUserInfo.addHaveRigrhAndLeftTradeSilver();
+                gameUserInfo.changeBuySilverRightAndLeft();
             }
         }
         if (cardColor == GameCardColor.BROWN) {
             if (actionSide == ActionSide.LEFT) {
-                gameUserInfo.addHaveLeftTradeBrown();
+                gameUserInfo.changeCostBuyBrownLeft();
             } else if (actionSide == ActionSide.RIGHT) {
-                gameUserInfo.addHaveRigrhTradeBrown();
+                gameUserInfo.changeBuyBrouwnRight();
             }
         }
 

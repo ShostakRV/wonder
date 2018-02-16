@@ -20,5 +20,16 @@ public enum UserActionOnCard {
     public boolean isBuildZeus() {
         return this == BUILD_ZEUS;
     }
-
+    public boolean isBuild() {
+        return this == BUILD;
+    }
+    public boolean isSellCard() {
+        return this == SELL_CARD;
+    }
+    public boolean isRessurectCard() {
+        return this == RESURRECT_CARD;
+    }
+    public boolean isBuildWonder() {
+        return this == BUILD_WONDER;
+    }
 }
