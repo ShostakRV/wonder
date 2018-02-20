@@ -6,7 +6,24 @@ class Home extends Component {
     render() {
         return (
             <div>
-                Login
+                <div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address exsample(super)</label>
+                        <input type="text" name="username" class="form-control" id="exampleInputEmail1"
+                               placeholder="super"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input name="password" type="password" class="form-control" id="exampleInputPassword1"
+                               placeholder="super"/>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"/> Check me out
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </div>
             </div>
         );
     }

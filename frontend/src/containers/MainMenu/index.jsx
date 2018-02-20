@@ -8,15 +8,23 @@ class MainMenu extends Component {
     render() {
         return (
             <div>
-                <Link to={PAGE_PATH.home}>
-                    <button className="btn">Home</button>
-                </Link>
-                <Link to={PAGE_PATH.about}>
-                    <button className="btn">About</button>
-                </Link>
-                <Link to={PAGE_PATH.login}>
-                    <button className="btn">Login</button>
-                </Link>
+                <ul>
+                    <li>
+                        <Link to={PAGE_PATH.home}>
+                            <button className="btn">Home</button>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={PAGE_PATH.about}>
+                            <button className="btn">About</button>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={PAGE_PATH.login}>
+                            <button className="btn">Login</button>
+                        </Link>
+                    </li>
+                </ul>
             </div>
         );
     }
