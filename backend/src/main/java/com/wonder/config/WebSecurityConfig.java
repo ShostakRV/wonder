@@ -60,8 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/resources/**");
         web.ignoring().antMatchers("/api/user/register");
-        web.ignoring().antMatchers("/css/**", "/js/**", "/font/**", "/**/favicon.ico");
-
+        web.ignoring().antMatchers("/**.css", "/**.js", "/font/**", "/**/favicon.ico");
     }
 
     @Controller
