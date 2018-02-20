@@ -3,14 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "author": "Pavlenko Bohdan",
+  "main": "gulpfile.js",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "cross-env": "^5.1.3",
     "css-loader": "^0.28.9",
-    "file-loader": "^1.1.6",
+    "gulp": "^3.9.1",
+    "gulp-multi-dest": "^1.3.7",
     "html-webpack-plugin": "^2.30.1",
     "http-proxy-middleware": "^0.17.4",
     "raw-loader": "^0.5.1",
@@ -24,7 +27,6 @@
   },
   "dependencies": {
     "bootstrap": "^4.0.0",
-    "reactstrap": "next",
     "jquery": "^3.3.1",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
@@ -33,6 +35,7 @@
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "reactstrap": "next",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0"
@@ -44,7 +47,7 @@
     "build:react": "react-scripts build",
     "build": "webpack -p --progress",
     "watch": "webpack --watch",
-    "bundle2": "cross-env NODE_ENV=production webpack -p --optimize-dedupe",
+    "bundle": "cross-env NODE_ENV=production webpack -p --optimize-minimize",
     "test": "echo 'No test'"
   }
 }

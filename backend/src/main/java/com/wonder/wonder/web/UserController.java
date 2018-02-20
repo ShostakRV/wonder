@@ -1,17 +1,12 @@
 package com.wonder.wonder.web;
 
-import com.sun.deploy.net.HttpResponse;
 import com.wonder.wonder.model.User;
-import com.wonder.wonder.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.security.Principal;
 
 /**

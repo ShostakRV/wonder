@@ -23,12 +23,12 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 //        registry.addViewController("/register").setViewName("register");
 //        registry.addViewController("/error").setViewName("/error");
 //        registry.addViewController("/hello").setViewName("hello");
-        registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/login").setViewName("index");
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getHomePage() {
-        return "home";
+        return "index";
     }
 
     @Override

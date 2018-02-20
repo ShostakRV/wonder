@@ -1,396 +1,493 @@
 /* line 1, _cards.scss */
 .ALTAR {
-  content: url("img/cards/altar.jpg"); }
+    content: url("img/cards/altar.jpg");
+}
 
 /* line 6, _cards.scss */
 .LUMBER_YARD {
-  content: url("img/cards/lumber_yard.jpg"); }
+    content: url("img/cards/lumber_yard.jpg");
+}
 
 /* line 11, _cards.scss */
 .STONE_PIT {
-  content: url("img/cards/stone_pit.jpg"); }
+    content: url("img/cards/stone_pit.jpg");
+}
 
 /* line 16, _cards.scss */
 .CLAY_POOL {
-  content: url("img/cards/clay_pool.jpg"); }
+    content: url("img/cards/clay_pool.jpg");
+}
 
 /* line 21, _cards.scss */
 .ORE_VEIN {
-  content: url("img/cards/ore_vein.jpg"); }
+    content: url("img/cards/ore_vein.jpg");
+}
 
 /* line 26, _cards.scss */
 .SAWMILL {
-  content: url("img/cards/sawmill.jpg"); }
+    content: url("img/cards/sawmill.jpg");
+}
 
 /* line 31, _cards.scss */
 .QUARRY {
-  content: url("img/cards/quarry.jpg"); }
+    content: url("img/cards/quarry.jpg");
+}
 
 /* line 36, _cards.scss */
 .BRICKYARD {
-  content: url("img/cards/brickyard.jpg"); }
+    content: url("img/cards/brickyard.jpg");
+}
 
 /* line 41, _cards.scss */
 .FOUNDRY {
-  content: url("img/cards/foundry.jpg"); }
+    content: url("img/cards/foundry.jpg");
+}
 
 /* line 46, _cards.scss */
 .TREE_FARM {
-  content: url("img/cards/tree_farm.jpg"); }
+    content: url("img/cards/tree_farm.jpg");
+}
 
 /* line 51, _cards.scss */
 .EXCAVATION {
-  content: url("img/cards/excavation.jpg"); }
+    content: url("img/cards/excavation.jpg");
+}
 
 /* line 56, _cards.scss */
 .CLAY_PIT {
-  content: url("img/cards/clay_pit.jpg"); }
+    content: url("img/cards/clay_pit.jpg");
+}
 
 /* line 61, _cards.scss */
 .TIMBER_YARD {
-  content: url("img/cards/timber_yard.jpg"); }
+    content: url("img/cards/timber_yard.jpg");
+}
 
 /* line 66, _cards.scss */
 .FOREST_CAVE {
-  content: url("img/cards/forest_cave.jpg"); }
+    content: url("img/cards/forest_cave.jpg");
+}
 
 /* line 71, _cards.scss */
 .MINE {
-  content: url("img/cards/mine.jpg"); }
+    content: url("img/cards/mine.jpg");
+}
 
 /* line 76, _cards.scss */
 .LOOM {
-  content: url("img/cards/loom.jpg"); }
+    content: url("img/cards/loom.jpg");
+}
 
 /* line 81, _cards.scss */
 .GLASSWORKS {
-  content: url("img/cards/glassworks.jpg"); }
+    content: url("img/cards/glassworks.jpg");
+}
 
 /* line 86, _cards.scss */
 .PRESS {
-  content: url("img/cards/press.jpg"); }
+    content: url("img/cards/press.jpg");
+}
 
 /* line 91, _cards.scss */
 .EAST_TRADING_POST {
-  content: url("img/cards/east_trading_post.jpg"); }
+    content: url("img/cards/east_trading_post.jpg");
+}
 
 /* line 96, _cards.scss */
 .WEST_TRADING_POST {
-  content: url("img/cards/west_trading_post.jpg"); }
+    content: url("img/cards/west_trading_post.jpg");
+}
 
 /* line 101, _cards.scss */
 .MARKETPLACE {
-  content: url("img/cards/marketplace.jpg"); }
+    content: url("img/cards/marketplace.jpg");
+}
 
 /* line 106, _cards.scss */
 .TAVERN {
-  content: url("img/cards/tavern.jpg"); }
+    content: url("img/cards/tavern.jpg");
+}
 
 /* line 111, _cards.scss */
 .CARAVANSERY {
-  content: url("img/cards/caravansery.jpg"); }
+    content: url("img/cards/caravansery.jpg");
+}
 
 /* line 116, _cards.scss */
 .FORUM {
-  content: url("img/cards/forum.jpg"); }
+    content: url("img/cards/forum.jpg");
+}
 
 /* line 121, _cards.scss */
 .VINEYARD {
-  content: url("img/cards/vineyard.jpg"); }
+    content: url("img/cards/vineyard.jpg");
+}
 
 /* line 126, _cards.scss */
 .BAZAR {
-  content: url("img/cards/bazar.jpg"); }
+    content: url("img/cards/bazar.jpg");
+}
 
 /* line 131, _cards.scss */
 .HAVEN {
-  content: url("img/cards/haven.jpg"); }
+    content: url("img/cards/haven.jpg");
+}
 
 /* line 136, _cards.scss */
 .LIGHTHOUSE {
-  content: url("img/cards/lighthouse.jpg"); }
+    content: url("img/cards/lighthouse.jpg");
+}
 
 /* line 141, _cards.scss */
 .CHAMBER_OF_COMMERCE {
-  content: url("img/cards/chamber_of_commerce.jpg"); }
+    content: url("img/cards/chamber_of_commerce.jpg");
+}
 
 /* line 146, _cards.scss */
 .ARENA {
-  content: url("img/cards/arena.jpg"); }
+    content: url("img/cards/arena.jpg");
+}
 
 /* line 151, _cards.scss */
 .PAWNSHOP {
-  content: url("img/cards/pawnshop.jpg"); }
+    content: url("img/cards/pawnshop.jpg");
+}
 
 /* line 156, _cards.scss */
 .BATHS {
-  content: url("img/cards/baths.jpg"); }
+    content: url("img/cards/baths.jpg");
+}
 
 /* line 161, _cards.scss */
 .ALTAR {
-  content: url("img/cards/altar.jpg"); }
+    content: url("img/cards/altar.jpg");
+}
 
 /* line 166, _cards.scss */
 .THEATER {
-  content: url("img/cards/theater.jpg"); }
+    content: url("img/cards/theater.jpg");
+}
 
 /* line 171, _cards.scss */
 .AQUEDUCT {
-  content: url("img/cards/aqueduct.jpg"); }
+    content: url("img/cards/aqueduct.jpg");
+}
 
 /* line 176, _cards.scss */
 .TEMPLE {
-  content: url("img/cards/temple.jpg"); }
+    content: url("img/cards/temple.jpg");
+}
 
 /* line 181, _cards.scss */
 .STATUE {
-  content: url("img/cards/statue.jpg"); }
+    content: url("img/cards/statue.jpg");
+}
 
 /* line 186, _cards.scss */
 .COURTHOUSE {
-  content: url("img/cards/courthouse.jpg"); }
+    content: url("img/cards/courthouse.jpg");
+}
 
 /* line 191, _cards.scss */
 .PANTHEON {
-  content: url("img/cards/pantheon.jpg"); }
+    content: url("img/cards/pantheon.jpg");
+}
 
 /* line 196, _cards.scss */
 .GARDENS {
-  content: url("img/cards/gardens.jpg"); }
+    content: url("img/cards/gardens.jpg");
+}
 
 /* line 201, _cards.scss */
 .TOWN_HALL {
-  content: url("img/cards/town_hall.jpg"); }
+    content: url("img/cards/town_hall.jpg");
+}
 
 /* line 206, _cards.scss */
 .PALACE {
-  content: url("img/cards/palace.jpg"); }
+    content: url("img/cards/palace.jpg");
+}
 
 /* line 211, _cards.scss */
 .SENATE {
-  content: url("img/cards/senate.jpg"); }
+    content: url("img/cards/senate.jpg");
+}
 
 /* line 216, _cards.scss */
 .STOCKADE {
-  content: url("img/cards/stockade.jpg"); }
+    content: url("img/cards/stockade.jpg");
+}
 
 /* line 221, _cards.scss */
 .BARRACKS {
-  content: url("img/cards/barracks.jpg"); }
+    content: url("img/cards/barracks.jpg");
+}
 
 /* line 226, _cards.scss */
 .GUARD_TOWER {
-  content: url("img/cards/guard_tower.jpg"); }
+    content: url("img/cards/guard_tower.jpg");
+}
 
 /* line 231, _cards.scss */
 .WALLS {
-  content: url("img/cards/walls.jpg"); }
+    content: url("img/cards/walls.jpg");
+}
 
 /* line 236, _cards.scss */
 .TRAINING_GROUND {
-  content: url("img/cards/training_ground.jpg"); }
+    content: url("img/cards/training_ground.jpg");
+}
 
 /* line 241, _cards.scss */
 .STABLES {
-  content: url("img/cards/stables.jpg"); }
+    content: url("img/cards/stables.jpg");
+}
 
 /* line 246, _cards.scss */
 .ARCHERY_RANGE {
-  content: url("img/cards/archery_range.jpg"); }
+    content: url("img/cards/archery_range.jpg");
+}
 
 /* line 251, _cards.scss */
 .FORTIFICATIONS {
-  content: url("img/cards/fortifications.jpg"); }
+    content: url("img/cards/fortifications.jpg");
+}
 
 /* line 256, _cards.scss */
 .CIRCUS {
-  content: url("img/cards/circus.jpg"); }
+    content: url("img/cards/circus.jpg");
+}
 
 /* line 261, _cards.scss */
 .ARSENAL {
-  content: url("img/cards/arsenal.jpg"); }
+    content: url("img/cards/arsenal.jpg");
+}
 
 /* line 266, _cards.scss */
 .SIEGE_WORKSHOP {
-  content: url("img/cards/siege_workshop.jpg"); }
+    content: url("img/cards/siege_workshop.jpg");
+}
 
 /* line 271, _cards.scss */
 .APOTHECARY {
-  content: url("img/cards/apothecary.jpg"); }
+    content: url("img/cards/apothecary.jpg");
+}
 
 /* line 276, _cards.scss */
 .WORKSHOP {
-  content: url("img/cards/workshop.jpg"); }
+    content: url("img/cards/workshop.jpg");
+}
 
 /* line 281, _cards.scss */
 .SCRIPTORIUM {
-  content: url("img/cards/scriptorium.jpg"); }
+    content: url("img/cards/scriptorium.jpg");
+}
 
 /* line 286, _cards.scss */
 .DISPENSARY {
-  content: url("img/cards/dispensary.jpg"); }
+    content: url("img/cards/dispensary.jpg");
+}
 
 /* line 291, _cards.scss */
 .LABORATORY {
-  content: url("img/cards/laboratory.jpg"); }
+    content: url("img/cards/laboratory.jpg");
+}
 
 /* line 296, _cards.scss */
 .LIBRARY {
-  content: url("img/cards/library.jpg"); }
+    content: url("img/cards/library.jpg");
+}
 
 /* line 301, _cards.scss */
 .SCHOOL {
-  content: url("img/cards/school.jpg"); }
+    content: url("img/cards/school.jpg");
+}
 
 /* line 306, _cards.scss */
 .LODGE {
-  content: url("img/cards/lodge.jpg"); }
+    content: url("img/cards/lodge.jpg");
+}
 
 /* line 311, _cards.scss */
 .OBSERVATORY {
-  content: url("img/cards/observatory.jpg"); }
+    content: url("img/cards/observatory.jpg");
+}
 
 /* line 316, _cards.scss */
 .UNIVERSITY {
-  content: url("img/cards/university.jpg"); }
+    content: url("img/cards/university.jpg");
+}
 
 /* line 321, _cards.scss */
 .ACADEMY {
-  content: url("img/cards/academy.jpg"); }
+    content: url("img/cards/academy.jpg");
+}
 
 /* line 326, _cards.scss */
 .STUDY {
-  content: url("img/cards/study.jpg"); }
+    content: url("img/cards/study.jpg");
+}
 
 /* line 331, _cards.scss */
 .WORKERS_GUILD {
-  content: url("img/cards/workers_guild.jpg"); }
+    content: url("img/cards/workers_guild.jpg");
+}
 
 /* line 336, _cards.scss */
 .CRAFTMENS_GUILD {
-  content: url("img/cards/craftmens_guild.jpg"); }
+    content: url("img/cards/craftmens_guild.jpg");
+}
 
 /* line 341, _cards.scss */
 .TRADERS_GUILD {
-  content: url("img/cards/traders_guild.jpg"); }
+    content: url("img/cards/traders_guild.jpg");
+}
 
 /* line 346, _cards.scss */
 .PHILOSOPHERS_GUILD {
-  content: url("img/cards/philosophers_guil.jpg"); }
+    content: url("img/cards/philosophers_guil.jpg");
+}
 
 /* line 351, _cards.scss */
 .SPY_GUILD {
-  content: url("img/cards/spy_guild.jpg"); }
+    content: url("img/cards/spy_guild.jpg");
+}
 
 /* line 356, _cards.scss */
 .MAGISTRATES_GUILD {
-  content: url("img/cards/magistrates_guild.jpg"); }
+    content: url("img/cards/magistrates_guild.jpg");
+}
 
 /* line 361, _cards.scss */
 .SHIPOWNERS_GUILD {
-  content: url("img/cards/shipowners_guild.jpg"); }
+    content: url("img/cards/shipowners_guild.jpg");
+}
 
 /* line 366, _cards.scss */
 .SCIENTISTS_GUILD {
-  content: url("img/cards/scientists_guild.jpg"); }
+    content: url("img/cards/scientists_guild.jpg");
+}
 
 /* line 371, _cards.scss */
 .BUILDERS_GUILD {
-  content: url("img/cards/builders_guild.jpg"); }
+    content: url("img/cards/builders_guild.jpg");
+}
 
 /* line 376, _cards.scss */
 .STRATEGY_GUILD {
-  content: url("img/cards/strategy_guild.jpg"); }
+    content: url("img/cards/strategy_guild.jpg");
+}
 
 /* line 1, _wonders.scss */
 .wonder-colossus-a {
-  content: url("img/wonders/colossus_a.jpg"); }
+    content: url("img/wonders/colossus_a.jpg");
+}
 
 /* line 6, _wonders.scss */
 .colossus_b {
-  content: url("img/wonders/colossus_b.jpg"); }
+    content: url("img/wonders/colossus_b.jpg");
+}
 
 /* line 11, _wonders.scss */
 .manneken_pis_bruxelles_a {
-  content: url("img/wonders/manneken_pis_bruxelles_a.jpg"); }
+    content: url("img/wonders/manneken_pis_bruxelles_a.jpg");
+}
 
 /* line 16, _wonders.scss */
 .manneken_pis_bruxelles_b {
-  content: url("img/wonders/manneken_pis_bruxelles_b.jpg"); }
+    content: url("img/wonders/manneken_pis_bruxelles_b.jpg");
+}
 
 /* line 21, _wonders.scss */
 .the_hanging_gardens_of_babylon_a {
-  content: url("img/wonders/the_hanging_gardens_of_babylon_a.jpg"); }
+    content: url("img/wonders/the_hanging_gardens_of_babylon_a.jpg");
+}
 
 /* line 26, _wonders.scss */
 .the_hanging_gardens_of_babylon_b {
-  content: url("img/wonders/the_hanging_gardens_of_babylon_b.jpg"); }
+    content: url("img/wonders/the_hanging_gardens_of_babylon_b.jpg");
+}
 
 /* line 31, _wonders.scss */
 .the_lighthouse_of_lexandria_a {
-  content: url("img/wonders/the_lighthouse_of_lexandria_a.jpg"); }
+    content: url("img/wonders/the_lighthouse_of_lexandria_a.jpg");
+}
 
 /* line 36, _wonders.scss */
 .the_lighthouse_of_lexandria_b {
-  content: url("img/wonders/the_lighthouse_of_lexandria_b.jpg"); }
+    content: url("img/wonders/the_lighthouse_of_lexandria_b.jpg");
+}
 
 /* line 41, _wonders.scss */
 .the_mausoleum_of_halicarnassus_a {
-  content: url("img/wonders/the_mausoleum_of_halicarnassus_a.jpg"); }
+    content: url("img/wonders/the_mausoleum_of_halicarnassus_a.jpg");
+}
 
 /* line 46, _wonders.scss */
 .the_mausoleum_of_halicarnassus_b {
-  content: url("img/wonders/the_mausoleum_of_halicarnassus_b.jpg"); }
+    content: url("img/wonders/the_mausoleum_of_halicarnassus_b.jpg");
+}
 
 /* line 51, _wonders.scss */
 .the_pyramids_of_giza_a {
-  content: url("img/wonders/the_pyramids_of_giza_a.jpg"); }
+    content: url("img/wonders/the_pyramids_of_giza_a.jpg");
+}
 
 /* line 56, _wonders.scss */
 .the_pyramids_of_giza_b {
-  content: url("img/wonders/the_pyramids_of_giza_b.jpg"); }
+    content: url("img/wonders/the_pyramids_of_giza_b.jpg");
+}
 
 /* line 61, _wonders.scss */
 .the_statue_of_zeus_a {
-  content: url("img/wonders/the_statue_of_zeus_a.jpg"); }
+    content: url("img/wonders/the_statue_of_zeus_a.jpg");
+}
 
 /* line 66, _wonders.scss */
 .the_statue_of_zeus_b {
-  content: url("img/wonders/the_statue_of_zeus_b.jpg"); }
+    content: url("img/wonders/the_statue_of_zeus_b.jpg");
+}
 
 /* line 71, _wonders.scss */
 .the_temple_of_artemis_in_ephesus_a {
-  content: url("img/wonders/the_temple_of_artemis_in_ephesus_a.jpg"); }
+    content: url("img/wonders/the_temple_of_artemis_in_ephesus_a.jpg");
+}
 
 /* line 76, _wonders.scss */
 .the_temple_of_artemis_in_ephesus_b {
-  content: url("img/wonders/the_temple_of_artemis_in_ephesus_b.jpg"); }
+    content: url("img/wonders/the_temple_of_artemis_in_ephesus_b.jpg");
+}
 
 /* line 9, style.scss */
 .wonder, .wonder-colossus-a, .colossus_b, .manneken_pis_bruxelles_a, .manneken_pis_bruxelles_b, .the_hanging_gardens_of_babylon_a, .the_hanging_gardens_of_babylon_b, .the_lighthouse_of_lexandria_a, .the_lighthouse_of_lexandria_b, .the_mausoleum_of_halicarnassus_a, .the_mausoleum_of_halicarnassus_b, .the_pyramids_of_giza_a, .the_pyramids_of_giza_b, .the_statue_of_zeus_a, .the_statue_of_zeus_b, .the_temple_of_artemis_in_ephesus_a, .the_temple_of_artemis_in_ephesus_b {
-  width: 40%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto; }
+    width: 40%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 /* line 16, style.scss */
 .card, .ALTAR, .LUMBER_YARD, .STONE_PIT, .CLAY_POOL, .ORE_VEIN, .SAWMILL, .QUARRY, .BRICKYARD, .FOUNDRY, .TREE_FARM, .EXCAVATION, .CLAY_PIT, .TIMBER_YARD, .FOREST_CAVE, .MINE, .LOOM, .GLASSWORKS, .PRESS, .EAST_TRADING_POST, .WEST_TRADING_POST, .MARKETPLACE, .TAVERN, .CARAVANSERY, .FORUM, .VINEYARD, .BAZAR, .HAVEN, .LIGHTHOUSE, .CHAMBER_OF_COMMERCE, .ARENA, .PAWNSHOP, .BATHS, .THEATER, .AQUEDUCT, .TEMPLE, .STATUE, .COURTHOUSE, .PANTHEON, .GARDENS, .TOWN_HALL, .PALACE, .SENATE, .STOCKADE, .BARRACKS, .GUARD_TOWER, .WALLS, .TRAINING_GROUND, .STABLES, .ARCHERY_RANGE, .FORTIFICATIONS, .CIRCUS, .ARSENAL, .SIEGE_WORKSHOP, .APOTHECARY, .WORKSHOP, .SCRIPTORIUM, .DISPENSARY, .LABORATORY, .LIBRARY, .SCHOOL, .LODGE, .OBSERVATORY, .UNIVERSITY, .ACADEMY, .STUDY, .WORKERS_GUILD, .CRAFTMENS_GUILD, .TRADERS_GUILD, .PHILOSOPHERS_GUILD, .SPY_GUILD, .MAGISTRATES_GUILD, .SHIPOWNERS_GUILD, .SCIENTISTS_GUILD, .BUILDERS_GUILD, .STRATEGY_GUILD {
-  width: 100%; }
+    width: 100%;
+}
 
 /* line 20, style.scss */
 .card:hover, .ALTAR:hover, .LUMBER_YARD:hover, .STONE_PIT:hover, .CLAY_POOL:hover, .ORE_VEIN:hover, .SAWMILL:hover, .QUARRY:hover, .BRICKYARD:hover, .FOUNDRY:hover, .TREE_FARM:hover, .EXCAVATION:hover, .CLAY_PIT:hover, .TIMBER_YARD:hover, .FOREST_CAVE:hover, .MINE:hover, .LOOM:hover, .GLASSWORKS:hover, .PRESS:hover, .EAST_TRADING_POST:hover, .WEST_TRADING_POST:hover, .MARKETPLACE:hover, .TAVERN:hover, .CARAVANSERY:hover, .FORUM:hover, .VINEYARD:hover, .BAZAR:hover, .HAVEN:hover, .LIGHTHOUSE:hover, .CHAMBER_OF_COMMERCE:hover, .ARENA:hover, .PAWNSHOP:hover, .BATHS:hover, .THEATER:hover, .AQUEDUCT:hover, .TEMPLE:hover, .STATUE:hover, .COURTHOUSE:hover, .PANTHEON:hover, .GARDENS:hover, .TOWN_HALL:hover, .PALACE:hover, .SENATE:hover, .STOCKADE:hover, .BARRACKS:hover, .GUARD_TOWER:hover, .WALLS:hover, .TRAINING_GROUND:hover, .STABLES:hover, .ARCHERY_RANGE:hover, .FORTIFICATIONS:hover, .CIRCUS:hover, .ARSENAL:hover, .SIEGE_WORKSHOP:hover, .APOTHECARY:hover, .WORKSHOP:hover, .SCRIPTORIUM:hover, .DISPENSARY:hover, .LABORATORY:hover, .LIBRARY:hover, .SCHOOL:hover, .LODGE:hover, .OBSERVATORY:hover, .UNIVERSITY:hover, .ACADEMY:hover, .STUDY:hover, .WORKERS_GUILD:hover, .CRAFTMENS_GUILD:hover, .TRADERS_GUILD:hover, .PHILOSOPHERS_GUILD:hover, .SPY_GUILD:hover, .MAGISTRATES_GUILD:hover, .SHIPOWNERS_GUILD:hover, .SCIENTISTS_GUILD:hover, .BUILDERS_GUILD:hover, .STRATEGY_GUILD:hover {
-  -webkit-transform: scale(1.5);
-  -moz-transform: scale(1.5);
-  -o-transform: scale(1.5); }
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -o-transform: scale(1.5);
+}
 
 /* line 27, style.scss */
 .big-img {
-  display: none; }
+    display: none;
+}
 
 /* line 34, style.scss */
 .user-info {
-  overflow: visible;
-  border: solid  black 2px;
-  border-radius: 20px; }
+    overflow: visible;
+    border: solid black 2px;
+    border-radius: 20px;
+}
 
 /*# sourceMappingURL=style.css.map */
