@@ -14,13 +14,6 @@ import java.util.Optional;
 public interface UserDao extends JpaRepository<User, Long> {
 
     Optional<User> findByEmail(String email);
-
     Optional<User> findById(long id); // here must be long or Long ??
-
     Optional<User> findByUserName(String userName);
-
-    @Query("from User")
-    List<User> hibernateQuery();
-
-
 }

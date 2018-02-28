@@ -11,14 +11,12 @@ import static org.junit.Assert.assertEquals;
 @RunWith(MockitoJUnitRunner.class)
 public class GameUserInfoTest {
 
-
     private GameUserInfo gameUserInfo;
 
     @Before
     public void setUp() {
         gameUserInfo = new GameUserInfo(UserInGameFactory.userInGameInitPhaseAge_1_ZERO());
     }
-
 
     @Test
     public void createGameUserInfo() {

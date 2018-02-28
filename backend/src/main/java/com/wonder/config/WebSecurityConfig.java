@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * Creator: bm
  * Date: 03.06.17.
+ *  * Update Missurenko
+ * Update 28.02.2018
  */
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
@@ -54,14 +56,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
-
     }
 
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/resources/**");
         web.ignoring().antMatchers("/api/user/register");
         web.ignoring().antMatchers("/css/**", "/js/**", "/font/**", "/**/favicon.ico");
-
     }
 
     @Controller

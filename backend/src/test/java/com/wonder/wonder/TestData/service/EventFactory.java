@@ -24,7 +24,7 @@ public class EventFactory {
         event.setGamePhase(gamePhase);
         event.setPhaseRound(round);
         event.setPhaseChooseDo(ohase_choose_do);
-        event.setCard((GameCard) playCard);
+        event.setCard(playCard);
         event.setUserActionOnCard(userActionOnCard);
         event.setChainCard(chainCard);
         event.setGoldChange(goldChange);

@@ -195,15 +195,12 @@ public class JmsEventLisner {
                 if (maxPoint < pointsMain) {
                     maxPoint = pointsMain;
                 }
-
                 if (freeSymvol > 1 && i < 2) {
-
                     greenSymvol = new ArrayList<>(allGreenSymvol.values());
                     Integer first = greenSymvol.get(i) + freeSymvol - 1;
                     greenSymvol.set(i, first);
                     Integer second = greenSymvol.get(i + 1) + freeSymvol - 1;
                     greenSymvol.set(i + 1, second);
-
                     int pointsFirstSecond = calculateGreenPoint(greenSymvol);
                     if (maxPoint < pointsFirstSecond) {
                         maxPoint = pointsFirstSecond;
@@ -322,7 +319,6 @@ public class JmsEventLisner {
 
     protected String[] splitGamePhase(Game game) {
         return game.getPhaseGame().toString().split("_");
-
     }
 }
 

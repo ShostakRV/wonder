@@ -79,7 +79,6 @@ public class GameUserInfo {
     //**
     private final Event eventToSave;
 
-
     public GameUserInfo(UserInGame userInGame) {
         this.userId = userInGame.getUser().getId();
         this.wonder = userInGame.getWonder();
@@ -100,7 +99,6 @@ public class GameUserInfo {
     public void addWonderLavel() {
         wonderLevel++;
     }
-
 
     public void addZeusPassiveWonderActive(boolean state) {
         setZeusPassiveWonderActive(state);
