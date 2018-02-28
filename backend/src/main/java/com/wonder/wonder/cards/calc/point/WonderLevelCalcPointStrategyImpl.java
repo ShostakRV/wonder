@@ -13,7 +13,7 @@ public class WonderLevelCalcPointStrategyImpl implements CalcPointStrategy {
     private final ActionSide actionSide;
     private final int pointForOneLevelCard;
 
-    WonderLevelCalcPointStrategyImpl(ActionSide actionSide, int pointForOneLevelCard) {
+    public WonderLevelCalcPointStrategyImpl(ActionSide actionSide, int pointForOneLevelCard) {
         this.actionSide = actionSide;
         this.pointForOneLevelCard = pointForOneLevelCard;
     }

@@ -15,6 +15,8 @@ import java.util.List;
 /**
  * Creator: Pavlenko Bohdan
  * Date: 16.06.2017
+ * Update Missurenko
+ * Update 28.02.2018
  * Project: wonder
  */
 @Getter
@@ -58,7 +60,7 @@ public class Event {
     private GameCard ToPutOnForBuild;
 
     @Column(name = "from_user")
-    private ActionSide from_user;
+    private ActionSide from_user; // todo UserInGame
 
     @Column(name = "user_action_on_card")
     @Enumerated(EnumType.STRING)

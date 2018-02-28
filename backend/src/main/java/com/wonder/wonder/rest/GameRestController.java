@@ -7,6 +7,9 @@ import com.wonder.wonder.dto.EventDto;
 import com.wonder.wonder.dto.GameViewDto;
 import com.wonder.wonder.service.GameService;
 import com.wonder.wonder.service.WonderGameService;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.convert.ReadingConverter;
 import org.springframework.http.HttpStatus;
@@ -20,6 +23,7 @@ import java.util.List;
  */
 @ReadingConverter
 @RequestMapping(name = Constants.BASE_GAME_PATH)
+@Slf4j
 public class GameRestController {
     @Autowired
     GameService gameService;
@@ -37,7 +41,7 @@ public class GameRestController {
         return gameService.joinToGame(gameId);
     }
 
-    @RequestMapping(value = "/lobby", method = RequestMethod.GET)
+    @RequestMapping(value = "/lobby", method = RequestMethod.GET)// todo pagging
     public List<GameViewDto> showLobby() {
         return gameService.showGameInJoinPhaseInLobby();
     }
@@ -54,7 +58,7 @@ public class GameRestController {
         }
     }
 
-    @PostMapping(value = "/{gameId}/playCard")
+    @PostMapping(value = "/{gameId}/playCard")// todo GET
     public BoardDto getBoard(@PathVariable(name = "gameId") Long gameId,
                              @RequestBody EventDto eventDto) {
         wonderGameService.playCard(eventDto);

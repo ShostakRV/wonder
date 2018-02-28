@@ -30,17 +30,17 @@ public class GameUserInfo {
 
     private Integer position;
     //**
-    //  ZEUS WONDER // IS BUILD SECOND CARD ZEUS SIDE B
-    private boolean zeusPassiveWonder;
     // IS USER OR NOT ZEUS ABILITY IN THIS AGE
     private boolean zeusPassiveWonderActive;
     // IN WHAT AGE WAS USED ZEUS ABILITY
     private GamePhase zeusWasUsedInThisAge;
+
+    private boolean zuesPurpleChoose;
     // ZEUS WONDER
     //**
     // if YOU SHOOCE CARD FOR BUILT LIKE CHAIN AND YOU HAVE CARD FOR CHAIN
     private boolean canBuildByChainCurrentCard;
-    //** MAUSOLEUM
+    //    //** MAUSOLEUM
     private int roundResurrectActivate;
 
     private boolean activateResurrectAction;
@@ -48,18 +48,7 @@ public class GameUserInfo {
     private GamePhase ageResurrectActivate;
 //** MAUSOLEUM
 
-
     private boolean garderPassiveChooseEightCard;
-
-    //**
-    //TRADE PASSIVE RESOURSE buy COST 1 gold
-    private boolean tradeSilverRightAndLeft;
-
-    private boolean tradeBrownRight;
-
-    private boolean tradeBrownLeft;
-    //TRADE PASSIVE RESOURSE buy COST 1 gold
-    //**
 
     private int buyBrouwnLeft = 2;
     private int buyBrouwnRight = 2;
@@ -90,7 +79,6 @@ public class GameUserInfo {
     //**
     private final Event eventToSave;
 
-
     public GameUserInfo(UserInGame userInGame) {
         this.userId = userInGame.getUser().getId();
         this.wonder = userInGame.getWonder();
@@ -112,11 +100,6 @@ public class GameUserInfo {
         wonderLevel++;
     }
 
-    public void addZeusDiscauntEnabledCard() {
-        setZeusPassiveWonder(true);
-        setZeusPassiveWonderActive(true);
-    }
-
     public void addZeusPassiveWonderActive(boolean state) {
         setZeusPassiveWonderActive(state);
     }
@@ -125,25 +108,8 @@ public class GameUserInfo {
         setZeusWasUsedInThisAge(gamePhase);
     }
 
-    public void addHaveRigrhAndLeftTradeSilver() {
-        setTradeSilverRightAndLeft(true);
-    }
-
-    public void addHaveRigrhTradeBrown() {
-        setTradeBrownRight(true);
-    }
-
-    public void addHaveLeftTradeBrown() {
-        setTradeBrownLeft(true);
-    }
-
     public void addHaveLastCardCanBuildPassive() {
         setGarderPassiveChooseEightCard(true);
-    }
-
-    public void addHaveRightAndLeftTradeBrown() {
-        setTradeBrownRight(true);
-        setTradeBrownLeft(true);
     }
 
     public void addBuiltCard(GameCard gameCard) {
@@ -172,9 +138,6 @@ public class GameUserInfo {
         eventToSave.setGoldChange(3);
     }
 
-    public void addCanBuildByChain() {
-        setCanBuildByChainCurrentCard(true);
-    }
 
     public void addDropCard(GameCard card) {
         getAllDropsCards().add(card);
@@ -187,5 +150,10 @@ public class GameUserInfo {
 
     public void addResourcesForBuild(List<BaseResource> baseResources) {
         allResourceForBuild.addAll(baseResources);
+    }
+
+    public void addCanChoosePurpleCardInEnd() {
+        setCanShoosePurpure(true);
+
     }
 }

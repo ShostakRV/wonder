@@ -15,5 +15,4 @@ import java.util.List;
 public interface CardSetItemDao extends JpaRepository<CardSetItem, Long> {
 
     CardSetItem findByCardSetAndGameCard(CardSet cardSet, GameCard gameCard);
-
 }

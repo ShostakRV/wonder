@@ -15,7 +15,7 @@ public class ReceiveGoldByWonderOnBuildEventImpl implements OnBuildEvent {
     private final ActionSide actionSide;
     private final int pointForOneCard;
 
-    ReceiveGoldByWonderOnBuildEventImpl(ActionSide actionSide, int pointForOneCard) {
+    public ReceiveGoldByWonderOnBuildEventImpl(ActionSide actionSide, int pointForOneCard) {
         this.actionSide = actionSide;
         this.pointForOneCard = pointForOneCard;
     }

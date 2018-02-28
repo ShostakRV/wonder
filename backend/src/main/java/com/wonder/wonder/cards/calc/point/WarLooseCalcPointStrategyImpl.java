@@ -8,9 +8,9 @@ import com.wonder.wonder.service.util.GameBoardView;
  * DATE: 20.06.17.
  */
 public class WarLooseCalcPointStrategyImpl implements CalcPointStrategy {
-    private final ActionSide actionSide;
 
-    WarLooseCalcPointStrategyImpl(ActionSide actionSide) {
+    private final ActionSide actionSide;
+    public WarLooseCalcPointStrategyImpl(ActionSide actionSide) {
         this.actionSide = actionSide;
     }
 

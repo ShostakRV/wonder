@@ -334,21 +334,21 @@ public enum GameCard {
 
     //ZEUS
 
-    STATUE_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.WOOD, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
+    STATUE_ZEUS_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.WOOD, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
 
 
-    STATUE_FIRST_A(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(3), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.WOOD, BaseResource.WOOD),
+    STATUE_ZEUS_FIRST_A(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(3), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.WOOD, BaseResource.WOOD),
 
-    STATUE_SECOND_A(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(0), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.STONE, BaseResource.STONE),
+    STATUE_ZEUS_SECOND_A(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(0), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.STONE, BaseResource.STONE),
 
-    STATUE_THIRD_A(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(7), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.IRON, BaseResource.IRON),
+    STATUE_ZEUS_THIRD_A(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(7), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.IRON, BaseResource.IRON),
 
 
-    STATUE_FIRST_B(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(0), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.WOOD, BaseResource.WOOD),
+    STATUE_ZEUS_FIRST_B(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(0), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.WOOD, BaseResource.WOOD),
 
-    STATUE_SECOND_B(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(5), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.STONE, BaseResource.STONE, BaseResource.STONE),
+    STATUE_ZEUS_SECOND_B(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(5), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.STONE, BaseResource.STONE, BaseResource.STONE),
 
-    STATUE_THIRD_B(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(5), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.IRON, BaseResource.IRON, BaseResource.SILK),
+    STATUE_ZEUS_THIRD_B(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.simple(5), GameResource.NO_RESOURCE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent(), BaseResource.IRON, BaseResource.IRON, BaseResource.SILK),
 
 
 //MAUSOLEUM

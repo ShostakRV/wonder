@@ -25,7 +25,6 @@ public class ColorCardCalcPointStrategyImpl implements CalcPointStrategy {
     @Override
     public int getPoints(GameBoardView boardView) {
         return pointForOneCard * buildCardColorCount(boardView);
-
     }
 
     protected int buildCardColorCount(GameBoardView boardView) {
