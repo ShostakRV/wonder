@@ -26,11 +26,8 @@ public class Role {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-
         Role role = (Role) o;
-
-        if (roleId != role.roleId) return false;
-        return name != null ? name.equals(role.name) : role.name == null;
+        return roleId == role.roleId && (name != null ? name.equals(role.name) : role.name == null);
     }
 
     @Override

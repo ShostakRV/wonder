@@ -32,7 +32,7 @@ public class UserRestController {
     @Autowired
     private UserConverter userConverter;
 
-    @GetMapping(value = "/")
+    @GetMapping
     public List<UserDto> list(
             @RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
             @RequestParam(value = "pageSize", defaultValue = "30", required = false) Integer pageSize

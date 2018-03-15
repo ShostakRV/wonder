@@ -92,11 +92,11 @@ task wrapper(type: Wrapper) {
 
 //run frontend
 jar {
-    from('../frontend/build') {
+    from('../frontend/dist') {
         into 'static'
     }
 }
 
-jar.dependsOn(':frontend:gulpBuildDefault')
+jar.dependsOn(':frontend:assemble')
 
 // https://mvnrepository.com/artifact/com.h2database/h2

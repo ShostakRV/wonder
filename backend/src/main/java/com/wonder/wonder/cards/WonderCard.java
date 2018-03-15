@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * Creator: bm
  * Date: 13.06.17.
+ *  * Update Missurenko
+ * Update 28.02.2018
  */
 @Getter
 public enum WonderCard {
-// need do wonder class
-
 
     THE_COLOSSUS_OF_RHODES_SIDE_A(WonderSide.A, GameCard.COLOSSUS_MAIN, GameCard.COLOSSUS_FIRST_A, GameCard.COLOSSUS_SECOND_A, GameCard.COLOSSUS_THIRD_A),
     THE_LIGHTHOUSE_OF_ALEXANDRIA_SIDE_A(WonderSide.A, GameCard.ALEXANDRIA_MAIN, GameCard.ALEXANDRIA_FIRST_A, GameCard.ALEXANDRIA_SECOND_A, GameCard.ALEXANDRIA_THIRD_A),

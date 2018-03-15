@@ -16,7 +16,7 @@ public class ColorCardCalcPointStrategyImpl implements CalcPointStrategy {
     private final int pointForOneCard;
     private final List<GameCardColor> colorList;
 
-    public ColorCardCalcPointStrategyImpl(ActionSide actionSide, int pointForOneCard, List<GameCardColor> colorList) {
+    ColorCardCalcPointStrategyImpl(ActionSide actionSide, int pointForOneCard, List<GameCardColor> colorList) {
         this.actionSide = actionSide;
         this.pointForOneCard = pointForOneCard;
         this.colorList = colorList;
@@ -25,7 +25,6 @@ public class ColorCardCalcPointStrategyImpl implements CalcPointStrategy {
     @Override
     public int getPoints(GameBoardView boardView) {
         return pointForOneCard * buildCardColorCount(boardView);
-
     }
 
     protected int buildCardColorCount(GameBoardView boardView) {

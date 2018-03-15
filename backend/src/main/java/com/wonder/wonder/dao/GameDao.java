@@ -19,6 +19,4 @@ public interface GameDao extends JpaRepository<Game, Long> {
 
     List<Game> findAllByPhaseGame(GamePhase phase);
 
-    @Query("from Game")
-    List<Game> hibernateQuery();
 }
