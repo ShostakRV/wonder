@@ -7,6 +7,7 @@ import MainMenu from './containers/MainMenu';
 import Home from './containers/Home/';
 import About from './containers/About/';
 import Login from './containers/Login/';
+import Chat from './containers/Chat/';
 
 import {PAGE_PATH} from './pathCons';
 
@@ -28,6 +29,7 @@ export default () => (
                                 <Route exact path={PAGE_PATH.home} component={Home}/>
                                 <Route path={PAGE_PATH.about} component={About}/>
                                 <Route path={PAGE_PATH.login} component={Login}/>
+                                <Route path={PAGE_PATH.chat} component={Chat}/>
                             </Switch>
                         </div>
                     </div>

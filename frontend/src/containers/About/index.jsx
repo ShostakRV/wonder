@@ -6,7 +6,12 @@ class App extends Component {
     render() {
         return (
             <div>
-                Game created by ...
+                This game created by:
+                <ul>
+                    <li>Shostak Roma</li>
+                    <li>Pavlenko Bohdan</li>
+                    <li>Misurenko Bohdan</li>
+                </ul>
             </div>
         );
     }

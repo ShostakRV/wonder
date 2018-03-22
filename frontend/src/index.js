@@ -4,6 +4,7 @@ import {Provider} from 'react-redux'
 import Routes from './routes';
 
 import 'bootstrap/dist/css/bootstrap.css'
+import './index.css';
 
 import configureStore from './store/configureStrore';
 

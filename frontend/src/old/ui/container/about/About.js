@@ -7,7 +7,7 @@ class About extends Component {
                 <p>
                     This is our realization of 7 wonders board game.
                 </p>
-                <label>Created by</label>
+                <label>Created by..</label>
                 <ul>
                     <li>Pavlenko Bohdan(G0DEX)</li>
                     <li>Roma Shostak(M0RFEY)</li>
