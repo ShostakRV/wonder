@@ -1,4 +1,5 @@
 'use strict';
+//todo rewrite to use webpack if it posible
 
 var gulp = require('gulp');
 var multiDest = require('gulp-multi-dest');
