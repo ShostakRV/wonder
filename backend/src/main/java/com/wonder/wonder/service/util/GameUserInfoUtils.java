@@ -43,26 +43,26 @@ public class GameUserInfoUtils {
             }
 
             int userGoldByNow = gameUserInfo.getUserGold() + event.getGoldChange();
-            gameUserInfo.addGoldToNewEvent(userGoldByNow);
+            gameUserInfo.addGoldToNewEvent(userGoldByNow); // I think here bug
 
-            boolean wonderIsBuilt = userActionOnCard.isBuildWonder();
-            if (wonderIsBuilt) {
+            boolean isWonderCardBuilt = userActionOnCard.isBuildWonder();
+            if (isWonderCardBuilt) {
                 gameUserInfo.addWonderLavel();
             }
             if (userActionOnCard.isBuildZeus()) {
                 GamePhase gamePhase = event.getGamePhase();
                 if (gamePhase.equals(gameUserInfo.getZeusWasUsedInThisAge())) {
-                    gameUserInfo.addZeusPassiveWonderActive(true);
+                    gameUserInfo.addZeusPassiveWonderActive(false);
                 } else {
                     gameUserInfo.addZeusWasUsedInThisAge(gamePhase);
-                    gameUserInfo.addZeusPassiveWonderActive(false);
+                    gameUserInfo.addZeusPassiveWonderActive(true);
                 }
             }
 
             GameCard chainBuild = event.getChainCard();
             boolean isBuildChain = chainBuild != null;
 
-            if (userActionOnCard.isBuild() || userActionOnCard.isBuildZeus() || isBuildChain || wonderIsBuilt ||
+            if (userActionOnCard.isBuild() || userActionOnCard.isBuildZeus() || isBuildChain || isWonderCardBuilt ||
                     userActionOnCard.isRessurectCard()) {
                 GameCard eventCard = event.getCard();
                 gameUserInfo.addBuiltCard(eventCard);

@@ -13,7 +13,7 @@ import java.util.*;
 @Data
 public class GameUserInfo {
 
-    private final long userId;
+    private final long userId; // USER ID
     private List<GameCard> userBuiltCards = new ArrayList<>();
 //    private List<GameResource> userResource = new ArrayList<>();
 
@@ -80,7 +80,7 @@ public class GameUserInfo {
     private final Event eventToSave;
 
     public GameUserInfo(UserInGame userInGame) {
-        this.userId = userInGame.getUser().getId();
+        this.userId = userInGame.getUser().getId();  // TODO WHY WE HAVE USER ID
         this.wonder = userInGame.getWonder();
         this.position = userInGame.getPosition();
         this.eventToSave = new Event();

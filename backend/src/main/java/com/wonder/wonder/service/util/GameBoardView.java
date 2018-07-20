@@ -16,23 +16,23 @@ public class GameBoardView {
     private final List<Event> events; // TODO ASK WE NOT USE THIS
 
     private final List<GameUserInfo> userInfoList;// todo map <positionId, GameUserInfo >
-    private long currentUserId;
+    private long currentId; // TODO user IN GAME
 
-    public GameBoardView(Game game, long currentUserId, List<GameUserInfo> gameUserInfoList) {
+    public GameBoardView(Game game, long currentId, List<GameUserInfo> gameUserInfoList) {
         this.events = game.getEvents();
-        this.currentUserId = currentUserId;
+        this.currentId = currentId;
         this.userInfoList = gameUserInfoList;
     }
 
     public GameUserInfo getCurrentUserGameInfo() {
         return userInfoList.stream()
-                .filter(gameUserInfo -> gameUserInfo.getUserId() == currentUserId)
-                .findAny()
+                .filter(gameUserInfo -> gameUserInfo.getUserId() == currentId) // gameUserInfo.getUserId() == user.id
+                .findAny()                                                     // currentId == userInGame Id
                 .orElseThrow(RuntimeException::new);
     }
 
-    public void setCurrentUser(long userId) {
-        currentUserId = userId;
+    public void setCurrentUserId(long userId) { // TODO  // userINGAME all time set
+        currentId = userId;
     }
 
     public boolean isGarbenPassiveBuilt() {

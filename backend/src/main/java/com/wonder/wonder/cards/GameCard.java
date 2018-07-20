@@ -238,7 +238,7 @@ public enum GameCard {
     //--------------------------------------------------------- Wonders
 
 
-    // giza
+    // giza // TODO I THINK BUG SECOND FIELD
     GIZA_MAIN(0, Arrays.asList(3, 4, 5, 6, 7), GameCardColor.NO_COLOR, CalcPointStrategy.nonePoints(), GameResource.STONE, WarPoint.warPoint(0), ScientistGuild.NONE, noChains(), 0, TradeDiscount.create(ActionSide.NONE, GameCardColor.NO_COLOR), emptyBuildEvent()),
 
 

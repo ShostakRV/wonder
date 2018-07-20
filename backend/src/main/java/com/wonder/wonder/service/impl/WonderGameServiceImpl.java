@@ -49,10 +49,10 @@ public class WonderGameServiceImpl implements WonderGameService {
         long gameId = eventDto.getGameId();
         UserInGame userInGame = userInGameService.getUserInGameByIdAndGameId(userInGameId, gameId);
         Game game = userInGame.getGame();
-        List<GameUserInfo> gameUserInfos = new ArrayList<>(GameUserInfoUtils
+        List<GameUserInfo> gameUserInfoList = new ArrayList<>(GameUserInfoUtils
                 .createGameUserInfo(game.getEvents()).values());
 
-        GameBoardView gameBoardView = new GameBoardView(game, eventDto.getUserInGameId(), gameUserInfos);
+        GameBoardView gameBoardView = new GameBoardView(game, eventDto.getUserInGameId(), gameUserInfoList);
         GameUserInfo currentUserGameInfo = gameBoardView.getCurrentUserGameInfo();
         UserActionOnCard userActionOnCard = eventDto.getUserActionOnCard();
         GameCard targetCard = eventDto.getPlayOnCardForEvent();
@@ -101,8 +101,8 @@ public class WonderGameServiceImpl implements WonderGameService {
                     payGoldToAtherUser(currentUserGameInfo, leftUserInfo, rightUserInfo, payDtoList);
                 }
                 exeptionNotEnoughtResourseForConstruct(currentUserGameInfo, resourcesNeed);
-                saveEventIfNeedPay(leftUserInfo, ActionSide.RIGHT);
-                saveEventIfNeedPay(rightUserInfo, ActionSide.LEFT);
+                saveEventIfNeedPay(leftUserInfo);
+                saveEventIfNeedPay(rightUserInfo);
             }
         }
         saveCardSetItem(eventDto.getCardSetId(), targetCard, game, userInGame);
@@ -181,10 +181,11 @@ public class WonderGameServiceImpl implements WonderGameService {
         }
     }
 
-    protected void saveEventIfNeedPay(GameUserInfo gameUserInfo, ActionSide actionSide) {
+    protected void saveEventIfNeedPay(GameUserInfo gameUserInfo) {
         boolean needPayGoldLeft = gameUserInfo.getEventToSave().getGoldChange() > 0;
         if (needPayGoldLeft) {
-            gameUserInfo.getEventToSave().setFrom_user(actionSide);
+            gameUserInfo.getEventToSave().setFrom_user(gameUserInfo.getUserId());
+
             saveEvent(gameUserInfo.getEventToSave());
         }
     }
