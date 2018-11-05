@@ -41,7 +41,7 @@ public class GameRestController {
         return gameService.joinToGame(gameId);
     }
 
-    @RequestMapping(value = "/lobby", method = RequestMethod.GET)// todo pagging
+    @RequestMapping(value = "/lobby", method = RequestMethod.GET)// todo paging
     public List<GameViewDto> showLobby() {
         return gameService.showGameInJoinPhaseInLobby();
     }
@@ -58,7 +58,7 @@ public class GameRestController {
         }
     }
 
-    @PostMapping(value = "/{gameId}/playCard")// todo GET
+    @GetMapping(value = "/{gameId}/playCard")
     public BoardDto getBoard(@PathVariable(name = "gameId") Long gameId,
                              @RequestBody EventDto eventDto) {
         wonderGameService.playCard(eventDto);

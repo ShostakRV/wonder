@@ -107,7 +107,7 @@ public class JmsEventLisner {
     }
 
     protected void calculateResultWar(Game game, GameBoardView gameBoardView, UserInGame userInGame, int resultLeft) {
-        gameBoardView.setCurrentUser(userInGame.getId());
+        gameBoardView.setCurrentUserId(userInGame.getId()); // TODO here I set user IN GAME BUT AT START HAVE USER ID
         String[] phaseGame = splitGamePhase(game);
         String age = phaseGame[1];
         if (resultLeft == 1) {
@@ -127,8 +127,8 @@ public class JmsEventLisner {
 
     protected void saveWarEvents(GameBoardView gameBoardView, Game game) {
         List<UserInGame> userInGameList = game.getUserInGames();
-        for (UserInGame u : userInGameList) {
-            gameBoardView.setCurrentUser(u.getId());
+        for (UserInGame userInGame : userInGameList) {
+            gameBoardView.setCurrentUserId(userInGame.getId()); // userINGAME
             GameUserInfo currentUserInfo = gameBoardView.getCurrentUserGameInfo();
             eventService.save(currentUserInfo.getEventToSave());
         }
@@ -142,8 +142,8 @@ public class JmsEventLisner {
 
     protected void saveOnBuildEvents(GameBoardView gameBoardView, Game game) {
         List<UserInGame> userInGameList = game.getUserInGames();
-        for (UserInGame u : userInGameList) {
-            gameBoardView.setCurrentUser(u.getId());
+        for (UserInGame userInGame : userInGameList) {
+            gameBoardView.setCurrentUserId(userInGame.getId()); // TODO here I set user IN GAME BUT AT START set USER ID   // userINGAME
             GameUserInfo currentUserInfo = gameBoardView.getCurrentUserGameInfo();
             if (currentUserInfo.getEventToSave().getGoldChange() != 0) {
                 eventService.save(currentUserInfo.getEventToSave());
@@ -155,7 +155,7 @@ public class JmsEventLisner {
         GameBoardView gameBoardView = getGameBoardView(userInGameId);
         List<UserInGame> userInGameList = new ArrayList<>(game.getUserInGames());
         for (UserInGame userInGame : userInGameList) {
-            gameBoardView.setCurrentUser(userInGame.getId());
+            gameBoardView.setCurrentUserId(userInGame.getId()); // TODO here I set user IN GAME BUT AT START set USER ID   // userINGAME
             GameUserInfo currentGameUserInfo = gameBoardView.getCurrentUserGameInfo();
             List<GameCard> currentGameUserInfoBuiltCard = currentGameUserInfo.getUserBuiltCards();
 
@@ -195,15 +195,12 @@ public class JmsEventLisner {
                 if (maxPoint < pointsMain) {
                     maxPoint = pointsMain;
                 }
-
                 if (freeSymvol > 1 && i < 2) {
-
                     greenSymvol = new ArrayList<>(allGreenSymvol.values());
                     Integer first = greenSymvol.get(i) + freeSymvol - 1;
                     greenSymvol.set(i, first);
                     Integer second = greenSymvol.get(i + 1) + freeSymvol - 1;
                     greenSymvol.set(i + 1, second);
-
                     int pointsFirstSecond = calculateGreenPoint(greenSymvol);
                     if (maxPoint < pointsFirstSecond) {
                         maxPoint = pointsFirstSecond;
@@ -312,7 +309,7 @@ public class JmsEventLisner {
         Event eventToSave = gameBoardView.getCurrentUserGameInfo().getEventToSave();
         for (Event eventByPhaseBefore : eventByPhaseBeforeList) {
             UserInGame userInGame = eventByPhaseBefore.getUserInGame();
-            gameBoardView.setCurrentUser(userInGame.getId());
+            gameBoardView.setCurrentUserId(userInGame.getId());
             if (eventToSave.getGoldChange() == 0) {
                 eventByPhaseBefore.getCard().getOnBuildEvent().doAction(gameBoardView);
                 eventToSave.setPhaseChooseDo(phaseRound);
@@ -322,7 +319,6 @@ public class JmsEventLisner {
 
     protected String[] splitGamePhase(Game game) {
         return game.getPhaseGame().toString().split("_");
-
     }
 }
 

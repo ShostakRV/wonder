@@ -12,6 +12,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 
@@ -62,11 +63,13 @@ public class WonderGameServiceTest {
 
     @Test
     public void userNoHaveResourceForBuild() {
-
+        Boolean b = new Boolean("TruE");
+        assertEquals(b,false);
     }
 
     @Test
     public void userBuildCard() {
+
 
     }
 

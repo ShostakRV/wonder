@@ -3,13 +3,12 @@ package com.wonder.wonder.service;
 import com.wonder.wonder.TestData.service.GameFactory;
 import com.wonder.wonder.TestData.service.UserFactory;
 import com.wonder.wonder.TestData.service.UserInGameFactory;
-import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.cards.GameCard;
+import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.dao.GameDao;
 import com.wonder.wonder.dto.GameViewDto;
 import com.wonder.wonder.model.*;
 import com.wonder.wonder.phase.GamePhase;
-
 import com.wonder.wonder.service.impl.GameServiceImpl;
 import com.wonder.wonder.util.AuthenticationWrapper;
 import org.junit.Before;
@@ -23,6 +22,7 @@ import org.mockito.internal.verification.Times;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -63,6 +63,9 @@ public class GameServiceTest {
     @Mock
     private CardSetItemService cardSetItemService;
 
+    @Mock
+    private EventService eventService;
+
     private static String GAME_NAME = "GameName";
 
     @Before
@@ -95,7 +98,7 @@ public class GameServiceTest {
         User user = authenticationWrapper.getCurrentUser();
         when(userInGameService.getAllUserInGameByGameId(GAME_ID)).
                 thenReturn(UserInGameFactory.listUserInGameInit(1, GAME_ID));
-        when(gameDao.findById(GAME_ID)).thenReturn(GameFactory.gameInit(GAME_ID, 1, GamePhase.JOIN_PHASE));
+        when(gameDao.findById(GAME_ID)).thenReturn(Optional.of(GameFactory.gameInit(GAME_ID, 1, GamePhase.JOIN_PHASE)));
         when(userService.getUserById(user.getId())).thenReturn(UserFactory.currentUserInit());
         boolean result = gameServiceImpl.joinToGame(GAME_ID);
 
@@ -158,7 +161,7 @@ public class GameServiceTest {
     @Test(expected = RuntimeException.class)
     public void userStartGameNoHaveFourUserTest() {
         Game gameMock = GameFactory.gameInit(GAME_ID, 2, GamePhase.JOIN_PHASE);
-        when(gameDao.findById(GAME_ID)).thenReturn(gameMock);
+        when(gameDao.findById(GAME_ID)).thenReturn(Optional.of(gameMock));
         gameServiceImpl.startGame(GAME_ID);
 
     }
@@ -167,7 +170,7 @@ public class GameServiceTest {
     public void userStartGameFullGameSuccsessfulMetodStartGameTest() {
         Game gameMock = GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE);
         List<UserInGame> userInGameList = gameMock.getUserInGames();
-        when(gameDao.findById(GAME_ID)).thenReturn(gameMock);
+        when(gameDao.findById(GAME_ID)).thenReturn(Optional.of(gameMock));
         gameServiceImpl.startGame(GAME_ID);
         ArgumentCaptor<Game> argumentCaptor = ArgumentCaptor.forClass(Game.class);
         verify(gameDao, new Times(1)).save(argumentCaptor.capture());
@@ -183,7 +186,7 @@ public class GameServiceTest {
         Game game = GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE);
         when(userInGameService.getAllUserInGameByGameId(GAME_ID)).
                 thenReturn(UserInGameFactory.listUserInGameInit(4, GAME_ID));
-        when(gameDao.findById(GAME_ID)).thenReturn(GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE));
+        when(gameDao.findById(GAME_ID)).thenReturn(Optional.of(GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE)));
         gameServiceImpl.startGame(GAME_ID);
         ArgumentCaptor<CardSet> argumentCaptor = ArgumentCaptor.forClass(CardSet.class);
         verify(cardSetService, new Times(4)).save(argumentCaptor.capture());
@@ -201,14 +204,13 @@ public class GameServiceTest {
         Game game = GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE);
         when(userInGameService.getAllUserInGameByGameId(GAME_ID)).
                 thenReturn(UserInGameFactory.listUserInGameInit(4, GAME_ID));
-        when(gameDao.findById(GAME_ID)).thenReturn(GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE));
+        when(gameDao.findById(GAME_ID)).thenReturn(Optional.of(game));
         gameServiceImpl.startGame(GAME_ID);
         ArgumentCaptor<CardSetItem> argumentCaptor = ArgumentCaptor.forClass(CardSetItem.class);
         verify(cardSetItemService, new Times(28)).save(argumentCaptor.capture());
         List<CardSetItem> cardSetItemList = argumentCaptor.getAllValues();
         assertEquals(28, cardSetItemList.size());
-        for (int j = 0; j < cardSetItemList.size(); j++) {
-            CardSetItem cardSetItem = cardSetItemList.get(j);
+        for (CardSetItem cardSetItem : cardSetItemList) {
             assertEquals(0, cardSetItem.getCardSet().getId());
             assertEquals(null, cardSetItem.getPlayedPhaseChooseDo());
             assertNotEquals(null, cardSetItem.getGameCard());
@@ -222,7 +224,7 @@ public class GameServiceTest {
     @Test
     public void allUserInGameHaveWonderAndpositionMetodStartGameTest() {
         when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(UserInGameFactory.listUserInGameInit(4, GAME_ID));
-        when(gameDao.findById(GAME_ID)).thenReturn(GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE));
+        when(gameDao.findById(GAME_ID)).thenReturn(Optional.of(GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE)));
         gameServiceImpl.startGame(GAME_ID);
         ArgumentCaptor<Game> argumentCaptor = ArgumentCaptor.forClass(Game.class);
         verify(gameDao, new Times(1)).save(argumentCaptor.capture());

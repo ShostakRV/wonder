@@ -7,12 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
   Created by bm on 13.07.17.
  */
 public interface CardSetDao extends JpaRepository<CardSet,Long> {
-    CardSet findById(long id);
+    Optional<CardSet> findById(long id);
 
 
 

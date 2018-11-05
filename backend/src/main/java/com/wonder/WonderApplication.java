@@ -8,8 +8,6 @@ import org.springframework.jms.core.JmsTemplate;
 
 @SpringBootApplication
 public class WonderApplication {
-
-
     public static void main(String[] args) {
         SpringApplication.run(WonderApplication.class, args);
 
