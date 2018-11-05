@@ -1,7 +1,7 @@
 package com.wonder.wonder.service.impl;
 
-import com.wonder.wonder.cards.GameCardColor;
 import com.wonder.wonder.cards.GameCard;
+import com.wonder.wonder.cards.GameCardColor;
 import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.dao.GameDao;
 import com.wonder.wonder.dto.GameViewDto;
@@ -85,11 +85,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public boolean joinToGame(long gameId) {
         User user = authenticationWrapper.getCurrentUser();
-        Game game = gameDao.findById(gameId);
-
-        if (game == null) {
-            throw new RuntimeException("No exist Game with this id!!!");
-        }
+        Game game = findGameById(gameId);
 
         if (userInGameService.getAllUserInGameByGameId(gameId).size() >= 14) {
             throw new RuntimeException("Game was full!!!");
@@ -115,7 +111,7 @@ public class GameServiceImpl implements GameService {
     public void startGame(long gameId) {
         int age = 1;
         //hibernate
-        Game game = gameDao.findById(gameId);
+        Game game = findGameById(gameId);
         List<UserInGame> userInGameList = game.getUserInGames(); //
         if (userInGameList.size() < 3) {
             throw new RuntimeException("Need more users for start!!!");
@@ -175,12 +171,13 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public Game findGameById(long gameId) {
-        return gameDao.findById(gameId);
+        return gameDao.findById(gameId).orElseThrow(RuntimeException::new);
     }
 
     @Override
     public List<UserInGame> getGameResult(Long gameId) {
-        return gameDao.findById(gameId).getUserInGames();
+        Game game = findGameById(gameId);
+        return game.getUserInGames();
     }
 
     public List<GameCard> getAllCardByAgeAndNumberPlayers(int age, int numberPlayer) {
