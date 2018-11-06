@@ -109,7 +109,7 @@ public class WonderGameServiceImpl implements WonderGameService {
         saveEvent(currentEvent);
         // Send a message with a POJO - the template reuse the message converter
         TransferEvent transferEvent = new TransferEvent(game.getId(), userInGame.getId(), game.getPhaseGame(),
-                game.getPhaseRound(), game.getPhaseChooseDo());
+                game.getPhaseRound(), game.getSubPhaseRound());
         jmsTemplate.convertAndSend("transferEvent", transferEvent);
 
     }
@@ -157,7 +157,7 @@ public class WonderGameServiceImpl implements WonderGameService {
         CardSet cardSet = cardSetService.findById(cardSetId);
         CardSetItem cardSetItem = cardSetItemService.findByCardSetAndGameCard(cardSet, currentEventGameCard);
         cardSetItem.setPlayedGamePhase(game.getPhaseGame());
-        cardSetItem.setPlayedPhaseChooseDo(game.getPhaseChooseDo());
+        cardSetItem.setPlayedPhaseChooseDo(game.getSubPhaseRound());
         cardSetItem.setPlayedPhaseRound(game.getPhaseRound());
         cardSetItem.setUserInGame(userInGame);
         cardSetItemService.save(cardSetItem);

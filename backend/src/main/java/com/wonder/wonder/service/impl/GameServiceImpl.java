@@ -158,7 +158,7 @@ public class GameServiceImpl implements GameService {
 
         game.setPhaseGame(GamePhase.AGE_1);
         game.setPhaseRound(1);
-        game.setPhaseChooseDo(1);
+        game.setSubPhaseRound(1);
         game.setStart(new Date());
         gameDao.save(game);
         for (Event e : startGoldSaveEvents) {
@@ -221,7 +221,7 @@ public class GameServiceImpl implements GameService {
         newEvent.setUserInGame(userInGame);
         newEvent.setGamePhase(game.getPhaseGame());
         newEvent.setPhaseRound(game.getPhaseRound());
-        newEvent.setPhaseChooseDo(game.getPhaseChooseDo());
+        newEvent.setSubPhaseRound(game.getSubPhaseRound());
         newEvent.setGoldChange(3);
         return newEvent;
     }

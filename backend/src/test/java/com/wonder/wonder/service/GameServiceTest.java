@@ -177,7 +177,7 @@ public class GameServiceTest {
         Game game = argumentCaptor.getValue();
         assertEquals(GamePhase.AGE_1, game.getPhaseGame());
         assertEquals(new Integer(1), game.getPhaseRound());
-        assertEquals(new Integer(1), game.getPhaseChooseDo());
+        assertEquals(new Integer(1), game.getSubPhaseRound());
         assertEquals(userInGameList.size(), game.getUserInGames().size());
     }
 

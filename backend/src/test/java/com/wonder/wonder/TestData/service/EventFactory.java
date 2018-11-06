@@ -14,7 +14,7 @@ import java.util.List;
 public class EventFactory {
 
     public static Event eventInit(UserInGame userInGame, Game game,
-                                  GamePhase gamePhase, Integer round, Integer ohase_choose_do,
+                                  GamePhase gamePhase, Integer round, Integer subPhaseRound,
                                   GameCard playCard, UserActionOnCard userActionOnCard, GameCard chainCard,
                                   Integer goldChange) {
 
@@ -23,7 +23,7 @@ public class EventFactory {
         event.setUserInGame(userInGame);
         event.setGamePhase(gamePhase);
         event.setPhaseRound(round);
-        event.setPhaseChooseDo(ohase_choose_do);
+        event.setSubPhaseRound(subPhaseRound);
         event.setCard(playCard);
         event.setUserActionOnCard(userActionOnCard);
         event.setChainCard(chainCard);

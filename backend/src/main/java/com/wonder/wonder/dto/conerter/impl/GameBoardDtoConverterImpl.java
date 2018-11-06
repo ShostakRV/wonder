@@ -27,7 +27,7 @@ public class GameBoardDtoConverterImpl implements GameBoardDtoConverter {
         boardDto.setGameId(game.getId());
         boardDto.setGamePhase(game.getPhaseGame());
         boardDto.setRound(game.getPhaseRound());
-        boardDto.setRoundPhase(game.getPhaseChooseDo());
+        boardDto.setRoundPhase(game.getSubPhaseRound());
         List<PlayerDto> result = new ArrayList<>(); // TODO LIKE STREEM
         for (UserInGame userInGame : game.getUserInGames()) {
             result.add(playerConv.convertToDto(userInGame));
@@ -41,7 +41,7 @@ public class GameBoardDtoConverterImpl implements GameBoardDtoConverter {
         Game game = new Game();
         game.setId(boardDto.getGameId());
         game.setPhaseGame(boardDto.getGamePhase());
-        game.setPhaseChooseDo(boardDto.getRoundPhase());
+        game.setSubPhaseRound(boardDto.getRoundPhase());
         List<UserInGame> result = new ArrayList<>();
         for (PlayerDto playerDto : boardDto.getPlayerDto()) {
             result.add(playerConv.convertToEntity(playerDto));

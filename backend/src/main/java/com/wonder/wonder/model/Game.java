@@ -36,8 +36,8 @@ public class Game {
     @Column(name = "phase_round")
     protected Integer phaseRound;
 
-    @Column(name = "phase_choose_do") // TODO RENAME
-    protected Integer phaseChooseDo;
+    @Column(name = "sub_phase_round")
+    protected Integer subPhaseRound;
 
     @Column(name = "start", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)

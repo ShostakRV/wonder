@@ -89,7 +89,7 @@ public class GameUserInfo {
         Game game = userInGame.getGame();
         eventToSave.setGamePhase(game.getPhaseGame());
         eventToSave.setPhaseRound(game.getPhaseRound());
-        eventToSave.setPhaseChooseDo(game.getPhaseChooseDo());
+        eventToSave.setSubPhaseRound(game.getSubPhaseRound());
     }
 
     public void addGoldToNewEvent(int gold) {

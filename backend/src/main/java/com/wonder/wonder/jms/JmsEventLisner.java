@@ -52,7 +52,7 @@ public class JmsEventLisner {
         boolean gardenHasPassive = gameBoardView.isGarbenPassiveBuilt();
         int playersPlayInGame = game.getUserInGames().size();
         if (gameBoardView.isMavzoleumPowerWasBuilt()) {
-            game.setPhaseChooseDo(game.getPhaseChooseDo() + 1);
+            game.setSubPhaseRound(game.getSubPhaseRound() + 1);
             gameService.save(game);
         }
         if (userActionOnCard.equals(UserActionOnCard.RESURRECT_CARD) //bug check
@@ -121,7 +121,7 @@ public class JmsEventLisner {
 
     protected void startEndGame(Game game) {
         game.setPhaseGame(GamePhase.CALCULATE);
-        game.setPhaseChooseDo(0);
+        game.setSubPhaseRound(0);
         game.setPhaseRound(0);
     }
 
@@ -292,7 +292,7 @@ public class JmsEventLisner {
 
     protected void playWar(Game game) {
         game.setPhaseRound(0);
-        game.setPhaseChooseDo(0);
+        game.setSubPhaseRound(0);
         String[] gamePhaseNow = splitGamePhase(game);
         int ageNow = Integer.parseInt(gamePhaseNow[1]);
         game.setPhaseGame(GamePhase.valueOf("WAR" + "_" + ageNow));
@@ -301,7 +301,7 @@ public class JmsEventLisner {
     protected void startNewAge(Game game, int ageNow) {
         ageNow += 1;
         game.setPhaseGame(GamePhase.valueOf("AGE_" + ageNow));
-        game.setPhaseChooseDo(1);
+        game.setSubPhaseRound(1);
         game.setPhaseRound(1);
     }
 
@@ -312,7 +312,7 @@ public class JmsEventLisner {
             gameBoardView.setCurrentUserId(userInGame.getId());
             if (eventToSave.getGoldChange() == 0) {
                 eventByPhaseBefore.getCard().getOnBuildEvent().doAction(gameBoardView);
-                eventToSave.setPhaseChooseDo(phaseRound);
+                eventToSave.setSubPhaseRound(phaseRound);
             }
         }
     }

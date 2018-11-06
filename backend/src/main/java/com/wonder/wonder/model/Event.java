@@ -44,8 +44,8 @@ public class Event {
     @Column(name = "phase_round")
     protected Integer phaseRound;
 
-    @Column(name = "phase_choose_do")
-    protected Integer phaseChooseDo;
+    @Column(name = "sub_phase_round")
+    protected Integer subPhaseRound;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "card")
