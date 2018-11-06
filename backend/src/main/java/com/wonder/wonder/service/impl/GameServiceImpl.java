@@ -71,6 +71,7 @@ public class GameServiceImpl implements GameService {
     public List<GameViewDto> showGameInJoinPhaseInLobby() {
         List<GameViewDto> gameViewDtoList = new ArrayList<>();
         List<Game> gameList = gameDao.findAllByPhaseGame(GamePhase.JOIN_PHASE);
+        LOG.info("Find in database game on status JOIN_PHASE. Count number: " + gameList.size());
         for (Game game : gameList) {
             GameViewDto gameViewDto = new GameViewDto();
             gameViewDto.setPlayersInGameCount(game.getUserInGames().size());
@@ -86,8 +87,8 @@ public class GameServiceImpl implements GameService {
     public boolean joinToGame(long gameId) {
         User user = authenticationWrapper.getCurrentUser();
         Game game = findGameById(gameId);
-
-        if (userInGameService.getAllUserInGameByGameId(gameId).size() >= 14) {
+        LOG.info("User try join game start filters");
+        if (userInGameService.getAllUserInGameByGameId(gameId).size() >= 14) { // why 14 number?
             throw new RuntimeException("Game was full!!!");
         }
 
@@ -101,22 +102,20 @@ public class GameServiceImpl implements GameService {
         userInGame.setUser(user);
         userInGame.setGame(game);
         userInGameService.save(userInGame);
+        LOG.info("User was join to game and save to DB");
         return true;
-        // maybe need  add logic
     }
-
-    // need change age like String to Integer
 
     @Override
     public void startGame(long gameId) {
         int age = 1;
         //hibernate
+        LOG.info("Start join to game");
         Game game = findGameById(gameId);
         List<UserInGame> userInGameList = game.getUserInGames(); //
         if (userInGameList.size() < 3) {
             throw new RuntimeException("Need more users for start!!!");
         }
-
         List<WonderCard> wonderCardList = Arrays.asList(WonderCard.values());
         Collections.shuffle(wonderCardList);
         for (int i = 0; i < userInGameList.size(); i++) {
@@ -124,8 +123,7 @@ public class GameServiceImpl implements GameService {
             game.getUserInGames().get(i).setWonder(wonderCard);
             game.getUserInGames().get(i).setPosition(i);
         }
-
-
+        LOG.info("Before start save card set");
         List<CardSet> cardSetList = new ArrayList<>();
         for (int i = 0; i < userInGameList.size(); i++) {
             CardSet cardSet = new CardSet();
@@ -134,6 +132,7 @@ public class GameServiceImpl implements GameService {
             cardSetService.save(cardSet);
             cardSetList.add(cardSet);
         }
+        LOG.info("Save all card set");
         List<GameCard> gameCardList = getAllCardByAgeAndNumberPlayers(age, userInGameList.size());
         Collections.shuffle(userInGameList);
         int setNumber = 0;
@@ -149,13 +148,12 @@ public class GameServiceImpl implements GameService {
             }
             setNumber++;
         }
-
+        LOG.info("Create and save card set item");
         List<Event> startGoldSaveEvents = new ArrayList<>();
         for (UserInGame u : userInGameList) {
             Event saveStartGold = createNewEvent(game, u);
             startGoldSaveEvents.add(saveStartGold);
         }
-
         game.setPhaseGame(GamePhase.AGE_1);
         game.setPhaseRound(1);
         game.setSubPhaseRound(1);
@@ -164,9 +162,11 @@ public class GameServiceImpl implements GameService {
         for (Event e : startGoldSaveEvents) {
             eventService.save(e);
         }
-
+        User user = authenticationWrapper.getCurrentUser();
+        if (user.getId() != user.getId()) {
+            throw new RuntimeException("Someone is trying to hack us");
+        }
 // To do check if user has right to start game (get user from spring security context )
-
     }
 
     @Override

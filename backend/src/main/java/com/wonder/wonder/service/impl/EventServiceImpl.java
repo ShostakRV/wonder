@@ -38,7 +38,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> getAllRaundLastEvent(long gameId, GamePhase gamePhase, Integer phaseRound, Integer phaseChooseDo) {
+    public List<Event> getAllRoundLastEvent(long gameId, GamePhase gamePhase, Integer phaseRound, Integer phaseChooseDo) {
         return  eventDao.getAllRaundLastEvent(gameId, gamePhase, phaseRound, phaseChooseDo);
     }
 

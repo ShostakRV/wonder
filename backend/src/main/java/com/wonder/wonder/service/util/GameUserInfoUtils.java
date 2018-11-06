@@ -1,6 +1,7 @@
 package com.wonder.wonder.service.util;
 
-import com.wonder.wonder.cards.*;
+import com.wonder.wonder.cards.GameCard;
+import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.model.Event;
 import com.wonder.wonder.model.Item;
 import com.wonder.wonder.model.UserInGame;
@@ -19,7 +20,6 @@ public class GameUserInfoUtils {
         List<Event> sortedListEvents = events.stream()
                 .sorted(Comparator.comparingLong(Event::getId))
                 .collect(Collectors.toList());
-
         Map<Long, GameUserInfo> mapGameUserInfo = new HashMap<>();
         for (Event event : sortedListEvents) {
             UserInGame userInGame = event.getUserInGame();
@@ -30,10 +30,8 @@ public class GameUserInfoUtils {
                 mapGameUserInfo.put(userInGameId, gameUserInfo);
             }
             WonderCard userWonder = gameUserInfo.getWonder();
-
             boolean isAddDropCard = userWonder.equals(WonderCard.THE_MAUSOLEUM_OF_HALICARNASSUS_SIDE_A)
                     || userWonder.equals(WonderCard.THE_MAUSOLEUM_OF_HALICARNASSUS_SIDE_B);
-
             UserActionOnCard userActionOnCard = event.getUserActionOnCard();
             if (isAddDropCard) {
                 boolean isDropCard = userActionOnCard.isSellCard();

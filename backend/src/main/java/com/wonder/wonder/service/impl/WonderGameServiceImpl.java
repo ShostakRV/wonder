@@ -51,7 +51,6 @@ public class WonderGameServiceImpl implements WonderGameService {
         Game game = userInGame.getGame();
         List<GameUserInfo> gameUserInfoList = new ArrayList<>(GameUserInfoUtils
                 .createGameUserInfo(game.getEvents()).values());
-
         GameBoardView gameBoardView = new GameBoardView(game, eventDto.getUserInGameId(), gameUserInfoList);
         GameUserInfo currentUserGameInfo = gameBoardView.getCurrentUserGameInfo();
         UserActionOnCard userActionOnCard = eventDto.getUserActionOnCard();

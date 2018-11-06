@@ -16,5 +16,5 @@ public interface EventService {
 
     List<Event> getAllLastEvent(long gameId, GamePhase gamePhase, Integer phaseRound, Integer phaseChooseDo);
 
-    List<Event> getAllRaundLastEvent(long gameId, GamePhase gamePhase, Integer phaseRound, Integer phaseChooseDo);
+    List<Event> getAllRoundLastEvent(long gameId, GamePhase gamePhase, Integer phaseRound, Integer phaseChooseDo);
 }

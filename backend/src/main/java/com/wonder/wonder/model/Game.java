@@ -1,8 +1,6 @@
 package com.wonder.wonder.model;
 
 import com.wonder.wonder.phase.GamePhase;
-
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -60,9 +58,7 @@ public class Game {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Game game = (Game) o;
-
         return id == game.id;
     }
 

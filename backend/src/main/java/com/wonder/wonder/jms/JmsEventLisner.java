@@ -64,7 +64,7 @@ public class JmsEventLisner {
         boolean playWar = false;
         boolean changeAge = false;
         if (isPlayOnBuildEvent) {
-            List<Event> onBuildEvents = eventService.getAllRaundLastEvent(gameId, gamePhase, phaseRound, phaseChooseDo);
+            List<Event> onBuildEvents = eventService.getAllRoundLastEvent(gameId, gamePhase, phaseRound, phaseChooseDo);
             playOnBuildEvent(gameBoardView, onBuildEvents, phaseChooseDo + 1);
             saveOnBuildEvents(gameBoardView, game);
             gameService.save(game);
