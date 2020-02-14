@@ -24,7 +24,7 @@
     "gulp-cli": "^1.4.0",
     "gulp-pug": "^3.3.0",
     "gulp-watch": "^4.3.11",
-    "yarn": "^1.2.1"
+    "yarn": "^1.22.0"
   },
   "scripts": {
     "productioninstall1": "yarn install --production --modules-folder ./src/main/public/static/yarn_components"
