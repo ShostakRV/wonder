@@ -85,10 +85,7 @@ dependencies {
     compile group: 'com.h2database', name: 'h2', version: '1.3.148'
 }
 
-//add wrapper
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.2.1'
-}
+
 
 //run frontend
 jar {
