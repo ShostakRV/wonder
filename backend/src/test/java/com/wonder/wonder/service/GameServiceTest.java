@@ -44,10 +44,6 @@ public class GameServiceTest {
     @Mock
     private GameDao gameDao;
 
-    @InjectMocks
-    @Spy
-    private GameServiceImpl gameServiceImpl;
-
     @Mock
     private UserInGameService userInGameService;
 
@@ -63,7 +59,14 @@ public class GameServiceTest {
     @Mock
     private CardSetItemService cardSetItemService;
 
+    @Mock
+    private EventService eventService;
+
     private static String GAME_NAME = "GameName";
+
+    @InjectMocks
+    @Spy
+    private GameServiceImpl gameServiceImpl;
 
     @Before
     public void setUp() throws Exception {
@@ -124,7 +127,7 @@ public class GameServiceTest {
 
     @Test(expected = RuntimeException.class)
     public void userInGameTryToJoinGameAgainTest() {
-        when(userInGameService.getUserInGameByGameId(GAME_ID)).thenReturn(new UserInGame());
+//        when(userInGameService.getUserInGameByGameId(GAME_ID)).thenReturn(new UserInGame());
         doReturn(true).when(gameDao).findById(anyLong());
         gameServiceImpl.joinToGame(GAME_ID);
     }
@@ -181,10 +184,12 @@ public class GameServiceTest {
     @Test
     public void correctSaveSetCardMetodStartGameTest() {
         Game game = GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE);
-        when(userInGameService.getAllUserInGameByGameId(GAME_ID)).
-                thenReturn(UserInGameFactory.listUserInGameInit(4, GAME_ID));
+//        when(userInGameService.getAllUserInGameByGameId(GAME_ID)).
+//                thenReturn(UserInGameFactory.listUserInGameInit(4, GAME_ID));
         when(gameDao.findById(GAME_ID)).thenReturn(GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE));
+
         gameServiceImpl.startGame(GAME_ID);
+
         ArgumentCaptor<CardSet> argumentCaptor = ArgumentCaptor.forClass(CardSet.class);
         verify(cardSetService, new Times(4)).save(argumentCaptor.capture());
         List<CardSet> cardSetList = argumentCaptor.getAllValues();
@@ -199,8 +204,8 @@ public class GameServiceTest {
     @Test
     public void correctSaveSetCardItemMetodStartGameTest() {
         Game game = GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE);
-        when(userInGameService.getAllUserInGameByGameId(GAME_ID)).
-                thenReturn(UserInGameFactory.listUserInGameInit(4, GAME_ID));
+//        when(userInGameService.getAllUserInGameByGameId(GAME_ID)).
+//                thenReturn(UserInGameFactory.listUserInGameInit(4, GAME_ID));
         when(gameDao.findById(GAME_ID)).thenReturn(GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE));
         gameServiceImpl.startGame(GAME_ID);
         ArgumentCaptor<CardSetItem> argumentCaptor = ArgumentCaptor.forClass(CardSetItem.class);
@@ -221,7 +226,7 @@ public class GameServiceTest {
 
     @Test
     public void allUserInGameHaveWonderAndpositionMetodStartGameTest() {
-        when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(UserInGameFactory.listUserInGameInit(4, GAME_ID));
+//        when(userInGameService.getAllUserInGameByGameId(GAME_ID)).thenReturn(UserInGameFactory.listUserInGameInit(4, GAME_ID));
         when(gameDao.findById(GAME_ID)).thenReturn(GameFactory.gameInit(GAME_ID, 4, GamePhase.JOIN_PHASE));
         gameServiceImpl.startGame(GAME_ID);
         ArgumentCaptor<Game> argumentCaptor = ArgumentCaptor.forClass(Game.class);
