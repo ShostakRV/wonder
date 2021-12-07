@@ -1,15 +1,12 @@
 package com.wonder.wonder.service.util;
 
 import com.wonder.wonder.cards.GameCard;
-
 import com.wonder.wonder.jms.Items;
 import com.wonder.wonder.model.Event;
 import com.wonder.wonder.model.Game;
 import com.wonder.wonder.model.Item;
 
 import java.util.List;
-
-import static org.codehaus.groovy.runtime.DefaultGroovyMethods.collect;
 
 
 public class GameBoardView {
