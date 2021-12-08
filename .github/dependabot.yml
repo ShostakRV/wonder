@@ -8,7 +8,8 @@ updates:
 
     # Specify labels for pull requests
     labels:
-      - "dependencies gradle"
+      - "dependencies"
+      - "gradle"
 
     # Allow up to 3 open pull requests from dependabot
     open-pull-requests-limit: 3
@@ -20,7 +21,8 @@ updates:
       interval: "daily"
     # Specify labels for pull requests
     labels:
-      - "dependencies npm"
+      - "dependencies"
+      - "npm"
 
     # Allow up to 3 open pull requests from dependabot
     open-pull-requests-limit: 3
