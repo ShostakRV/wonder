@@ -1,5 +1,6 @@
 package com.wonder.wonder.cards;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -23,7 +24,9 @@ public class ChainCardTest {
 
         }
     }
+
     @Test
+    @Ignore
     public void ss() {
         String s1 = new String(new char[]{'s', 's'});
         String s2 = "exeptionNoCanBuildByChain";

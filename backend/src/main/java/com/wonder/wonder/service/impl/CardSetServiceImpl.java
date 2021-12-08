@@ -31,6 +31,6 @@ public class CardSetServiceImpl implements CardSetService {
 
     @Override
     public CardSet findById(Long cardSetId) {
-        return cardSetDao.findById(cardSetId);
+        return cardSetDao.findById(cardSetId).get();
     }
 }

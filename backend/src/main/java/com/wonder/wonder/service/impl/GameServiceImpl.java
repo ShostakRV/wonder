@@ -1,20 +1,34 @@
 package com.wonder.wonder.service.impl;
 
-import com.wonder.wonder.cards.GameCardColor;
 import com.wonder.wonder.cards.GameCard;
+import com.wonder.wonder.cards.GameCardColor;
 import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.dao.GameDao;
 import com.wonder.wonder.dto.GameViewDto;
-import com.wonder.wonder.model.*;
+import com.wonder.wonder.model.CardSet;
+import com.wonder.wonder.model.CardSetItem;
+import com.wonder.wonder.model.Event;
+import com.wonder.wonder.model.Game;
+import com.wonder.wonder.model.User;
+import com.wonder.wonder.model.UserInGame;
 import com.wonder.wonder.phase.GamePhase;
-import com.wonder.wonder.service.*;
+import com.wonder.wonder.service.CardSetItemService;
+import com.wonder.wonder.service.CardSetService;
+import com.wonder.wonder.service.EventService;
+import com.wonder.wonder.service.GameService;
+import com.wonder.wonder.service.UserInGameService;
+import com.wonder.wonder.service.UserService;
 import com.wonder.wonder.util.AuthenticationWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /*
@@ -180,7 +194,7 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<UserInGame> getGameResult(Long gameId) {
-        return gameDao.findById(gameId).getUserInGames();
+        return gameDao.findById(gameId).get().getUserInGames();
     }
 
     public List<GameCard> getAllCardByAgeAndNumberPlayers(int age, int numberPlayer) {
