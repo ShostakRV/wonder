@@ -71,7 +71,7 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '1.5.9.RELEASE'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.6.2'
 
 
     runtimeOnly('mysql:mysql-connector-java')
