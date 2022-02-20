@@ -58,10 +58,10 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
 
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
-    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.2.10.Final'
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.6.5.Final'
 
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager
-    implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.2.10.Final'
+    implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.6.5.Final'
 
     //автоконфиги лутче убрать
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
@@ -70,7 +70,7 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '1.5.9.RELEASE'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.6.3'
 
 
     runtimeOnly('mysql:mysql-connector-java')
@@ -82,7 +82,7 @@ dependencies {
     // for support old html :  no close tags
     implementation group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
     //H2 driver
-    implementation group: 'com.h2database', name: 'h2', version: '2.0.202'
+    implementation group: 'com.h2database', name: 'h2', version: '2.1.210'
 }
 
 
