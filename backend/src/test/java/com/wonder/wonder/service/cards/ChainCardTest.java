@@ -1,11 +1,13 @@
 package com.wonder.wonder.service.cards;
 
 import com.wonder.wonder.cards.GameCard;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 import java.util.Set;
 import java.util.TreeSet;
 
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class ChainCardTest {
     @Test
@@ -17,7 +19,7 @@ public class ChainCardTest {
         for (GameCard gameCard : GameCard.values()) {
             if (gameCard.getChain() != null) {
                 for (String chainName : gameCard.getChain()) {
-                    assertEquals(gameCard +" Not found chain=>"+chainName, true, names.contains(chainName.toString()));
+                    assertEquals(true, names.contains(chainName.toString()), gameCard + " Not found chain=>" + chainName);
                 }
             }
         }

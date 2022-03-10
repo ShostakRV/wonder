@@ -1,11 +1,11 @@
 package com.wonder.wonder.cards;
 
-import org.junit.Ignore;
-import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertTrue;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created: godex
@@ -18,7 +18,7 @@ public class ChainCardTest {
         for (GameCard mainCard : GameCard.values()) {
             if (mainCard.getChain() != null) {
                 for (String chainName : mainCard.getChain()) {
-                    assertNotNull(mainCard + " Not found chain=>" + chainName, GameCard.valueOf(chainName));
+                    assertNotNull(GameCard.valueOf(chainName), mainCard + " Not found chain=>" + chainName);
                 }
             }
 
@@ -26,11 +26,11 @@ public class ChainCardTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void ss() {
         String s1 = new String(new char[]{'s', 's'});
         String s2 = "exeptionNoCanBuildByChain";
-        if(s1 == s2){
+        if (s1 == s2) {
 
         }
         assertTrue(s1 == s2);

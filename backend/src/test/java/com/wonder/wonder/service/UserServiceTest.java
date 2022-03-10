@@ -6,21 +6,20 @@ import com.wonder.wonder.TestData.service.UserFactory;
 import com.wonder.wonder.dao.UserDao;
 import com.wonder.wonder.model.User;
 import com.wonder.wonder.service.impl.UserServiceImpl;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.internal.verification.Times;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
@@ -30,7 +29,7 @@ import static org.mockito.Mockito.when;
  * Created: godex
  * DATE: 24.06.17.
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
     @Mock
@@ -65,17 +64,21 @@ public class UserServiceTest {
     }
 
 
-    @Test(expected = UserByIdNotFoundException.class)
+    @Test
     public void userByIdNotFound() throws Exception {
         when(userDao.findById(anyLong())).thenReturn(Optional.empty());
-        userService.getUserById(6);
+        assertThrows(UserByIdNotFoundException.class, () -> {
+            userService.getUserById(6);
+        });
 
     }
 
-    @Test(expected = EmailExistsException.class)
+    @Test
     public void registerUserEmailExist() throws Exception {
         when(userDao.findByEmail(anyString())).thenReturn(Optional.of(new User()));
-        userService.register(UserFactory.currentUserInit());
+        assertThrows(EmailExistsException.class, () -> {
+            userService.register(UserFactory.currentUserInit());
+        });
 
     }
 

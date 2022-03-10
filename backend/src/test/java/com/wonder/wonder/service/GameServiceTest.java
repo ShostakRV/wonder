@@ -3,32 +3,39 @@ package com.wonder.wonder.service;
 import com.wonder.wonder.TestData.service.GameFactory;
 import com.wonder.wonder.TestData.service.UserFactory;
 import com.wonder.wonder.TestData.service.UserInGameFactory;
-import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.cards.GameCard;
+import com.wonder.wonder.cards.WonderCard;
 import com.wonder.wonder.dao.GameDao;
 import com.wonder.wonder.dto.GameViewDto;
-import com.wonder.wonder.model.*;
+import com.wonder.wonder.model.CardSet;
+import com.wonder.wonder.model.CardSetItem;
+import com.wonder.wonder.model.Game;
+import com.wonder.wonder.model.User;
+import com.wonder.wonder.model.UserInGame;
 import com.wonder.wonder.phase.GamePhase;
-
 import com.wonder.wonder.service.impl.GameServiceImpl;
 import com.wonder.wonder.util.AuthenticationWrapper;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.internal.verification.Times;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.test.context.event.annotation.BeforeTestClass;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by bm on 27.06.17.
@@ -36,7 +43,7 @@ import static org.mockito.Mockito.*;
 //
 //стаешь на локальный мастер... git checkout master
 //        git merge origin/<название свого бранча> --squash --no-commit
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
 public class GameServiceTest {
 
     private static final long GAME_ID = 1L;
@@ -68,7 +75,7 @@ public class GameServiceTest {
     @Spy
     private GameServiceImpl gameServiceImpl;
 
-    @Before
+    @BeforeTestClass
     public void setUp() throws Exception {
         System.out.println();
     }
@@ -86,10 +93,12 @@ public class GameServiceTest {
     }
 
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void createGameValidIdTest() {
         when(authenticationWrapper.getCurrentUser()).thenReturn(UserFactory.currentUserInit());
-        gameServiceImpl.createGame(GAME_NAME);
+        assertThrows(RuntimeException.class, () -> {
+            gameServiceImpl.createGame(GAME_NAME);
+        });
     }
 
     @Test
@@ -113,23 +122,29 @@ public class GameServiceTest {
         assertEquals(true, result);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void joinInGameFullGameTest() {
         when(userInGameService.getAllUserInGameByGameId(GAME_ID).size()).thenReturn((14));
-        gameServiceImpl.joinToGame(GAME_ID);
+        assertThrows(RuntimeException.class, () -> {
+            gameServiceImpl.joinToGame(GAME_ID);
+        });
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void joinInNoExistGameTest() {
         when(gameDao.findById(GAME_ID)).thenReturn(null);
-        gameServiceImpl.joinToGame(GAME_ID);
+        assertThrows(RuntimeException.class, () -> {
+            gameServiceImpl.joinToGame(GAME_ID);
+        });
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void userInGameTryToJoinGameAgainTest() {
 //        when(userInGameService.getUserInGameByGameId(GAME_ID)).thenReturn(new UserInGame());
         doReturn(true).when(gameDao).findById(anyLong());
-        gameServiceImpl.joinToGame(GAME_ID);
+        assertThrows(RuntimeException.class, () -> {
+            gameServiceImpl.joinToGame(GAME_ID);
+        });
     }
 
     // do dto this field which we need
@@ -158,11 +173,13 @@ public class GameServiceTest {
 //        return null;
 //    }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void userStartGameNoHaveFourUserTest() {
         Game gameMock = GameFactory.gameInit(GAME_ID, 2, GamePhase.JOIN_PHASE);
         when(gameDao.findById(GAME_ID)).thenReturn(gameMock);
-        gameServiceImpl.startGame(GAME_ID);
+        assertThrows(RuntimeException.class, () -> {
+            gameServiceImpl.startGame(GAME_ID);
+        });
 
     }
 
