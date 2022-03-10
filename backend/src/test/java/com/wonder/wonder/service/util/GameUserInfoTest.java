@@ -1,19 +1,18 @@
 package com.wonder.wonder.service.util;
 
 import com.wonder.wonder.TestData.service.UserInGameFactory;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.Assert.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class GameUserInfoTest {
 
     private GameUserInfo gameUserInfo;
 
-    @Before
+    @BeforeAll
     public void setUp() {
         gameUserInfo = new GameUserInfo(UserInGameFactory.userInGameInitPhaseAge_1_ZERO());
     }
