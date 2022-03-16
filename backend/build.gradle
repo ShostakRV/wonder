@@ -53,7 +53,7 @@ dependencies {
     implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.6.5.Final'
 
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager
-    implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.6.5.Final'
+    implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.6.6.Final'
 
     //автоконфиги лутче убрать
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
