@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.6'
+    id 'org.springframework.boot' version '2.6.7'
 }
 
 apply plugin: 'java'
@@ -62,7 +62,7 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.6.6'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.6.7'
 
 
     runtimeOnly('mysql:mysql-connector-java')
