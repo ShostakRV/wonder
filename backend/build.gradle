@@ -50,7 +50,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
 
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
-    implementation group: 'org.hibernate', name: 'hibernate-core', version: '6.1.0.Final'
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: '6.1.1.Final'
 
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager
     implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.6.9.Final'
@@ -74,7 +74,7 @@ dependencies {
     // for support old html :  no close tags
     implementation group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
     //H2 driver
-    implementation group: 'com.h2database', name: 'h2', version: '2.1.212'
+    implementation group: 'com.h2database', name: 'h2', version: '2.1.214'
 
     implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
 }
