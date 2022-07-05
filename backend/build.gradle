@@ -74,7 +74,7 @@ dependencies {
     // for support old html :  no close tags
     implementation group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
     //H2 driver
-    implementation group: 'com.h2database', name: 'h2', version: '2.1.212'
+    implementation group: 'com.h2database', name: 'h2', version: '2.1.214'
 
     implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
 }
