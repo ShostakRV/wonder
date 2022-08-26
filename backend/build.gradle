@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.1'
+    id 'org.springframework.boot' version '2.7.3'
 }
 
 apply plugin: 'java'
@@ -50,7 +50,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
 
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
-    implementation group: 'org.hibernate', name: 'hibernate-core', version: '6.1.0.Final'
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: '6.1.2.Final'
 
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager
     implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.6.9.Final'
